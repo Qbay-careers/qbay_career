@@ -270,6 +270,31 @@ export default function Home() {
     return () => cancelAnimationFrame(animationFrameId);
   }, [isPaused]);
 
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-30% 0px -30% 0px', // Wider, more stable trigger zone
+      threshold: 0,
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const index = entry.target.getAttribute('data-index');
+          if (index !== null) {
+            setActivePhase(parseInt(index));
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    const elements = document.querySelectorAll('[data-framework-step]');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <main className="min-h-screen bg-white">
       <QBayNavbar />
@@ -410,29 +435,45 @@ export default function Home() {
               {frameworkPhases.map((phase, idx) => (
                 <div
                   key={phase.number}
-                  onMouseEnter={() => setActivePhase(idx)}
-                  className={`cursor-pointer rounded-3xl p-6 transition-all duration-300 ${
+                  data-framework-step
+                  data-index={idx}
+                  className={`rounded-3xl p-8 sm:p-10 transition-all duration-500 border-l-4 ${
                     activePhase === idx
-                      ? 'bg-white shadow-xl shadow-purple-500/5 border-l-4 border-purple-600'
-                      : 'hover:bg-white/50'
+                      ? 'bg-white shadow-2xl shadow-purple-500/10 border-purple-600 opacity-100 scale-[1.02]'
+                      : 'opacity-40 border-transparent'
                   }`}
                 >
                   <h3
-                    className={`text-xl font-bold ${
+                    className={`text-2xl font-bold ${
                       activePhase === idx ? 'text-purple-700' : 'text-purple-400'
                     }`}
                   >
+                    <span className="mr-4 opacity-50 text-base font-medium font-mono">{phase.number}</span>
                     {phase.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-[#5D4A7A]/70">
+                  <p className="mt-4 text-base leading-relaxed text-[#5D4A7A]/80">
                     {phase.description}
                   </p>
+
+                  {/* Mobile-only inline details */}
+                  <div className={`mt-8 space-y-4 lg:hidden transition-all duration-500 ${activePhase === idx ? 'block' : 'hidden'}`}>
+                    {phase.details.map((detail) => (
+                      <div key={detail} className="flex items-start gap-3">
+                        <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-purple-600/10 text-purple-600 mt-0.5">
+                          <Check className="h-3 w-3" />
+                        </div>
+                        <span className="text-sm font-medium text-[#4B2C83]">
+                          {detail}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
 
-            {/* Right Column: Active Phase Details */}
-            <div className="relative">
+            {/* Right Column: Active Phase Details (Desktop only) */}
+            <div className="relative hidden lg:block">
               <div className="sticky top-24 rounded-[2.5rem] bg-white p-8 shadow-2xl shadow-purple-500/5 sm:p-12">
                 <h3 className="text-2xl font-bold text-[#2D1B4D] sm:text-3xl">
                   {frameworkPhases[activePhase].title}

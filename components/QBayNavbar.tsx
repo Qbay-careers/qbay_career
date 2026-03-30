@@ -43,10 +43,10 @@ export default function QBayNavbar() {
 
   return (
     <header 
-      className={`fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-1000 rounded-[2.5rem] ${
+      className={`fixed z-50 transition-all duration-700 ${
         isScrolled 
-          ? 'top-6 w-[92%] max-w-5xl bg-white/90 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-white/20 px-2 sm:px-6' 
-          : 'top-0 w-full bg-transparent px-0 border-transparent shadow-none'
+          ? 'top-0 left-0 w-full bg-white/90 backdrop-blur-lg shadow-sm px-0 lg:top-6 lg:left-1/2 lg:-translate-x-1/2 lg:w-[92%] lg:max-w-5xl lg:rounded-[2.5rem] lg:shadow-[0_20px_50px_rgba(0,0,0,0.1)] lg:border lg:border-white/20' 
+          : 'top-0 left-0 w-full bg-transparent px-0 border-transparent shadow-none'
       }`}
       style={{
         transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)'
