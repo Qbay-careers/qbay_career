@@ -276,14 +276,14 @@ export default function Home() {
 
       <section
         id="home"
-        className="relative overflow-hidden bg-gradient-to-b from-[#5B3FA0] via-[#6A4BB0] to-[#8B6FD1] scroll-mt-24"
+        className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-[#5B3FA0] via-[#6A4BB0] to-[#8B6FD1] scroll-mt-24"
       >
         <div className="absolute inset-0">
           <div className="absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
           <div className="absolute -bottom-24 right-10 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
+        <div className="relative mx-auto max-w-7xl px-4 pt-32 pb-16 sm:px-6 sm:pt-40 sm:pb-20 lg:px-8 lg:pt-48 lg:pb-24">
           <div className="mx-auto max-w-4xl text-center">
             <div className="flex flex-wrap justify-center gap-3">
               <div className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-gray-900 shadow-sm">
