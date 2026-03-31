@@ -56,14 +56,10 @@ export default function QBayNavbar() {
         <div className="flex items-center gap-3">
           <Link
             href="/"
-            className="flex items-center gap-3"
+            className="flex items-center"
             aria-label="Go to home"
           >
-            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-blue-600 via-blue-500 to-pink-500 shadow-lg shadow-blue-500/20" />
-            <div className="leading-tight">
-              <div className={`text-lg font-bold transition-colors ${isScrolled || !isHomePage ? 'text-gray-900' : 'text-white'}`}>QBay</div>
-              <div className={`text-xs transition-colors ${isScrolled || !isHomePage ? 'text-gray-500' : 'text-white/70'}`}>Careers</div>
-            </div>
+            <img src="/cropped-Adobe_Express_-_file-removebg-preview-150x150.png" alt="QBay Logo" className="h-16 w-auto object-contain" />
           </Link>
         </div>
 

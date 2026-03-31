@@ -9,12 +9,8 @@ export default function QBayFooter() {
           
           {/* Left */}
           <div className="lg:col-span-1 space-y-6">
-            <div className="flex items-center gap-3">
-              <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-blue-600 via-blue-500 to-pink-500 shrink-0" />
-              <div className="leading-tight">
-                <div className="text-xl font-bold text-[#5D4A7A]">QBay</div>
-                <div className="text-sm font-semibold text-gray-500">Careers</div>
-              </div>
+            <div className="flex items-center">
+              <img src="/cropped-Adobe_Express_-_file-removebg-preview-150x150.png" alt="QBay Logo" className="h-20 w-auto object-contain shrink-0" />
             </div>
             <p className="text-gray-600 font-medium text-sm md:text-base leading-relaxed">
               Empowering job Seekers with smart and efficient tools to land their dream job
