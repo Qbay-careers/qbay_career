@@ -307,7 +307,7 @@ export default function Home() {
 
       <section
         id="home"
-        className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-[#5B3FA0] via-[#6A4BB0] to-[#8B6FD1] scroll-mt-24"
+        className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 scroll-mt-24"
       >
         <div className="absolute inset-0">
           <div className="absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
