@@ -59,7 +59,7 @@ export default function QBayNavbar() {
             className="flex items-center"
             aria-label="Go to home"
           >
-            <img src="/cropped-Adobe_Express_-_file-removebg-preview-150x150.png" alt="QBay Logo" className="h-16 w-auto object-contain" />
+            <img src="/Your-paragraph-text-1.png" alt="QBay Logo" className="h-8 w-auto object-contain" />
           </Link>
         </div>
 

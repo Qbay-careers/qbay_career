@@ -10,7 +10,7 @@ export default function QBayFooter() {
           {/* Left */}
           <div className="lg:col-span-1 space-y-6">
             <div className="flex items-center">
-              <img src="/cropped-Adobe_Express_-_file-removebg-preview-150x150.png" alt="QBay Logo" className="h-20 w-auto object-contain shrink-0" />
+              <img src="/Your-paragraph-text-1.png" alt="QBay Logo" className="h-12 w-auto object-contain shrink-0" />
             </div>
             <p className="text-gray-600 font-medium text-sm md:text-base leading-relaxed">
               Empowering job Seekers with smart and efficient tools to land their dream job
