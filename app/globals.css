@@ -104,12 +104,12 @@
    * but we can also just define the utility explicitly here
    */
   .animate-marquee {
-    animation: marquee 30s linear infinite;
-  }
-  .animate-marquee-slow {
     animation: marquee 45s linear infinite;
   }
+  .animate-marquee-slow {
+    animation: marquee 60s linear infinite;
+  }
   .animate-marquee-reverse {
-    animation: marquee 35s linear infinite reverse;
+    animation: marquee 50s linear infinite reverse;
   }
 }

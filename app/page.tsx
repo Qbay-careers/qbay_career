@@ -117,21 +117,27 @@ const clientTestimonials = [
 ];
 
 const topRowLogos = [
-  { name: 'Maynooth University', color: 'text-gray-900', img: 'M' },
-  { name: 'Trinity College Dublin', color: 'text-blue-800', img: 'T' },
-  { name: 'TU Dublin', color: 'text-cyan-700', img: 'TU' },
-  { name: 'University College Dublin', color: 'text-blue-600', img: 'UCD' },
-  { name: 'University of Windsor', color: 'text-gray-600', img: 'W' },
-  { name: 'Brock University', color: 'text-red-700', img: 'B' },
+  '/Brock-University.png',
+  '/Dublin-City-University-768x419.png',
+  '/University_of_Canterbury_optimized-200x100.png',
+  '/queen-mary-university-of-london-seeklogo-01.png',
+  '/queen-mary-university-of-london-seeklogo-06.png',
+  '/queen-mary-university-of-london-seeklogo-08.png',
+  '/queen-mary-university-of-london-seeklogo-09.png',
+  '/queen-mary-university-of-london-seeklogo-10.png',
+  '/queen-mary-university-of-london-seeklogo-11.png',
 ];
 
 const bottomRowLogos = [
-  { name: 'UNSW Australia', color: 'text-gray-900', img: 'UNSW' },
-  { name: 'Queen Mary University', color: 'text-gray-800', img: 'QM' },
-  { name: 'Lincoln University', color: 'text-blue-700', img: 'L' },
-  { name: 'University of New Brunswick', color: 'text-red-600', img: 'UNB' },
-  { name: 'Lakehead University', color: 'text-blue-800', img: 'LU' },
-  { name: 'Dalhousie University', color: 'text-gray-900', img: 'D' },
+  '/queen-mary-university-of-london-seeklogo-12.png',
+  '/queen-mary-university-of-london-seeklogo-13.png',
+  '/queen-mary-university-of-london-seeklogo-15.png',
+  '/queen-mary-university-of-london-seeklogo-16.png',
+  '/queen-mary-university-of-london-seeklogo-17.png',
+  '/queen-mary-university-of-london-seeklogo-19.png',
+  '/queen-mary-university-of-london-seeklogo-20.png',
+  '/queen-mary-university-of-london-seeklogo-22.png',
+  '/queen-mary-university-of-london-seeklogo-23-768x349.png',
 ];
 
 const faqData = [
@@ -727,27 +733,33 @@ export default function Home() {
         {/* Top Marquee Row */}
         <div className="flex overflow-hidden relative w-full mb-12">
           {/* We duplicate the content to create a seamless infinite scroll loop */}
-          <div className="flex gap-16 min-w-full animate-marquee items-center justify-around shrink-0 px-8">
-            {topRowLogos.concat(topRowLogos).map((logo, idx) => (
-              <div key={idx} className="flex items-center gap-4 grayscale hover:grayscale-0 transition-all opacity-70 hover:opacity-100 min-w-[200px]">
-                <div className={`w-12 h-12 flex items-center justify-center rounded-lg font-black text-xl bg-white border border-gray-100 shadow-sm ${logo.color}`}>
-                  {logo.img}
-                </div>
-                <div className={`font-bold leading-tight ${logo.color}`}>
-                  {logo.name}
-                </div>
+          <div className="flex gap-8 min-w-full animate-marquee items-center justify-around shrink-0 px-8">
+            {topRowLogos.concat(topRowLogos).map((src, idx) => (
+              <div
+                key={idx}
+                className="flex min-w-[280px] items-center justify-center transition-transform duration-300 hover:scale-[1.02]"
+              >
+                <img
+                  src={src}
+                  alt="University logo"
+                  className="h-16 w-auto max-w-[280px] object-contain"
+                  loading="lazy"
+                />
               </div>
             ))}
           </div>
           <div className="flex gap-16 min-w-full animate-marquee items-center justify-around shrink-0 px-8" aria-hidden="true">
-            {topRowLogos.concat(topRowLogos).map((logo, idx) => (
-              <div key={`dup-${idx}`} className="flex items-center gap-4 grayscale hover:grayscale-0 transition-all opacity-70 hover:opacity-100 min-w-[200px]">
-                <div className={`w-12 h-12 flex items-center justify-center rounded-lg font-black text-xl bg-white border border-gray-100 shadow-sm ${logo.color}`}>
-                  {logo.img}
-                </div>
-                <div className={`font-bold leading-tight ${logo.color}`}>
-                  {logo.name}
-                </div>
+            {topRowLogos.concat(topRowLogos).map((src, idx) => (
+              <div
+                key={`dup-${idx}`}
+                className="flex min-w-[280px] items-center justify-center transition-transform duration-300 hover:scale-[1.02]"
+              >
+                <img
+                  src={src}
+                  alt="University logo"
+                  className="h-16 w-auto max-w-[280px] object-contain"
+                  loading="lazy"
+                />
               </div>
             ))}
           </div>
@@ -756,26 +768,32 @@ export default function Home() {
         {/* Bottom Marquee Row (Reverse) */}
         <div className="flex overflow-hidden relative w-full">
           <div className="flex gap-16 min-w-full animate-marquee-reverse items-center justify-around shrink-0 px-8">
-            {bottomRowLogos.concat(bottomRowLogos).map((logo, idx) => (
-              <div key={idx} className="flex items-center gap-4 grayscale hover:grayscale-0 transition-all opacity-70 hover:opacity-100 min-w-[200px]">
-                 <div className={`w-12 h-12 flex items-center justify-center rounded-lg font-black text-xl bg-white border border-gray-100 shadow-sm ${logo.color}`}>
-                  {logo.img}
-                </div>
-                <div className={`font-bold leading-tight ${logo.color}`}>
-                  {logo.name}
-                </div>
+            {bottomRowLogos.concat(bottomRowLogos).map((src, idx) => (
+              <div
+                key={idx}
+                className="flex min-w-[280px] items-center justify-center transition-transform duration-300 hover:scale-[1.02]"
+              >
+                <img
+                  src={src}
+                  alt="University logo"
+                  className="h-16 w-auto max-w-[280px] object-contain"
+                  loading="lazy"
+                />
               </div>
             ))}
           </div>
           <div className="flex gap-16 min-w-full animate-marquee-reverse items-center justify-around shrink-0 px-8" aria-hidden="true">
-            {bottomRowLogos.concat(bottomRowLogos).map((logo, idx) => (
-              <div key={`dup-${idx}`} className="flex items-center gap-4 grayscale hover:grayscale-0 transition-all opacity-70 hover:opacity-100 min-w-[200px]">
-                 <div className={`w-12 h-12 flex items-center justify-center rounded-lg font-black text-xl bg-white border border-gray-100 shadow-sm ${logo.color}`}>
-                  {logo.img}
-                </div>
-                <div className={`font-bold leading-tight ${logo.color}`}>
-                  {logo.name}
-                </div>
+            {bottomRowLogos.concat(bottomRowLogos).map((src, idx) => (
+              <div
+                key={`dup-${idx}`}
+                className="flex min-w-[280px] items-center justify-center transition-transform duration-300 hover:scale-[1.02]"
+              >
+                <img
+                  src={src}
+                  alt="University logo"
+                  className="h-16 w-auto max-w-[280px] object-contain"
+                  loading="lazy"
+                />
               </div>
             ))}
           </div>
