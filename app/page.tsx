@@ -591,10 +591,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="client-love" className="bg-white py-24 scroll-mt-24">
+      <section id="client-love" className="bg-white py-16 sm:py-24 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-[#2D1B4D] text-center mb-16 sm:text-5xl flex items-center justify-center gap-3">
-            Love <span className="text-red-500">❤️</span> Letters from our Clients
+          <h2 className="text-3xl font-bold text-[#2D1B4D] text-center mb-12 sm:mb-16 sm:text-5xl flex flex-wrap items-center justify-center gap-2 sm:gap-3 leading-tight">
+            <span>Love</span>
+            <span className="text-red-500 animate-pulse">❤️</span>
+            <span>Letters from our Clients</span>
           </h2>
 
           <div className="grid gap-8 lg:grid-cols-3">
@@ -697,13 +699,13 @@ export default function Home() {
             </div>
 
             {/* Right side image content */}
-            <div className="relative w-[280px] h-[320px] md:h-[380px] md:w-[320px] flex-shrink-0 self-end -mb-12 -mr-8 md:-mr-12 pointer-events-none mt-8 md:mt-0 xl:-mr-8">
+            <div className="relative w-[280px] h-[320px] md:h-[380px] md:w-[320px] flex-shrink-0 self-center md:self-end -mb-12 mt-8 md:mt-0 md:-mr-12 xl:-mr-8 group cursor-pointer">
               <div 
-                className="absolute inset-0 bg-bottom bg-no-repeat bg-contain filter grayscale contrast-125 brightness-110"
+                className="absolute inset-0 bg-[center_bottom] bg-no-repeat bg-contain filter grayscale transition-all duration-500 ease-in-out group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100"
                 style={{
-                   backgroundImage: `url('https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&q=80&w=600&h=800')`,
-                   maskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)',
-                   WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)'
+                   backgroundImage: `url('/Hizana-Web-61-768x768.webp')`,
+                   maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
+                   WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)'
                 }}
               />
             </div>
