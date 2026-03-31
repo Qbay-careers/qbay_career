@@ -348,21 +348,6 @@ export default function Home() {
               improve your job search approach, and stay committed until you start
               seeing interview results.
             </p>
-
-            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <a
-                href="#appointment"
-                className="inline-flex w-full items-center justify-center gap-3 rounded-xl border border-white/50 bg-white/10 px-8 py-3 text-sm font-semibold text-white backdrop-blur-sm hover:bg-white/15 sm:w-auto"
-              >
-                Book Strategy Call
-              </a>
-              <a
-                href="#contact"
-                className="inline-flex w-full items-center justify-center gap-3 rounded-xl bg-[#37C36B] px-8 py-3 text-sm font-semibold text-white hover:bg-[#31B762] sm:w-auto"
-              >
-                Whatsapp Now
-              </a>
-            </div>
           </div>
         </div>
 
