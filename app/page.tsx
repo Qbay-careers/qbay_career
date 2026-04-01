@@ -447,6 +447,15 @@ export default function Home() {
 
       <section id="about" className="border-t border-gray-100 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold text-[#1A112B] tracking-tight leading-[1.2]">
+              Our Services
+            </h2>
+            <p className="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
+              Comprehensive support for your global career journey
+            </p>
+          </div>
+
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
               {
@@ -455,47 +464,57 @@ export default function Home() {
               },
               {
                 title: 'We Apply For You',
-                desc: 'Our team handles your profile optimization and job applications to boost your interview chances.',
+                desc: 'Our team handles your profile optimization and job applications to boost your chances.',
               },
               {
                 title: 'NHS - HSC Applications',
-                desc: 'Our dedicated team applies to relevant NHS and HSC roles on your behalf for faster opportunities.',
+                desc: 'Dedicated team applies to relevant NHS and HSC roles on your behalf.',
               },
               {
-                title: 'CPD And Internship',
-                desc: 'Build your career with industry-focused CPD programs and valuable internship experience.',
+                title: 'CPD (Continuing Professional Development)',
+                desc: 'Enhance your skills with industry-recognized CPD programs for career advancement.',
               },
               {
                 title: 'Domain Specified Interview Assistance',
-                desc: 'We help you prepare for industry-specific interviews with practical tips and expert support.',
+                desc: 'Prepare for industry-specific interviews with practical tips and expert support.',
               },
               {
                 title: 'ATS – CV, LinkedIn, Cover Letter',
-                desc: 'Stand out to recruiters with ATS-optimized CVs, impactful cover letters, and a powerful LinkedIn profile.',
+                desc: 'Stand out with ATS-optimized CVs, impactful cover letters, and LinkedIn profiles.',
               },
               {
                 title: 'Humanized SOP Guidance And Preparation',
-                desc: 'Build a strong and well-structured SOP that reflects your career goals clearly.',
+                desc: 'Build a strong and well-structured SOP that reflects your career goals.',
               },
               {
-                title: 'Mental Wellness',
-                desc: 'Our guidance helps you stay mentally strong, confident, and prepared for career challenges.',
+                title: 'Internship Guidance',
+                desc: 'Get valuable internship opportunities and hands-on experience to kickstart your career.',
               },
             ].map((item) => (
               <div
                 key={item.title}
-                className="relative overflow-hidden rounded-3xl border border-purple-200/60 bg-gradient-to-b from-white to-[#E6CFF2] px-6 pb-7 pt-6 shadow-sm transition-all duration-300 hover:shadow-md"
+                className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:border-purple-300"
               >
-                <div className="text-xl font-semibold text-[#4B2C83]">
+                <h3 className="text-xl font-semibold text-[#2D1B4D] mb-3">
                   {item.title}
-                </div>
-                <p className="mt-4 text-sm leading-relaxed text-[#5D4A7A]">
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
                   {item.desc}
                 </p>
-
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-purple-300/40 to-transparent" />
               </div>
             ))}
+          </div>
+
+          {/* Full-width Mental Wellness card */}
+          <div className="mt-8">
+            <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-lg hover:border-purple-300">
+              <h3 className="text-xl font-semibold text-[#2D1B4D] mb-4">
+                Mental Wellness
+              </h3>
+              <p className="text-gray-600 leading-relaxed max-w-4xl mx-auto">
+                Our guidance helps you stay mentally strong, confident, and prepared for career challenges. We provide comprehensive support for your mental well-being throughout your job search journey, ensuring you maintain a positive mindset and resilience in the face of professional challenges.
+              </p>
+            </div>
           </div>
         </div>
       </section>
