@@ -390,6 +390,59 @@ export default function Home() {
         </div>
       </section>
 
+      <section id="consultation" className="bg-white py-24 sm:py-32 scroll-mt-24 border-b border-gray-100">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          
+          <div className="flex flex-col items-start gap-10">
+            {/* Top Highlight Badge */}
+            <div className="flex flex-col-reverse sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+              <span className="inline-flex w-fit items-center rounded-md bg-[#EDE1F5] px-3 py-1.5 text-[13px] font-bold tracking-wide text-[#2D1B4D]">
+                Includes €99 Value Assessment
+              </span>
+              <span className="text-xs font-bold tracking-[0.15em] text-slate-500 uppercase">
+                Free 30-Minute Consultation
+              </span>
+            </div>
+
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-medium text-[#1A112B] tracking-tight leading-[1.15]">
+              Expert guidance for your healthcare career.
+            </h2>
+            
+            <p className="text-lg text-slate-600 font-normal max-w-2xl leading-relaxed">
+              We provide personalized strategies to help you secure NHS and healthcare opportunities faster, backed by our guaranteed interview support and application assistance.
+            </p>
+
+            <div className="w-full h-[1px] bg-slate-100 my-4" />
+
+            <div className="grid sm:grid-cols-2 gap-x-12 gap-y-6 w-full">
+              {[
+                'Guaranteed Interview Support',
+                'We Apply on Your Behalf',
+                'NHS & HSC Application Assistance',
+                'CPD & Internship Guidance',
+              ].map((feature) => (
+                <div key={feature} className="flex items-start gap-4">
+                  <div className="mt-2 h-1.5 w-1.5 rounded-full bg-slate-400" />
+                  <span className="text-base font-medium text-slate-800">{feature}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="pt-8">
+              <a
+                href="/contact"
+                className="inline-flex items-center justify-center gap-3 bg-[#1A112B] px-10 py-4 text-sm font-semibold tracking-wide text-white transition-all hover:bg-black w-full sm:w-auto overflow-hidden group relative"
+              >
+                <div className="absolute inset-0 bg-white/10 translate-y-full transition-transform group-hover:translate-y-0" />
+                <img src="/google-meet-icon.png" alt="Google Meet" className="w-5 h-5 object-contain relative z-10" />
+                <span className="relative z-10">Book your free consultancy</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
       <section id="about" className="border-t border-gray-100 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
