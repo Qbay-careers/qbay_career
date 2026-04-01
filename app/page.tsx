@@ -16,6 +16,7 @@ import {
   ChevronDown,
   CalendarDays,
   X,
+  ArrowRight,
 } from 'lucide-react';
 import QBayNavbar from '@/components/QBayNavbar';
 import FeaturedOn from '@/components/FeaturedOn';
@@ -445,75 +446,125 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="about" className="border-t border-gray-100 scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <section id="about" className="border-t border-gray-100 scroll-mt-24 py-20 bg-[#FDFCFE]">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-[#1A112B] tracking-tight leading-[1.2]">
-              Our Services
-            </h2>
-            <p className="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
-              Comprehensive support for your global career journey
-            </p>
+            <h2 className="text-sm font-bold tracking-[0.2em] text-purple-600 uppercase mb-4">Our Services</h2>
+            <h3 className="text-4xl sm:text-5xl font-bold text-[#1A112B] tracking-tight leading-[1.2]">
+              Comprehensive support for your <br className="hidden sm:block" /> global career journey.
+            </h3>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
               {
                 title: 'Guaranteed Interview Calls',
                 desc: 'Connect with the right employers and receive guaranteed interview opportunities.',
+                image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=800',
               },
               {
                 title: 'We Apply For You',
                 desc: 'Our team handles your profile optimization and job applications to boost your chances.',
+                image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&q=80&w=800',
               },
               {
                 title: 'NHS - HSC Applications',
                 desc: 'Dedicated team applies to relevant NHS and HSC roles on your behalf.',
+                image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800',
               },
               {
                 title: 'CPD (Continuing Professional Development)',
                 desc: 'Enhance your skills with industry-recognized CPD programs for career advancement.',
+                image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=800',
               },
               {
                 title: 'Domain Specified Interview Assistance',
                 desc: 'Prepare for industry-specific interviews with practical tips and expert support.',
+                image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800',
               },
               {
                 title: 'ATS – CV, LinkedIn, Cover Letter',
                 desc: 'Stand out with ATS-optimized CVs, impactful cover letters, and LinkedIn profiles.',
+                image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=800',
               },
               {
                 title: 'Humanized SOP Guidance And Preparation',
                 desc: 'Build a strong and well-structured SOP that reflects your career goals.',
+                image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=800',
               },
               {
                 title: 'Internship Guidance',
                 desc: 'Get valuable internship opportunities and hands-on experience to kickstart your career.',
+                image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800',
               },
             ].map((item) => (
               <div
                 key={item.title}
-                className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:border-purple-300"
+                className="group relative flex flex-col overflow-hidden rounded-lg border border-purple-100/50 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-purple-200"
               >
-                <h3 className="text-xl font-semibold text-[#2D1B4D] mb-3">
-                  {item.title}
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  {item.desc}
-                </p>
+                <div className="aspect-[16/10] overflow-hidden bg-slate-100">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
+                
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="text-xl font-bold text-[#2D1B4D] mb-3 group-hover:text-purple-700 transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-slate-600 mb-6 flex-1">
+                    {item.desc}
+                  </p>
+                  
+                  <div className="mt-auto">
+                    <a
+                      href="/contact"
+                      className="inline-flex items-center gap-2 text-sm font-bold text-purple-600 hover:text-purple-800 group/link transition-colors"
+                    >
+                      View More
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" />
+                    </a>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
 
           {/* Full-width Mental Wellness card */}
-          <div className="mt-8">
-            <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-lg hover:border-purple-300">
-              <h3 className="text-xl font-semibold text-[#2D1B4D] mb-4">
-                Mental Wellness
-              </h3>
-              <p className="text-gray-600 leading-relaxed max-w-4xl mx-auto">
-                Our guidance helps you stay mentally strong, confident, and prepared for career challenges. We provide comprehensive support for your mental well-being throughout your job search journey, ensuring you maintain a positive mindset and resilience in the face of professional challenges.
-              </p>
+          <div className="mt-12">
+            <div className="group relative overflow-hidden rounded-3xl border border-purple-100/50 bg-white shadow-sm transition-all duration-500 hover:shadow-xl hover:border-purple-200">
+              <div className="flex flex-col lg:flex-row min-h-[320px]">
+                {/* Image side */}
+                <div className="lg:w-1/3 aspect-[2/1] lg:aspect-auto overflow-hidden bg-purple-50">
+                  <img
+                    src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=800"
+                    alt="Mental Wellness"
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+
+                {/* Content side */}
+                <div className="lg:w-2/3 p-8 lg:p-12 flex flex-col justify-center">
+                  <div className="inline-flex items-center gap-2 rounded-full bg-purple-50 px-4 py-1.5 text-xs font-bold text-purple-700 mb-6 w-fit border border-purple-100">
+                    Mindset Support
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-bold text-[#2D1B4D] mb-4">
+                    Mental Wellness
+                  </h3>
+                  <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-8 max-w-2xl">
+                    Our guidance helps you stay mentally strong, confident, and prepared for career challenges. We provide comprehensive support for your mental well-being throughout your job search journey.
+                  </p>
+                  <a
+                    href="/contact"
+                    className="inline-flex items-center gap-2 text-base font-bold text-purple-600 hover:text-purple-800 group/link transition-colors w-fit"
+                  >
+                    Explore support programs
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
