@@ -15,6 +15,7 @@ import {
   Maximize,
   ChevronDown,
   CalendarDays,
+  X,
 } from 'lucide-react';
 import QBayNavbar from '@/components/QBayNavbar';
 import FeaturedOn from '@/components/FeaturedOn';
@@ -231,6 +232,7 @@ export default function Home() {
   const [isPaused, setIsPaused] = useState(false);
   const [isResultsPaused, setIsResultsPaused] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useEffect(() => {
     const scrollContainer = resultsScrollRef.current;
@@ -591,52 +593,27 @@ export default function Home() {
               ref={resultsScrollRef}
               onMouseEnter={() => setIsResultsPaused(true)}
               onMouseLeave={() => setIsResultsPaused(false)}
-              className="flex gap-6 overflow-x-auto pb-8 scrollbar-hide"
+              className="flex gap-4 overflow-x-auto pb-6 scrollbar-hide"
             >
-              {[1, 2, 3, 4, 5].map((i) => (
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
                 <div
-                  key={i}
-                  className="relative min-w-[260px] max-w-[320px] w-[80vw] sm:w-auto flex-shrink-0 rounded-[2.5rem] border-4 border-gray-50 bg-[#F4F4F9] shadow-2xl"
+                  key={num}
+                  className="min-w-[240px] w-[70vw] sm:w-[300px] flex-shrink-0 overflow-hidden rounded-2xl shadow-lg border border-purple-100 bg-white cursor-pointer group"
+                  onClick={() => setSelectedImage(`/testimonials/whatsapp${num}.jpeg`)}
                 >
-                {/* Anniversary Badge */}
-                <div className="absolute -right-2 -top-2 z-10">
-                   <div className="bg-white rounded-full p-1 shadow-lg border border-purple-100">
-                      <div className="bg-[#2D1B4D] text-white text-[10px] font-black px-2 py-1 rounded-full flex items-center gap-1">
-                        5 <span className="text-[7px] leading-tight font-bold">YEARS <br/> Success</span>
+                  <div className="relative">
+                    <img
+                      src={`/testimonials/whatsapp${num}.jpeg`}
+                      alt={`Student success story ${num}`}
+                      className="w-full h-[380px] object-cover"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
+                      <div className="bg-white rounded-full p-2 transform scale-90 group-hover:scale-100 transition-transform duration-300">
+                        <Maximize className="w-4 h-4 text-gray-900" />
                       </div>
-                   </div>
-                </div>
-
-                <div className="overflow-hidden rounded-[2.5rem] bg-white">
-                  {/* WhatsApp Header Mockup */}
-                  <div className="bg-[#075E54] px-4 py-3 flex items-center gap-3 text-white">
-                    <div className="w-8 h-8 rounded-full bg-gray-300 overflow-hidden" />
-                    <div>
-                      <div className="text-xs font-bold">Success Story {i}</div>
-                      <div className="text-[10px] opacity-70">online</div>
                     </div>
                   </div>
-
-                  {/* Chat Content Placeholder */}
-                  <div className="h-[360px] bg-[#E5DDD5] p-4 flex flex-col gap-3 relative">
-                    <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png')] bg-repeat" />
-                    
-                    <div className="self-start bg-white p-3 rounded-lg rounded-tl-none shadow-sm max-w-[80%] text-[13px] relative z-10">
-                      Hi QBay! I just got the interview call from the NHS! Thank you so much for the support.
-                    </div>
-                    <div className="self-end bg-[#DCF8C6] p-3 rounded-lg rounded-tr-none shadow-sm max-w-[80%] text-[13px] relative z-10">
-                      That&apos;s amazing news! Congratulations! We always knew your profile was strong.
-                    </div>
-                    <div className="self-start bg-white p-3 rounded-lg rounded-tl-none shadow-sm max-w-[80%] text-[13px] relative z-10">
-                      The mock interview sessions really helped me stay confident.
-                    </div>
-                  </div>
-
-                  {/* Phone Home Bar */}
-                  <div className="h-12 bg-white flex items-center justify-center">
-                    <div className="w-24 h-1 rounded-full bg-black/20" />
-                  </div>
-                </div>
                 </div>
               ))}
             </div>
@@ -646,6 +623,28 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Image Popup Modal */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative max-w-4xl max-h-[90vh]">
+            <img
+              src={selectedImage}
+              alt="Success story"
+              className="max-w-full max-h-[90vh] object-contain rounded-lg"
+            />
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-2 right-2 w-8 h-8 bg-white/90 hover:bg-white rounded-full flex items-center justify-center transition-colors"
+            >
+              <X className="w-5 h-5 text-gray-900" />
+            </button>
+          </div>
+        </div>
+      )}
 
       <section id="testimonials" className="bg-[#F9F5FF] py-24 scroll-mt-24 pb-40">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -683,51 +682,49 @@ export default function Home() {
 
       <section id="client-love" className="bg-white py-16 sm:py-24 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-[#2D1B4D] text-center mb-12 sm:mb-16 sm:text-5xl flex flex-wrap items-center justify-center gap-2 sm:gap-3 leading-tight">
-            <span>Love</span>
-            <span className="text-red-500 animate-pulse">❤️</span>
-            <span>Letters from our Clients</span>
-          </h2>
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">
+              Love ❤️ Letters from our Clients
+            </h2>
+            <p className="text-lg text-slate-600 leading-relaxed">
+              Don&apos;t just take our word for it—hear from students and parents whose journeys have been transformed by Qbay.
+            </p>
+          </div>
 
-          <div className="grid gap-8 lg:grid-cols-3">
-            {clientTestimonials.map((testimonial) => (
-              <div
-                key={testimonial.name}
-                className="relative rounded-[2.5rem] bg-[#FDFBFF] p-8 border border-purple-50 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/5 group"
-              >
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="h-16 w-16 overflow-hidden rounded-full ring-4 ring-white shadow-md">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {clientTestimonials.map((testimonial, index) => (
+              <div key={index} className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0">
                     <img
                       src={testimonial.image}
                       alt={testimonial.name}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="w-12 h-12 rounded-full object-cover"
                     />
                   </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-[#2D1B4D]">
-                      {testimonial.name}
-                    </h3>
-                    <p className="text-sm font-semibold text-[#37C36B]">
-                      {testimonial.role}
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <h3 className="font-semibold text-gray-900">{testimonial.name}</h3>
+                    </div>
+                    <p className="text-sm text-gray-500 mb-3">{testimonial.role}</p>
+                    <p className="text-gray-700 leading-relaxed text-sm">
+                      {testimonial.content}
                     </p>
+                    <div className="mt-3 flex items-center gap-1">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <svg key={star} className="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                          <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                        </svg>
+                      ))}
+                    </div>
                   </div>
-                </div>
-                <div className="relative">
-                  <span className="absolute -top-4 -left-2 text-6xl text-purple-200/50 font-serif pointer-events-none">
-                    &ldquo;
-                  </span>
-                  <p className="relative z-10 text-[15px] leading-relaxed text-[#5D4A7A]/80 italic font-medium">
-                    {testimonial.content}
-                  </p>
-                  <span className="absolute -bottom-10 -right-2 text-6xl text-purple-200/50 font-serif pointer-events-none">
-                    &rdquo;
-                  </span>
                 </div>
               </div>
             ))}
           </div>
         </div>
       </section>
+
       <section id="shorts" className="bg-[#FDFBFF] py-24 scroll-mt-24">
         <div className="w-full overflow-hidden">
           <div 
