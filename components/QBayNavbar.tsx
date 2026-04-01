@@ -38,8 +38,8 @@ export default function QBayNavbar() {
   }, []);
 
   const isHomePage = pathname === '/';
-  const navTextColor = isScrolled || !isHomePage ? 'text-gray-600' : 'text-white/90';
-  const activeTextColor = isScrolled || !isHomePage ? 'text-purple-700' : 'text-white font-bold';
+  const navTextColor = isScrolled ? 'text-gray-600' : 'text-[#2D1B4D]/90';
+  const activeTextColor = isScrolled ? 'text-purple-700' : 'text-[#160E22] font-extrabold';
 
   return (
     <header 
@@ -81,7 +81,7 @@ export default function QBayNavbar() {
 
         <button
           type="button"
-          className={`inline-flex items-center justify-center rounded-lg p-2 transition-colors md:hidden ${isScrolled || !isHomePage ? 'text-gray-800' : 'text-white'}`}
+          className={`inline-flex items-center justify-center rounded-lg p-2 transition-colors md:hidden text-gray-800`}
           aria-label={open ? 'Close menu' : 'Open menu'}
           onClick={() => setOpen((v) => !v)}
         >

@@ -218,6 +218,12 @@ const testimonialShorts = testimonialShortUrls
     (s): s is { id: string; url: string; thumbnail: string } => Boolean(s)
   );
 
+const heroImages = [
+  'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600&h=800',
+  'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=600&h=800',
+  'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=600&h=800',
+];
+
 export default function Home() {
   const [activePhase, setActivePhase] = useState(0);
   const resultsScrollRef = useRef<HTMLDivElement>(null);
@@ -307,49 +313,50 @@ export default function Home() {
 
       <section
         id="home"
-        className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 scroll-mt-24"
+        className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden scroll-mt-24 border-b border-gray-100 bg-[#FDFCFE]"
       >
-        <div className="absolute inset-0">
-          <div className="absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
-          <div className="absolute -bottom-24 right-10 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
-        </div>
+        <div 
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-50 pointer-events-none" 
+          style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1920")' }}
+        />
+        <div className="absolute inset-0 z-0 bg-[#FDFCFE]/80 backdrop-blur-[2px] pointer-events-none" />
 
-        <div className="relative mx-auto max-w-7xl px-4 pt-32 pb-16 sm:px-6 sm:pt-40 sm:pb-20 lg:px-8 lg:pt-48 lg:pb-24">
-          <div className="mx-auto max-w-4xl text-center">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-4 lg:mb-6">
+          <div className="mx-auto max-w-5xl text-center">
             <div className="flex flex-wrap justify-center gap-3">
-              <div className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-gray-900 shadow-sm">
-                <BadgeCheck className="h-4 w-4 text-purple-700" />
+              <div className="inline-flex items-center gap-2 rounded-full border border-purple-100 bg-white/70 backdrop-blur-md px-4 py-2 text-xs font-bold text-[#2D1B4D] shadow-sm">
+                <BadgeCheck className="h-4 w-4 text-purple-600" />
                 100k+ Helped
               </div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-gray-900 shadow-sm">
-                <Star className="h-4 w-4 text-purple-700" />
+              <div className="inline-flex items-center gap-2 rounded-full border border-purple-100 bg-white/70 backdrop-blur-md px-4 py-2 text-xs font-bold text-[#2D1B4D] shadow-sm">
+                <Star className="h-4 w-4 text-purple-600" />
                 4.8 Trustpilot
               </div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-gray-900 shadow-sm">
-                <PhoneCall className="h-4 w-4 text-purple-700" />
+              <div className="inline-flex items-center gap-2 rounded-full border border-purple-100 bg-white/70 backdrop-blur-md px-4 py-2 text-xs font-bold text-[#2D1B4D] shadow-sm">
+                <PhoneCall className="h-4 w-4 text-purple-600" />
                 90-Day Calls
               </div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-gray-900 shadow-sm">
-                <ShieldCheck className="h-4 w-4 text-purple-700" />
+              <div className="inline-flex items-center gap-2 rounded-full border border-purple-100 bg-white/70 backdrop-blur-md px-4 py-2 text-xs font-bold text-[#2D1B4D] shadow-sm">
+                <ShieldCheck className="h-4 w-4 text-purple-600" />
                 Gov Approved
               </div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-gray-900 shadow-sm">
-                <Globe className="h-4 w-4 text-purple-700" />
+              <div className="inline-flex items-center gap-2 rounded-full border border-purple-100 bg-white/70 backdrop-blur-md px-4 py-2 text-xs font-bold text-[#2D1B4D] shadow-sm">
+                <Globe className="h-4 w-4 text-purple-600" />
                 29 Countries
               </div>
             </div>
 
-            <h1 className="mt-10 text-4xl font-semibold tracking-wide text-white sm:text-5xl lg:text-6xl">
-              A SMARTER WAY TO APPLY
+            <h1 className="mt-10 text-[3.5rem] leading-[1.1] font-extrabold tracking-tight text-[#160E22] sm:text-7xl lg:text-[6rem]">
+              A SMARTER <br/> WAY TO APPLY
             </h1>
-            <p className="mt-3 text-2xl font-medium text-white/80 sm:text-3xl">
+            <p className="mt-6 text-xl font-bold text-[#5D4A7A] sm:text-2xl lg:text-3xl max-w-3xl mx-auto">
               A Faster Way To Get Interview Calls.
             </p>
 
-            <p className="mt-8 text-sm font-semibold text-white/90">
+            <p className="mt-8 text-base font-semibold text-[#4B2C83]">
               Career success starts with the right guidance
             </p>
-            <p className="mt-2 text-base leading-relaxed text-white/80 sm:text-lg">
+            <p className="mt-2 text-base leading-relaxed text-[#5D4A7A]/80 sm:text-lg max-w-2xl mx-auto">
               You&apos;re not just another profile to us. We guide you personally,
               improve your job search approach, and stay committed until you start
               seeing interview results.
@@ -357,6 +364,30 @@ export default function Home() {
           </div>
         </div>
 
+        {/* 5-Image Staggered Gallery */}
+        <div className="relative z-10 w-full overflow-visible px-4">
+          <div className="absolute inset-0 top-1/2 -z-10 translate-y-[-50%] text-center opacity-[0.03] select-none text-[18vw] font-extrabold text-[#2D1B4D] whitespace-nowrap overflow-hidden">
+            QBAY CAREERS
+          </div>
+
+          <div className="flex justify-center items-end gap-2 sm:gap-4 w-full overflow-x-auto pb-28 pt-4 scrollbar-hide px-4 md:px-0">
+            {heroImages.map((src, i) => {
+               const offsets = ['translate-y-8 sm:translate-y-16 lg:translate-y-24', 'translate-y-0', 'translate-y-8 sm:translate-y-16 lg:translate-y-24'];
+               return (
+                 <div
+                   key={i}
+                   className={`relative w-48 sm:w-64 lg:w-[24rem] h-40 sm:h-56 lg:h-[18rem] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl ring-4 ring-white transition-all duration-700 hover:scale-[1.03] hover:z-20 flex-shrink-0 group ${offsets[i]}`}
+                 >
+                   <div className="absolute top-4 left-4 z-20 font-mono text-[10px] sm:text-xs font-bold bg-white/90 backdrop-blur-md px-2 py-1 rounded-sm text-slate-900 shadow-sm transition-opacity group-hover:opacity-100">
+                     0{i + 1}
+                   </div>
+                   <div className="absolute inset-0 bg-[#2D1B4D]/10 group-hover:bg-transparent transition-colors duration-500 z-10" />
+                   <img src={src} className="object-cover w-full h-full filter grayscale group-hover:grayscale-0 transition-all duration-700" alt={`Career Professional ${i+1}`} />
+                 </div>
+               );
+            })}
+          </div>
+        </div>
       </section>
 
       <section id="about" className="border-t border-gray-100 scroll-mt-24">
