@@ -37,20 +37,16 @@ export default function QBayNavbar() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  const isHomePage = pathname === '/';
-  const navTextColor = isScrolled ? 'text-gray-600' : 'text-[#2D1B4D]/90';
-  const activeTextColor = isScrolled ? 'text-purple-700' : 'text-[#160E22] font-extrabold';
+  const navTextColor = 'text-[#2D1B4D]/90';
+  const activeTextColor = 'text-[#160E22] font-extrabold';
 
   return (
     <header 
-      className={`fixed z-50 transition-all duration-700 ${
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isScrolled 
-          ? 'top-0 left-0 w-full bg-white/90 backdrop-blur-lg shadow-sm px-0 lg:top-6 lg:left-1/2 lg:-translate-x-1/2 lg:w-[92%] lg:max-w-5xl lg:rounded-[2.5rem] lg:shadow-[0_20px_50px_rgba(0,0,0,0.1)] lg:border lg:border-white/20' 
-          : 'top-0 left-0 w-full bg-transparent px-0 border-transparent shadow-none'
+          ? 'bg-white/80 backdrop-blur-xl shadow-sm border-b border-gray-100' 
+          : 'bg-transparent border-transparent'
       }`}
-      style={{
-        transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)'
-      }}
     >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3">
