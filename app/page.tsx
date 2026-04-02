@@ -465,7 +465,7 @@ export default function Home() {
               {
                 title: 'We Apply For You',
                 desc: 'Our team handles your profile optimization and job applications to boost your chances.',
-                image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&q=80&w=800',
+                image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80&w=800',
               },
               {
                 title: 'NHS - HSC Applications',
