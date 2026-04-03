@@ -38,9 +38,12 @@ export default function AboutUsPage() {
             
             {/* Founder 1 */}
             <div className="flex flex-col items-center group">
-              <div className="w-64 h-64 md:w-72 md:h-72 rounded-[40px] bg-gradient-to-br from-[#1E5696] to-[#0A8CD0] overflow-hidden relative shadow-lg group-hover:shadow-2xl transition-all duration-300 transform group-hover:-translate-y-2">
-                {/* Image Placeholder */}
-                <div className="absolute inset-x-0 bottom-0 bg-white/10 h-[80%] rounded-t-[100px]" />
+              <div className="w-64 h-64 md:w-72 md:h-72 rounded-[2.5rem] overflow-hidden shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:-translate-y-1">
+                <img 
+                  src="/fazil-karatt.png" 
+                  alt="Fazil Karatt" 
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="mt-6 text-center">
                 <h3 className="text-xl font-bold text-[#862788]">Fazil Karatt</h3>
@@ -50,9 +53,12 @@ export default function AboutUsPage() {
 
             {/* Founder 2 */}
             <div className="flex flex-col items-center group">
-              <div className="w-64 h-64 md:w-72 md:h-72 rounded-[40px] bg-gradient-to-br from-[#1A1A3A] to-[#2B2B85] overflow-hidden relative shadow-lg group-hover:shadow-2xl transition-all duration-300 transform group-hover:-translate-y-2">
-                {/* Image Placeholder */}
-                <div className="absolute inset-x-0 bottom-0 bg-white/10 h-[80%] rounded-t-[100px]" />
+              <div className="w-64 h-64 md:w-72 md:h-72 rounded-[2.5rem] overflow-hidden shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:-translate-y-1">
+                <img 
+                  src="/shafeeq-karatt.png" 
+                  alt="Dr. Mohammed Shafeeq Karatt" 
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="mt-6 text-center">
                 <h3 className="text-xl font-bold text-[#862788]">Dr. Mohammed Shafeeq Karatt</h3>
@@ -95,40 +101,30 @@ export default function AboutUsPage() {
             <div className="flex flex-wrap justify-center items-center gap-16 md:gap-24">
 
               {/* Kerala Startup Mission */}
-              <div className="flex flex-col items-center gap-3">
+              <div className="flex flex-col items-center">
                 <img
-                  src="https://upload.wikimedia.org/wikipedia/en/0/06/Kerala_Startup_Mission_Logo.png"
+                  src="/Kerala_StartUp_Mission_Logo.svg-768x429.png"
                   alt="Kerala Startup Mission"
-                  className="h-20 object-contain"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).style.display = 'none';
-                    const parent = (e.target as HTMLImageElement).parentElement;
-                    if (parent) {
-                      const div = document.createElement('div');
-                      div.className = 'text-center';
-                      div.innerHTML = '<div class="text-xs font-black tracking-widest text-teal-600 uppercase">KERALA</div><div class="text-xs font-bold text-gray-700 uppercase">STARTUP MISSION®</div>';
-                      parent.appendChild(div);
-                    }
-                  }}
+                  className="h-32 md:h-44 object-contain"
                 />
               </div>
 
-              {/* GOV.UK - inline SVG recreation */}
-              <div className="flex flex-col items-center gap-1">
-                <svg viewBox="0 0 146 40" className="h-8 object-contain" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="146" height="40" rx="4" fill="#000000"/>
-                  <text x="10" y="28" fill="white" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="20">GOV.UK</text>
-                </svg>
+              {/* Associate 2 (Swapped with 3) */}
+              <div className="flex flex-col items-center">
+                <img
+                  src="/Untitled-design-53-768x512.png"
+                  alt="Associate Partner"
+                  className="h-28 md:h-40 object-contain"
+                />
               </div>
 
-              {/* ANTLER - inline SVG recreation */}
-              <div className="flex flex-col items-center gap-1">
-                <svg viewBox="0 0 120 36" className="h-9 object-contain" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="120" height="36" rx="4" fill="#FF3B3B"/>
-                  <rect x="8" y="8" width="20" height="20" rx="2" fill="none" stroke="white" strokeWidth="2"/>
-                  <text x="9" y="24" fill="white" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="14">A</text>
-                  <text x="32" y="25" fill="white" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="16" letterSpacing="1">NTLER</text>
-                </svg>
+              {/* Associate 3 (Swapped with 2) */}
+              <div className="flex flex-col items-center">
+                <img
+                  src="/Untitled-design-54-768x512.png"
+                  alt="Associate Partner"
+                  className="h-28 md:h-40 object-contain"
+                />
               </div>
 
             </div>
