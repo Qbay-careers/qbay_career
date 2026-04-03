@@ -646,7 +646,7 @@ export default function Home() {
       <section id="results" className="bg-white py-20 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto mb-12 max-w-3xl text-center">
-            <h2 className="text-4xl font-bold text-violet-700 sm:text-5xl">
+            <h2 className="text-4xl font-bold text-[#1A112B] sm:text-5xl">
               Success Stories That Inspire
             </h2>
             <p className="mt-3 text-lg font-semibold text-gray-900">
@@ -959,7 +959,7 @@ export default function Home() {
       <section className="bg-white py-24 scroll-mt-24 border-t border-gray-100">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-[#5D4A7A] mb-4">
+            <h2 className="text-3xl md:text-5xl font-bold text-[#1A112B] mb-4">
               Need-to-Know Answers
             </h2>
             <p className="text-lg md:text-xl text-gray-500">
@@ -1036,7 +1036,7 @@ export default function Home() {
           
           {/* Letter Part */}
           <div className="space-y-8">
-            <h2 className="text-4xl md:text-5xl font-bold text-[#5D4A7A] font-serif tracking-tight">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#1A112B] tracking-tight">
               Dear Fellow Job Seeker,
             </h2>
             <div className="text-lg md:text-xl text-gray-600 leading-relaxed space-y-6 max-w-3xl mx-auto font-medium">
@@ -1060,7 +1060,7 @@ export default function Home() {
           {/* CTA Part */}
           <div className="space-y-10 pt-8">
             <div className="space-y-4">
-              <h2 className="text-3xl md:text-5xl font-bold text-[#5D4A7A] font-serif">
+              <h2 className="text-3xl md:text-5xl font-bold text-[#1A112B]">
                 Have more questions? Let&apos;s chat!
               </h2>
               <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto">
