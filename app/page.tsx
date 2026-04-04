@@ -459,41 +459,49 @@ export default function Home() {
             {[
               {
                 title: 'Guaranteed Interview Calls',
+                slug: 'guaranteed-interview-calls',
                 desc: 'Connect with the right employers and receive guaranteed interview opportunities.',
                 image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=800',
               },
               {
                 title: 'We Apply For You',
+                slug: 'we-apply-for-you',
                 desc: 'Our team handles your profile optimization and job applications to boost your chances.',
                 image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80&w=800',
               },
               {
                 title: 'NHS - HSC Applications',
+                slug: 'nhs-hsc-applications',
                 desc: 'Dedicated team applies to relevant NHS and HSC roles on your behalf.',
                 image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800',
               },
               {
                 title: 'CPD (Continuing Professional Development)',
+                slug: 'cpd-professional-development',
                 desc: 'Enhance your skills with industry-recognized CPD programs for career advancement.',
                 image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=800',
               },
               {
                 title: 'Domain Specified Interview Assistance',
+                slug: 'domain-specified-interview-assistance',
                 desc: 'Prepare for industry-specific interviews with practical tips and expert support.',
                 image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800',
               },
               {
                 title: 'ATS – CV, LinkedIn, Cover Letter',
+                slug: 'ats-cv-linkedin-cover-letter',
                 desc: 'Stand out with ATS-optimized CVs, impactful cover letters, and LinkedIn profiles.',
                 image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=800',
               },
               {
                 title: 'Humanized SOP Guidance And Preparation',
+                slug: 'humanized-sop-guidance',
                 desc: 'Build a strong and well-structured SOP that reflects your career goals.',
                 image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=800',
               },
               {
                 title: 'Internship Guidance',
+                slug: 'internship-guidance',
                 desc: 'Get valuable internship opportunities and hands-on experience to kickstart your career.',
                 image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800',
               },
@@ -520,7 +528,7 @@ export default function Home() {
                   
                   <div className="mt-auto">
                     <a
-                      href="/contact"
+                      href={`/services/${item.slug}`}
                       className="inline-flex items-center gap-2 text-sm font-bold text-purple-600 hover:text-purple-800 group/link transition-colors"
                     >
                       View More
@@ -557,7 +565,7 @@ export default function Home() {
                     Our guidance helps you stay mentally strong, confident, and prepared for career challenges. We provide comprehensive support for your mental well-being throughout your job search journey.
                   </p>
                   <a
-                    href="/contact"
+                    href="/services/mental-wellness"
                     className="inline-flex items-center gap-2 text-base font-bold text-purple-600 hover:text-purple-800 group/link transition-colors w-fit"
                   >
                     Explore support programs
