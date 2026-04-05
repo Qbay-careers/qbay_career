@@ -8,6 +8,11 @@ export default function StickyActionBar() {
   const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(true);
 
+  // Do not show on admin pages
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
+
   useEffect(() => {
     // Re-initialize observer whenever the pathname changes
     const footer = document.getElementById('qbay-footer');

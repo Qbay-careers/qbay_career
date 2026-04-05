@@ -1,0 +1,216 @@
+{
+  "faq": {
+    "questions": [
+      {
+        "a": "QBay Career is proud to be among the pioneers in guiding Malayalis in the UK. With expert consultants, we provide career planning, education guidance, and job placement support for Malayalis who wish to establish themselves in the UK.",
+        "q": "Who is the first Malayali career consultant in the UK?"
+      },
+      {
+        "a": "At QBay Career, our Malayali career consultant in the UK understands both Indian and UK job markets. We provide career counseling, interview preparation, resume building, and job assistance to ensure Malayalis succeed abroad.",
+        "q": "Why do you ask for personal information?"
+      },
+      {
+        "a": "QBay Career is widely recognized as one of the best career consultants in the UK for Indians, offering personalized support for students and professionals to achieve their academic and career goals.",
+        "q": "Who is the best career consultant in the UK for Indians?"
+      },
+      {
+        "a": "Wondering who is the best career consultant in Ireland? QBay Career stands out with a holistic approach, helping both students and working professionals shape successful futures abroad.",
+        "q": "Who is the best career consultant in Ireland?"
+      },
+      {
+        "a": "Yes, QBay Career is a top-rated career consultant in the UK, trusted by Malayalis and Indians for interview preparation, career strategies, and overseas job placement.",
+        "q": "Are you a top-rated career consultant in the UK?"
+      },
+      {
+        "a": "Yes, QBay Career is an interview preparation expert for international students, offering mock sessions, confidence coaching, and proven strategies to help you crack global interviews.",
+        "q": "Do you provide interview preparation assistance for international students?"
+      },
+      {
+        "a": "QBay Career is recognized as the best job assistant expert for international students in the UK, helping students connect with the right opportunities through structured career support.",
+        "q": "Who is the best job assistant expert for international students in the UK?"
+      },
+      {
+        "a": "Yes, QBay Career is the best job assistant expert in Ireland, offering career counseling, CV building, and job placement support for Indian and Malayali students.",
+        "q": "Do you provide job assistance in Ireland?"
+      },
+      {
+        "a": "Yes, at QBay Career, we are a trusted career strategy expert in Ireland for Indians and Malayalis, guiding you in making the right academic and career decisions.",
+        "q": "Do you help Malayalis with career strategies in Ireland?"
+      }
+    ]
+  },
+  "hero": {
+    "title": "A SMARTER <br/> WAY TO APPLY",
+    "badges": [
+      "100k+ Helped",
+      "4.8 Trustpilot",
+      "90-Day Calls",
+      "Gov Approved",
+      "29 Countries"
+    ],
+    "images": [
+      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600&h=800",
+      "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=600&h=800",
+      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=600&h=800"
+    ],
+    "subtitle": "A Faster Way To Get Interview Calls.",
+    "descriptionBody": "You are not just another profile to us. We guide you personally, improve your job search approach, and stay committed until you start seeing interview results.",
+    "descriptionHeader": "Career success starts with the right guidance"
+  },
+  "marquee": {
+    "title": "Top Universities Chosen by",
+    "subtitle": "Our Partnered Students"
+  },
+  "results": {
+    "title": "Success Stories That Inspire",
+    "subtitle": "Real Experiences. Real Results.",
+    "description": "Do not just take our word for it - hear from students and parents whose journeys have been transformed by Qbay.",
+    "whatsappImages": [
+      "/testimonials/whatsapp1.jpeg",
+      "/testimonials/whatsapp2.jpeg",
+      "/testimonials/whatsapp3.jpeg",
+      "/testimonials/whatsapp4.jpeg",
+      "/testimonials/whatsapp5.jpeg",
+      "/testimonials/whatsapp6.jpeg",
+      "/testimonials/whatsapp7.jpeg",
+      "/testimonials/whatsapp8.jpeg",
+      "/testimonials/whatsapp9.jpeg"
+    ]
+  },
+  "finalCTA": {
+    "title": "Have more questions? Let us chat!",
+    "subText": "Limited slots available. Book your call now!",
+    "buttonLink": "#book",
+    "buttonText": "Talk to Founder",
+    "description": "We understand that you might have questions specific to your situation. Schedule a call with our founder - we are here to help you succeed!"
+  },
+  "framework": {
+    "title": "Career Success Framework",
+    "phases": [
+      {
+        "title": "Discovery & Clarity",
+        "number": "01",
+        "details": [
+          "Free 1:1 Expert Consultation",
+          "Career & Psychology Counseling",
+          "Career Assessment & Direction Test",
+          "Goal Confirmation & Enrollment Decision"
+        ],
+        "description": "Lay the foundation for your career journey with expert counseling and direction assessments."
+      },
+      {
+        "title": "Research & Market Intel",
+        "number": "02",
+        "details": [
+          "Onboarding Strategy Call",
+          "In-depth Job Market Research",
+          "Real-Time Data Collection",
+          "Market Data Analysis",
+          "Internal QC Review"
+        ],
+        "description": "Analyze the job market with real-time data collection and strategic inside research."
+      },
+      {
+        "title": "Profile Development & Positioning",
+        "number": "03",
+        "details": [
+          "Target Role Selection",
+          "Job Description (JD) Analysis",
+          "Second-Level Research & Data Validation",
+          "Plagiarism-Free Resume & Content Creation",
+          "Keyword Optimization & Profile Enhancement",
+          "Materials Delivery & Expert Review Call"
+        ],
+        "description": "Optimize your resume and validate your profile with industry experts."
+      },
+      {
+        "title": "Strategy & Skill Preparation",
+        "number": "04",
+        "details": [
+          "Personalized Job Search Strategy Development",
+          "Strategy Delivery & Implementation Guidance",
+          "Job Search Training",
+          "Psychology & Confidence Training",
+          "Unique Application Approach Development"
+        ],
+        "description": "Build a personalized job search strategy and gain confidence."
+      },
+      {
+        "title": "Execution & Interviews",
+        "number": "05",
+        "details": [
+          "Strategic Applications",
+          "Interview Calls Generated",
+          "Mock Interview Sessions",
+          "Final Interview Support"
+        ],
+        "description": "Execute your plan and conquer interviews with expert mock training."
+      }
+    ]
+  },
+  "clientLove": {
+    "title": "Love Letters from our Clients",
+    "description": "Do not just take our word for it - hear from students and parents whose journeys have been transformed by Qbay.",
+    "testimonials": [
+      {
+        "name": "Sophia Martinez",
+        "role": "UX Designer",
+        "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150",
+        "content": "Balancing work and job applications was exhausting. Each application felt repetitive and draining. I almost gave up after weeks of no responses. But once I got structured support and a smarter strategy, everything changed. Within weeks, interviews started lining up."
+      },
+      {
+        "name": "Daniel Brooks",
+        "role": "Marketing Analyst",
+        "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150&h=150",
+        "content": "Moving to a new country meant starting from scratch. I did not understand how the hiring process worked here. Applications went unanswered and I felt stuck. After getting guidance and optimizing my approach, I started seeing real traction. In just one month, I secured multiple offers."
+      },
+      {
+        "name": "Emily Chen",
+        "role": "Software Developer",
+        "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150",
+        "content": "After facing a sudden layoff, I had limited time to secure a new role. The pressure was intense. Instead of applying randomly, I followed a focused and aggressive strategy. Within four weeks, I received three strong offers and increased my salary significantly."
+      }
+    ]
+  },
+  "consultation": {
+    "heading": "Expert guidance for your healthcare career.",
+    "features": [
+      "Guaranteed Interview Support",
+      "We Apply on Your Behalf",
+      "NHS & HSC Application Assistance",
+      "CPD & Internship Guidance"
+    ],
+    "badgeText": "Includes €99 Value Assessment",
+    "description": "We provide personalized strategies to help you secure NHS and healthcare opportunities faster, backed by our guaranteed interview support and application assistance.",
+    "subHeaderText": "Free 30-Minute Consultation"
+  },
+  "testimonials": {
+    "title": "Real Results. Real Stories.",
+    "videoUrls": [
+      "https://www.youtube.com/shorts/XZvQ73htuyk",
+      "https://www.youtube.com/shorts/Tv1rnZS-RKE",
+      "https://www.youtube.com/shorts/tuI9reUpcLc",
+      "https://www.youtube.com/shorts/w-sNp24i-x0",
+      "https://www.youtube.com/shorts/KVjXMUwiuyU",
+      "https://www.youtube.com/shorts/JoQnvzjfO-s",
+      "https://www.youtube.com/shorts/4knbUF5DHOk",
+      "https://www.youtube.com/shorts/6-LZ47xrdQE",
+      "https://www.youtube.com/shorts/khxrQkLTW5s",
+      "https://www.youtube.com/shorts/xz4V1iQ9BLE",
+      "https://www.youtube.com/shorts/YuFkDWzjAlQ",
+      "https://www.youtube.com/shorts/_-wRrRov8q8",
+      "https://www.youtube.com/shorts/4CjBPyJ9ixI",
+      "https://www.youtube.com/shorts/NNEjiXhD4lo",
+      "https://www.youtube.com/shorts/OHTmHRypVNg"
+    ]
+  },
+  "founderLetter": {
+    "title": "Dear Fellow Job Seeker,",
+    "signature": "Welcome to QBay Career.",
+    "paragraphs": [
+      "QBay Career was built with a simple mission: to take the frustration out of your job hunt. We are not a faceless tech giant pushing mass-apply AI tools. In fact, we know recruiters instantly spot and reject low-effort AI applications. That is why we take a completely human approach.",
+      "Our dedicated team handles the heavy lifting for you. We craft ATS-friendly custom resumes and cover letters, and personally apply to highly relevant jobs on your behalf in under 24 hours. By taking the grueling application process off your plate, we give you your time back so you can focus on what actually gets you hired: networking and interview prep.",
+      "When you choose QBay, you are partnering with a small, passionate team deeply invested in your success. Thank you for trusting us to help you take the next big step in your career."
+    ]
+  }
+}

@@ -21,8 +21,9 @@ import {
 import QBayNavbar from '@/components/QBayNavbar';
 import FeaturedOn from '@/components/FeaturedOn';
 import QBayFooter from '@/components/QBayFooter';
+import { supabase } from '@/lib/supabase';
 
-const frameworkPhases = [
+const defaultFrameworkPhases = [
   {
     number: '01',
     title: 'Discovery & Clarity',
@@ -94,7 +95,7 @@ const frameworkPhases = [
   },
 ];
 
-const clientTestimonials = [
+const defaultClientTestimonials = [
   {
     name: 'Sophia Martinez',
     role: 'UX Designer',
@@ -142,7 +143,7 @@ const bottomRowLogos = [
   '/queen-mary-university-of-london-seeklogo-23-768x349.png',
 ];
 
-const faqData = [
+const defaultFaqData = [
   { q: "Who is the first Malayali career consultant in the UK?", a: "QBay Career is proud to be among the pioneers in guiding Malayalis in the UK. With expert consultants, we provide career planning, education guidance, and job placement support for Malayalis who wish to establish themselves in the UK." },
   { q: "Why do you ask for personal information?", a: "At QBay Career, our Malayali career consultant in the UK understands both Indian and UK job markets. We provide career counseling, interview preparation, resume building, and job assistance to ensure Malayalis succeed abroad." },
   { q: "How long does 2Checkout store personal data?", a: "Yes, QBay Career is a trusted Malayali career consultant in Ireland, helping students and professionals with admission guidance, career development strategies, and job placement support." },
@@ -220,13 +221,33 @@ const testimonialShorts = testimonialShortUrls
     (s): s is { id: string; url: string; thumbnail: string } => Boolean(s)
   );
 
-const heroImages = [
+const defaultHeroImages = [
   'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600&h=800',
   'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=600&h=800',
   'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=600&h=800',
 ];
 
 export default function Home() {
+  const [cmsData, setCmsData] = useState<any>(null);
+
+  useEffect(() => {
+    supabase.from('cms_content').select('content').eq('key', 'home').single().then(({data, error}) => {
+      console.log('Fetched home data:', data, error);
+      if (data?.content) {
+        setCmsData(data.content);
+      }
+    });
+  }, []);
+
+  console.log('Current cmsData state:', cmsData);
+
+  const frameworkPhases = (Array.isArray(cmsData?.framework?.phases) ? cmsData.framework.phases : defaultFrameworkPhases) as typeof defaultFrameworkPhases;
+  const clientTestimonials = (Array.isArray(cmsData?.clientLove?.testimonials) ? cmsData.clientLove.testimonials : defaultClientTestimonials) as typeof defaultClientTestimonials;
+  const faqData = (Array.isArray(cmsData?.faq?.questions) ? cmsData.faq.questions : defaultFaqData) as typeof defaultFaqData;
+  const heroImages = (Array.isArray(cmsData?.hero?.images) ? cmsData.hero.images : defaultHeroImages) as typeof defaultHeroImages;
+  const heroBadges = (Array.isArray(cmsData?.hero?.badges) ? cmsData.hero.badges : ['100k+ Helped', '4.8 Trustpilot', '90-Day Calls', 'Gov Approved', '29 Countries']) as string[];
+  const badgeIcons = [BadgeCheck, Star, PhoneCall, ShieldCheck, Globe];
+
   const [activePhase, setActivePhase] = useState(0);
   const resultsScrollRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -311,7 +332,14 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white text-[#1A112B]">
+      {/* DEBUG BANNER FOR SUPABASE CONNECTION */}
+      <div className="fixed top-0 left-0 w-full z-[9999] bg-black text-xs text-green-400 p-2 font-mono">
+        DB Status: {cmsData ? `Connected! | framework phases: ${cmsData?.framework?.phases?.length} | faq questions: ${cmsData?.faq?.questions?.length}` : 'Loading/Fallback'} 
+        <br/>
+        Fallback triggered: {(!cmsData?.framework?.phases || !Array.isArray(cmsData?.framework?.phases)) ? 'YES for Framework' : 'NO for framework'}
+      </div>
+
       <QBayNavbar />
 
       <section
@@ -327,42 +355,30 @@ export default function Home() {
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-4 lg:mb-6">
           <div className="mx-auto max-w-5xl text-center">
             <div className="flex flex-wrap justify-center gap-3">
-              <div className="inline-flex items-center gap-2 rounded-full border border-purple-100 bg-white/70 backdrop-blur-md px-4 py-2 text-xs font-bold text-[#2D1B4D] shadow-sm">
-                <BadgeCheck className="h-4 w-4 text-purple-600" />
-                100k+ Helped
-              </div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-purple-100 bg-white/70 backdrop-blur-md px-4 py-2 text-xs font-bold text-[#2D1B4D] shadow-sm">
-                <Star className="h-4 w-4 text-purple-600" />
-                4.8 Trustpilot
-              </div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-purple-100 bg-white/70 backdrop-blur-md px-4 py-2 text-xs font-bold text-[#2D1B4D] shadow-sm">
-                <PhoneCall className="h-4 w-4 text-purple-600" />
-                90-Day Calls
-              </div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-purple-100 bg-white/70 backdrop-blur-md px-4 py-2 text-xs font-bold text-[#2D1B4D] shadow-sm">
-                <ShieldCheck className="h-4 w-4 text-purple-600" />
-                Gov Approved
-              </div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-purple-100 bg-white/70 backdrop-blur-md px-4 py-2 text-xs font-bold text-[#2D1B4D] shadow-sm">
-                <Globe className="h-4 w-4 text-purple-600" />
-                29 Countries
-              </div>
+              {heroBadges.map((badge, idx) => {
+                const Icon = badgeIcons[idx % badgeIcons.length];
+                return (
+                  <div key={idx} className="inline-flex items-center gap-2 rounded-full border border-purple-100 bg-white/70 backdrop-blur-md px-4 py-2 text-xs font-bold text-[#2D1B4D] shadow-sm">
+                    <Icon className="h-4 w-4 text-purple-600" />
+                    {badge}
+                  </div>
+                );
+              })}
             </div>
 
-            <h1 className="mt-10 text-[3.5rem] leading-[1.1] font-extrabold tracking-tight text-[#160E22] sm:text-7xl lg:text-[6rem]">
-              A SMARTER <br/> WAY TO APPLY
-            </h1>
+            <h1 
+              className="mt-10 text-[3.5rem] leading-[1.1] font-extrabold tracking-tight text-[#160E22] sm:text-7xl lg:text-[6rem]"
+              dangerouslySetInnerHTML={{ __html: cmsData?.hero?.title || 'A SMARTER <br/> WAY TO APPLY' }}
+            />
             <p className="mt-6 text-xl font-bold text-[#5D4A7A] sm:text-2xl lg:text-3xl max-w-3xl mx-auto">
-              A Faster Way To Get Interview Calls.
+              {cmsData?.hero?.subtitle || 'A Faster Way To Get Interview Calls.'}
             </p>
 
             <p className="mt-8 text-base font-semibold text-[#4B2C83]">
-              Career success starts with the right guidance
+              {cmsData?.hero?.descriptionHeader || 'Career success starts with the right guidance'}
             </p>
             <p className="mt-2 text-base leading-relaxed text-[#5D4A7A]/80 sm:text-lg max-w-2xl mx-auto">
-              You&apos;re not just another profile to us. We guide you personally,
-              improve your job search approach, and stay committed until you start
-              seeing interview results.
+              {cmsData?.hero?.descriptionBody || "You're not just another profile to us. We guide you personally, improve your job search approach, and stay committed until you start seeing interview results."}
             </p>
           </div>
         </div>
