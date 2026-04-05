@@ -19,7 +19,7 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
     console.error('Error fetching services CMS data:', error);
   }
 
-  const cmsServices = Array.isArray(data?.content) ? data?.content : [];
+  const cmsServices: any[] = data && Array.isArray(data.content) ? data.content : [];
 
   // Find the exact service matching the slug
   // Try CMS data first, fall back to static data
