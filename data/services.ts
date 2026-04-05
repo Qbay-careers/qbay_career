@@ -5,9 +5,11 @@ export interface Service {
   description: string;
   fullDescription: string;
   image: string;
-  features: string[];
+  features: { title: string; description: string }[];
   benefits: string[];
 }
+
+const defaultFeatureDesc = "Carefully tailored to ensure maximum success in your specific career path and market conditions.";
 
 export const services: Service[] = [
   {
@@ -18,11 +20,11 @@ export const services: Service[] = [
     fullDescription: 'Our hallmark service ensures you don\'t just apply, but actually get in front of decision-makers. We bridge the gap between talented candidates and global employers by leveraging our extensive network and strategic positioning. Our 90-day commitment means we stay with you until those interview calls start coming in.',
     image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=1200',
     features: [
-      'Direct Employer Connections',
-      '90-Day Call Guarantee',
-      'Strategic Profile Positioning',
-      'Global Network Access',
-      'Follow-up Management'
+      { title: 'Direct Employer Connections', description: defaultFeatureDesc },
+      { title: '90-Day Call Guarantee', description: defaultFeatureDesc },
+      { title: 'Strategic Profile Positioning', description: defaultFeatureDesc },
+      { title: 'Global Network Access', description: defaultFeatureDesc },
+      { title: 'Follow-up Management', description: defaultFeatureDesc }
     ],
     benefits: [
       'Reduced Job Search Time',
@@ -39,11 +41,11 @@ export const services: Service[] = [
     fullDescription: 'Stop spending hours on repetitive forms. Our dedicated application experts take over the heavy lifting. We analyze job descriptions, tailor your profile for each role, and submit meticulously prepared applications on your behalf, ensuring maximum impact with minimum effort from your side.',
     image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80&w=1200',
     features: [
-      'Personalized JD Analysis',
-      'Meticulous Form Filling',
-      'Tailored Cover Letters',
-      'Application Tracking',
-      'Regular Status Updates'
+      { title: 'Personalized JD Analysis', description: defaultFeatureDesc },
+      { title: 'Meticulous Form Filling', description: defaultFeatureDesc },
+      { title: 'Tailored Cover Letters', description: defaultFeatureDesc },
+      { title: 'Application Tracking', description: defaultFeatureDesc },
+      { title: 'Regular Status Updates', description: defaultFeatureDesc }
     ],
     benefits: [
       'Save 20+ Hours per Week',
@@ -60,11 +62,11 @@ export const services: Service[] = [
     fullDescription: 'Navigating the UK healthcare recruitment system can be complex. Whether you\'re a nurse, doctor, or allied health professional, our specialist team understands the nuances of NHS and HSC applications (TRAC, etc.). we ensure your clinical and soft skills are highlighted to meet specific Trust requirements.',
     image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=1200',
     features: [
-      'NHS Jobs/TRAC Portal Expertise',
-      'Healthcare-Specific CV Mapping',
-      'Clinical Competency Highlighting',
-      'Trust-Specific Research',
-      'Compliance Checklist Support'
+      { title: 'NHS Jobs/TRAC Portal Expertise', description: defaultFeatureDesc },
+      { title: 'Healthcare-Specific CV Mapping', description: defaultFeatureDesc },
+      { title: 'Clinical Competency Highlighting', description: defaultFeatureDesc },
+      { title: 'Trust-Specific Research', description: defaultFeatureDesc },
+      { title: 'Compliance Checklist Support', description: defaultFeatureDesc }
     ],
     benefits: [
       'Higher Success in Public Sector',
@@ -81,11 +83,11 @@ export const services: Service[] = [
     fullDescription: 'Stay ahead of the curve with our curated Continuing Professional Development programs. In today\'s rapidly evolving job market, staying relevant is key. We provide access to industry-recognized certifications and training modules that add significant weight to your professional profile.',
     image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=1200',
     features: [
-      'Industry-Recognized Certifications',
-      'Flexible Learning Paths',
-      'Advanced Skill Modules',
-      'Professional Credit Tracking',
-      'Expert-Led Workshops'
+      { title: 'Industry-Recognized Certifications', description: defaultFeatureDesc },
+      { title: 'Flexible Learning Paths', description: defaultFeatureDesc },
+      { title: 'Advanced Skill Modules', description: defaultFeatureDesc },
+      { title: 'Professional Credit Tracking', description: defaultFeatureDesc },
+      { title: 'Expert-Led Workshops', description: defaultFeatureDesc }
     ],
     benefits: [
       'Faster Career Progression',
@@ -102,11 +104,11 @@ export const services: Service[] = [
     fullDescription: 'General interview tips aren\'t enough for specialized roles. Our domain experts provide deep-dive preparation for your specific industry—whether it\'s IT, Healthcare, Finance, or Engineering. We focus on technical questions, scenario-based evaluations, and culture-fit assessments.',
     image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=1200',
     features: [
-      'Mock Technical Interviews',
-      'Role-Specific Q&A Banks',
-      'Industry Scenario Drills',
-      'Body Language & Tone Coaching',
-      'Post-Interview Analysis'
+      { title: 'Mock Technical Interviews', description: defaultFeatureDesc },
+      { title: 'Role-Specific Q&A Banks', description: defaultFeatureDesc },
+      { title: 'Industry Scenario Drills', description: defaultFeatureDesc },
+      { title: 'Body Language & Tone Coaching', description: defaultFeatureDesc },
+      { title: 'Post-Interview Analysis', description: defaultFeatureDesc }
     ],
     benefits: [
       'Boosted Confidence',
@@ -123,11 +125,11 @@ export const services: Service[] = [
     fullDescription: 'Most resumes are rejected by robots before a human even sees them. We create ATS-friendly documents that pass through automated filters with ease. Beyond CVs, we optimize your LinkedIn presence and craft persuasive cover letters that tell your unique professional story.',
     image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=1200',
     features: [
-      'Keyword Optimization',
-      'Modern Design Templates',
-      'LinkedIn SEO Enhancement',
-      'Psychology-Driven Content',
-      'Multiple Format Delivery'
+      { title: 'Keyword Optimization', description: defaultFeatureDesc },
+      { title: 'Modern Design Templates', description: defaultFeatureDesc },
+      { title: 'LinkedIn SEO Enhancement', description: defaultFeatureDesc },
+      { title: 'Psychology-Driven Content', description: defaultFeatureDesc },
+      { title: 'Multiple Format Delivery', description: defaultFeatureDesc }
     ],
     benefits: [
       'Score 90%+ on ATS Scanners',
@@ -144,11 +146,11 @@ export const services: Service[] = [
     fullDescription: 'A Statement of Purpose (SOP) shouldn\'t sound like a template. We help you craft "humanized" SOPs that reflect your genuine voice, aspirations, and journey. Whether for university admissions or specialized job applications, we ensure your narrative stands out in a sea of generic applicants.',
     image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=1200',
     features: [
-      'Narrative Storytelling',
-      'Personal Voice Retention',
-      'Structure & Flow Optimization',
-      'Admissions-Aligned Editing',
-      'Plagiarism-Free Content'
+      { title: 'Narrative Storytelling', description: defaultFeatureDesc },
+      { title: 'Personal Voice Retention', description: defaultFeatureDesc },
+      { title: 'Structure & Flow Optimization', description: defaultFeatureDesc },
+      { title: 'Admissions-Aligned Editing', description: defaultFeatureDesc },
+      { title: 'Plagiarism-Free Content', description: defaultFeatureDesc }
     ],
     benefits: [
       'Increased Admission Success',
@@ -165,11 +167,11 @@ export const services: Service[] = [
     fullDescription: 'Experience is the most valuable currency in the job market. We guide you toward internships that offer real-world exposure and skill-building. From application to successful completion, we support your journey in gaining the practical experience employers crave.',
     image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1200',
     features: [
-      'Internship Matchmaking',
-      'Portfolio Development',
-      'Corporate Etiquette Training',
-      'Mentor Network Access',
-      'Conversion Strategy (Intern to Full-time)'
+      { title: 'Internship Matchmaking', description: defaultFeatureDesc },
+      { title: 'Portfolio Development', description: defaultFeatureDesc },
+      { title: 'Corporate Etiquette Training', description: defaultFeatureDesc },
+      { title: 'Mentor Network Access', description: defaultFeatureDesc },
+      { title: 'Conversion Strategy (Intern to Full-time)', description: defaultFeatureDesc }
     ],
     benefits: [
       'Real-World Skill Gain',
@@ -186,11 +188,11 @@ export const services: Service[] = [
     fullDescription: 'The job search journey can be mentally taxing. We believe professional success is impossible without personal well-being. Our mental wellness program provides support, confidence-building techniques, and stress management strategies to keep you motivated and resilient.',
     image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=1200',
     features: [
-      'Confidence Coaching',
-      'Stress Management Sessions',
-      'Mindset Reframing',
-      'Regular Wellness Checks',
-      'Community Support'
+      { title: 'Confidence Coaching', description: defaultFeatureDesc },
+      { title: 'Stress Management Sessions', description: defaultFeatureDesc },
+      { title: 'Mindset Reframing', description: defaultFeatureDesc },
+      { title: 'Regular Wellness Checks', description: defaultFeatureDesc },
+      { title: 'Community Support', description: defaultFeatureDesc }
     ],
     benefits: [
       'Emotional Resilience',
@@ -200,3 +202,4 @@ export const services: Service[] = [
     ]
   }
 ];
+

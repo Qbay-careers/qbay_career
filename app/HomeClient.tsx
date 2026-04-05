@@ -230,15 +230,72 @@ const defaultHeroImages = [
 export default function HomeClient({ initialData }: { initialData: any }) {
   const [cmsData, setCmsData] = useState<any>(initialData);
 
+  useEffect(() => {
+    setCmsData(initialData);
+  }, [initialData]);
+
 
   console.log('Current cmsData state:', cmsData);
 
-  const frameworkPhases = (Array.isArray(cmsData?.framework?.phases) ? cmsData.framework.phases : defaultFrameworkPhases) as typeof defaultFrameworkPhases;
-  const clientTestimonials = (Array.isArray(cmsData?.clientLove?.testimonials) ? cmsData.clientLove.testimonials : defaultClientTestimonials) as typeof defaultClientTestimonials;
-  const faqData = (Array.isArray(cmsData?.faq?.questions) ? cmsData.faq.questions : defaultFaqData) as typeof defaultFaqData;
+  const frameworkPhases = (Array.isArray(cmsData?.framework) ? cmsData.framework : (Array.isArray(cmsData?.framework?.phases) ? cmsData.framework.phases : defaultFrameworkPhases)) as typeof defaultFrameworkPhases;
+  const clientTestimonials = (Array.isArray(cmsData?.clientLove) ? cmsData.clientLove : (Array.isArray(cmsData?.clientLove?.testimonials) ? cmsData.clientLove.testimonials : defaultClientTestimonials)) as typeof defaultClientTestimonials;
+  const faqData = (Array.isArray(cmsData?.faq) ? cmsData.faq : (Array.isArray(cmsData?.faq?.questions) ? cmsData.faq.questions : defaultFaqData)) as typeof defaultFaqData;
   const heroImages = (Array.isArray(cmsData?.hero?.images) ? cmsData.hero.images : defaultHeroImages) as typeof defaultHeroImages;
-  const heroBadges = (Array.isArray(cmsData?.hero?.badges) ? cmsData.hero.badges : ['100k+ Helped', '4.8 Trustpilot', '90-Day Calls', 'Gov Approved', '29 Countries']) as string[];
+  const heroBadges = (Array.isArray(cmsData?.hero?.badges) ? cmsData.hero.badges : ['100k+ Helped', '4.8 Trustpilot', '1:1 Experts', '90-Day Calls', 'Gov Approved']) as string[];
   const badgeIcons = [BadgeCheck, Star, PhoneCall, ShieldCheck, Globe];
+
+  const resultsImages = (Array.isArray(cmsData?.results) ? cmsData.results : [1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => `/testimonials/whatsapp${num}.jpeg`)) as string[];
+  const testimonialShortsData = (Array.isArray(cmsData?.testimonials) ? cmsData.testimonials : testimonialShortUrls) as string[];
+  const servicesList = (Array.isArray(cmsData?.services) ? cmsData.services : [
+    {
+      title: 'Guaranteed Interview Calls',
+      slug: 'guaranteed-interview-calls',
+      description: 'Connect with the right employers and receive guaranteed interview opportunities.',
+      image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=800',
+    },
+    {
+      title: 'We Apply For You',
+      slug: 'we-apply-for-you',
+      description: 'Our team handles your profile optimization and job applications to boost your chances.',
+      image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80&w=800',
+    },
+    {
+      title: 'NHS - HSC Applications',
+      slug: 'nhs-hsc-applications',
+      description: 'Dedicated team applies to relevant NHS and HSC roles on your behalf.',
+      image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800',
+    },
+    {
+      title: 'CPD (Continuing Professional Development)',
+      slug: 'cpd-professional-development',
+      description: 'Enhance your skills with industry-recognized CPD programs for career advancement.',
+      image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=800',
+    },
+    {
+      title: 'Domain Specified Interview Assistance',
+      slug: 'domain-specified-interview-assistance',
+      description: 'Prepare for industry-specific interviews with practical tips and expert support.',
+      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800',
+    },
+    {
+      title: 'ATS – CV, LinkedIn, Cover Letter',
+      slug: 'ats-cv-linkedin-cover-letter',
+      description: 'Stand out with ATS-optimized CVs, impactful cover letters, and LinkedIn profiles.',
+      image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=800',
+    },
+    {
+      title: 'Humanized SOP Guidance And Preparation',
+      slug: 'humanized-sop-guidance',
+      description: 'Build a strong and well-structured SOP that reflects your career goals.',
+      image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=800',
+    },
+    {
+      title: 'Internship Guidance',
+      slug: 'internship-guidance',
+      description: 'Get valuable internship opportunities and hands-on experience to kickstart your career.',
+      image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800',
+    },
+  ]) as any[];
 
   const [activePhase, setActivePhase] = useState(0);
   const resultsScrollRef = useRef<HTMLDivElement>(null);
@@ -403,45 +460,45 @@ export default function HomeClient({ initialData }: { initialData: any }) {
             {/* Top Highlight Badge */}
             <div className="flex flex-col-reverse sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
               <span className="inline-flex w-fit items-center rounded-md bg-[#EDE1F5] px-3 py-1.5 text-[13px] font-bold tracking-wide text-[#2D1B4D]">
-                Includes €99 Value Assessment
+                {cmsData?.consultation?.badge || 'Includes €99 Value Assessment'}
               </span>
               <span className="text-xs font-bold tracking-[0.15em] text-slate-500 uppercase">
-                Free 30-Minute Consultation
+                {cmsData?.consultation?.topHeading || 'Free 30-Minute Consultation'}
               </span>
             </div>
 
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-medium text-[#1A112B] tracking-tight leading-[1.15]">
-              Expert guidance for your healthcare career.
+              {cmsData?.consultation?.title || 'Expert guidance for your healthcare career.'}
             </h2>
             
             <p className="text-lg text-slate-600 font-normal max-w-2xl leading-relaxed">
-              We provide personalized strategies to help you secure NHS and healthcare opportunities faster, backed by our guaranteed interview support and application assistance.
+              {cmsData?.consultation?.subtitle || 'We provide personalized strategies to help you secure NHS and healthcare opportunities faster, backed by our guaranteed interview support and application assistance.'}
             </p>
 
             <div className="w-full h-[1px] bg-slate-100 my-4" />
 
             <div className="grid sm:grid-cols-2 gap-x-12 gap-y-6 w-full">
-              {[
+              {(Array.isArray(cmsData?.consultation?.features) ? cmsData.consultation.features : [
                 'Guaranteed Interview Support',
                 'We Apply on Your Behalf',
                 'NHS & HSC Application Assistance',
                 'CPD & Internship Guidance',
-              ].map((feature) => (
-                <div key={feature} className="flex items-start gap-4">
+              ]).map((feature: any) => (
+                <div key={typeof feature === 'string' ? feature : feature.title} className="flex items-start gap-4">
                   <div className="mt-2 h-1.5 w-1.5 rounded-full bg-slate-400" />
-                  <span className="text-base font-medium text-slate-800">{feature}</span>
+                  <span className="text-base font-medium text-slate-800">{typeof feature === 'string' ? feature : feature.title}</span>
                 </div>
               ))}
             </div>
 
             <div className="pt-8">
               <a
-                href="/contact"
+                href={cmsData?.consultation?.ctaLink || "/contact"}
                 className="inline-flex items-center justify-center gap-3 bg-[#1A112B] px-10 py-4 text-sm font-semibold tracking-wide text-white transition-all hover:bg-black w-full sm:w-auto overflow-hidden group relative"
               >
                 <div className="absolute inset-0 bg-white/10 translate-y-full transition-transform group-hover:translate-y-0" />
                 <img src="/google-meet-icon.png" alt="Google Meet" className="w-5 h-5 object-contain relative z-10" />
-                <span className="relative z-10">Book your free consultancy</span>
+                <span className="relative z-10">{cmsData?.consultation?.ctaLabel || 'Book your free consultancy'}</span>
               </a>
             </div>
           </div>
@@ -452,63 +509,14 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       <section id="about" className="border-t border-gray-100 scroll-mt-24 py-20 bg-[#FDFCFE]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-sm font-bold tracking-[0.2em] text-purple-600 uppercase mb-4">Our Services</h2>
+            <h2 className="text-sm font-bold tracking-[0.2em] text-purple-600 uppercase mb-4">{cmsData?.servicesSection?.tagline || 'Our Services'}</h2>
             <h3 className="text-4xl sm:text-5xl font-bold text-[#1A112B] tracking-tight leading-[1.2]">
-              Comprehensive support for your <br className="hidden sm:block" /> global career journey.
+              {cmsData?.servicesSection?.title || 'Comprehensive support for your global career journey.'}
             </h3>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              {
-                title: 'Guaranteed Interview Calls',
-                slug: 'guaranteed-interview-calls',
-                desc: 'Connect with the right employers and receive guaranteed interview opportunities.',
-                image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=800',
-              },
-              {
-                title: 'We Apply For You',
-                slug: 'we-apply-for-you',
-                desc: 'Our team handles your profile optimization and job applications to boost your chances.',
-                image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80&w=800',
-              },
-              {
-                title: 'NHS - HSC Applications',
-                slug: 'nhs-hsc-applications',
-                desc: 'Dedicated team applies to relevant NHS and HSC roles on your behalf.',
-                image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800',
-              },
-              {
-                title: 'CPD (Continuing Professional Development)',
-                slug: 'cpd-professional-development',
-                desc: 'Enhance your skills with industry-recognized CPD programs for career advancement.',
-                image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=800',
-              },
-              {
-                title: 'Domain Specified Interview Assistance',
-                slug: 'domain-specified-interview-assistance',
-                desc: 'Prepare for industry-specific interviews with practical tips and expert support.',
-                image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800',
-              },
-              {
-                title: 'ATS – CV, LinkedIn, Cover Letter',
-                slug: 'ats-cv-linkedin-cover-letter',
-                desc: 'Stand out with ATS-optimized CVs, impactful cover letters, and LinkedIn profiles.',
-                image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=800',
-              },
-              {
-                title: 'Humanized SOP Guidance And Preparation',
-                slug: 'humanized-sop-guidance',
-                desc: 'Build a strong and well-structured SOP that reflects your career goals.',
-                image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=800',
-              },
-              {
-                title: 'Internship Guidance',
-                slug: 'internship-guidance',
-                desc: 'Get valuable internship opportunities and hands-on experience to kickstart your career.',
-                image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800',
-              },
-            ].map((item) => (
+            {servicesList.map((item) => (
               <div
                 key={item.title}
                 className="group relative flex flex-col overflow-hidden rounded-lg border border-purple-100/50 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-purple-200"
@@ -526,12 +534,12 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                     {item.title}
                   </h3>
                   <p className="text-sm leading-relaxed text-slate-600 mb-6 flex-1">
-                    {item.desc}
+                    {item.description || item.desc}
                   </p>
                   
                   <div className="mt-auto">
                     <a
-                      href={`/services/${item.slug}`}
+                      href={item.slug ? `/services/${item.slug}` : '#'}
                       className="inline-flex items-center gap-2 text-sm font-bold text-purple-600 hover:text-purple-800 group/link transition-colors"
                     >
                       View More
@@ -676,16 +684,16 @@ export default function HomeClient({ initialData }: { initialData: any }) {
               onMouseLeave={() => setIsResultsPaused(false)}
               className="flex gap-4 overflow-x-auto pb-6 scrollbar-hide"
             >
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+              {resultsImages.map((src, idx) => (
                 <div
-                  key={num}
+                  key={idx}
                   className="min-w-[240px] w-[70vw] sm:w-[300px] flex-shrink-0 overflow-hidden rounded-2xl shadow-lg border border-purple-100 bg-white cursor-pointer group"
-                  onClick={() => setSelectedImage(`/testimonials/whatsapp${num}.jpeg`)}
+                  onClick={() => setSelectedImage(src)}
                 >
                   <div className="relative">
                     <img
-                      src={`/testimonials/whatsapp${num}.jpeg`}
-                      alt={`Student success story ${num}`}
+                      src={src}
+                      alt={`Student success story ${idx + 1}`}
                       className="w-full h-[380px] object-cover"
                       loading="lazy"
                     />
@@ -734,29 +742,36 @@ export default function HomeClient({ initialData }: { initialData: any }) {
           </h2>
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {testimonialShorts.map((s) => (
-              <a
-                key={s.id}
-                href={s.url}
-                target="_blank"
-                rel="noreferrer"
-                className="group relative block cursor-pointer"
-              >
-                <div className="aspect-video overflow-hidden rounded-2xl bg-gray-900 shadow-xl border border-white/10 relative">
-                  <img
-                    src={s.thumbnail}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    alt="Testimonial"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-red-600 text-white shadow-2xl transition-transform duration-300 group-hover:scale-110">
-                      <Play className="h-7 w-7 fill-current" />
+            {testimonialShortsData.map((url, idx) => {
+              const match = url.match(/(?:shorts\/|v=)([a-zA-Z0-9_-]{11})/);
+              const id = match?.[1];
+              if (!id) return null;
+              const thumbnail = `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
+              
+              return (
+                <a
+                  key={id + idx}
+                  href={url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group relative block cursor-pointer"
+                >
+                  <div className="aspect-video overflow-hidden rounded-2xl bg-gray-900 shadow-xl border border-white/10 relative">
+                    <img
+                      src={thumbnail}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      alt="Testimonial"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-red-600 text-white shadow-2xl transition-transform duration-300 group-hover:scale-110">
+                        <Play className="h-7 w-7 fill-current" />
+                      </div>
                     </div>
                   </div>
-                </div>
-              </a>
-            ))}
+                </a>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -1048,21 +1063,27 @@ export default function HomeClient({ initialData }: { initialData: any }) {
           {/* Letter Part */}
           <div className="space-y-8">
             <h2 className="text-4xl md:text-5xl font-bold text-[#1A112B] tracking-tight">
-              Dear Fellow Job Seeker,
+              {cmsData?.founderLetter?.title || 'Dear Fellow Job Seeker,'}
             </h2>
             <div className="text-lg md:text-xl text-gray-600 leading-relaxed space-y-6 max-w-3xl mx-auto font-medium">
-              <p>
-                QBay Career was built with a simple mission: to take the frustration out of your job hunt. We aren&apos;t a faceless tech giant pushing &quot;mass-apply&quot; AI tools. In fact, we know recruiters instantly spot and reject low-effort AI applications. That&apos;s why we take a completely human approach. 
-              </p>
-              <p>
-                Our dedicated team handles the heavy lifting for you. We craft ATS-friendly custom resumes and cover letters, and personally apply to highly relevant jobs on your behalf in under 24 hours. By taking the grueling application process off your plate, we give you your time back so you can focus on what actually gets you hired: networking and interview prep. 
-              </p>
-              <p>
-                When you choose QBay, you&apos;re partnering with a small, passionate team deeply invested in your success. Thank you for trusting us to help you take the next big step in your career.
-              </p>
+              {cmsData?.founderLetter?.content ? (
+                <div dangerouslySetInnerHTML={{ __html: cmsData.founderLetter.content.replace(/\n/g, '<br/>') }} />
+              ) : (
+                <>
+                  <p>
+                    QBay Career was built with a simple mission: to take the frustration out of your job hunt. We aren&apos;t a faceless tech giant pushing &quot;mass-apply&quot; AI tools. In fact, we know recruiters instantly spot and reject low-effort AI applications. That&apos;s why we take a completely human approach. 
+                  </p>
+                  <p>
+                    Our dedicated team handles the heavy lifting for you. We craft ATS-friendly custom resumes and cover letters, and personally apply to highly relevant jobs on your behalf in under 24 hours. By taking the grueling application process off your plate, we give you your time back so you can focus on what actually gets you hired: networking and interview prep. 
+                  </p>
+                  <p>
+                    When you choose QBay, you&apos;re partnering with a small, passionate team deeply invested in your success. Thank you for trusting us to help you take the next big step in your career.
+                  </p>
+                </>
+              )}
             </div>
             <p className="text-xl md:text-2xl font-bold text-gray-500 pt-4">
-              Welcome to QBay Career.
+              {cmsData?.founderLetter?.signature || 'Welcome to QBay Career.'}
             </p>
           </div>
 
@@ -1072,37 +1093,38 @@ export default function HomeClient({ initialData }: { initialData: any }) {
           <div className="space-y-10 pt-8">
             <div className="space-y-4">
               <h2 className="text-3xl md:text-5xl font-bold text-[#1A112B]">
-                Have more questions? Let&apos;s chat!
+                {cmsData?.finalCTA?.title || "Have more questions? Let's chat!"}
               </h2>
               <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto">
-                We understand that you might have questions specific to your situation. Schedule a call with our founder – we&apos;re here to help you succeed!
+                {cmsData?.finalCTA?.subtitle || "We understand that you might have questions specific to your situation. Schedule a call with our founder – we're here to help you succeed!"}
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 md:gap-16 pt-4">
-              <div className="flex items-center gap-3 text-[#5D4A7A] font-semibold text-lg">
-                <CalendarDays className="w-6 h-6" />
-                <span>Flexible Scheduling</span>
-              </div>
-              <div className="flex items-center gap-3 text-[#5D4A7A] font-semibold text-lg">
-                <PhoneCall className="w-6 h-6" />
-                <span>One-on-One Call</span>
-              </div>
-              <div className="flex items-center gap-3 text-[#5D4A7A] font-semibold text-lg">
-                <MessageCircle className="w-6 h-6" />
-                <span>Personalized Advice</span>
-              </div>
+              {(Array.isArray(cmsData?.finalCTA?.benefits) ? cmsData.finalCTA.benefits : [
+                { icon: CalendarDays, text: 'Flexible Scheduling' },
+                { icon: PhoneCall, text: 'One-on-One Call' },
+                { icon: MessageCircle, text: 'Personalized Advice' },
+              ]).map((benefit: any, idx: number) => {
+                const Icon = benefit.icon || [CalendarDays, PhoneCall, MessageCircle][idx % 3];
+                return (
+                  <div key={idx} className="flex items-center gap-3 text-[#5D4A7A] font-semibold text-lg">
+                    <Icon className="w-6 h-6" />
+                    <span>{typeof benefit === 'string' ? benefit : benefit.text}</span>
+                  </div>
+                );
+              })}
             </div>
 
             <div className="flex flex-col items-center justify-center pt-8 gap-4">
               <a
-                href="#book"
-                className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all bg-[#5D4A7A] rounded-xl hover:bg-[#4a3b61] hover:scale-105 shadow-xl hover:shadow-2xl active:scale-95"
+                href={cmsData?.finalCTA?.ctaLink || "#book"}
+                className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all bg-[#594A7A] rounded-xl hover:bg-[#4a3b61] hover:scale-105 shadow-xl hover:shadow-2xl active:scale-95"
               >
-                Talk to Founder
+                {cmsData?.finalCTA?.ctaLabel || 'Talk to Founder'}
               </a>
               <p className="text-sm font-medium text-gray-400">
-                Limited slots available. Book your call now!
+                {cmsData?.finalCTA?.footerText || 'Limited slots available. Book your call now!'}
               </p>
             </div>
           </div>

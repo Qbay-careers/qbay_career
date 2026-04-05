@@ -53,6 +53,32 @@ export default function AdminDashboard() {
   const [error, setError] = useState<string | null>(null);
   const [devMode, setDevMode] = useState(false);
 
+  const processContent = (data: any): any => {
+    if (!data) return data;
+    
+    // Upgrade features array from string[] to object[]
+    if (Array.isArray(data)) {
+      return data.map(item => processContent(item));
+    }
+
+    if (typeof data === 'object') {
+      const newData = { ...data };
+      for (const [key, value] of Object.entries(newData)) {
+        if (key === 'features' && Array.isArray(value) && typeof value[0] === 'string') {
+          newData[key] = value.map(title => ({
+            title,
+            description: "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          }));
+        } else {
+          newData[key] = processContent(value);
+        }
+      }
+      return newData;
+    }
+
+    return data;
+  };
+
   const fetchContent = async (key: string, isSubKey = false) => {
     if (!isSubKey) setLoading(true);
     try {
@@ -64,10 +90,11 @@ export default function AdminDashboard() {
 
       if (fetchError) throw fetchError;
       
+      const processed = processContent(data.content);
       if (isSubKey) {
-        setSubContent(data.content);
+        setSubContent(processed);
       } else {
-        setContent(data.content);
+        setContent(processed);
         setActiveSubSection(null);
         setActiveItemIndex(null);
       }
@@ -333,7 +360,7 @@ export default function AdminDashboard() {
                     ) : (
                       <div className="space-y-10 max-w-4xl mx-auto py-10">
                         {/* Render Visual Form Fields */}
-                        {activeItemIndex !== null ? (
+                        {activeItemIndex !== null && selectedItem ? (
                           <AdminFormControl 
                             label={selectedItem.title || selectedItem.name || 'Item Details'} 
                             value={selectedItem} 

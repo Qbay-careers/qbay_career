@@ -122,20 +122,27 @@ export default function ServiceLayout({ service }: ServiceLayoutProps) {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {service.features.map((feature, i) => (
-              <div 
-                key={i} 
-                className="group p-8 rounded-2xl bg-white border border-purple-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-              >
-                <div className="h-12 w-12 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600 mb-6 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300">
-                  <span className="text-lg font-bold">0{i + 1}</span>
+            {service.features.map((feature: any, i) => {
+              const title = typeof feature === 'string' ? feature : (feature?.title || `Deliverable ${i + 1}`);
+              const description = typeof feature === 'string' 
+                ? "Carefully tailored to ensure maximum success in your specific career path and market conditions." 
+                : (feature?.description || "");
+                
+              return (
+                <div 
+                  key={i} 
+                  className="group p-8 rounded-2xl bg-white border border-purple-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                >
+                  <div className="h-12 w-12 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600 mb-6 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300">
+                    <span className="text-lg font-bold">0{i + 1}</span>
+                  </div>
+                  <h4 className="text-xl font-bold text-[#2D1B4D] mb-4">{title}</h4>
+                  <p className="text-sm text-slate-500 leading-relaxed">
+                    {description}
+                  </p>
                 </div>
-                <h4 className="text-xl font-bold text-[#2D1B4D] mb-4">{feature}</h4>
-                <p className="text-sm text-slate-500 leading-relaxed">
-                  Carefully tailored to ensure maximum success in your specific career path and market conditions.
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
