@@ -53,24 +53,37 @@ export default function AdminDashboard() {
   const [error, setError] = useState<string | null>(null);
   const [devMode, setDevMode] = useState(false);
 
-  const processContent = (data: any): any => {
+  const processContent = (data: any, parentKey?: string): any => {
     if (!data) return data;
     
     // Upgrade features array from string[] to object[]
     if (Array.isArray(data)) {
-      return data.map(item => processContent(item));
+      return data.map(item => processContent(item, parentKey));
     }
 
     if (typeof data === 'object') {
       const newData = { ...data };
       for (const [key, value] of Object.entries(newData)) {
-        if (key === 'features' && Array.isArray(value) && typeof value[0] === 'string') {
-          newData[key] = value.map(title => ({
-            title,
-            description: "Carefully tailored to ensure maximum success in your specific career path and market conditions."
-          }));
+        // Only upgrade to full objects (with description) if it's a main service 
+        // (identified by having a slug/image) or if it's the top-level 'services' key.
+        if (key.toLowerCase() === 'features' && Array.isArray(value) && (typeof value[0] === 'string' || typeof value[0] === 'object')) {
+          const isMainService = newData.slug || newData.image || parentKey === 'services';
+          
+          if (isMainService) {
+            newData[key] = value.map(item => {
+              const title = typeof item === 'string' ? item : (item.title || '');
+              const desc = typeof item === 'string' ? "Carefully tailored to ensure maximum success in your specific career path and market conditions." : (item.description || "");
+              return { title, description: desc };
+            });
+          } else {
+            // For Consultation and others, just keep as simple titles and STRIP any descriptions
+            newData[key] = value.map(item => {
+              const title = typeof item === 'string' ? item : (item.title || '');
+              return { title };
+            });
+          }
         } else {
-          newData[key] = processContent(value);
+          newData[key] = processContent(value, key);
         }
       }
       return newData;

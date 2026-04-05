@@ -234,18 +234,68 @@ export default function HomeClient({ initialData }: { initialData: any }) {
     setCmsData(initialData);
   }, [initialData]);
 
+  console.log('HomeClient Data Check:', {
+    framework: cmsData?.framework ? (Array.isArray(cmsData.framework) ? 'array' : 'object') : 'missing',
+    consultation: cmsData?.consultation ? 'present' : 'missing',
+    services: cmsData?.services ? `array(${cmsData.services.length})` : 'missing'
+  });
 
-  console.log('Current cmsData state:', cmsData);
+  // Robust mapping for Framework
+  const frameworkContent = cmsData?.framework || cmsData?.Framework || cmsData?.frameworkSection || {};
+  const frameworkHeading = frameworkContent?.title || frameworkContent?.heading || 'Career Success <br class="hidden sm:block" /> Framework';
 
-  const frameworkPhases = (Array.isArray(cmsData?.framework) ? cmsData.framework : (Array.isArray(cmsData?.framework?.phases) ? cmsData.framework.phases : defaultFrameworkPhases)) as typeof defaultFrameworkPhases;
-  const clientTestimonials = (Array.isArray(cmsData?.clientLove) ? cmsData.clientLove : (Array.isArray(cmsData?.clientLove?.testimonials) ? cmsData.clientLove.testimonials : defaultClientTestimonials)) as typeof defaultClientTestimonials;
-  const faqData = (Array.isArray(cmsData?.faq) ? cmsData.faq : (Array.isArray(cmsData?.faq?.questions) ? cmsData.faq.questions : defaultFaqData)) as typeof defaultFaqData;
+  const getFrameworkPhases = () => {
+    if (Array.isArray(frameworkContent)) return frameworkContent;
+    if (Array.isArray(frameworkContent?.phases)) return frameworkContent.phases;
+    return defaultFrameworkPhases;
+  };
+
+  // Robust mapping for Consultation
+  const consultationData = cmsData?.consultation || cmsData?.Consultation || cmsData?.freeConsultation || null;
+  const consultationTitle = consultationData 
+    ? (consultationData.title || consultationData.heading || consultationData.mainTitle || (typeof consultationData === 'string' ? consultationData : '')) 
+    : 'Expert guidance for your healthcare career.';
+  
+  const consultationSubtitle = consultationData
+    ? (consultationData.subtitle || consultationData.description || consultationData.text || '')
+    : 'We provide personalized strategies to help you secure NHS and healthcare opportunities faster, backed by our guaranteed interview support and application assistance.';
+    
+  const consultationBadge = consultationData
+    ? (consultationData.badgeText || consultationData['badge Text'] || consultationData.badge || consultationData.tag || '')
+    : 'Includes €99 Value Assessment';
+    
+  const consultationTopHeading = consultationData
+    ? (consultationData.subHeaderText || consultationData['sub Header Text'] || consultationData.topHeading || consultationData.topHeader || '')
+    : 'Free 30-Minute Consultation';
+
+  // Robust mapping for Services Section Header
+  const servicesHeader = cmsData?.servicesSection || cmsData?.servicesHeader || cmsData?.services || {};
+  const servicesTagline = typeof servicesHeader?.tagline === 'string' ? servicesHeader.tagline : 'Our Services';
+  const servicesTitle = typeof servicesHeader?.title === 'string' ? servicesHeader.title : 'Comprehensive support for your global career journey.';
+  const getClientTestimonials = () => {
+    const raw = cmsData?.clientLove || cmsData?.ClientLove || cmsData?.testimonials || cmsData?.Testimonials;
+    if (Array.isArray(raw)) return raw;
+    if (Array.isArray(raw?.testimonials)) return raw.testimonials;
+    return defaultClientTestimonials;
+  };
+
+  // Robust mapping for FAQ
+  const getFaqData = () => {
+    const raw = cmsData?.faq || cmsData?.FAQ || cmsData?.faqs || cmsData?.FAQQuestions;
+    if (Array.isArray(raw)) return raw;
+    if (Array.isArray(raw?.questions)) return raw.questions;
+    return defaultFaqData;
+  };
+
+  const frameworkPhases = getFrameworkPhases() as typeof defaultFrameworkPhases;
+  const clientTestimonials = getClientTestimonials() as typeof defaultClientTestimonials;
+  const faqData = getFaqData() as typeof defaultFaqData;
   const heroImages = (Array.isArray(cmsData?.hero?.images) ? cmsData.hero.images : defaultHeroImages) as typeof defaultHeroImages;
   const heroBadges = (Array.isArray(cmsData?.hero?.badges) ? cmsData.hero.badges : ['100k+ Helped', '4.8 Trustpilot', '1:1 Experts', '90-Day Calls', 'Gov Approved']) as string[];
   const badgeIcons = [BadgeCheck, Star, PhoneCall, ShieldCheck, Globe];
 
   const resultsImages = (Array.isArray(cmsData?.results) ? cmsData.results : [1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => `/testimonials/whatsapp${num}.jpeg`)) as string[];
-  const testimonialShortsData = (Array.isArray(cmsData?.testimonials) ? cmsData.testimonials : testimonialShortUrls) as string[];
+  const testimonialShortsData = (Array.isArray(cmsData?.testimonials) && typeof cmsData.testimonials[0] === 'string' ? cmsData.testimonials : testimonialShortUrls) as string[];
   const servicesList = (Array.isArray(cmsData?.services) ? cmsData.services : [
     {
       title: 'Guaranteed Interview Calls',
@@ -460,25 +510,25 @@ export default function HomeClient({ initialData }: { initialData: any }) {
             {/* Top Highlight Badge */}
             <div className="flex flex-col-reverse sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
               <span className="inline-flex w-fit items-center rounded-md bg-[#EDE1F5] px-3 py-1.5 text-[13px] font-bold tracking-wide text-[#2D1B4D]">
-                {cmsData?.consultation?.badge || 'Includes €99 Value Assessment'}
+                {consultationBadge}
               </span>
               <span className="text-xs font-bold tracking-[0.15em] text-slate-500 uppercase">
-                {cmsData?.consultation?.topHeading || 'Free 30-Minute Consultation'}
+                {consultationTopHeading}
               </span>
             </div>
 
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-medium text-[#1A112B] tracking-tight leading-[1.15]">
-              {cmsData?.consultation?.title || 'Expert guidance for your healthcare career.'}
+              {consultationTitle}
             </h2>
             
             <p className="text-lg text-slate-600 font-normal max-w-2xl leading-relaxed">
-              {cmsData?.consultation?.subtitle || 'We provide personalized strategies to help you secure NHS and healthcare opportunities faster, backed by our guaranteed interview support and application assistance.'}
+              {consultationSubtitle}
             </p>
 
             <div className="w-full h-[1px] bg-slate-100 my-4" />
 
             <div className="grid sm:grid-cols-2 gap-x-12 gap-y-6 w-full">
-              {(Array.isArray(cmsData?.consultation?.features) ? cmsData.consultation.features : [
+              {(Array.isArray(consultationData?.features) ? consultationData.features : [
                 'Guaranteed Interview Support',
                 'We Apply on Your Behalf',
                 'NHS & HSC Application Assistance',
@@ -493,12 +543,12 @@ export default function HomeClient({ initialData }: { initialData: any }) {
 
             <div className="pt-8">
               <a
-                href={cmsData?.consultation?.ctaLink || "/contact"}
+                href={consultationData?.ctaLink || "/contact"}
                 className="inline-flex items-center justify-center gap-3 bg-[#1A112B] px-10 py-4 text-sm font-semibold tracking-wide text-white transition-all hover:bg-black w-full sm:w-auto overflow-hidden group relative"
               >
                 <div className="absolute inset-0 bg-white/10 translate-y-full transition-transform group-hover:translate-y-0" />
                 <img src="/google-meet-icon.png" alt="Google Meet" className="w-5 h-5 object-contain relative z-10" />
-                <span className="relative z-10">{cmsData?.consultation?.ctaLabel || 'Book your free consultancy'}</span>
+                <span className="relative z-10">{consultationData?.ctaLabel || 'Book your free consultancy'}</span>
               </a>
             </div>
           </div>
@@ -509,9 +559,9 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       <section id="about" className="border-t border-gray-100 scroll-mt-24 py-20 bg-[#FDFCFE]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-sm font-bold tracking-[0.2em] text-purple-600 uppercase mb-4">{cmsData?.servicesSection?.tagline || 'Our Services'}</h2>
+            <h2 className="text-sm font-bold tracking-[0.2em] text-purple-600 uppercase mb-4">{servicesTagline}</h2>
             <h3 className="text-4xl sm:text-5xl font-bold text-[#1A112B] tracking-tight leading-[1.2]">
-              {cmsData?.servicesSection?.title || 'Comprehensive support for your global career journey.'}
+              {servicesTitle}
             </h3>
           </div>
 
@@ -591,9 +641,10 @@ export default function HomeClient({ initialData }: { initialData: any }) {
 
       <section id="framework" className="bg-[#F9F5FF] scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-          <h2 className="mb-12 text-4xl font-bold tracking-tight text-[#2D1B4D] sm:text-5xl">
-            Career Success <br className="hidden sm:block" /> Framework
-          </h2>
+          <h2 
+            className="mb-12 text-4xl font-bold tracking-tight text-[#2D1B4D] sm:text-5xl"
+            dangerouslySetInnerHTML={{ __html: frameworkHeading }}
+          />
 
           <div className="grid gap-12 lg:grid-cols-2">
             {/* Left Column: Phases List */}
