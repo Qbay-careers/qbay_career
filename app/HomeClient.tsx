@@ -325,12 +325,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
 
   return (
     <main className="min-h-screen bg-white text-[#1A112B]">
-      {/* DEBUG BANNER FOR SUPABASE CONNECTION */}
-      <div className="fixed top-0 left-0 w-full z-[9999] bg-black text-xs text-green-400 p-2 font-mono">
-        DB Status: {cmsData ? `Connected! | framework phases: ${cmsData?.framework?.phases?.length} | faq questions: ${cmsData?.faq?.questions?.length}` : 'Loading/Fallback'} 
-        <br/>
-        Fallback triggered: {(!cmsData?.framework?.phases || !Array.isArray(cmsData?.framework?.phases)) ? 'YES for Framework' : 'NO for framework'}
-      </div>
+
 
       <QBayNavbar />
 
