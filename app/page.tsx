@@ -6,22 +6,26 @@ export const revalidate = 0; // Disable caching to fetch updated data instantly
 export default async function HomePage() {
   const { data, error } = await supabase
     .from('cms_content')
-    .select('key, content')
-    .in('key', ['home', 'services']);
+    .select('key, content');
 
   if (error) {
     console.error('Error fetching home data on server:', error);
   }
 
-  const homeData = data?.find(d => d.key === 'home')?.content || {};
-  const servicesData = data?.find(d => d.key === 'services')?.content || [];
+  // Separate home data from other keys
+  const homeItem = (data || []).find(item => item.key === 'home');
+  const otherItems = (data || []).filter(item => item.key !== 'home');
 
-  console.log('Fetched homeData from DB:', JSON.stringify(homeData).slice(0, 500) + '...');
-  
+  // Build initialData: Home content is base, others overwrite
   const initialData = {
-    ...homeData,
-    services: servicesData
+    ...(homeItem?.content || {}),
+    ...otherItems.reduce((acc: any, item: any) => ({
+      ...acc,
+      [item.key]: item.content
+    }), {})
   };
+
+  console.log('Server: initialData prepared with keys:', Object.keys(initialData));
 
   return <HomeClient initialData={initialData} />;
 }

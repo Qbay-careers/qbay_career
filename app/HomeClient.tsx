@@ -237,7 +237,8 @@ export default function HomeClient({ initialData }: { initialData: any }) {
   console.log('HomeClient Data Check:', {
     framework: cmsData?.framework ? (Array.isArray(cmsData.framework) ? 'array' : 'object') : 'missing',
     consultation: cmsData?.consultation ? 'present' : 'missing',
-    services: cmsData?.services ? `array(${cmsData.services.length})` : 'missing'
+    services: cmsData?.services ? `array(${cmsData.services.length})` : 'missing',
+    results: cmsData?.results ? (Array.isArray(cmsData.results) ? `array(${cmsData.results.length})` : 'object') : 'missing'
   });
 
   // Robust mapping for Framework
@@ -293,8 +294,48 @@ export default function HomeClient({ initialData }: { initialData: any }) {
   const heroImages = (Array.isArray(cmsData?.hero?.images) ? cmsData.hero.images : defaultHeroImages) as typeof defaultHeroImages;
   const heroBadges = (Array.isArray(cmsData?.hero?.badges) ? cmsData.hero.badges : ['100k+ Helped', '4.8 Trustpilot', '1:1 Experts', '90-Day Calls', 'Gov Approved']) as string[];
   const badgeIcons = [BadgeCheck, Star, PhoneCall, ShieldCheck, Globe];
+  
+  // Robust mapping for WhatsApp Results
+  const resultsData = cmsData?.results || cmsData?.Results || null;
+  const resultsTitle = resultsData 
+    ? (resultsData.title || resultsData.heading || '') 
+    : 'Success Stories That Inspire';
+  const resultsSubtitle = resultsData 
+    ? (resultsData.subtitle || resultsData.subHeading || '') 
+    : 'Real Experiences. Real Results.';
+  const resultsDescription = resultsData 
+    ? (resultsData.description || resultsData.text || '') 
+    : 'Don\'t just take our word for it—hear from students and parents whose journeys have been transformed by Qbay.';
+  const resultsImages = (() => {
+    const urls: string[] = [];
+    const scan = (val: any) => {
+      if (typeof val === 'string') {
+        const trimmed = val.trim();
+        // Only consider it an image if it has a common image extension or starts with http and looks like a Pexels/Unsplash link
+        const isImagePattern = /\.(jpg|jpeg|png|webp|gif|svg|bmp|tiff)(\?.*)?$/i.test(trimmed) || 
+                               (trimmed.startsWith('http') && (trimmed.includes('/photos/') || trimmed.includes('/img/')));
+        
+        if (isImagePattern) {
+          urls.push(trimmed);
+        }
+      } else if (val && typeof val === 'object' && !Array.isArray(val)) {
+        // Scan object properties (but skip common text fields if they are explicitly known)
+        Object.entries(val).forEach(([k, v]) => {
+          if (!['title', 'subtitle', 'heading', 'subHeading', 'description', 'text'].includes(k.toLowerCase())) {
+            scan(v);
+          }
+        });
+      } else if (Array.isArray(val)) {
+        val.forEach(scan);
+      }
+    };
+    scan(resultsData);
+    return urls.length > 0 ? urls : [1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => `/testimonials/whatsapp${num}.jpeg`);
+  })().filter(src => src && !src.includes('[object') && (src.includes('.') || src.includes('/') || src.startsWith('http'))) as string[];
 
-  const resultsImages = (Array.isArray(cmsData?.results) ? cmsData.results : [1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => `/testimonials/whatsapp${num}.jpeg`)) as string[];
+  console.log('Final Results Images Count:', resultsImages.length);
+  console.log('Final Results Images:', resultsImages);
+
   const testimonialShortsData = (Array.isArray(cmsData?.testimonials) && typeof cmsData.testimonials[0] === 'string' ? cmsData.testimonials : testimonialShortUrls) as string[];
   const servicesList = (Array.isArray(cmsData?.services) ? cmsData.services : [
     {
@@ -717,14 +758,13 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto mb-12 max-w-3xl text-center">
             <h2 className="text-4xl font-bold text-[#1A112B] sm:text-5xl">
-              Success Stories That Inspire
+              {resultsTitle}
             </h2>
             <p className="mt-3 text-lg font-semibold text-gray-900">
-              Real Experiences. Real Results.
+              {resultsSubtitle}
             </p>
             <p className="mt-3 text-sm text-gray-600 sm:text-base">
-              Don&apos;t just take our word for it—hear from students and parents
-              whose journeys have been transformed by Qbay.
+              {resultsDescription}
             </p>
           </div>
 
