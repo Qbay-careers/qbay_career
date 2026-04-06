@@ -31,7 +31,6 @@ const sections = [
     { id: 'results', label: 'WhatsApp Results', description: 'Success story images and social proof.' },
     { id: 'testimonials', label: 'Video Shorts', description: 'YouTube shorts and video testimonials.' },
     { id: 'clientLove', label: 'Client Reviews', description: 'Detailed customer testimonials and ratings.' },
-    { id: 'faq', label: 'FAQ', description: 'Frequently asked questions and answers.' },
     { id: 'services', label: 'Our Services', description: 'Categories and service cards for the home page.', targetKey: 'services' },
     { id: 'founderLetter', label: 'Founder Letter', description: 'A personal note from the founder.' },
     { id: 'finalCTA', label: 'Bottom CTA', description: 'The final call to action at the bottom.' },
@@ -82,19 +81,29 @@ export default function AdminDashboard() {
               return { title };
             });
           }
-        } else if (key === 'testimonials' && (Array.isArray(value) || (value && (value as any).videoUrls && !(value as any).testimonialGrid))) {
-          // Migration: Convert old array OR old object structure to new structured dual-list
-          const urls = Array.isArray(value) ? value : ((value as any).videoUrls || []);
-          newData[key] = {
-            testimonialGrid: {
-              title: (typeof value === 'object' && (value as any).title) ? (value as any).title : "Real Results. Real Stories.",
-              videoUrls: urls.slice(0, 4)
-            },
-            animatedShorts: {
-              title: "Animated Shorts",
-              videoUrls: urls.slice(4)
-            }
-          };
+        } else if (key === 'testimonials' && parentKey === 'clientLove' && value && (value as any).testimonialGrid) {
+          // REVERSE MIGRATION: Extract review items out of the accidental video-list structure
+          newData[key] = (value as any).testimonialGrid.videoUrls || [];
+        } else if (key === 'testimonials' && (parentKey === undefined || parentKey === 'home') && (Array.isArray(value) || (value && (value as any).videoUrls && !(value as any).testimonialGrid))) {
+          // Migration: Convert main Video Shorts to dual-list structure
+          // Only migrate if we see string URLs (not review objects)
+          const rawUrls = Array.isArray(value) ? value : ((value as any).videoUrls || []);
+          const isUrlArray = Array.isArray(rawUrls) && (rawUrls.length === 0 || typeof rawUrls[0] === 'string');
+          
+          if (isUrlArray) {
+            newData[key] = {
+              testimonialGrid: {
+                title: (typeof value === 'object' && (value as any).title) ? (value as any).title : "Real Results. Real Stories.",
+                videoUrls: rawUrls.slice(0, 4)
+              },
+              animatedShorts: {
+                title: "Animated Shorts",
+                videoUrls: rawUrls.slice(4)
+              }
+            };
+          } else {
+            newData[key] = processContent(value, key);
+          }
         } else {
           newData[key] = processContent(value, key);
         }

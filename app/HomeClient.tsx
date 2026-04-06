@@ -144,16 +144,46 @@ const bottomRowLogos = [
 ];
 
 const defaultFaqData = [
-  { q: "Who is the first Malayali career consultant in the UK?", a: "QBay Career is proud to be among the pioneers in guiding Malayalis in the UK. With expert consultants, we provide career planning, education guidance, and job placement support for Malayalis who wish to establish themselves in the UK." },
-  { q: "Why do you ask for personal information?", a: "At QBay Career, our Malayali career consultant in the UK understands both Indian and UK job markets. We provide career counseling, interview preparation, resume building, and job assistance to ensure Malayalis succeed abroad." },
-  { q: "How long does 2Checkout store personal data?", a: "Yes, QBay Career is a trusted Malayali career consultant in Ireland, helping students and professionals with admission guidance, career development strategies, and job placement support." },
-  { q: "Who is the best career consultant in the UK for Indians?", a: "QBay Career is widely recognized as one of the best career consultants in the UK for Indians, offering personalized support for students and professionals to achieve their academic and career goals. perspiciatis." },
-  { q: "Who’s the best career consultant in Ireland?", a: "Wondering who’s the best career consultant in Ireland? QBay Career stands out with a holistic approach, helping both students and working professionals shape successful futures abroad." },
-  { q: "Are you a top-rated career consultant in the UK?", a: "Yes, QBay Career is a top-rated career consultant in the UK, trusted by Malayalis and Indians for interview preparation, career strategies, and overseas job placement." },
-  { q: "Who is a top-rated career consultant in Ireland?", a: "QBay Career is among the top-rated career consultants in Ireland, offering tailored career strategies and trusted job assistance for international students and professionals." },
-  { q: "Do you provide interview preparation assistance for international students?", a: "Yes, QBay Career is an interview preparation expert for international students, offering mock sessions, confidence coaching, and proven strategies to help you crack global interviews" },
-  { q: "Can Malayalis get interview preparation assistance from you?", a: "Absolutely! QBay Career acts as a dedicated interview preparation assistant for Malayalis, helping students and professionals face international interviews with confidence." },
-  { q: "Do you offer trusted interview cracking assistance?", a: "Yes, we are known as a trusted interview cracking assistant, helping Indian and Malayali students overcome interview challenges through expert coaching and personalized training." },
+  { 
+    q: "Who is the first Malayali career consultant in the UK?", 
+    a: "QBay Career is proud to be among the pioneers in guiding Malayalis in the UK. With expert consultants, we provide career planning, education guidance, and job placement support for Malayalis who wish to establish themselves in the UK." 
+  },
+  { 
+    q: "Why do you ask for personal information?", 
+    a: "At QBay Career, our Malayali career consultant in the UK understands both Indian and UK job markets. We provide career counseling, interview preparation, resume building, and job assistance to ensure Malayalis succeed abroad." 
+  },
+  { 
+    q: "How long does 2Checkout store personal data?", 
+    a: "Yes, QBay Career is a trusted Malayali career consultant in Ireland, helping students and professionals with admission guidance, career development strategies, and job placement support." 
+  },
+  { 
+    q: "Who is the best career consultant in the UK for Indians?", 
+    a: "QBay Career is widely recognized as one of the best career consultants in the UK for Indians, offering personalized support for students and professionals to achieve their academic and career goals. perspiciatis." 
+  },
+  {
+    q: "Who’s the best career consultant in Ireland?",
+    a: "Wondering who’s the best career consultant in Ireland? QBay Career stands out with a holistic approach, helping both students and working professionals shape successful futures abroad."
+  },
+  {
+    q: "Are you a top-rated career consultant in the UK?",
+    a: "Yes, QBay Career is a top-rated career consultant in the UK, trusted by Malayalis and Indians for interview preparation, career strategies, and overseas job placement."
+  },
+  {
+    q: "Who is a top-rated career consultant in Ireland?",
+    a: "QBay Career is among the top-rated career consultants in Ireland, offering tailored career strategies and trusted job assistance for international students and professionals."
+  },
+  {
+    q: "Do you provide interview preparation assistance for international students?",
+    a: "Yes, QBay Career is an interview preparation expert for international students, offering mock sessions, confidence coaching, and proven strategies to help you crack global interviews."
+  },
+  {
+    q: "Can Malayalis get interview preparation assistance from you?",
+    a: "Absolutely! QBay Career acts as a dedicated interview preparation assistant for Malayalis, helping students and professionals face international interviews with confidence."
+  },
+  {
+    q: "Do you offer trusted interview cracking assistance?",
+    a: "Yes, we are known as a trusted interview cracking assistant, helping Indian and Malayali students overcome interview challenges through expert coaching and personalized training."
+  },
   { q: "Who is the best job assistant expert for international students in the UK?", a: "QBay Career is recognized as the best job assistant expert for international students in the UK, helping students connect with the right opportunities through structured career support." },
   { q: "Do you provide job assistance in Ireland?", a: "Yes, QBay Career is the best job assistant expert in Ireland, offering career counseling, CV building, and job placement support for Indian and Malayali students." },
   { q: "Who is a reliable career assistant expert in Ireland?", a: "QBay Career is a trusted career assistant expert in Ireland, guiding students and professionals with tailored strategies to achieve their dream careers." },
@@ -261,20 +291,32 @@ export default function HomeClient({ initialData }: { initialData: any }) {
   const servicesHeader = cmsData?.servicesSection || cmsData?.servicesHeader || cmsData?.services || {};
   const servicesTagline = typeof servicesHeader?.tagline === 'string' ? servicesHeader.tagline : 'Our Services';
   const servicesTitle = typeof servicesHeader?.title === 'string' ? servicesHeader.title : 'Comprehensive support for your global career journey.';
+  const clientLoveData = cmsData?.clientLove || cmsData?.ClientLove || {};
   const getClientTestimonials = () => {
-    const raw = cmsData?.clientLove || cmsData?.ClientLove || cmsData?.testimonials || cmsData?.Testimonials;
+    // Priority: Explicit clientLove or ClientLove keys
+    const raw = clientLoveData;
+    
+    // Strict array check: If it's an array, return it
     if (Array.isArray(raw)) return raw;
     if (Array.isArray(raw?.testimonials)) return raw.testimonials;
+    
+    // Legacy/Fallback check: Only look for testimonials array if it hasn't been restructured into an object
+    const legacyTestimonials = cmsData?.testimonials || cmsData?.Testimonials;
+    if (Array.isArray(legacyTestimonials)) return legacyTestimonials;
+
     return defaultClientTestimonials;
   };
 
+  const clientLoveTitle = clientLoveData.title || clientLoveData.heading || 'Love ❤️ Letters from our Clients';
+  const clientLoveDescription = clientLoveData.description || clientLoveData.subtitle || clientLoveData.text || "Don't just take our word for it—hear from students and parents whose journeys have been transformed by Qbay.";
+
+
+
   // Robust mapping for FAQ
   const getFaqData = () => {
-    const raw = cmsData?.faq || cmsData?.FAQ || cmsData?.faqs || cmsData?.FAQQuestions;
-    if (Array.isArray(raw)) return raw;
-    if (Array.isArray(raw?.questions)) return raw.questions;
     return defaultFaqData;
   };
+
 
   const frameworkPhases = getFrameworkPhases() as typeof defaultFrameworkPhases;
   const clientTestimonials = getClientTestimonials() as typeof defaultClientTestimonials;
@@ -872,10 +914,10 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">
-              Love ❤️ Letters from our Clients
+              {clientLoveTitle}
             </h2>
             <p className="text-lg text-slate-600 leading-relaxed">
-              Don&apos;t just take our word for it—hear from students and parents whose journeys have been transformed by Qbay.
+              {clientLoveDescription}
             </p>
           </div>
 
