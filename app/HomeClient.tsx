@@ -189,37 +189,25 @@ const youtubeShortUrls = [
   'https://www.youtube.com/shorts/OHTmHRypVNg',
 ];
 
-const youtubeShorts = youtubeShortUrls
-  .map((url) => {
-    const match = url.match(/\/shorts\/([a-zA-Z0-9_-]{11})/);
-    const id = match?.[1];
-    if (!id) return null;
-    return {
-      id,
-      url,
-      thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
-    };
-  })
-  .filter(
-    (
-      s
-    ): s is { id: string; url: string; thumbnail: string } => Boolean(s)
-  );
+// Helper to map YouTube URLs to video objects with extracted IDs and thumbnails
+const mapYoutubeUrls = (urls: any[], quality: 'hqdefault' | 'maxresdefault' = 'hqdefault') => {
+  if (!Array.isArray(urls)) return [];
+  return urls
+    .map((url) => {
+      if (typeof url !== 'string') return null;
+      // Robust regex for both shorts and regular videos
+      const match = url.match(/(?:shorts\/|v=|\/)([a-zA-Z0-9_-]{11})/);
+      const id = match?.[1];
+      if (!id) return null;
+      return {
+        id,
+        url,
+        thumbnail: `https://i.ytimg.com/vi/${id}/${quality}.jpg`,
+      };
+    })
+    .filter((s): s is { id: string; url: string; thumbnail: string } => Boolean(s));
+};
 
-const testimonialShorts = testimonialShortUrls
-  .map((url) => {
-    const match = url.match(/shorts\/([a-zA-Z0-9_-]+)/);
-    const id = match?.[1];
-    if (!id) return null;
-    return {
-      id,
-      url,
-      thumbnail: `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`,
-    };
-  })
-  .filter(
-    (s): s is { id: string; url: string; thumbnail: string } => Boolean(s)
-  );
 
 const defaultHeroImages = [
   'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600&h=800',
@@ -336,7 +324,26 @@ export default function HomeClient({ initialData }: { initialData: any }) {
   console.log('Final Results Images Count:', resultsImages.length);
   console.log('Final Results Images:', resultsImages);
 
-  const testimonialShortsData = (Array.isArray(cmsData?.testimonials) && typeof cmsData.testimonials[0] === 'string' ? cmsData.testimonials : testimonialShortUrls) as string[];
+  // Process Video Sections
+  const testimonialsCms = cmsData?.testimonials || {};
+  
+  // 1. Grid Testimonials (Real Results section)
+  // Look for nested testimonialGrid.videoUrls, then old simple array, then fallback
+  const gridUrls = Array.isArray(testimonialsCms.testimonialGrid?.videoUrls) 
+    ? testimonialsCms.testimonialGrid.videoUrls 
+    : (Array.isArray(testimonialsCms) ? testimonialsCms : testimonialShortUrls);
+  
+  const testimonialShortsData = mapYoutubeUrls(gridUrls, 'maxresdefault');
+  const testimonialsGridTitle = testimonialsCms.testimonialGrid?.title || 'Real Results. Real Stories.';
+
+  // 2. Animated Shorts (Carousel section)
+  // Look for nested animatedShorts.videoUrls, then fallback
+  const carouselUrls = Array.isArray(testimonialsCms.animatedShorts?.videoUrls)
+    ? testimonialsCms.animatedShorts.videoUrls
+    : youtubeShortUrls;
+    
+  const youtubeShortsData = mapYoutubeUrls(carouselUrls, 'hqdefault');
+
   const servicesList = (Array.isArray(cmsData?.services) ? cmsData.services : [
     {
       title: 'Guaranteed Interview Calls',
@@ -829,27 +836,21 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       <section id="testimonials" className="bg-[#F9F5FF] py-24 scroll-mt-24 pb-40">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-[#2D1B4D] text-center mb-16 sm:text-5xl">
-            Real Results. Real Stories.
+            {testimonialsGridTitle}
           </h2>
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {testimonialShortsData.map((url, idx) => {
-              const match = url.match(/(?:shorts\/|v=)([a-zA-Z0-9_-]{11})/);
-              const id = match?.[1];
-              if (!id) return null;
-              const thumbnail = `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
-              
-              return (
+            {testimonialShortsData.map((video, idx) => (
                 <a
-                  key={id + idx}
-                  href={url}
+                  key={video.id + idx}
+                  href={video.url}
                   target="_blank"
                   rel="noreferrer"
                   className="group relative block cursor-pointer"
                 >
                   <div className="aspect-video overflow-hidden rounded-2xl bg-gray-900 shadow-xl border border-white/10 relative">
                     <img
-                      src={thumbnail}
+                      src={video.thumbnail}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       alt="Testimonial"
                       loading="lazy"
@@ -861,9 +862,9 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                     </div>
                   </div>
                 </a>
-              );
-            })}
+            ))}
           </div>
+
         </div>
       </section>
 
@@ -920,7 +921,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
             onMouseLeave={() => setIsPaused(false)}
             className="flex gap-6 overflow-x-auto pb-12 scrollbar-hide px-4 md:px-0"
           >
-            {youtubeShorts.map((s, idx) => (
+            {youtubeShortsData.map((s, idx) => (
               <a
                 key={s.id}
                 href={s.url}

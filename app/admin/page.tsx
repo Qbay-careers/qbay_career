@@ -82,6 +82,19 @@ export default function AdminDashboard() {
               return { title };
             });
           }
+        } else if (key === 'testimonials' && (Array.isArray(value) || (value && (value as any).videoUrls && !(value as any).testimonialGrid))) {
+          // Migration: Convert old array OR old object structure to new structured dual-list
+          const urls = Array.isArray(value) ? value : ((value as any).videoUrls || []);
+          newData[key] = {
+            testimonialGrid: {
+              title: (typeof value === 'object' && (value as any).title) ? (value as any).title : "Real Results. Real Stories.",
+              videoUrls: urls.slice(0, 4)
+            },
+            animatedShorts: {
+              title: "Animated Shorts",
+              videoUrls: urls.slice(4)
+            }
+          };
         } else {
           newData[key] = processContent(value, key);
         }
