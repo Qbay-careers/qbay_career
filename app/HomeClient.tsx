@@ -607,7 +607,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {servicesList.map((item) => (
+            {servicesList.filter(item => item.title !== 'Mental Wellness').map((item) => (
               <div
                 key={item.title}
                 className="group relative flex flex-col overflow-hidden rounded-lg border border-purple-100/50 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-purple-200"
