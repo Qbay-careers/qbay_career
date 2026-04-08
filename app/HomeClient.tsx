@@ -325,6 +325,23 @@ export default function HomeClient({ initialData }: { initialData: any }) {
   const heroBadges = (Array.isArray(cmsData?.hero?.badges) ? cmsData.hero.badges : ['100k+ Helped', '4.8 Trustpilot', '1:1 Experts', '90-Day Calls', 'Gov Approved']) as string[];
   const badgeIcons = [BadgeCheck, Star, PhoneCall, ShieldCheck, Globe];
   
+  // Custom badge content for Trustpilot replacement
+  const badgeContent = (badge: string, idx: number) => {
+    if (badge === '4.8 Trustpilot') {
+      return (
+        <div className="flex items-center gap-2">
+          <img 
+            src="/Green-Star-on-Gray-Checkerboard-1.png" 
+            alt="Trustpilot Rating" 
+            className="h-6 w-6 object-contain"
+          />
+          <span>{badge}</span>
+        </div>
+      );
+    }
+    return badge;
+  };
+  
   // Robust mapping for WhatsApp Results
   const resultsData = cmsData?.results || cmsData?.Results || null;
   const resultsTitle = resultsData 
@@ -543,8 +560,14 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                 const Icon = badgeIcons[idx % badgeIcons.length];
                 return (
                   <div key={idx} className="inline-flex items-center gap-2 rounded-full border border-purple-100 bg-white/70 backdrop-blur-md px-4 py-2 text-xs font-bold text-[#2D1B4D] shadow-sm">
-                    <Icon className="h-4 w-4 text-purple-600" />
-                    {badge}
+                    {badge === '4.8 Trustpilot' ? (
+                      badgeContent(badge, idx)
+                    ) : (
+                      <>
+                        <Icon className="h-4 w-4 text-purple-600" />
+                        {badge}
+                      </>
+                    )}
                   </div>
                 );
               })}
