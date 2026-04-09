@@ -17,6 +17,10 @@ import {
   CalendarDays,
   X,
   ArrowRight,
+  MapPin,
+  Clock,
+  Info,
+  Pause,
 } from 'lucide-react';
 import QBayNavbar from '@/components/QBayNavbar';
 import FeaturedOn from '@/components/FeaturedOn';
@@ -248,8 +252,101 @@ const defaultHeroImages = [
   'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=600&h=800',
 ];
 
+const defaultGoogleReviews = [
+  { name: 'Sarah J.', role: 'Software Engineer', content: 'QBay Careers helped me land my dream job in just 3 weeks! The interview prep was top-notch. Their team is dedicated and responsive.', rating: 5, time: '2 weeks ago', initial: 'S', color: 'bg-blue-500' },
+  { name: 'Michael T.', role: 'Data Analyst', content: 'Incredible experience. The team is dedicated, and their strategies actually work in today\'s competitive market. Highly recommended for anyone struggling.', rating: 5, time: '1 month ago', initial: 'M', color: 'bg-green-500' },
+  { name: 'Priya R.', role: 'Product Manager', content: 'I was struggling to get callbacks, but their CV revamp changed everything. Their 1:1 mentorship is invaluable.', rating: 5, time: '3 months ago', initial: 'P', color: 'bg-purple-500' }
+];
+
+const defaultTrustpilotReviews = [
+  { name: 'James W.', title: 'Outstanding support from start to finish', content: 'They guided me through every step of the process. I landed a senior role faster than I expected.', rating: 5, time: '4 days ago' },
+  { name: 'Emily C.', title: 'Best career investment', content: 'Worth every penny. The 1:1 coaching gave me the confidence I lacked during technical interviews.', rating: 5, time: '2 weeks ago' },
+  { name: 'Rahul M.', title: 'Highly professional and effective', content: 'Their market insights are brilliant. I secured two competing offers thanks to their negotiation coaching.', rating: 5, time: '1 month ago' },
+  { name: 'Anna K.', title: 'Life-changing career guidance', content: 'I transitioned to a completely new industry with their help. The support system is unmatched.', rating: 5, time: '2 months ago' },
+  { name: 'Sophie L.', title: 'Incredible resume overhaul', content: 'My callback rate jumped from 0% to 40% after they rewrote my CV and LinkedIn profile.', rating: 5, time: '3 months ago' },
+  { name: 'Daniel P.', title: 'Helped me relocate smoothly', content: 'Got a sponsored job in the UK. Their guidance on visa processes and international interviews was vital.', rating: 5, time: '3 months ago' }
+];
+
+const defaultAudioReviews = [
+  { name: 'David L.', role: 'UX Designer', title: 'Secured a role at a top agency', duration: '1:24', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', flag: 'https://flagcdn.com/w80/gb.png' },
+  { name: 'Anita P.', role: 'Marketing Lead', title: 'Got my UK visa sponsored job', duration: '0:58', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', flag: 'https://flagcdn.com/w80/ie.png' },
+  { name: 'John D.', role: 'Cloud Architect', title: 'Negotiated a 30% salary bump', duration: '2:15', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', flag: 'https://flagcdn.com/w80/in.png' },
+  { name: 'Rachel M.', role: 'Data Scientist', title: 'Moved from academia to tech', duration: '1:45', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3', flag: 'https://flagcdn.com/w80/gb.png' },
+  { name: 'Kevin B.', role: 'Product Manager', title: 'Landed 3 offers in 2 weeks', duration: '1:10', avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3', flag: 'https://flagcdn.com/w80/ae.png' },
+  { name: 'Linda V.', role: 'Financial Analyst', title: 'Overcame career stagnation', duration: '2:05', avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3', flag: 'https://flagcdn.com/w80/ie.png' }
+];
+
+const defaultNegativeReviews = [
+  {
+    name: 'James',
+    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150',
+    title: 'Associates are from India',
+    content: 'They hire India based interns to do the applying who don\'t even speak english.',
+    date: 'Dec 2025',
+    reply: 'That\'s correct and we\'re very transparent about it. QBay Careers is a human assistant service... Our assistants are trained to handle the grunt and operational work.'
+  },
+  {
+    name: 'David',
+    avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&h=150',
+    title: 'Using AI for Customizing Resumes',
+    content: 'They use Gemini/ChatGPT to write the cover letter and tailor resumes. Which doesn\'t make sense for all jobs.. writing the same content by just changing job title... that any free ai can.',
+    date: 'Sep 2025',
+    reply: 'That\'s correct and we\'re very transparent about it. We use AI to scale our workflows but every step is reviewed by human experts to ensure quality.'
+  },
+  {
+    name: 'Manoj',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150',
+    title: 'Not Issuing Full Refund when canceled',
+    content: 'I paid them 1055 USD. I canceled before any work was used I only received $963 USD. As a customer, their internal operating costs are irrelevant to me. When I return an...',
+    date: 'Jul 2025',
+    reply: 'We have a strict refund policy which accounts for payment processing fees and initial setup time. We are completely transparent about this before any payment is made.'
+  },
+  {
+    name: 'Sarah',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150',
+    title: 'No Guaranteed Job Placement',
+    content: 'I thought they guaranteed a job in the UK. I haven\'t secured an offer yet after 2 months. They only provided interviews and coaching.',
+    date: 'Aug 2025',
+    reply: 'We do not guarantee job offers, we guarantee interviews. Ultimately securing the role depends on your performance in the interview, which we coach you extensively for.'
+  },
+  {
+    name: 'Vikram',
+    avatar: 'https://images.unsplash.com/photo-1504257432389-52343af06ae3?auto=format&fit=crop&w=150&h=150',
+    title: 'Pricing is too high',
+    content: 'Their pricing for full career management is way too high compared to local agencies in Kerala. It feels overpriced for standard assistance.',
+    date: 'Oct 2025',
+    reply: 'We provide high-touch international consulting, not just resume forwarding. The investment directly reflects the personalized time our UK/Ireland experts spend manually reviewing your profile.'
+  },
+  {
+    name: 'Priya',
+    avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=150&h=150',
+    title: 'Time Zone Constraints',
+    content: 'It\'s hard to schedule mentoring meetings because of the time difference between India and the UK. Sometimes I have to attend calls very late at night.',
+    date: 'Nov 2025',
+    reply: 'We offer flexible slots, but our core team operates in UK/Ireland hours as that is where your target market is. Adjusting to these hours is part of the realistic preparation for working abroad.'
+  }
+];
+
 export default function HomeClient({ initialData }: { initialData: any }) {
   const [cmsData, setCmsData] = useState<any>(initialData);
+  const [playingAudioIdx, setPlayingAudioIdx] = useState<number | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const toggleAudio = (idx: number, url: string) => {
+    if (playingAudioIdx === idx) {
+      audioRef.current?.pause();
+      setPlayingAudioIdx(null);
+    } else {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+      const audio = new Audio(url);
+      audio.onended = () => setPlayingAudioIdx(null);
+      audio.play().catch(e => console.log('Audio play failed:', e));
+      audioRef.current = audio;
+      setPlayingAudioIdx(idx);
+    }
+  };
 
   useEffect(() => {
     setCmsData(initialData);
@@ -917,6 +1014,131 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       )}
 
+      {/* Removed Google Reviews Section */}
+
+      {/* Trustpilot Reviews Section */}
+      <section id="trustpilot-reviews" className="bg-[#1C1C28] py-24 scroll-mt-24 text-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
+             <div className="max-w-xl">
+               <h2 className="text-3xl md:text-4xl font-bold mb-4">Excellent on Trustpilot</h2>
+               <p className="text-gray-400 text-lg">See why thousands of job seekers trust QBay Careers for their professional journey.</p>
+             </div>
+             <div className="flex flex-col items-center md:items-end">
+               <div className="flex items-center gap-1 mb-2">
+                 {[...Array(5)].map((_, i) => (
+                   <div key={i} className="bg-[#00B67A] p-1.5 rounded-sm">
+                     <Star className="w-5 h-5 fill-white text-white" />
+                   </div>
+                 ))}
+               </div>
+               <p className="text-sm text-gray-400">Based on <strong className="text-white">400+ reviews</strong></p>
+             </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {defaultTrustpilotReviews.map((review, idx) => (
+              <div key={idx} className="bg-[#262635] rounded-xl p-6 border border-white/5 hover:border-[#00B67A]/50 transition-colors flex flex-col">
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <div key={i} className="bg-[#00B67A] p-1 rounded-sm">
+                      <Star className="w-3 h-3 fill-white text-white" />
+                    </div>
+                  ))}
+                </div>
+                <h3 className="font-bold text-white text-lg mb-3 leading-snug">{review.title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed flex-1 mb-6">
+                  {review.content}
+                </p>
+                <div className="mt-auto">
+                  <p className="font-medium text-white text-sm">{review.name}</p>
+                  <p className="text-xs text-gray-500 mt-1">{review.time}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Audio Reviews Section */}
+      <section id="audio-reviews" className="bg-white py-24 scroll-mt-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">
+              Hear their success stories
+            </h2>
+            <p className="text-lg text-slate-600 leading-relaxed">
+              Listen to real experiences from our candidates who cracked top-tier interviews and landed their dream roles.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
+             {defaultAudioReviews.map((audio, idx) => (
+               <div key={idx} className="bg-white rounded-2xl p-3 sm:p-4 border-2 border-purple-100/60 flex items-stretch gap-3 sm:gap-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-lg transition-shadow group relative overflow-hidden">
+                 {/* Left: Image Container */}
+                 <div className="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] flex-shrink-0">
+                   <img src={audio.avatar} alt={audio.name} className="w-full h-full rounded-xl object-cover" />
+                 </div>
+
+                 {/* Right: Content & Controls */}
+                 <div className="flex-1 flex flex-col py-0.5 justify-between min-w-0">
+                   {/* Top Right Flag */}
+                   <div className="absolute top-3 sm:top-4 right-3 sm:right-4 w-8 h-8 rounded-full border border-gray-100 overflow-hidden shadow-sm bg-gray-50 flex-shrink-0">
+                     <img src={audio.flag} alt="Country flag" className="w-full h-full object-cover" />
+                   </div>
+
+                   {/* Name and Role */}
+                   <div className="pr-10 min-w-0 pt-2">
+                     <h3 className="font-extrabold text-[#2D1B4D] text-base sm:text-lg leading-tight mb-1 truncate">{audio.name}</h3>
+                     <p className="text-xs sm:text-sm font-bold text-violet-600 truncate">{audio.role}</p>
+                   </div>
+
+                   {/* Play & Waveform */}
+                   <div className="flex items-center gap-2 sm:gap-3 mt-3">
+                     <button 
+                       onClick={() => {
+                         if (audio.audioUrl) {
+                           toggleAudio(idx, audio.audioUrl);
+                         }
+                       }}
+                       className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 flex items-center justify-center transition-colors flex-shrink-0 ${
+                         playingAudioIdx === idx 
+                           ? 'border-purple-600 bg-purple-600 text-white shadow-md shadow-purple-500/30 ring-2 ring-purple-100' 
+                           : 'border-violet-600 text-violet-600 hover:bg-violet-600 hover:text-white'
+                       }`}
+                     >
+                       {playingAudioIdx === idx ? (
+                         <Pause className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" />
+                       ) : (
+                         <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-0.5 fill-current" />
+                       )}
+                     </button>
+                     
+                     {/* Waveform Visualization */}
+                     <div className="flex flex-1 items-center gap-[2px] sm:gap-1 h-5 overflow-hidden pr-2">
+                       {[30, 60, 40, 80, 50, 90, 70, 40, 60, 100, 80, 50, 40, 60, 30, 70, 90, 50, 80, 40, 60, 30, 70, 90].map((h, i) => (
+                         <div 
+                           key={i} 
+                           className={`w-[3px] sm:w-1 rounded-full transition-all duration-300 ${
+                             playingAudioIdx === idx
+                               ? 'bg-purple-600 opacity-100 animate-pulse'
+                               : 'bg-violet-600 opacity-60 group-hover:opacity-100'
+                           }`} 
+                           style={{ 
+                             height: playingAudioIdx === idx ? `${Math.max(20, h + (Math.sin(i) * 20))}%` : `${h}%`,
+                             animationDelay: `${i * 0.05}s`
+                           }}
+                         />
+                       ))}
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             ))}
+          </div>
+        </div>
+      </section>
+
       <section id="testimonials" className="bg-[#F9F5FF] py-24 scroll-mt-24 pb-40">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-[#2D1B4D] text-center mb-16 sm:text-5xl">
@@ -989,6 +1211,75 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                         </svg>
                       ))}
                     </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Glaringly Painful Reviews Section */}
+      <section id="painful-reviews" className="bg-gradient-to-br from-[#F5F3FF] to-[#FAFAFA] py-24 scroll-mt-24 font-sans border-y border-purple-50">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#2D1B4D] tracking-tight flex items-center justify-center gap-3 flex-wrap mb-4">
+              Our Brutally Honest 1 
+              <span className="bg-red-500 text-white rounded-md px-1.5 py-1.5 inline-flex shadow-sm">
+                <Star className="w-5 h-5 sm:w-6 sm:h-6 fill-white" />
+              </span> 
+              Reviews 
+              <span className="text-purple-300">
+                <Info className="w-7 h-7 sm:w-9 sm:h-9" strokeWidth={1.5} />
+              </span>
+            </h2>
+            <div className="flex items-center justify-center gap-4 flex-wrap text-lg text-slate-600 mt-2">
+              <p>There is a reason for this section.</p>
+              <button className="bg-violet-600 text-white text-xs font-bold px-4 py-1.5 rounded-full hover:bg-violet-700 transition-colors shadow-sm tracking-wide">
+                Read Why?
+              </button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {defaultNegativeReviews.map((review, idx) => (
+              <div key={idx} className="bg-white rounded-[1.25rem] p-7 md:p-8 shadow-[0_4px_30px_rgb(0,0,0,0.03)] hover:shadow-xl transition-shadow duration-300 flex flex-col relative overflow-hidden group border border-purple-50">
+                <div className="flex items-center justify-between mb-8">
+                  <div className="flex items-center gap-3">
+                    <img src={review.avatar} alt={review.name} className="w-12 h-12 rounded-full object-cover shadow-sm bg-gray-100" />
+                    <h3 className="font-bold text-gray-900 text-[17px]">{review.name}</h3>
+                  </div>
+                  <div className="flex gap-0.5">
+                    <div className="bg-red-500 p-[2px] rounded-sm">
+                       <Star className="w-3.5 h-3.5 fill-white text-white" />
+                    </div>
+                    {[...Array(4)].map((_, i) => (
+                      <div key={i} className="bg-gray-200 p-[2px] rounded-sm">
+                         <Star className="w-3.5 h-3.5 fill-white text-white" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <h4 className="font-bold text-gray-900 mb-4 text-[15px]">{review.title}</h4>
+                <p className="text-gray-500 leading-relaxed text-[15px] flex-1 mb-8">
+                  {review.content}
+                </p>
+
+                <div className="flex items-center justify-between mt-auto pt-2">
+                  <span className="text-violet-600 font-bold text-sm flex items-center gap-1 cursor-pointer hover:opacity-80 transition-opacity">
+                    Read More <ArrowRight className="w-4 h-4 ml-0.5" strokeWidth={2.5} />
+                  </span>
+                  <span className="text-slate-400 text-xs font-semibold">{review.date}</span>
+                </div>
+
+                {/* Hover Reply Overlay */}
+                <div className="absolute inset-x-0 bottom-0 top-[22%] bg-[#2D1B4D] rounded-t-xl rounded-b-[1.25rem] p-6 sm:p-8 flex flex-col translate-y-[105%] group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out z-10 shadow-[0_-10px_40px_rgb(0,0,0,0.15)]">
+                  <div>
+                    <h5 className="text-violet-400 tracking-[0.15em] text-[10px] font-bold uppercase mb-4 blur-[0.3px]">FOUNDERS REPLY</h5>
+                    <p className="text-white/95 text-[15px] leading-relaxed">
+                      {review.reply}
+                    </p>
                   </div>
                 </div>
               </div>
