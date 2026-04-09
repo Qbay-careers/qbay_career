@@ -323,7 +323,7 @@ export default function PricingPage() {
             <div className="space-y-12">
               <div className="space-y-6">
                 <div className="flex justify-between items-center text-[#5D4A7A] font-bold text-lg">
-                  <span>What's Your Time Worth : €{timeWorth} / Hour</span>
+                  <span>What&apos;s Your Time Worth : €{timeWorth} / Hour</span>
                 </div>
                 <div className="relative h-4 bg-gray-100 rounded-full">
                   <div 
@@ -392,7 +392,7 @@ export default function PricingPage() {
               Proven Results. Real Success Stories.
             </h2>
             <p className="text-lg font-bold text-[#8B7FB1] max-w-4xl mx-auto leading-relaxed">
-              Over 70% of QBAY Career members receive refunds — not because they're dissatisfied, but because they secure their ideal job before using all their credits. We celebrate your success by refunding unused credits.
+              Over 70% of QBAY Career members receive refunds — not because they&apos;re dissatisfied, but because they secure their ideal job before using all their credits. We celebrate your success by refunding unused credits.
             </p>
           </div>
 
@@ -430,7 +430,7 @@ export default function PricingPage() {
               Girl Math Edition
             </h2>
             <p className="text-lg font-bold text-gray-500">
-              Let's break down why our service is a no-brainer when you think about it...
+              Let&apos;s break down why our service is a no-brainer when you think about it...
             </p>
           </div>
 
