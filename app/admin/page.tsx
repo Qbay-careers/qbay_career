@@ -34,6 +34,7 @@ const sections = [
     { id: 'testimonials', label: 'Video Shorts', description: 'YouTube shorts and video testimonials.' },
     { id: 'clientLove', label: 'Client Reviews', description: 'Detailed customer testimonials and ratings.' },
     { id: 'trustpilotReviews', label: 'Trustpilot', description: 'Trustpilot ratings, names, and reviews.' },
+    { id: 'audioReviews', label: 'Audio Testimonials', description: 'Audio success stories, roles, and flags.' },
     { id: 'services', label: 'Our Services', description: 'Categories and service cards for the home page.', targetKey: 'services' },
     { id: 'founderLetter', label: 'Founder Letter', description: 'A personal note from the founder.' },
     { id: 'finalCTA', label: 'Bottom CTA', description: 'The final call to action at the bottom.' },
@@ -116,6 +117,18 @@ export default function AdminDashboard() {
            { name: 'Sophie L.', title: 'Incredible resume overhaul', content: 'My callback rate jumped from 0% to 40% after they rewrote my CV and LinkedIn profile.', rating: 5, time: '3 months ago' },
            { name: 'Daniel P.', title: 'Helped me relocate smoothly', content: 'Got a sponsored job in the UK. Their guidance on visa processes and international interviews was vital.', rating: 5, time: '3 months ago' }
          ];
+      }
+
+      // Auto-migrate Audio Reviews
+      if (newData.audioReviews === undefined && !parentKey && newData.hero) {
+        newData.audioReviews = [
+          { name: 'David L.', role: 'UX Designer', title: 'Secured a role at a top agency', duration: '1:24', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', flag: 'https://flagcdn.com/w80/gb.png' },
+          { name: 'Anita P.', role: 'Marketing Lead', title: 'Got my UK visa sponsored job', duration: '0:58', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', flag: 'https://flagcdn.com/w80/ie.png' },
+          { name: 'John D.', role: 'Cloud Architect', title: 'Negotiated a 30% salary bump', duration: '2:15', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', flag: 'https://flagcdn.com/w80/in.png' },
+          { name: 'Rachel M.', role: 'Data Scientist', title: 'Moved from academia to tech', duration: '1:45', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3', flag: 'https://flagcdn.com/w80/gb.png' },
+          { name: 'Kevin B.', role: 'Product Manager', title: 'Landed 3 offers in 2 weeks', duration: '1:10', avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3', flag: 'https://flagcdn.com/w80/ae.png' },
+          { name: 'Linda V.', role: 'Financial Analyst', title: 'Overcame career stagnation', duration: '2:05', avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3', flag: 'https://flagcdn.com/w80/ie.png' }
+        ];
       }
 
       for (const [key, value] of Object.entries(newData)) {
@@ -277,6 +290,8 @@ export default function AdminDashboard() {
     let template: any = { title: "New Item", description: "Default description" };
     if (activeSubSection === 'trustpilotReviews') {
       template = { name: "New User", title: "Excellent Service", content: "Write your review here...", rating: 5, time: "Just now" };
+    } else if (activeSubSection === 'audioReviews') {
+      template = { name: "New Candidate", role: "Job Seeker", title: "My Career Success", audioUrl: "", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150", flag: "https://flagcdn.com/w80/gb.png", duration: "1:00" };
     } else if (activeSubSection === 'plans') {
       template = { name: "New Plan", price: "0", features: ["Benefit 1"], isRecommended: false };
     } else if (activeSubSection === 'services') {

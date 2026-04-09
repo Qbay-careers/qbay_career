@@ -419,6 +419,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
   const frameworkPhases = getFrameworkPhases() as typeof defaultFrameworkPhases;
   const clientTestimonials = getClientTestimonials() as typeof defaultClientTestimonials;
   const faqData = getFaqData() as typeof defaultFaqData;
+  const audioReviewsData = cmsData?.audioReviews || defaultAudioReviews;
   const heroImages = (() => {
     const cms = Array.isArray(cmsData?.hero?.images) ? cmsData.hero.images : [];
     const merged = [...cms, ...defaultHeroImages.filter(d => !cms.includes(d))];
@@ -1080,7 +1081,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
-             {defaultAudioReviews.map((audio, idx) => (
+             {audioReviewsData.map((audio: any, idx: number) => (
                <div key={idx} className="bg-white rounded-2xl p-3 sm:p-4 border-2 border-purple-100/60 flex items-stretch gap-3 sm:gap-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-lg transition-shadow group relative overflow-hidden">
                  {/* Left: Image Container */}
                  <div className="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] flex-shrink-0">
