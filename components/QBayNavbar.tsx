@@ -11,6 +11,7 @@ const navLinks = [
   { label: 'Services', href: '/services' },
   { label: 'Wall of Fame', href: '/wall-of-fame' },
   { label: 'Blog', href: '/blog' },
+  { label: 'Pricing', href: '/pricing' },
   { label: 'Contact', href: '/contact' },
 ];
 

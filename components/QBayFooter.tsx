@@ -26,6 +26,7 @@ export default function QBayFooter() {
               <li><Link href="/services" className="text-gray-500 hover:text-[#5D4A7A] transition-colors font-medium">Services</Link></li>
               <li><Link href="/wall-of-fame" className="text-gray-500 hover:text-[#5D4A7A] transition-colors font-medium">Wall of Fame</Link></li>
               <li><Link href="/blog" className="text-gray-500 hover:text-[#5D4A7A] transition-colors font-medium">Blog</Link></li>
+              <li><Link href="/pricing" className="text-gray-500 hover:text-[#5D4A7A] transition-colors font-medium">Pricing</Link></li>
               <li><Link href="/contact" className="text-gray-500 hover:text-[#5D4A7A] transition-colors font-medium">Contact</Link></li>
             </ul>
           </div>

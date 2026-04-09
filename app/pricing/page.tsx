@@ -23,83 +23,65 @@ interface PricingPlan {
 
 const plans: PricingPlan[] = [
   {
-    name: 'Monthly Subscription',
-    price: '€219/-',
-    originalPrice: '€258/-',
-    description: 'One time payment',
+    name: 'Starter',
+    price: '$12.0',
+    originalPrice: '',
+    description: 'Perfect for individuals or small businesses.',
     features: [
-      'Job applications on your behalf',
-      'Daily 10 job applications',
-      'Non-easy applications',
-      'Email & message applications',
-      'LinkedIn applications included',
-      'Direct company website apps',
-      'Dedicated Account Manager',
+      '1 site',
+      'Includes all features',
+      '1-year updates & support',
+      '60 days money-back guarantee',
     ],
-    buttonText: 'Checkout',
+    buttonText: 'Get Starter',
     buttonLink: '#',
   },
   {
-    name: 'Qbay Career Plan',
-    price: '€193/-',
-    originalPrice: '€263/-',
-    description: 'One time payment',
-    isHighlighted: true,
-    features: [
-      'UK/Germany/Ireland Internship',
-      '60-Day Success Club Access',
-      'Market Research & Profiling',
-      '1:1 Career Counseling',
-      '1:1 Mind Belief Sessions',
-      'Mock Interview Prep (1)',
-      'ATS CV & Cover Letter',
-      'LinkedIn Optimisation',
-    ],
-    buttonText: 'Checkout',
-    buttonLink: '#',
-    featuredColor: 'bg-indigo-600',
-  },
-  {
-    name: 'Qbay Master Plan',
-    price: '€329/-',
-    originalPrice: '€499/-',
-    description: 'One time payment',
+    name: 'Growth',
+    price: '$14.2',
+    originalPrice: '$20.00',
+    description: 'For growing teams managing multiple sites.',
     isPopular: true,
-    badgeText: 'MOST POPULAR',
+    badgeText: 'Popular',
     features: [
-      'Career Strategy Development',
-      'Effective Career Roadmap',
-      'UK/DE/IE Full time Experience',
-      '90-Day Success Club Access',
-      '2x 1:1 Career Coaching',
-      'Mock Interview Prep (2)',
-      'ATS CV & Cover Letter',
-      'LinkedIn Optimisation',
+      '10 sites',
+      'Includes all features',
+      '1-year updates & support',
+      '60 days money-back guarantee',
     ],
-    buttonText: 'Checkout',
+    buttonText: 'Get Growth',
     buttonLink: '#',
   },
   {
-    name: 'Qbay Premium Plan',
-    price: '€639/-',
-    originalPrice: '€799/-',
-    description: 'One time payment',
-    isMaxResult: true,
-    badgeText: 'MAX RESULTS!',
+    name: 'Scale',
+    price: '$49.0',
+    originalPrice: '',
+    description: 'Perfect for scaling businesses managing unlimited sites.',
     features: [
-      '3 Month Application Assistance',
-      'UK & India Career Roadmap',
-      '100-Day Internship Assistance',
-      'Full Success Club Access',
-      '3x Career Coaching Sessions',
-      '2x Mind Belief Counseling',
-      'Mock Interview Prep (3)',
-      'ATS CV & Cover Letter',
+      'Unlimited sites',
+      'Includes all features',
+      '1-year updates & support',
+      '60 days money-back guarantee',
     ],
-    buttonText: 'Checkout',
+    buttonText: 'Get Scale',
     buttonLink: '#',
   },
 ];
+
+const ultimatePlan = {
+  name: 'Ultimate',
+  price: '$299.5',
+  originalPrice: '$599.00',
+  description: 'The all-in-one solution for lifetime access to unlimited websites.',
+  features: [
+    'Unlimited sites',
+    'Includes all features',
+    'Lifetime updates & support',
+    '6-month money-back guarantee',
+  ],
+  buttonText: 'Get Ultimate',
+  buttonLink: '#',
+};
 
 const girlMathItems = [
   { icon: Clock, text: 'Resume consultation cost you €500/hour' },
@@ -169,72 +151,158 @@ export default function PricingPage() {
       </section>
 
       {/* Pricing Grid */}
-      <section className="px-4 pb-20">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+      <section className="px-4 pb-12">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`group relative flex flex-col rounded-3xl p-8 transition-all duration-500 ease-out hover:-translate-y-2 ${
-                plan.isHighlighted
-                  ? 'ring-2 ring-indigo-600 shadow-2xl shadow-indigo-100 bg-white'
-                  : 'bg-white shadow-xl shadow-gray-100 hover:shadow-2xl hover:shadow-purple-100'
-              }`}
+              className="relative flex flex-col rounded-[2.5rem] p-10 bg-white border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-xl group"
             >
-              {/* Badges */}
-              {(plan.isPopular || plan.isMaxResult) && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-lg bg-indigo-600 px-4 py-1.5 text-[10px] font-black tracking-widest text-white shadow-lg shadow-indigo-200">
-                  {plan.badgeText}
-                </div>
-              )}
-
-              <div className="mb-8">
-                <h3 className="text-lg font-black text-gray-900 mb-6 leading-tight">
+              <div className="flex justify-between items-start mb-4">
+                <h3 className="text-3xl font-bold text-gray-800 tracking-tight">
                   {plan.name}
                 </h3>
-                
-                <div className="flex items-baseline gap-2 mb-2">
-                  <span className="text-3xl font-black text-gray-900">{plan.price}</span>
-                  <span className="text-base font-bold text-gray-400 line-through decoration-2">
-                    {plan.originalPrice}
+                {plan.isPopular && (
+                  <span className="bg-[#6366f1] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                    {plan.badgeText}
                   </span>
-                </div>
-                <p className="text-[12px] font-bold text-gray-500 uppercase tracking-widest">
-                  {plan.description}
-                </p>
+                )}
               </div>
 
-              <div className="flex-1 space-y-3.5 mb-10">
+              <p className="text-gray-500 text-sm mb-12 max-w-[200px] leading-relaxed">
+                {plan.description}
+              </p>
+
+              <div className="mb-10">
+                {plan.originalPrice && (
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="bg-[#e0e7ff] text-[#6366f1] text-[10px] font-bold px-2 py-0.5 rounded">
+                      30% OFF
+                    </span>
+                    <span className="text-gray-400 line-through text-lg">
+                      {plan.originalPrice}
+                    </span>
+                  </div>
+                )}
+                <div className="flex items-baseline">
+                  <span className="text-5xl font-bold text-gray-900 tracking-tighter">
+                    {plan.price}
+                  </span>
+                  <span className="text-gray-500 text-sm ml-1">/year</span>
+                  <div className="ml-auto border border-gray-200 rounded px-1.5 py-0.5 text-[8px] font-bold text-gray-400">
+                    USD ($)
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-4 mb-12">
                 {plan.features.map((feature) => (
-                  <div key={feature} className="flex gap-2.5 text-left">
-                    <Check className="h-4 w-4 shrink-0 text-[#37C36B] stroke-[3px] mt-0.5" />
-                    <span className="text-[13px] font-semibold text-gray-700 leading-snug">
-                      {feature === 'UK/DE/IE Full time Experience' ? (
-                        <>
-                          UK/DE/IE <span className="text-red-500">Full time Experience</span>
-                        </>
-                      ) : (
-                        feature
-                      )}
+                  <div key={feature} className="flex items-start gap-3 group/feature">
+                    <div className="mt-1 rounded-full text-[#6366f1] transition-transform duration-300 group-hover/feature:scale-110">
+                      <Check className="h-3.5 w-3.5 stroke-[4px]" />
+                    </div>
+                    <span className="text-sm font-medium text-gray-600">
+                      {feature}
                     </span>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-auto">
+              <div className="mt-auto space-y-4">
                 <Link
                   href={plan.buttonLink}
-                  className={`flex w-full items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-black transition-all active:scale-[0.98] ${
-                    plan.isHighlighted
-                      ? 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-lg shadow-indigo-100'
-                      : 'bg-[#121826] text-white hover:bg-[#1f2937]'
+                  className={`flex w-full items-center justify-center rounded-2xl py-5 text-sm font-bold transition-all ${
+                    plan.isPopular
+                      ? 'bg-[#4f46e5] text-white hover:bg-[#4338ca] shadow-lg shadow-indigo-100'
+                      : 'bg-[#e0e7ff] text-[#4f46e5] hover:bg-[#d1d5ff]'
                   }`}
                 >
                   {plan.buttonText}
-                  <ArrowRight className="h-4 w-4" />
                 </Link>
+                <p className="text-center text-[10px] text-gray-400 font-medium">
+                  Pay today $55.3, renews at $79
+                </p>
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Ultimate Plan Section */}
+      <section className="px-4 pb-20">
+        <div className="max-w-7xl mx-auto">
+          <div className="relative rounded-[2.5rem] overflow-hidden bg-[#0a021c] p-12 lg:p-16 flex flex-col lg:flex-row gap-12 lg:items-center">
+            {/* Background Effects */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#1a0b3b] via-transparent to-transparent opacity-50" />
+            <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-[#6366f1]/10 to-transparent" />
+            
+            <div className="relative flex-1">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="bg-white/10 p-2 rounded-xl border border-white/10">
+                  <div className="w-5 h-5 border-2 border-white rotate-45" />
+                </div>
+                <h3 className="text-2xl font-bold text-white tracking-wide">
+                  {ultimatePlan.name}
+                </h3>
+              </div>
+              
+              <h2 className="text-4xl lg:text-5xl font-bold text-white leading-[1.15] mb-12 max-w-xl">
+                The all-in-one solution for <span className="text-[#facc15] italic">lifetime access</span> to unlimited websites.
+              </h2>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-y-5 gap-x-8">
+                {ultimatePlan.features.map((feature, idx) => (
+                  <div key={idx} className="flex items-center gap-3">
+                    <Check className="h-4 w-4 text-[#6366f1] stroke-[4px]" />
+                    <span className={`text-sm font-medium ${idx === ultimatePlan.features.length - 1 ? 'text-[#facc15]' : 'text-gray-300'}`}>
+                      {feature}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="relative w-full lg:w-[400px] shrink-0">
+              <div className="bg-[#120a26] border border-white/5 rounded-[2rem] p-10 shadow-2xl">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="bg-[#4f46e5] text-white text-[10px] font-bold px-2 py-0.5 rounded">
+                    30% OFF
+                  </span>
+                  <span className="text-gray-400 line-through text-lg">
+                    {ultimatePlan.originalPrice}
+                  </span>
+                </div>
+                
+                <div className="flex items-baseline mb-12">
+                  <span className="text-5xl font-bold text-white tracking-tighter">
+                    {ultimatePlan.price}
+                  </span>
+                  <span className="text-gray-400 text-sm ml-1">/year</span>
+                  <div className="ml-auto border border-white/10 rounded px-1.5 py-0.5 text-[8px] font-bold text-gray-500">
+                    USD ($)
+                  </div>
+                </div>
+
+                <div className="space-y-4 mb-8">
+                  <div className="flex items-center gap-3 text-gray-400">
+                    <div className="w-4 h-4 rounded-full border border-gray-600 flex items-center justify-center text-[10px]">i</div>
+                    <span className="text-sm font-medium">For up to 10 members,</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-gray-400">
+                    <div className="w-4 h-4 rounded-full border border-gray-600 flex items-center justify-center text-[10px]">$</div>
+                    <span className="text-sm font-medium">$8 per additional member per month</span>
+                  </div>
+                </div>
+
+                <Link
+                  href={ultimatePlan.buttonLink}
+                  className="flex w-full items-center justify-center rounded-2xl bg-[#4f46e5] py-5 text-sm font-bold text-white transition-all hover:bg-[#4338ca] shadow-xl shadow-indigo-900/40"
+                >
+                  {ultimatePlan.buttonText}
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
