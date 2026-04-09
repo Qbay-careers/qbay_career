@@ -18,6 +18,7 @@ export default function QBayNavbar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,10 +31,15 @@ export default function QBayNavbar() {
 
   useEffect(() => {
     const onResize = () => {
-      if (window.innerWidth >= 768) {
+      const desktop = window.innerWidth >= 768;
+      setIsDesktop(desktop);
+      if (desktop) {
         setOpen(false);
       }
     };
+    
+    // Initial check
+    onResize();
 
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
@@ -42,18 +48,22 @@ export default function QBayNavbar() {
   const navTextColor = 'text-[#2D1B4D]/90';
   const activeTextColor = 'text-[#160E22] font-extrabold';
 
+  const useCapsuleStyle = isScrolled && isDesktop;
+
   return (
-    <div className={`fixed left-0 w-full z-50 flex justify-center transition-all duration-500 ${isScrolled ? 'top-6 px-4' : 'top-0'}`}>
+    <div className={`fixed left-0 w-full z-50 flex justify-center transition-all duration-500 ${useCapsuleStyle ? 'top-6 px-4' : 'top-0'}`}>
       <header 
         className={`transition-all duration-500 overflow-hidden flex items-center justify-between ${
-          isScrolled 
+          useCapsuleStyle 
             ? 'bg-white/40 backdrop-blur-2xl shadow-lg shadow-purple-900/5 w-auto rounded-full px-8 h-14 border border-white/60' 
-            : 'bg-transparent border-transparent w-full max-w-7xl px-4 sm:px-6 lg:px-8 h-20'
+            : isScrolled 
+              ? 'bg-white/90 backdrop-blur-xl shadow-sm border-b border-gray-100 w-full px-4 sm:px-6 lg:px-8 h-16' 
+              : 'bg-transparent border-transparent w-full max-w-7xl px-4 sm:px-6 lg:px-8 h-20'
         }`}
       >
         <div 
           className={`flex items-center transition-all duration-300 ${
-            isScrolled ? 'hidden' : 'opacity-100 mr-8'
+            useCapsuleStyle ? 'hidden' : 'opacity-100 mr-8'
           }`}
         >
           <Link href="/" className="flex items-center" aria-label="Go to home">
