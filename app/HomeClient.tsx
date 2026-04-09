@@ -21,6 +21,7 @@ import {
   Clock,
   Info,
   Pause,
+  Quote,
 } from 'lucide-react';
 import QBayNavbar from '@/components/QBayNavbar';
 import FeaturedOn from '@/components/FeaturedOn';
@@ -106,6 +107,7 @@ const defaultClientTestimonials = [
     image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150',
     content:
       'Balancing work and job applications was exhausting. Each application felt repetitive and draining. I almost gave up after weeks of no responses. But once I got structured support and a smarter strategy, everything changed. Within weeks, interviews started lining up. The clarity and consistency made all the difference. I finally felt confident and supported throughout the process.',
+    rating: 5,
   },
   {
     name: 'Daniel Brooks',
@@ -113,6 +115,7 @@ const defaultClientTestimonials = [
     image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150&h=150',
     content:
       'Moving to a new country meant starting from scratch. I didn\'t understand how the hiring process worked here. Applications went unanswered and I felt stuck. After getting guidance and optimizing my approach, I started seeing real traction. Recruiters began reaching out. In just one month, I secured multiple offers and negotiated a better package than I expected.',
+    rating: 5,
   },
   {
     name: 'Emily Chen',
@@ -120,6 +123,7 @@ const defaultClientTestimonials = [
     image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150',
     content:
       'After facing a sudden layoff, I had limited time to secure a new role. The pressure was intense. Instead of applying randomly, I followed a focused and aggressive strategy. The results were unbelievable. Within four weeks, I received three strong offers and increased my salary significantly. The support system kept me motivated and organized.',
+    rating: 5,
   },
 ];
 
@@ -1182,43 +1186,71 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      <section id="client-love" className="bg-white py-16 sm:py-24 scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">
+      <section id="client-love" className="relative bg-gradient-to-b from-white via-[#F8F7FF] to-white py-24 sm:py-32 scroll-mt-24 overflow-hidden">
+        {/* Decorative Background Elements */}
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-40">
+          <div className="absolute top-20 -left-20 w-96 h-96 bg-purple-200/30 rounded-full blur-[100px]" />
+          <div className="absolute bottom-20 -right-20 w-96 h-96 bg-violet-200/30 rounded-full blur-[100px]" />
+        </div>
+
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#2D1B4D] tracking-tight mb-6">
               {clientLoveTitle}
             </h2>
-            <p className="text-lg text-slate-600 leading-relaxed">
+            <div className="flex items-center justify-center gap-2 mb-6">
+              <div className="h-1 w-12 bg-purple-600 rounded-full" />
+              <Quote className="w-5 h-5 text-purple-600 fill-current" />
+              <div className="h-1 w-12 bg-purple-600 rounded-full" />
+            </div>
+            <p className="text-lg sm:text-xl text-slate-600 leading-relaxed font-medium">
               {clientLoveDescription}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {clientTestimonials.map((testimonial, index) => (
-              <div key={index} className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0">
-                    <img
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-full object-cover"
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <h3 className="font-semibold text-gray-900">{testimonial.name}</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+            {clientTestimonials.map((testimonial: any, index: number) => (
+              <div 
+                key={index} 
+                className="group relative bg-white/70 backdrop-blur-xl rounded-[2rem] p-8 border border-white/80 shadow-[0_10px_40px_rgba(45,27,77,0.04)] hover:shadow-[0_20px_50px_rgba(45,27,77,0.08)] transition-all duration-500 hover:-translate-y-3"
+              >
+                {/* Floating Quote Icon */}
+                <div className="absolute -top-4 -right-4 w-12 h-12 bg-purple-600 text-white rounded-2xl flex items-center justify-center shadow-lg transform rotate-12 group-hover:rotate-0 transition-transform duration-500">
+                  <Quote className="w-6 h-6 fill-current" />
+                </div>
+
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-purple-600 rounded-2xl blur-md opacity-20 group-hover:opacity-40 transition-opacity" />
+                      <img
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        className="relative w-16 h-16 rounded-2xl object-cover border-2 border-white shadow-sm"
+                      />
                     </div>
-                    <p className="text-sm text-gray-500 mb-3">{testimonial.role}</p>
-                    <p className="text-gray-700 leading-relaxed text-sm">
-                      {testimonial.content}
+                    <div>
+                      <h3 className="font-bold text-[#2D1B4D] text-lg leading-tight">{testimonial.name}</h3>
+                      <p className="text-sm font-semibold text-purple-600/80 mt-1 uppercase tracking-wider">{testimonial.role}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex-1 relative">
+                    <p className="text-[#4A4A68] leading-relaxed text-base italic font-medium">
+                      "{testimonial.content}"
                     </p>
-                    <div className="mt-3 flex items-center gap-1">
+                  </div>
+
+                  <div className="mt-8 pt-6 border-t border-purple-100/50 flex items-center justify-between">
+                    <div className="flex items-center gap-1">
                       {[1, 2, 3, 4, 5].map((star) => (
-                        <svg key={star} className="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                          <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-                        </svg>
+                        <Star 
+                          key={star} 
+                          className={`w-4 h-4 ${star <= (testimonial.rating || 5) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200'}`} 
+                        />
                       ))}
                     </div>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">Verified Review</span>
                   </div>
                 </div>
               </div>

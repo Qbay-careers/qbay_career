@@ -131,6 +131,21 @@ export default function AdminDashboard() {
         ];
       }
 
+      // Auto-migrate Client Love Ratings
+      if (newData.clientLove && typeof newData.clientLove === 'object') {
+        const items = Array.isArray(newData.clientLove) ? newData.clientLove : (newData.clientLove.testimonials || []);
+        if (Array.isArray(items)) {
+          items.forEach((item: any) => {
+            if (item.rating === undefined) item.rating = 5;
+          });
+          if (!Array.isArray(newData.clientLove) && newData.clientLove.testimonials) {
+            newData.clientLove.testimonials = items;
+          } else if (Array.isArray(newData.clientLove)) {
+            newData.clientLove = items;
+          }
+        }
+      }
+
       for (const [key, value] of Object.entries(newData)) {
         // Only upgrade to full objects (with description) if it's a main service 
         // (identified by having a slug/image) or if it's the top-level 'services' key.
@@ -296,6 +311,8 @@ export default function AdminDashboard() {
       template = { name: "New Plan", price: "0", features: ["Benefit 1"], isRecommended: false };
     } else if (activeSubSection === 'services') {
       template = { title: "New Service", description: "Service details...", image: "", slug: "new-service" };
+    } else if (activeSubSection === 'clientLove') {
+      template = { name: "New Client", role: "Job Seeker", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150", content: "Write the feedback here...", rating: 5 };
     }
 
     if (sub?.targetKey) {
