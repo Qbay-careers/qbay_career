@@ -22,7 +22,8 @@ export default function QBayNavbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      // Small delay/threshold to prevent flickering
+      setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -31,7 +32,8 @@ export default function QBayNavbar() {
 
   useEffect(() => {
     const onResize = () => {
-      const desktop = window.innerWidth >= 768;
+      // Laptop/Desktop is typically 1024px+ for this kind of effect
+      const desktop = window.innerWidth >= 1024;
       setIsDesktop(desktop);
       if (desktop) {
         setOpen(false);
@@ -51,19 +53,19 @@ export default function QBayNavbar() {
   const useCapsuleStyle = isScrolled && isDesktop;
 
   return (
-    <div className={`fixed left-0 w-full z-50 flex justify-center transition-all duration-500 ${useCapsuleStyle ? 'top-6 px-4' : 'top-0'}`}>
+    <div className={`fixed left-0 w-full z-50 flex justify-center transition-all duration-700 ease-in-out ${useCapsuleStyle ? 'top-4 px-4' : 'top-0'}`}>
       <header 
-        className={`transition-all duration-500 overflow-hidden flex items-center justify-between ${
+        className={`transition-all duration-700 ease-in-out overflow-hidden flex items-center justify-between ${
           useCapsuleStyle 
-            ? 'bg-white/40 backdrop-blur-2xl shadow-lg shadow-purple-900/5 w-auto rounded-full px-8 h-14 border border-white/60' 
+            ? 'bg-white/70 backdrop-blur-xl shadow-[0_8px_32px_rgba(45,27,77,0.1)] max-w-max rounded-full px-8 h-12 border border-white/80' 
             : isScrolled 
-              ? 'bg-white/90 backdrop-blur-xl shadow-sm border-b border-gray-100 w-full px-4 sm:px-6 lg:px-8 h-16' 
+              ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100 w-full px-4 sm:px-6 lg:px-8 h-16' 
               : 'bg-transparent border-transparent w-full max-w-7xl px-4 sm:px-6 lg:px-8 h-20'
         }`}
       >
         <div 
-          className={`flex items-center transition-all duration-300 ${
-            useCapsuleStyle ? 'hidden' : 'opacity-100 mr-8'
+          className={`flex-shrink-0 transition-all duration-500 ${
+            useCapsuleStyle ? 'w-0 opacity-0 pointer-events-none' : 'w-auto opacity-100 mr-8'
           }`}
         >
           <Link href="/" className="flex items-center" aria-label="Go to home">
@@ -71,7 +73,7 @@ export default function QBayNavbar() {
           </Link>
         </div>
 
-        <nav className={`hidden items-center gap-8 md:flex whitespace-nowrap transition-all duration-300`} aria-label="Primary">
+        <nav className={`hidden items-center transition-all duration-300 ${useCapsuleStyle ? 'gap-6' : 'gap-8'} md:flex whitespace-nowrap`} aria-label="Primary">
           {navLinks.map((l) => (
             <Link
               key={l.label}
@@ -79,7 +81,7 @@ export default function QBayNavbar() {
               className={`text-sm transition-all hover:scale-105 ${
                 pathname === l.href
                   ? `font-bold ${activeTextColor}`
-                  : `font-medium hover:opacity-100 ${isScrolled ? `${navTextColor} hover:text-[#160E22]` : navTextColor}`
+                  : `font-medium hover:opacity-100 ${isScrolled ? `${navTextColor} hover:text-violet-600` : navTextColor}`
               }`}
             >
               {l.label}

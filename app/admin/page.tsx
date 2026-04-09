@@ -31,6 +31,7 @@ const sections = [
     { id: 'results', label: 'WhatsApp Results', description: 'Success story images and social proof.' },
     { id: 'testimonials', label: 'Video Shorts', description: 'YouTube shorts and video testimonials.' },
     { id: 'clientLove', label: 'Client Reviews', description: 'Detailed customer testimonials and ratings.' },
+    { id: 'trustpilotReviews', label: 'Trustpilot', description: 'Trustpilot ratings, names, and reviews.' },
     { id: 'services', label: 'Our Services', description: 'Categories and service cards for the home page.', targetKey: 'services' },
     { id: 'founderLetter', label: 'Founder Letter', description: 'A personal note from the founder.' },
     { id: 'finalCTA', label: 'Bottom CTA', description: 'The final call to action at the bottom.' },
@@ -101,6 +102,18 @@ export default function AdminDashboard() {
           // Remove it from standard plans
           newData.plans = newData.plans.filter((_: any, idx: number) => idx !== monthlyIndex);
         }
+      }
+
+      // Auto-migrate Trustpilot Reviews
+      if (newData.trustpilotReviews === undefined && !parentKey && newData.hero) {
+         newData.trustpilotReviews = [
+           { name: 'James W.', title: 'Outstanding support from start to finish', content: 'They guided me through every step of the process. I landed a senior role faster than I expected.', rating: 5, time: '4 days ago' },
+           { name: 'Emily C.', title: 'Best career investment', content: 'Worth every penny. The 1:1 coaching gave me the confidence I lacked during technical interviews.', rating: 5, time: '2 weeks ago' },
+           { name: 'Rahul M.', title: 'Highly professional and effective', content: 'Their market insights are brilliant. I secured two competing offers thanks to their negotiation coaching.', rating: 5, time: '1 month ago' },
+           { name: 'Anna K.', title: 'Life-changing career guidance', content: 'I transitioned to a completely new industry with their help. The support system is unmatched.', rating: 5, time: '2 months ago' },
+           { name: 'Sophie L.', title: 'Incredible resume overhaul', content: 'My callback rate jumped from 0% to 40% after they rewrote my CV and LinkedIn profile.', rating: 5, time: '3 months ago' },
+           { name: 'Daniel P.', title: 'Helped me relocate smoothly', content: 'Got a sponsored job in the UK. Their guidance on visa processes and international interviews was vital.', rating: 5, time: '3 months ago' }
+         ];
       }
 
       for (const [key, value] of Object.entries(newData)) {

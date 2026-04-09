@@ -407,17 +407,15 @@ export default function HomeClient({ initialData }: { initialData: any }) {
     return defaultClientTestimonials;
   };
 
-  const clientLoveTitle = clientLoveData.title || clientLoveData.heading || 'Love ❤️ Letters from our Clients';
-  const clientLoveDescription = clientLoveData.description || clientLoveData.subtitle || clientLoveData.text || "Don't just take our word for it—hear from students and parents whose journeys have been transformed by Qbay.";
-
-
-
   // Robust mapping for FAQ
   const getFaqData = () => {
     return defaultFaqData;
   };
 
+  const clientLoveTitle = clientLoveData.title || clientLoveData.heading || 'Love ❤️ Letters from our Clients';
+  const clientLoveDescription = clientLoveData.description || clientLoveData.subtitle || clientLoveData.text || "Don't just take our word for it—hear from students and parents whose journeys have been transformed by Qbay.";
 
+  const trustpilotData = cmsData?.trustpilotReviews || defaultTrustpilotReviews;
   const frameworkPhases = getFrameworkPhases() as typeof defaultFrameworkPhases;
   const clientTestimonials = getClientTestimonials() as typeof defaultClientTestimonials;
   const faqData = getFaqData() as typeof defaultFaqData;
@@ -1037,25 +1035,34 @@ export default function HomeClient({ initialData }: { initialData: any }) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {defaultTrustpilotReviews.map((review, idx) => (
-              <div key={idx} className="bg-[#262635] rounded-xl p-6 border border-white/5 hover:border-[#00B67A]/50 transition-colors flex flex-col">
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <div key={i} className="bg-[#00B67A] p-1 rounded-sm">
-                      <Star className="w-3 h-3 fill-white text-white" />
-                    </div>
-                  ))}
-                </div>
-                <h3 className="font-bold text-white text-lg mb-3 leading-snug">{review.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed flex-1 mb-6">
-                  {review.content}
-                </p>
+            {trustpilotData.map((review: any, idx: number) => {
+              const ratingCount = !isNaN(Number(review.rating)) && Number(review.rating) > 0 ? Number(review.rating) : 5;
+              
+              return (
+                <div key={idx} className="bg-[#262635] rounded-xl p-6 border border-white/5 hover:border-[#00B67A]/50 transition-colors flex flex-col">
+                  <div className="flex items-center gap-1 mb-4">
+                    {[...Array(ratingCount)].map((_, i) => (
+                      <div key={i} className="bg-[#00B67A] p-1 rounded-sm">
+                        <Star className="w-3 h-3 fill-white text-white" />
+                      </div>
+                    ))}
+                    {[...Array(5 - ratingCount)].map((_, i) => (
+                       <div key={`empty-${i}`} className="bg-gray-600 p-1 rounded-sm">
+                         <Star className="w-3 h-3 fill-gray-800 text-gray-800" />
+                       </div>
+                    ))}
+                  </div>
+                  <h3 className="font-bold text-white text-lg mb-3 leading-snug">{review.title}</h3>
+                  <p className="text-gray-400 text-sm leading-relaxed flex-1 mb-6">
+                    {review.content}
+                  </p>
                 <div className="mt-auto">
                   <p className="font-medium text-white text-sm">{review.name}</p>
                   <p className="text-xs text-gray-500 mt-1">{review.time}</p>
                 </div>
               </div>
-            ))}
+            );
+          })}
           </div>
         </div>
       </section>
@@ -1146,7 +1153,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
           </h2>
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {testimonialShortsData.map((video, idx) => (
+            {testimonialShortsData.map((video: { id: string; url: string; thumbnail: string }, idx: number) => (
                 <a
                   key={video.id + idx}
                   href={video.url}
