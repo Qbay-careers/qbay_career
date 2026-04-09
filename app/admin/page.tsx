@@ -36,7 +36,12 @@ const sections = [
     { id: 'finalCTA', label: 'Bottom CTA', description: 'The final call to action at the bottom.' },
   ]},
   { id: 'about', icon: Info, label: 'About Us' },
-  { id: 'pricing', icon: Euro, label: 'Pricing' },
+  { id: 'pricing', icon: Euro, label: 'Pricing', subSections: [
+    { id: 'header', label: 'Pricing Header', description: 'Main heading, subtitle, and description.' },
+    { id: 'plans', label: 'Standard Packages', description: 'The main pricing plans (3 cards).' },
+    { id: 'monthlyPlan', label: 'Monthly Subscription', description: 'The full width monthly subscription plan card at the top.' },
+    { id: 'cancellation', label: 'Cancellation Policy', description: 'Manage refund details and policy items.' }
+  ]},
   { id: 'contactPage', icon: Mail, label: 'Contact Page' },
   { id: 'services', icon: Briefcase, label: 'Services' },
 ];
@@ -62,6 +67,25 @@ export default function AdminDashboard() {
 
     if (typeof data === 'object') {
       const newData = { ...data };
+
+      // Auto-migrate Pricing Schema: map 'hero' to 'header'
+      if (newData.hero && !newData.header) {
+        newData.header = newData.hero;
+      }
+
+      // Auto-migrate Pricing Schema: extract 'Monthly Subscription' from 'plans'
+      if (Array.isArray(newData.plans)) {
+        const monthlyIndex = newData.plans.findIndex((p: any) => 
+          p.name && p.name.toLowerCase().includes('monthly')
+        );
+        
+        if (monthlyIndex !== -1 && !newData.monthlyPlan) {
+          newData.monthlyPlan = newData.plans[monthlyIndex];
+          // Remove it from standard plans
+          newData.plans = newData.plans.filter((_: any, idx: number) => idx !== monthlyIndex);
+        }
+      }
+
       for (const [key, value] of Object.entries(newData)) {
         // Only upgrade to full objects (with description) if it's a main service 
         // (identified by having a slug/image) or if it's the top-level 'services' key.
