@@ -16,7 +16,9 @@ import {
   CheckCircle2,
   AlertCircle,
   ArrowLeft,
-  LayoutGrid
+  LayoutGrid,
+  Plus,
+  Trash2
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { Toaster, toast } from 'sonner';
@@ -267,6 +269,49 @@ export default function AdminDashboard() {
     }
   };
 
+  const addItem = () => {
+    if (!activeSubSection) return;
+    const sub = sections.find(s => s.id === activeSection)?.subSections?.find(ss => ss.id === activeSubSection);
+    
+    // Create a template based on the subsection
+    let template: any = { title: "New Item", description: "Default description" };
+    if (activeSubSection === 'trustpilotReviews') {
+      template = { name: "New User", title: "Excellent Service", content: "Write your review here...", rating: 5, time: "Just now" };
+    } else if (activeSubSection === 'plans') {
+      template = { name: "New Plan", price: "0", features: ["Benefit 1"], isRecommended: false };
+    } else if (activeSubSection === 'services') {
+      template = { title: "New Service", description: "Service details...", image: "", slug: "new-service" };
+    }
+
+    if (sub?.targetKey) {
+      const newArray = [...(subContent || []), template];
+      setSubContent(newArray);
+      setActiveItemIndex(newArray.length - 1);
+    } else {
+      const newArray = [...(content[activeSubSection] || []), template];
+      setContent({ ...content, [activeSubSection]: newArray });
+      setActiveItemIndex(newArray.length - 1);
+    }
+    toast.info("Added new item template");
+  };
+
+  const removeItem = (index: number) => {
+    if (!activeSubSection) return;
+    const sub = sections.find(s => s.id === activeSection)?.subSections?.find(ss => ss.id === activeSubSection);
+
+    if (window.confirm("Are you sure you want to delete this item?")) {
+      if (sub?.targetKey) {
+        const newArray = subContent.filter((_: any, i: number) => i !== index);
+        setSubContent(newArray);
+      } else {
+        const newArray = content[activeSubSection].filter((_: any, i: number) => i !== index);
+        setContent({ ...content, [activeSubSection]: newArray });
+      }
+      setActiveItemIndex(null);
+      toast.error("Item removed. Don't forget to save changes!");
+    }
+  };
+
   const currentSection = sections.find(s => s.id === activeSection);
   const currentSubSection = currentSection?.subSections?.find(s => s.id === activeSubSection);
   const activeItems = currentSubSection?.targetKey ? subContent : (currentSubSection && activeSubSection ? content[activeSubSection] : null);
@@ -351,6 +396,15 @@ export default function AdminDashboard() {
               <RefreshCcw size={16} />
               Reload
             </button>
+            {activeItemIndex !== null && isArraySection && (
+              <button
+                onClick={() => removeItem(activeItemIndex)}
+                className="flex items-center justify-center h-10 w-10 rounded-lg bg-red-50 text-red-600 hover:bg-red-600 hover:text-white transition-all shadow-sm border border-red-100"
+                title="Remove Item"
+              >
+                <Trash2 size={18} />
+              </button>
+            )}
             <button
               onClick={handleSave}
               disabled={saving || loading || (currentSection?.subSections && !activeSubSection && !devMode)}
@@ -401,6 +455,18 @@ export default function AdminDashboard() {
               ) : isArraySection && activeItemIndex === null && !devMode ? (
                 /* Item Selection Grid (Sub-Section OverView) */
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                  {/* Add New Item Button Card */}
+                  <button
+                    onClick={addItem}
+                    className="group flex flex-col items-center justify-center rounded-3xl border-2 border-dashed border-purple-100 bg-purple-50/20 p-8 text-center transition-all hover:bg-purple-50 hover:border-purple-300 hover:shadow-lg h-full min-h-[220px]"
+                  >
+                    <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-white text-purple-600 shadow-sm transition-transform group-hover:scale-110">
+                       <Plus size={28} />
+                    </div>
+                    <h3 className="text-lg font-bold text-[#1A112B]">Add New Item</h3>
+                    <p className="text-sm text-slate-500 mt-1 max-w-[180px]">Expand your {currentSubSection?.label || 'list'} with fresh content.</p>
+                  </button>
+
                   {activeItems.map((item: any, index: number) => (
                     <button
                       key={index}
