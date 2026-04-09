@@ -4,7 +4,7 @@ import { Poppins } from 'next/font/google';
 import { Providers } from './providers';
 import StickyActionBar from '@/components/StickyActionBar';
 
-const poppins = Poppins({ subsets: ['latin'], weight: ['300', '400', '500', '600', '700'], variable: '--font-sans' });
+const poppins = Poppins({ subsets: ['latin'], weight: ['300', '400', '500', '600', '700', '800', '900'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
   title: 'QBay Careers',

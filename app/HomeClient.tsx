@@ -771,75 +771,75 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      <section id="framework" className="bg-[#F9F5FF] scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-          <h2 
-            className="mb-12 text-4xl font-bold tracking-tight text-[#2D1B4D] sm:text-5xl"
-            dangerouslySetInnerHTML={{ __html: frameworkHeading }}
-          />
+      <section id="framework" className="relative scroll-mt-24 overflow-hidden font-sans" style={{ background: 'linear-gradient(135deg, #3B9AE8 0%, #2B7BD6 50%, #1E6AC4 100%)' }}>
+        {/* Subtle dot pattern overlay */}
+        <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
 
-          <div className="grid gap-12 lg:grid-cols-2">
-            {/* Left Column: Phases List */}
-            <div className="space-y-4">
-              {frameworkPhases.map((phase, idx) => (
-                <div
-                  key={phase.number}
-                  data-framework-step
-                  data-index={idx}
-                  className={`rounded-3xl p-8 sm:p-10 transition-all duration-500 border-l-4 ${
-                    activePhase === idx
-                      ? 'bg-white shadow-2xl shadow-purple-500/10 border-purple-600 opacity-100 scale-[1.02]'
-                      : 'opacity-40 border-transparent'
-                  }`}
+        <div className="relative z-10 mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+          {/* Header Row */}
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-16 lg:mb-20">
+            <h2 
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.15]"
+              dangerouslySetInnerHTML={{ __html: frameworkHeading }}
+            />
+            <p className="text-white/80 text-base sm:text-lg max-w-md leading-[1.8] lg:text-right">
+              We are committed to helping you achieve your career goals and land your dream job in a timeframe that exceeds your expectations.
+            </p>
+          </div>
+
+          {/* Phase Grid - 3 columns */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 rounded-3xl overflow-hidden">
+            {frameworkPhases.map((phase, idx) => (
+              <div
+                key={phase.number}
+                className="relative p-8 sm:p-10 lg:p-12 bg-[#3B9AE8]/60 backdrop-blur-sm hover:bg-[#2B7BD6]/70 transition-colors duration-500 group"
+              >
+                {/* Large watermark number */}
+                <span 
+                  className="absolute top-2 right-4 text-[7rem] sm:text-[8rem] lg:text-[9rem] font-black text-white/[0.12] leading-none select-none pointer-events-none" 
+                  style={{ 
+                    fontWeight: 900,
+                    WebkitMaskImage: 'linear-gradient(to bottom, black 30%, transparent 100%)',
+                    maskImage: 'linear-gradient(to bottom, black 30%, transparent 100%)'
+                  }}
                 >
-                  <h3
-                    className={`text-2xl font-bold ${
-                      activePhase === idx ? 'text-purple-700' : 'text-purple-400'
-                    }`}
-                  >
-                    <span className="mr-4 opacity-50 text-base font-medium font-mono">{phase.number}</span>
-                    {phase.title}
-                  </h3>
-                  <p className="mt-4 text-base leading-relaxed text-[#5D4A7A]/80">
-                    {phase.description}
-                  </p>
+                  {phase.number}
+                </span>
 
-                  {/* Mobile-only inline details */}
-                  <div className={`mt-8 space-y-4 lg:hidden transition-all duration-500 ${activePhase === idx ? 'block' : 'hidden'}`}>
-                    {phase.details.map((detail) => (
-                      <div key={detail} className="flex items-start gap-3">
-                        <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-purple-600/10 text-purple-600 mt-0.5">
-                          <Check className="h-3 w-3" />
-                        </div>
-                        <span className="text-sm font-medium text-[#4B2C83]">
-                          {detail}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Right Column: Active Phase Details (Desktop only) */}
-            <div className="relative hidden lg:block">
-              <div className="sticky top-24 rounded-[2.5rem] bg-white p-8 shadow-2xl shadow-purple-500/5 sm:p-12">
-                <h3 className="text-2xl font-bold text-[#2D1B4D] sm:text-3xl">
-                  {frameworkPhases[activePhase].title}
+                {/* Phase title */}
+                <h3 className="relative z-10 text-lg sm:text-xl font-extrabold text-white italic mb-4 leading-snug tracking-wide">
+                  {phase.title}
                 </h3>
-                <div className="mt-10 space-y-6">
-                  {frameworkPhases[activePhase].details.map((detail) => (
-                    <div key={detail} className="flex items-start gap-4">
-                      <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-purple-600/10 text-purple-600 mt-1">
-                        <Check className="h-4 w-4" />
-                      </div>
-                      <span className="text-lg font-medium text-[#4B2C83]">
-                        {detail}
-                      </span>
-                    </div>
+
+                {/* Description */}
+                <p className="relative z-10 text-white/70 text-sm leading-[1.8] mb-6">
+                  {phase.description}
+                </p>
+
+                {/* Detail bullets */}
+                <ul className="relative z-10 space-y-4">
+                  {phase.details.map((detail) => (
+                    <li key={detail} className="flex items-start gap-3">
+                      <span className="mt-[7px] h-[6px] w-[6px] rounded-full bg-white/80 flex-shrink-0" />
+                      <span className="text-sm text-white/90 leading-[1.7]">{detail}</span>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
+            ))}
+
+            {/* CTA Card - fills last slot */}
+            <div className="relative p-8 sm:p-10 lg:p-12 bg-white/10 backdrop-blur-sm flex flex-col justify-center">
+              <p className="text-white text-base sm:text-lg leading-[1.8] mb-8">
+                Contact us today to arrange your initial call and begin your journey towards landing your dream job in 30 days or less.
+              </p>
+              <a
+                href="/contact"
+                className="inline-flex items-center justify-center gap-3 bg-white text-[#2B7BD6] px-8 py-4 rounded-xl text-sm font-bold tracking-wide hover:bg-white/90 transition-all shadow-lg shadow-black/10 group/cta w-full sm:w-auto"
+              >
+                GET STARTED
+                <ArrowRight className="h-4 w-4 transition-transform group-hover/cta:translate-x-1" />
+              </a>
             </div>
           </div>
         </div>
