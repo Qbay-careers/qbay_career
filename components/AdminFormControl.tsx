@@ -46,6 +46,9 @@ export const AdminFormControl: React.FC<AdminFormControlProps> = ({
 
   // Render Arrays (Recursive)
   if (Array.isArray(value)) {
+    // Detect if this is an image URL array (all items are strings that look like URLs)
+    const isImageArray = value.length > 0 && value.every(v => typeof v === 'string' && (v.startsWith('http') || v.startsWith('/')));
+
     return (
       <div className={`space-y-4 ${depth > 0 ? 'mt-4 border-l-2 border-purple-200 pl-6' : ''}`}>
         <div className="flex items-center justify-between">
@@ -57,27 +60,82 @@ export const AdminFormControl: React.FC<AdminFormControlProps> = ({
             <Plus size={12} /> ADD ITEM
           </button>
         </div>
+
+        {/* Image Grid Preview for image arrays */}
+        {isImageArray && (
+          <div className="grid grid-cols-3 gap-3 mb-4">
+            {value.map((url, index) => (
+              <div key={index} className="relative group rounded-xl overflow-hidden border border-purple-100 bg-slate-50 aspect-[16/10] shadow-sm">
+                <img 
+                  src={url} 
+                  alt={`Image ${index + 1}`} 
+                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" 
+                  onError={(e) => (e.currentTarget.style.display = 'none')}
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                  <span className="text-white text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity bg-black/50 px-2 py-1 rounded">
+                    Image {index + 1}
+                  </span>
+                </div>
+                <button
+                  onClick={() => onChange(value.filter((_, i) => i !== index))}
+                  className="absolute top-2 right-2 rounded-full bg-red-500 p-1 text-white opacity-0 group-hover:opacity-100 transition-opacity shadow-lg hover:bg-red-600"
+                >
+                  <Minus size={12} />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+
         <div className="space-y-4">
           {value.map((val, index) => (
             <div key={index} className="group relative flex items-start gap-4 pr-10">
               <div className="flex-1">
-                <AdminFormControl
-                  label={`Item ${index + 1}`}
-                  value={val}
-                  onChange={(newVal) => {
-                    const newArr = [...value];
-                    newArr[index] = newVal;
-                    onChange(newArr);
-                  }}
-                  depth={depth + 1}
-                />
+                {isImageArray ? (
+                  <div className="space-y-2">
+                    <label className="flex items-center gap-2 text-xs font-semibold text-slate-500">
+                      <ImageIcon size={12} />
+                      Image {index + 1} URL
+                    </label>
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="text"
+                        value={val}
+                        onChange={(e) => {
+                          const newArr = [...value];
+                          newArr[index] = e.target.value;
+                          onChange(newArr);
+                        }}
+                        placeholder="Enter image URL..."
+                        className="flex-1 rounded-xl border border-slate-200 bg-white p-3 text-sm text-slate-800 outline-none focus:border-purple-300 focus:ring-4 focus:ring-purple-500/5"
+                      />
+                      <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-lg border border-slate-100 bg-slate-50 shadow-inner">
+                        <img src={val} alt="Preview" className="h-full w-full object-cover" onError={(e) => (e.currentTarget.style.display = 'none')} />
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <AdminFormControl
+                    label={`Item ${index + 1}`}
+                    value={val}
+                    onChange={(newVal) => {
+                      const newArr = [...value];
+                      newArr[index] = newVal;
+                      onChange(newArr);
+                    }}
+                    depth={depth + 1}
+                  />
+                )}
               </div>
-              <button
-                onClick={() => onChange(value.filter((_, i) => i !== index))}
-                className="absolute right-0 top-8 rounded-full p-1 text-slate-300 hover:bg-red-50 hover:text-red-500 transition-all opacity-0 group-hover:opacity-100"
-              >
-                <Minus size={16} />
-              </button>
+              {!isImageArray && (
+                <button
+                  onClick={() => onChange(value.filter((_, i) => i !== index))}
+                  className="absolute right-0 top-8 rounded-full p-1 text-slate-300 hover:bg-red-50 hover:text-red-500 transition-all opacity-0 group-hover:opacity-100"
+                >
+                  <Minus size={16} />
+                </button>
+              )}
             </div>
           ))}
         </div>

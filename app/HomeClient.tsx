@@ -243,6 +243,9 @@ const defaultHeroImages = [
   'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600&h=800',
   'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=600&h=800',
   'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=600&h=800',
+  'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=600&h=800',
+  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600&h=800',
+  'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=600&h=800',
 ];
 
 export default function HomeClient({ initialData }: { initialData: any }) {
@@ -321,7 +324,11 @@ export default function HomeClient({ initialData }: { initialData: any }) {
   const frameworkPhases = getFrameworkPhases() as typeof defaultFrameworkPhases;
   const clientTestimonials = getClientTestimonials() as typeof defaultClientTestimonials;
   const faqData = getFaqData() as typeof defaultFaqData;
-  const heroImages = (Array.isArray(cmsData?.hero?.images) ? cmsData.hero.images : defaultHeroImages) as typeof defaultHeroImages;
+  const heroImages = (() => {
+    const cms = Array.isArray(cmsData?.hero?.images) ? cmsData.hero.images : [];
+    const merged = [...cms, ...defaultHeroImages.filter(d => !cms.includes(d))];
+    return merged.length >= 6 ? merged.slice(0, 6) : [...merged, ...defaultHeroImages].slice(0, 6);
+  })() as string[];
   const heroBadges = (Array.isArray(cmsData?.hero?.badges) ? cmsData.hero.badges : ['100k+ Helped', '4.8 Trustpilot', '1:1 Experts', '90-Day Calls', 'Gov Approved']) as string[];
   const badgeIcons = [BadgeCheck, Star, PhoneCall, ShieldCheck, Globe];
   
@@ -545,7 +552,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
 
       <section
         id="home"
-        className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden scroll-mt-24 border-b border-gray-100 bg-[#FDFCFE]"
+        className="relative pt-32 pb-0 lg:pt-40 lg:pb-0 overflow-hidden scroll-mt-24 bg-[#FDFCFE]"
       >
         <div 
           className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-50 pointer-events-none" 
@@ -590,27 +597,39 @@ export default function HomeClient({ initialData }: { initialData: any }) {
           </div>
         </div>
 
-        {/* 5-Image Staggered Gallery */}
-        <div className="relative z-10 w-full overflow-visible px-4">
-          <div className="absolute inset-0 top-1/2 -z-10 translate-y-[-50%] text-center opacity-[0.03] select-none text-[18vw] font-extrabold text-[#2D1B4D] whitespace-nowrap overflow-hidden">
-            QBAY CAREERS
-          </div>
+        {/* Auto-Scrolling 3D Image Gallery */}
+        <div className="relative z-10 w-full mt-10 lg:mt-16 pb-10 lg:pb-20 overflow-hidden">
+          {/* Side fade gradients for depth */}
+          <div className="absolute inset-y-0 left-0 w-16 sm:w-24 lg:w-40 bg-gradient-to-r from-[#FDFCFE] via-[#FDFCFE]/80 to-transparent z-20 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-16 sm:w-24 lg:w-40 bg-gradient-to-l from-[#FDFCFE] via-[#FDFCFE]/80 to-transparent z-20 pointer-events-none" />
 
-          <div className="flex justify-center items-end gap-2 sm:gap-4 w-full overflow-x-auto pb-28 pt-4 scrollbar-hide px-4 md:px-0">
-            {heroImages.map((src, i) => {
-               const offsets = ['translate-y-8 sm:translate-y-16 lg:translate-y-24', 'translate-y-0', 'translate-y-8 sm:translate-y-16 lg:translate-y-24'];
-               return (
-                 <div
-                   key={i}
-                   className={`relative w-48 sm:w-64 lg:w-[24rem] h-40 sm:h-56 lg:h-[18rem] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl ring-4 ring-white transition-all duration-700 hover:scale-[1.03] hover:z-20 flex-shrink-0 group ${offsets[i]}`}
-                 >
-                   <div className="absolute top-4 left-4 z-20 font-mono text-[10px] sm:text-xs font-bold bg-white/90 backdrop-blur-md px-2 py-1 rounded-sm text-slate-900 shadow-sm transition-opacity group-hover:opacity-100">
-                     0{i + 1}
-                   </div>
-                   <div className="absolute inset-0 bg-[#2D1B4D]/10 group-hover:bg-transparent transition-colors duration-500 z-10" />
-                   <img src={src} className="object-cover w-full h-full filter grayscale group-hover:grayscale-0 transition-all duration-700" alt={`Career Professional ${i+1}`} />
-                 </div>
-               );
+          <div className="flex items-center gap-3 sm:gap-4 lg:gap-6 animate-hero-scroll w-max">
+            {[...heroImages, ...heroImages].map((src, i) => {
+              const isOdd = i % 2 !== 0;
+              const translateY = isOdd ? 18 : 0;
+              const rotation = isOdd ? 1.5 : -1.5;
+
+              return (
+                <div
+                  key={i}
+                  className="hero-float-animation flex-shrink-0"
+                  style={{ animationDelay: `${(i % heroImages.length) * 0.4}s` }}
+                >
+                  <div
+                    className="relative w-[260px] sm:w-[340px] lg:w-[440px] xl:w-[520px] aspect-[16/10] rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl ring-1 ring-black/5 group cursor-pointer transition-shadow duration-500 hover:shadow-purple-500/30"
+                    style={{
+                      transform: `translateY(${translateY}px) rotate(${rotation}deg)`,
+                    }}
+                  >
+                    <img
+                      src={src}
+                      className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
+                      alt={`Career Professional ${(i % heroImages.length) + 1}`}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent opacity-60 group-hover:opacity-0 transition-opacity duration-500" />
+                  </div>
+                </div>
+              );
             })}
           </div>
         </div>

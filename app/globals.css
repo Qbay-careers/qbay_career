@@ -128,4 +128,34 @@
   .animate-fade-in {
     animation: fade-in 0.8s ease-out forwards;
   }
+
+  @keyframes heroFloat {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-14px);
+    }
+  }
+
+  .hero-float-animation {
+    animation: heroFloat 4s ease-in-out infinite;
+  }
+
+  @keyframes heroScroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-hero-scroll {
+    animation: heroScroll 35s linear infinite;
+  }
+
+  .animate-hero-scroll:hover {
+    animation-play-state: paused;
+  }
 }
