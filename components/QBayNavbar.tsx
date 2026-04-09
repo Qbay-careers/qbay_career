@@ -43,33 +43,33 @@ export default function QBayNavbar() {
   const activeTextColor = 'text-[#160E22] font-extrabold';
 
   return (
-    <header 
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white/80 backdrop-blur-xl shadow-sm border-b border-gray-100' 
-          : 'bg-transparent border-transparent'
-      }`}
-    >
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-3">
-          <Link
-            href="/"
-            className="flex items-center"
-            aria-label="Go to home"
-          >
-            <img src="/Your-paragraph-text-1.png" alt="QBay Logo" className="h-8 w-auto object-contain" />
+    <div className={`fixed left-0 w-full z-50 flex justify-center transition-all duration-500 ${isScrolled ? 'top-6 px-4' : 'top-0'}`}>
+      <header 
+        className={`transition-all duration-500 overflow-hidden flex items-center justify-between ${
+          isScrolled 
+            ? 'bg-white/40 backdrop-blur-2xl shadow-lg shadow-purple-900/5 w-auto rounded-full px-8 h-14 border border-white/60' 
+            : 'bg-transparent border-transparent w-full max-w-7xl px-4 sm:px-6 lg:px-8 h-20'
+        }`}
+      >
+        <div 
+          className={`flex items-center transition-all duration-300 ${
+            isScrolled ? 'hidden' : 'opacity-100 mr-8'
+          }`}
+        >
+          <Link href="/" className="flex items-center" aria-label="Go to home">
+            <img src="/Your-paragraph-text-1.png" alt="QBay Logo" className="h-8 w-auto object-contain flex-shrink-0" />
           </Link>
         </div>
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
+        <nav className={`hidden items-center gap-8 md:flex whitespace-nowrap transition-all duration-300`} aria-label="Primary">
           {navLinks.map((l) => (
             <Link
               key={l.label}
               href={l.href}
               className={`text-sm transition-all hover:scale-105 ${
                 pathname === l.href
-                  ? `${activeTextColor} font-bold`
-                  : `${navTextColor} font-medium hover:opacity-100 opacity-80`
+                  ? `font-bold ${activeTextColor}`
+                  : `font-medium hover:opacity-100 ${isScrolled ? `${navTextColor} hover:text-[#160E22]` : navTextColor}`
               }`}
             >
               {l.label}
@@ -79,16 +79,17 @@ export default function QBayNavbar() {
 
         <button
           type="button"
-          className={`inline-flex items-center justify-center rounded-lg p-2 transition-colors md:hidden text-gray-800`}
+          className={`inline-flex items-center justify-center rounded-lg p-2 transition-colors md:hidden ml-4 text-gray-800`}
           aria-label={open ? 'Close menu' : 'Open menu'}
           onClick={() => setOpen((v) => !v)}
         >
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
-      </div>
+      </header>
 
+      {/* Mobile Menu Dropdown */}
       {open && (
-        <div className="border-t border-gray-100 bg-white/95 backdrop-blur-xl md:hidden animate-in slide-in-from-top duration-300">
+        <div className="absolute top-[100%] left-0 w-full border-t border-gray-100 bg-white/95 backdrop-blur-xl md:hidden animate-in slide-in-from-top duration-300 mt-2 shadow-2xl shadow-purple-900/10 rounded-b-3xl">
           <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-6" aria-label="Mobile">
             {navLinks.map((l) => (
               <Link
@@ -107,6 +108,6 @@ export default function QBayNavbar() {
           </nav>
         </div>
       )}
-    </header>
+    </div>
   );
 }
