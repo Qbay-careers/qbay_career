@@ -26,71 +26,47 @@ import { supabase } from '@/lib/supabase';
 const defaultFrameworkPhases = [
   {
     number: '01',
-    title: 'Discovery & Clarity',
-    description:
-      'Lay the foundation for your career journey with expert counseling and direction assessments.',
-    startIdx: 1,
+    title: 'Partnership',
+    description: 'Relationships based on transparency and trust',
     details: [
-      'Free 1:1 Expert Consultation',
-      'Career & Psychology Counseling',
-      'Career Assessment & Direction Test',
-      'Goal Confirmation & Enrollment Decision',
+      'Relationships based on transparency and trust',
+      'Fully integrate & align with our client\'s goals, people & processes',
     ],
   },
   {
     number: '02',
-    title: 'Research & Market Intel',
-    description:
-      'Analyze the job market with real-time data collection and strategic inside research.',
-    startIdx: 5,
+    title: 'Reputation',
+    description: 'Consistent, long-established pattern of repeat engagements',
     details: [
-      'Onboarding Strategy Call',
-      'In-depth Job Market Research',
-      'Real-Time Data Collection',
-      'Market Data Analysis',
-      'Internal QC Review',
+      'Consistent, long-established pattern of repeat engagements',
+      'Fully referenceable across our entire client base',
     ],
   },
   {
     number: '03',
-    title: 'Profile Development & Positioning',
-    description:
-      'Optimize your resume and validate your profile with industry experts.',
-    startIdx: 10,
+    title: 'Expertise',
+    description: 'Highly qualified and experienced Coaching Community',
     details: [
-      'Target Role Selection',
-      'Job Description (JD) Analysis',
-      'Second-Level Research & Data Validation',
-      'Plagiarism-Free Resume & Content Creation',
-      'Keyword Optimization & Profile Enhancement',
-      'Materials Delivery & Expert Review Call',
+      'Highly qualified and experienced Coaching Community',
+      'Clients benefit from our practitioner-based model',
     ],
   },
   {
     number: '04',
-    title: 'Strategy & Skill Preparation',
-    description:
-      'Build a personalized job search strategy and gain confidence.',
-    startIdx: 16,
+    title: 'Cost competitiveness',
+    description: 'One of the most cost-effective firms on the market',
     details: [
-      'Personalized Job Search Strategy Development',
-      'Strategy Delivery & Implementation Guidance',
-      'Job Search Training',
-      'Psychology & Confidence Training',
-      'Unique Application Approach Development',
+      'One of the most cost-effective firms on the market',
+      'Providing the best return on investment',
     ],
   },
   {
     number: '05',
-    title: 'Execution & Interviews',
-    description:
-      'Execute your plan and conquer interviews with expert mock training.',
-    startIdx: 21,
+    title: 'Capability',
+    description: 'Proven capability across the entire Coaching Spectrum',
     details: [
-      'Strategic Applications',
-      'Interview Calls Generated',
-      'Mock Interview Sessions',
-      'Final Interview Support',
+      'Proven capability across the entire Coaching Spectrum',
+      'Specialists in Career Success',
     ],
   },
 ];

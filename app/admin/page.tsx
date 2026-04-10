@@ -132,6 +132,60 @@ export default function AdminDashboard() {
         ];
       }
 
+      // Auto-migrate Framework Content
+      if ((newData.framework === undefined || (Array.isArray(newData.framework?.phases) && newData.framework.phases[0]?.title === 'Discovery & Clarity')) && !parentKey && newData.hero) {
+        newData.framework = {
+          title: 'Career Success <br class="hidden sm:block" /> Framework',
+          phases: [
+            {
+              number: '01',
+              title: 'Partnership',
+              description: 'Relationships based on transparency and trust',
+              details: [
+                'Relationships based on transparency and trust',
+                'Fully integrate & align with our client\'s goals, people & processes',
+              ],
+            },
+            {
+              number: '02',
+              title: 'Reputation',
+              description: 'Consistent, long-established pattern of repeat engagements',
+              details: [
+                'Consistent, long-established pattern of repeat engagements',
+                'Fully referenceable across our entire client base',
+              ],
+            },
+            {
+              number: '03',
+              title: 'Expertise',
+              description: 'Highly qualified and experienced Coaching Community',
+              details: [
+                'Highly qualified and experienced Coaching Community',
+                'Clients benefit from our practitioner-based model',
+              ],
+            },
+            {
+              number: '04',
+              title: 'Cost competitiveness',
+              description: 'One of the most cost-effective firms on the market',
+              details: [
+                'One of the most cost-effective firms on the market',
+                'Providing the best return on investment',
+              ],
+            },
+            {
+              number: '05',
+              title: 'Capability',
+              description: 'Proven capability across the entire Coaching Spectrum',
+              details: [
+                'Proven capability across the entire Coaching Spectrum',
+                'Specialists in Career Success',
+              ],
+            },
+          ]
+        };
+      }
+
       // Auto-migrate Negative Reviews
       if (newData.negativeReviews === undefined && !parentKey && newData.hero) {
         newData.negativeReviews = [
