@@ -68,34 +68,67 @@ const defaultAudioReviews = [
 ];
 
 const defaultNegativeReviews = [
-  {
-    name: 'James',
-    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150',
-    title: 'Associates are from India',
-    content: 'They hire India based interns to do the applying who don\'t even speak english.',
-    date: 'Dec 2025',
-    reply: 'That\'s correct and we\'re very transparent about it. QBay Careers is a human assistant service... Our assistants are trained to handle the grunt and operational work.',
-    rating: 1
+  { 
+    name: 'James', 
+    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150', 
+    title: 'Associates are from India', 
+    content: 'They hire India based interns to do the applying who don\'t even speak english. I was expecting UK based consultants but instead got someone who didn\'t understand the nuances of the local market.', 
+    date: 'Dec 2025', 
+    reply: 'That\'s correct and we\'re very transparent about it. QBay Careers is a human assistant service. Our assistants are trained to handle the grunt and operational work involved in job applications i.e., sourcing roles, filling out applications, managing data, and ensuring consistency, not to perform high-level strategic judgment or subjective career decision-making.\n\nManually customizing every resume at a deep, strategic level would require a senior career coach or recruiter per customer, which would fundamentally change both the nature and cost of the service. Even then, there\'s no objective authority who can say that a specific manual tweak will definitively improve interview chances.', 
+    rating: 1 
   },
-  {
-    name: 'David',
-    avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&h=150',
-    title: 'Using AI for Customizing Resumes',
-    content: 'They use Gemini/ChatGPT to write the cover letter and tailor resumes. Which doesn\'t make sense for all jobs.. writing the same content by just changing job title... that any free ai can.',
-    date: 'Sep 2025',
-    reply: 'That\'s correct and we\'re very transparent about it. We use AI to scale our workflows but every step is reviewed by human experts to ensure quality.',
-    rating: 1
+  { 
+    name: 'David', 
+    avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&h=150', 
+    title: 'Using AI for Customizing Resumes', 
+    content: 'They use Gemini/ChatGPT to write the cover letter and tailor resumes. Which doesn\'t make sense for all jobs.. writing the same content by just changing job title... that any free ai can do it.', 
+    date: 'Sep 2025', 
+    reply: 'That\'s correct and we\'re very transparent about it. At QBay Careers, we use AI where it genuinely adds value and avoid it where it doesn\'t. AI technology has improved dramatically in certain areas and resume tailoring is one of them.\n\nWe\'ve taken a measured, pragmatic approach to AI: we use it to scale our workflows but every single output is reviewed by our team of experts to ensure it meets our high standards before it reaches a recruiter.', 
+    rating: 1 
   },
-  {
-    name: 'Manoj',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150',
-    title: 'Not Issuing Full Refund when canceled',
-    content: 'I paid them 1055 USD. I canceled before any work was used I only received $963 USD. As a customer, their internal operating costs are irrelevant to me. When I return an...',
-    date: 'Jul 2025',
-    reply: 'We have a strict refund policy which accounts for payment processing fees and initial setup time. We are completely transparent about this before any payment is made.',
-    rating: 1
-  }
+  { 
+    name: 'Manoj', 
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150', 
+    title: 'Not Issuing Full Refund when canceled', 
+    content: 'I paid them 1055 USD. I canceled before any work was used I only received $963 USD. As a customer, their internal operating costs are irrelevant to me. When I return an item to a store I get 100% back.', 
+    date: 'Jul 2025', 
+    reply: 'We understand your frustration regarding the refund amount. However, we are very clear about our refund policy from the start. The difference covers non-refundable payment processing fees and the initial setup time our team spends on your profile immediately after signup.\n\nWe strive for 100% transparency so that our customers are aware of these operating costs before they commit to our service.', 
+    rating: 1 
+  },
+  { 
+    name: 'Sarah', 
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150', 
+    title: 'No Guaranteed Job Placement', 
+    content: 'I thought they guaranteed a job in the UK. I haven\'t secured an offer yet after 2 months. They only provided interviews and coaching which wasn\'t enough for me.', 
+    date: 'Aug 2025', 
+    reply: 'We strictly guarantee interview calls, not job placements. Securing a job offer is a two-way street that involves our application strategy and your personal interview performance. We provide the coaching and the opportunities, but the final decision rests with the employer.\n\nOur commitment is to keep the pipeline full of relevant opportunities until you achieve your goal.', 
+    rating: 1 
+  },
+  { 
+    name: 'Vikram', 
+    avatar: 'https://images.unsplash.com/photo-1504257432389-52343af06ae3?auto=format&fit=crop&w=150&h=150', 
+    title: 'Pricing is too high', 
+    content: 'Their pricing for full career management is way too high compared to local agencies in Kerala. It feels overpriced for standard assistance that I could probably do myself if I had more time.', 
+    date: 'Oct 2025', 
+    reply: 'Our pricing reflects the high-touch, international consulting model we operate. Unlike local agencies, we employ experts in the UK and Ireland who understand the specific nuances of those competitive markets.\n\nThe investment covers the hundreds of manual hours our team spends on your behalf, ensuring your candidacy is presented at its absolute best.', 
+    rating: 1 
+  },
+  { 
+    name: 'Priya', 
+    avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=150&h=150', 
+    title: 'Time Zone Constraints', 
+    content: 'It\'s hard to schedule mentoring meetings because of the time difference between India and the UK. Sometimes I have to attend calls very late at night which is exhausting.', 
+    date: 'Nov 2025', 
+    reply: 'We acknowledge that time zone differences can be challenging. However, we operate in UK and Ireland hours because that is where the recruiters and companies you are targeting are located.\n\nAdapting to international business hours is a realistic and necessary part of preparing for an global career. We do our best to offer flexible slots that work for both parties.', 
+    rating: 1 
+  },
 ];
+
+const founderData = {
+  name: "Fazil Karatt",
+  role: "Founder & CEO",
+  avatar: "/Hizana-Web-61-768x768.webp"
+};
 
 const mapYoutubeUrls = (urls: any[], quality: 'hqdefault' | 'maxresdefault' = 'hqdefault') => {
   if (!Array.isArray(urls)) return [];
@@ -116,6 +149,7 @@ export default function WallOfFame() {
   const [playingAudioIdx, setPlayingAudioIdx] = useState<number | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedReviewForModal, setSelectedReviewForModal] = useState<any | null>(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -397,43 +431,101 @@ export default function WallOfFame() {
       </section>
 
       {/* Negative Reviews Section */}
-      <section id="painful-reviews" className="bg-gradient-to-br from-[#F5F3FF] to-[#FAFAFA] py-24 scroll-mt-24 border-y border-purple-50">
+      <section id="negative-reviews" className="py-24 scroll-mt-24" style={{ background: 'linear-gradient(135deg, #e8f5f0 0%, #f0faf5 40%, #e8f5ee 100%)' }}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#2D1B4D] tracking-tight mb-4 flex items-center justify-center gap-3 flex-wrap">
-              Our Brutally Honest 1 
-              <span className="bg-red-500 text-white rounded-md px-1.5 py-1.5 shadow-sm inline-flex"><Star className="w-5 h-5 fill-white" /></span> 
-              Reviews 
-              <span className="text-purple-300"><Info className="w-7 h-7" /></span>
+          {/* Header */}
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-[#1A112B] mb-4 flex items-center justify-center gap-3 flex-wrap">
+              Our Glaringly Painful
+              <span className="inline-flex items-center gap-1">
+                <span className="inline-flex items-center justify-center w-9 h-9 rounded bg-[#e8372a] text-white text-lg font-bold">★</span>
+              </span>
+              Reviews
+              <span className="inline-flex items-center justify-center w-8 h-8 rounded-full border-2 border-gray-400 text-gray-500 text-sm font-bold cursor-help" title="We show these reviews because transparency builds trust.">i</span>
             </h2>
-            <p className="text-lg text-slate-600">Proof that we don't hide anything. Transparency is our core value.</p>
+            <p className="text-base md:text-lg text-gray-600 flex items-center justify-center gap-3 flex-wrap">
+              There is a reason for this section.
+              <a
+                href="#consultation"
+                className="inline-flex items-center gap-1 bg-[#1a9e6e] hover:bg-[#15845c] text-white text-sm font-semibold px-4 py-1.5 rounded-full transition-colors"
+              >
+                Read Why?
+              </a>
+            </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {negativeReviewsData.map((review: any, idx: number) => (
-              <div key={idx} className="bg-white rounded-[1.25rem] p-8 shadow-sm hover:shadow-xl transition-all border border-purple-50 flex flex-col relative overflow-hidden group">
-                <div className="flex items-center justify-between mb-8">
-                  <div className="flex items-center gap-3">
-                    <img src={review.avatar} alt={review.name} className="w-12 h-12 rounded-full object-cover shadow-sm" />
-                    <h3 className="font-bold text-gray-900">{review.name}</h3>
+
+          {/* Review Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {negativeReviewsData.map((review: any, idx: number) => {
+              return (
+                <div
+                  key={idx}
+                  className="group relative bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-500 flex flex-col overflow-hidden"
+                >
+                  <div className="p-6 flex flex-col h-full">
+                    {/* Top row: Avatar + Name | Star Rating */}
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-3">
+                        <img
+                          src={review.avatar}
+                          alt={review.name}
+                          className="w-11 h-11 rounded-full object-cover flex-shrink-0"
+                          onError={(e) => { e.currentTarget.src = `https://ui-avatars.com/api/?name=${review.name}&background=e8f5f0&color=1a9e6e`; }}
+                        />
+                        <span className="font-bold text-gray-900 text-base">{review.name}</span>
+                      </div>
+                      <div className="flex items-center gap-0.5">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <span
+                            key={star}
+                            className={`inline-flex items-center justify-center w-6 h-6 rounded-sm text-xs font-bold ${
+                              star === 1 ? 'bg-[#e8372a] text-white' : 'bg-gray-200 text-gray-400'
+                            }`}
+                          >
+                            ★
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Review title */}
+                    <h3 className="font-bold text-gray-900 text-base mb-2">{review.title}</h3>
+
+                    {/* Review content */}
+                    <div className="flex-1 mt-4 mb-4">
+                      <p className={`text-base text-gray-600 leading-relaxed line-clamp-4`}>
+                        {review.content}
+                      </p>
+                    </div>
+
+                    {/* Footer: Read More + Date */}
+                    <div className="flex items-center justify-between mt-auto pt-2 border-t border-gray-50">
+                      <button
+                        onClick={() => setSelectedReviewForModal(review)}
+                        className="text-[#1a9e6e] hover:text-[#15845c] text-sm font-semibold flex items-center gap-1 transition-colors"
+                      >
+                        Read More →
+                      </button>
+                      <span className="text-xs text-gray-400">{review.date}</span>
+                    </div>
                   </div>
-                  <div className="flex gap-0.5">
-                    {[...Array(5)].map((_, i) => (
-                      <div key={i} className={`${i < (review.rating || 1) ? 'bg-red-500' : 'bg-gray-200'} p-[2px] rounded-sm`}><Star className="w-3.5 h-3.5 fill-white" /></div>
-                    ))}
+
+                  {/* Hover Overlay: FOUNDERS REPLY */}
+                  <div className="absolute inset-0 bg-[#1a9e6e] translate-y-full transition-transform duration-500 ease-in-out group-hover:translate-y-0 p-8 flex flex-col justify-center text-white z-10">
+                    <span className="text-[10px] font-bold tracking-[0.2em] uppercase opacity-60 mb-3">Founders Reply</span>
+                    <p className="text-white/90 text-base leading-relaxed mb-8 line-clamp-4 italic">
+                      &ldquo;{review.reply}&rdquo;
+                    </p>
+                    <button 
+                      onClick={() => setSelectedReviewForModal(review)}
+                      className="bg-white text-[#1a9e6e] font-bold py-3 px-6 rounded-lg text-sm transition-transform hover:scale-105 w-fit"
+                    >
+                      Read Full Story
+                    </button>
                   </div>
                 </div>
-                <h4 className="font-bold text-gray-900 mb-4">{review.title}</h4>
-                <p className="text-gray-500 text-sm leading-relaxed flex-1 mb-8">"{review.content}"</p>
-                <div className="flex justify-between items-center text-xs font-semibold text-slate-400">
-                  <span className="text-violet-600 flex items-center gap-1">FOUNDER REPLY <ArrowRight className="w-3 h-3" /></span>
-                  <span>{review.date}</span>
-                </div>
-                <div className="absolute inset-x-0 bottom-0 top-[25%] bg-[#2D1B4D] p-8 translate-y-full group-hover:translate-y-0 transition-transform duration-500 flex flex-col justify-center">
-                   <h5 className="text-violet-400 text-[10px] font-bold uppercase mb-4 tracking-widest">FOUNDER REPLY</h5>
-                   <p className="text-white text-sm leading-relaxed">{review.reply}</p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -449,6 +541,104 @@ export default function WallOfFame() {
       )}
 
       <QBayFooter />
+
+      {/* Negative Review Modal */}
+      {selectedReviewForModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 lg:p-8">
+          <div 
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+            onClick={() => setSelectedReviewForModal(null)}
+          />
+          
+          <div className="relative w-full max-w-5xl bg-white rounded-[2rem] overflow-hidden shadow-2xl flex flex-col lg:flex-row max-h-[90vh] lg:max-h-[85vh]">
+            <button 
+              onClick={() => setSelectedReviewForModal(null)}
+              className="absolute top-6 right-6 z-20 text-white/60 hover:text-white transition-colors"
+            >
+              <X className="w-8 h-8" />
+            </button>
+
+            {/* Left Column: Reviewer Details */}
+            <div className="flex-1 p-8 lg:p-14 overflow-y-auto bg-white text-left">
+              <div className="flex items-center justify-between mb-10">
+                <div className="flex items-center gap-4">
+                  <img
+                    src={selectedReviewForModal.avatar}
+                    alt={selectedReviewForModal.name}
+                    className="w-16 h-16 rounded-full object-cover"
+                    onError={(e) => { e.currentTarget.src = `https://ui-avatars.com/api/?name=${selectedReviewForModal.name}&background=e8f5f0&color=1a9e6e`; }}
+                  />
+                  <span className="font-bold text-gray-400 text-xl">{selectedReviewForModal.name}</span>
+                </div>
+                
+                <div className="flex items-center gap-0.5">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <span
+                      key={star}
+                      className={`inline-flex items-center justify-center w-8 h-8 rounded-sm text-lg font-bold ${
+                        star === 1 ? 'bg-[#e8372a] text-white' : 'bg-gray-200 text-gray-400'
+                      }`}
+                    >
+                      ★
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <h2 className="text-3xl lg:text-4xl font-extrabold text-[#1A112B] mb-8 leading-tight">
+                {selectedReviewForModal.title}
+              </h2>
+
+              <p className="text-lg lg:text-xl text-gray-500 leading-relaxed font-medium">
+                {selectedReviewForModal.content}
+              </p>
+            </div>
+
+            {/* Right Column: Founder's Reply */}
+            <div className="flex-1 bg-[#1a9e6e] p-8 lg:p-14 flex flex-col relative text-left">
+              <span className="text-xs font-bold tracking-[0.25em] text-white/50 uppercase mb-8">Founders Reply</span>
+              
+              <div className="flex-1 overflow-y-auto pr-4 custom-modal-scrollbar mb-10">
+                {selectedReviewForModal.reply.split('\n\n').map((para: string, i: number) => (
+                  <p key={i} className="text-white text-xl lg:text-2xl leading-relaxed mb-6 font-medium">
+                    {para}
+                  </p>
+                ))}
+              </div>
+
+              {/* Founder Signature Area */}
+              <div className="flex items-center gap-5 mt-auto pt-8 border-t border-white/10">
+                <img
+                  src={founderData.avatar}
+                  alt={founderData.name}
+                  className="w-16 h-16 rounded-full object-cover border-2 border-white/20"
+                />
+                <div>
+                  <h4 className="text-white font-extrabold text-xl leading-tight">{founderData.name}</h4>
+                  <p className="text-white/60 font-bold text-lg">{founderData.role}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <style jsx global>{`
+        .custom-modal-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        .custom-modal-scrollbar::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 10px;
+        }
+        .custom-modal-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.4);
+          border-radius: 10px;
+        }
+        .custom-modal-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(255, 255, 255, 0.6);
+        }
+      `}</style>
     </main>
   );
 }
