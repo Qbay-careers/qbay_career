@@ -17,11 +17,6 @@ import {
   CalendarDays,
   X,
   ArrowRight,
-  MapPin,
-  Clock,
-  Info,
-  Pause,
-  Quote,
 } from 'lucide-react';
 import QBayNavbar from '@/components/QBayNavbar';
 import FeaturedOn from '@/components/FeaturedOn';
@@ -107,7 +102,6 @@ const defaultClientTestimonials = [
     image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150',
     content:
       'Balancing work and job applications was exhausting. Each application felt repetitive and draining. I almost gave up after weeks of no responses. But once I got structured support and a smarter strategy, everything changed. Within weeks, interviews started lining up. The clarity and consistency made all the difference. I finally felt confident and supported throughout the process.',
-    rating: 5,
   },
   {
     name: 'Daniel Brooks',
@@ -115,7 +109,6 @@ const defaultClientTestimonials = [
     image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150&h=150',
     content:
       'Moving to a new country meant starting from scratch. I didn\'t understand how the hiring process worked here. Applications went unanswered and I felt stuck. After getting guidance and optimizing my approach, I started seeing real traction. Recruiters began reaching out. In just one month, I secured multiple offers and negotiated a better package than I expected.',
-    rating: 5,
   },
   {
     name: 'Emily Chen',
@@ -123,7 +116,6 @@ const defaultClientTestimonials = [
     image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150',
     content:
       'After facing a sudden layoff, I had limited time to secure a new role. The pressure was intense. Instead of applying randomly, I followed a focused and aggressive strategy. The results were unbelievable. Within four weeks, I received three strong offers and increased my salary significantly. The support system kept me motivated and organized.',
-    rating: 5,
   },
 ];
 
@@ -256,101 +248,8 @@ const defaultHeroImages = [
   'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=600&h=800',
 ];
 
-const defaultGoogleReviews = [
-  { name: 'Sarah J.', role: 'Software Engineer', content: 'QBay Careers helped me land my dream job in just 3 weeks! The interview prep was top-notch. Their team is dedicated and responsive.', rating: 5, time: '2 weeks ago', initial: 'S', color: 'bg-blue-500' },
-  { name: 'Michael T.', role: 'Data Analyst', content: 'Incredible experience. The team is dedicated, and their strategies actually work in today\'s competitive market. Highly recommended for anyone struggling.', rating: 5, time: '1 month ago', initial: 'M', color: 'bg-green-500' },
-  { name: 'Priya R.', role: 'Product Manager', content: 'I was struggling to get callbacks, but their CV revamp changed everything. Their 1:1 mentorship is invaluable.', rating: 5, time: '3 months ago', initial: 'P', color: 'bg-purple-500' }
-];
-
-const defaultTrustpilotReviews = [
-  { name: 'James W.', title: 'Outstanding support from start to finish', content: 'They guided me through every step of the process. I landed a senior role faster than I expected.', rating: 5, time: '4 days ago' },
-  { name: 'Emily C.', title: 'Best career investment', content: 'Worth every penny. The 1:1 coaching gave me the confidence I lacked during technical interviews.', rating: 5, time: '2 weeks ago' },
-  { name: 'Rahul M.', title: 'Highly professional and effective', content: 'Their market insights are brilliant. I secured two competing offers thanks to their negotiation coaching.', rating: 5, time: '1 month ago' },
-  { name: 'Anna K.', title: 'Life-changing career guidance', content: 'I transitioned to a completely new industry with their help. The support system is unmatched.', rating: 5, time: '2 months ago' },
-  { name: 'Sophie L.', title: 'Incredible resume overhaul', content: 'My callback rate jumped from 0% to 40% after they rewrote my CV and LinkedIn profile.', rating: 5, time: '3 months ago' },
-  { name: 'Daniel P.', title: 'Helped me relocate smoothly', content: 'Got a sponsored job in the UK. Their guidance on visa processes and international interviews was vital.', rating: 5, time: '3 months ago' }
-];
-
-const defaultAudioReviews = [
-  { name: 'David L.', role: 'UX Designer', title: 'Secured a role at a top agency', duration: '1:24', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', flag: 'https://flagcdn.com/w80/gb.png' },
-  { name: 'Anita P.', role: 'Marketing Lead', title: 'Got my UK visa sponsored job', duration: '0:58', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', flag: 'https://flagcdn.com/w80/ie.png' },
-  { name: 'John D.', role: 'Cloud Architect', title: 'Negotiated a 30% salary bump', duration: '2:15', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', flag: 'https://flagcdn.com/w80/in.png' },
-  { name: 'Rachel M.', role: 'Data Scientist', title: 'Moved from academia to tech', duration: '1:45', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3', flag: 'https://flagcdn.com/w80/gb.png' },
-  { name: 'Kevin B.', role: 'Product Manager', title: 'Landed 3 offers in 2 weeks', duration: '1:10', avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3', flag: 'https://flagcdn.com/w80/ae.png' },
-  { name: 'Linda V.', role: 'Financial Analyst', title: 'Overcame career stagnation', duration: '2:05', avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3', flag: 'https://flagcdn.com/w80/ie.png' }
-];
-
-const defaultNegativeReviews = [
-  {
-    name: 'James',
-    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150',
-    title: 'Associates are from India',
-    content: 'They hire India based interns to do the applying who don\'t even speak english.',
-    date: 'Dec 2025',
-    reply: 'That\'s correct and we\'re very transparent about it. QBay Careers is a human assistant service... Our assistants are trained to handle the grunt and operational work.'
-  },
-  {
-    name: 'David',
-    avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&h=150',
-    title: 'Using AI for Customizing Resumes',
-    content: 'They use Gemini/ChatGPT to write the cover letter and tailor resumes. Which doesn\'t make sense for all jobs.. writing the same content by just changing job title... that any free ai can.',
-    date: 'Sep 2025',
-    reply: 'That\'s correct and we\'re very transparent about it. We use AI to scale our workflows but every step is reviewed by human experts to ensure quality.'
-  },
-  {
-    name: 'Manoj',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150',
-    title: 'Not Issuing Full Refund when canceled',
-    content: 'I paid them 1055 USD. I canceled before any work was used I only received $963 USD. As a customer, their internal operating costs are irrelevant to me. When I return an...',
-    date: 'Jul 2025',
-    reply: 'We have a strict refund policy which accounts for payment processing fees and initial setup time. We are completely transparent about this before any payment is made.'
-  },
-  {
-    name: 'Sarah',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150',
-    title: 'No Guaranteed Job Placement',
-    content: 'I thought they guaranteed a job in the UK. I haven\'t secured an offer yet after 2 months. They only provided interviews and coaching.',
-    date: 'Aug 2025',
-    reply: 'We do not guarantee job offers, we guarantee interviews. Ultimately securing the role depends on your performance in the interview, which we coach you extensively for.'
-  },
-  {
-    name: 'Vikram',
-    avatar: 'https://images.unsplash.com/photo-1504257432389-52343af06ae3?auto=format&fit=crop&w=150&h=150',
-    title: 'Pricing is too high',
-    content: 'Their pricing for full career management is way too high compared to local agencies in Kerala. It feels overpriced for standard assistance.',
-    date: 'Oct 2025',
-    reply: 'We provide high-touch international consulting, not just resume forwarding. The investment directly reflects the personalized time our UK/Ireland experts spend manually reviewing your profile.'
-  },
-  {
-    name: 'Priya',
-    avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=150&h=150',
-    title: 'Time Zone Constraints',
-    content: 'It\'s hard to schedule mentoring meetings because of the time difference between India and the UK. Sometimes I have to attend calls very late at night.',
-    date: 'Nov 2025',
-    reply: 'We offer flexible slots, but our core team operates in UK/Ireland hours as that is where your target market is. Adjusting to these hours is part of the realistic preparation for working abroad.'
-  }
-];
-
 export default function HomeClient({ initialData }: { initialData: any }) {
   const [cmsData, setCmsData] = useState<any>(initialData);
-  const [playingAudioIdx, setPlayingAudioIdx] = useState<number | null>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  const toggleAudio = (idx: number, url: string) => {
-    if (playingAudioIdx === idx) {
-      audioRef.current?.pause();
-      setPlayingAudioIdx(null);
-    } else {
-      if (audioRef.current) {
-        audioRef.current.pause();
-      }
-      const audio = new Audio(url);
-      audio.onended = () => setPlayingAudioIdx(null);
-      audio.play().catch(e => console.log('Audio play failed:', e));
-      audioRef.current = audio;
-      setPlayingAudioIdx(idx);
-    }
-  };
 
   useEffect(() => {
     setCmsData(initialData);
@@ -411,20 +310,20 @@ export default function HomeClient({ initialData }: { initialData: any }) {
     return defaultClientTestimonials;
   };
 
+  const clientLoveTitle = clientLoveData.title || clientLoveData.heading || 'Love ❤️ Letters from our Clients';
+  const clientLoveDescription = clientLoveData.description || clientLoveData.subtitle || clientLoveData.text || "Don't just take our word for it—hear from students and parents whose journeys have been transformed by Qbay.";
+
+
+
   // Robust mapping for FAQ
   const getFaqData = () => {
     return defaultFaqData;
   };
 
-  const clientLoveTitle = clientLoveData.title || clientLoveData.heading || 'Love ❤️ Letters from our Clients';
-  const clientLoveDescription = clientLoveData.description || clientLoveData.subtitle || clientLoveData.text || "Don't just take our word for it—hear from students and parents whose journeys have been transformed by Qbay.";
 
-  const trustpilotData = cmsData?.trustpilotReviews || defaultTrustpilotReviews;
   const frameworkPhases = getFrameworkPhases() as typeof defaultFrameworkPhases;
   const clientTestimonials = getClientTestimonials() as typeof defaultClientTestimonials;
   const faqData = getFaqData() as typeof defaultFaqData;
-  const audioReviewsData = cmsData?.audioReviews || defaultAudioReviews;
-  const negativeReviewsData = cmsData?.negativeReviews || defaultNegativeReviews;
   const heroImages = (() => {
     const cms = Array.isArray(cmsData?.hero?.images) ? cmsData.hero.images : [];
     const merged = [...cms, ...defaultHeroImages.filter(d => !cms.includes(d))];
@@ -872,75 +771,75 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      <section id="framework" className="relative scroll-mt-24 overflow-hidden font-sans" style={{ background: 'linear-gradient(135deg, #3B9AE8 0%, #2B7BD6 50%, #1E6AC4 100%)' }}>
-        {/* Subtle dot pattern overlay */}
-        <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+      <section id="framework" className="bg-[#F9F5FF] scroll-mt-24">
+        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+          <h2 
+            className="mb-12 text-4xl font-bold tracking-tight text-[#2D1B4D] sm:text-5xl"
+            dangerouslySetInnerHTML={{ __html: frameworkHeading }}
+          />
 
-        <div className="relative z-10 mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-          {/* Header Row */}
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-16 lg:mb-20">
-            <h2 
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.15]"
-              dangerouslySetInnerHTML={{ __html: frameworkHeading }}
-            />
-            <p className="text-white/80 text-base sm:text-lg max-w-md leading-[1.8] lg:text-right">
-              We are committed to helping you achieve your career goals and land your dream job in a timeframe that exceeds your expectations.
-            </p>
-          </div>
-
-          {/* Phase Grid - 3 columns */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 rounded-3xl overflow-hidden">
-            {frameworkPhases.map((phase, idx) => (
-              <div
-                key={phase.number}
-                className="relative p-8 sm:p-10 lg:p-12 bg-[#3B9AE8]/60 backdrop-blur-sm hover:bg-[#2B7BD6]/70 transition-colors duration-500 group"
-              >
-                {/* Large watermark number */}
-                <span 
-                  className="absolute top-2 right-4 text-[7rem] sm:text-[8rem] lg:text-[9rem] font-black text-white/[0.12] leading-none select-none pointer-events-none" 
-                  style={{ 
-                    fontWeight: 900,
-                    WebkitMaskImage: 'linear-gradient(to bottom, black 30%, transparent 100%)',
-                    maskImage: 'linear-gradient(to bottom, black 30%, transparent 100%)'
-                  }}
+          <div className="grid gap-12 lg:grid-cols-2">
+            {/* Left Column: Phases List */}
+            <div className="space-y-4">
+              {frameworkPhases.map((phase, idx) => (
+                <div
+                  key={phase.number}
+                  data-framework-step
+                  data-index={idx}
+                  className={`rounded-3xl p-8 sm:p-10 transition-all duration-500 border-l-4 ${
+                    activePhase === idx
+                      ? 'bg-white shadow-2xl shadow-purple-500/10 border-purple-600 opacity-100 scale-[1.02]'
+                      : 'opacity-40 border-transparent'
+                  }`}
                 >
-                  {phase.number}
-                </span>
+                  <h3
+                    className={`text-2xl font-bold ${
+                      activePhase === idx ? 'text-purple-700' : 'text-purple-400'
+                    }`}
+                  >
+                    <span className="mr-4 opacity-50 text-base font-medium font-mono">{phase.number}</span>
+                    {phase.title}
+                  </h3>
+                  <p className="mt-4 text-base leading-relaxed text-[#5D4A7A]/80">
+                    {phase.description}
+                  </p>
 
-                {/* Phase title */}
-                <h3 className="relative z-10 text-lg sm:text-xl font-extrabold text-white italic mb-4 leading-snug tracking-wide">
-                  {phase.title}
+                  {/* Mobile-only inline details */}
+                  <div className={`mt-8 space-y-4 lg:hidden transition-all duration-500 ${activePhase === idx ? 'block' : 'hidden'}`}>
+                    {phase.details.map((detail) => (
+                      <div key={detail} className="flex items-start gap-3">
+                        <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-purple-600/10 text-purple-600 mt-0.5">
+                          <Check className="h-3 w-3" />
+                        </div>
+                        <span className="text-sm font-medium text-[#4B2C83]">
+                          {detail}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Right Column: Active Phase Details (Desktop only) */}
+            <div className="relative hidden lg:block">
+              <div className="sticky top-24 rounded-[2.5rem] bg-white p-8 shadow-2xl shadow-purple-500/5 sm:p-12">
+                <h3 className="text-2xl font-bold text-[#2D1B4D] sm:text-3xl">
+                  {frameworkPhases[activePhase].title}
                 </h3>
-
-                {/* Description */}
-                <p className="relative z-10 text-white/70 text-sm leading-[1.8] mb-6">
-                  {phase.description}
-                </p>
-
-                {/* Detail bullets */}
-                <ul className="relative z-10 space-y-4">
-                  {phase.details.map((detail) => (
-                    <li key={detail} className="flex items-start gap-3">
-                      <span className="mt-[7px] h-[6px] w-[6px] rounded-full bg-white/80 flex-shrink-0" />
-                      <span className="text-sm text-white/90 leading-[1.7]">{detail}</span>
-                    </li>
+                <div className="mt-10 space-y-6">
+                  {frameworkPhases[activePhase].details.map((detail) => (
+                    <div key={detail} className="flex items-start gap-4">
+                      <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-purple-600/10 text-purple-600 mt-1">
+                        <Check className="h-4 w-4" />
+                      </div>
+                      <span className="text-lg font-medium text-[#4B2C83]">
+                        {detail}
+                      </span>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
-            ))}
-
-            {/* CTA Card - fills last slot */}
-            <div className="relative p-8 sm:p-10 lg:p-12 bg-white/10 backdrop-blur-sm flex flex-col justify-center">
-              <p className="text-white text-base sm:text-lg leading-[1.8] mb-8">
-                Contact us today to arrange your initial call and begin your journey towards landing your dream job in 30 days or less.
-              </p>
-              <a
-                href="/contact"
-                className="inline-flex items-center justify-center gap-3 bg-white text-[#2B7BD6] px-8 py-4 rounded-xl text-sm font-bold tracking-wide hover:bg-white/90 transition-all shadow-lg shadow-black/10 group/cta w-full sm:w-auto"
-              >
-                GET STARTED
-                <ArrowRight className="h-4 w-4 transition-transform group-hover/cta:translate-x-1" />
-              </a>
             </div>
           </div>
         </div>
@@ -1018,140 +917,6 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       )}
 
-      {/* Removed Google Reviews Section */}
-
-      {/* Trustpilot Reviews Section */}
-      <section id="trustpilot-reviews" className="bg-[#1C1C28] py-24 scroll-mt-24 text-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
-             <div className="max-w-xl">
-               <h2 className="text-3xl md:text-4xl font-bold mb-4">Excellent on Trustpilot</h2>
-               <p className="text-gray-400 text-lg">See why thousands of job seekers trust QBay Careers for their professional journey.</p>
-             </div>
-             <div className="flex flex-col items-center md:items-end">
-               <div className="flex items-center gap-1 mb-2">
-                 {[...Array(5)].map((_, i) => (
-                   <div key={i} className="bg-[#00B67A] p-1.5 rounded-sm">
-                     <Star className="w-5 h-5 fill-white text-white" />
-                   </div>
-                 ))}
-               </div>
-               <p className="text-sm text-gray-400">Based on <strong className="text-white">400+ reviews</strong></p>
-             </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {trustpilotData.map((review: any, idx: number) => {
-              const ratingCount = !isNaN(Number(review.rating)) && Number(review.rating) > 0 ? Number(review.rating) : 5;
-              
-              return (
-                <div key={idx} className="bg-[#262635] rounded-xl p-6 border border-white/5 hover:border-[#00B67A]/50 transition-colors flex flex-col">
-                  <div className="flex items-center gap-1 mb-4">
-                    {[...Array(ratingCount)].map((_, i) => (
-                      <div key={i} className="bg-[#00B67A] p-1 rounded-sm">
-                        <Star className="w-3 h-3 fill-white text-white" />
-                      </div>
-                    ))}
-                    {[...Array(5 - ratingCount)].map((_, i) => (
-                       <div key={`empty-${i}`} className="bg-gray-600 p-1 rounded-sm">
-                         <Star className="w-3 h-3 fill-gray-800 text-gray-800" />
-                       </div>
-                    ))}
-                  </div>
-                  <h3 className="font-bold text-white text-lg mb-3 leading-snug">{review.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed flex-1 mb-6">
-                    {review.content}
-                  </p>
-                <div className="mt-auto">
-                  <p className="font-medium text-white text-sm">{review.name}</p>
-                  <p className="text-xs text-gray-500 mt-1">{review.time}</p>
-                </div>
-              </div>
-            );
-          })}
-          </div>
-        </div>
-      </section>
-
-      {/* Audio Reviews Section */}
-      <section id="audio-reviews" className="bg-white py-24 scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">
-              Hear their success stories
-            </h2>
-            <p className="text-lg text-slate-600 leading-relaxed">
-              Listen to real experiences from our candidates who cracked top-tier interviews and landed their dream roles.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8">
-             {audioReviewsData.map((audio: any, idx: number) => (
-               <div key={idx} className="bg-white rounded-2xl p-3 sm:p-4 border-2 border-purple-100/60 flex items-stretch gap-3 sm:gap-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-lg transition-shadow group relative overflow-hidden">
-                 {/* Left: Image Container */}
-                 <div className="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] flex-shrink-0">
-                   <img src={audio.avatar} alt={audio.name} className="w-full h-full rounded-xl object-cover" />
-                 </div>
-
-                 {/* Right: Content & Controls */}
-                 <div className="flex-1 flex flex-col py-0.5 justify-between min-w-0">
-                   {/* Top Right Flag */}
-                   <div className="absolute top-3 sm:top-4 right-3 sm:right-4 w-8 h-8 rounded-full border border-gray-100 overflow-hidden shadow-sm bg-gray-50 flex-shrink-0">
-                     <img src={audio.flag} alt="Country flag" className="w-full h-full object-cover" />
-                   </div>
-
-                   {/* Name and Role */}
-                   <div className="pr-10 min-w-0 pt-2">
-                     <h3 className="font-extrabold text-[#2D1B4D] text-base sm:text-lg leading-tight mb-1 truncate">{audio.name}</h3>
-                     <p className="text-xs sm:text-sm font-bold text-violet-600 truncate">{audio.role}</p>
-                   </div>
-
-                   {/* Play & Waveform */}
-                   <div className="flex items-center gap-2 sm:gap-3 mt-3">
-                     <button 
-                       onClick={() => {
-                         if (audio.audioUrl) {
-                           toggleAudio(idx, audio.audioUrl);
-                         }
-                       }}
-                       className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 flex items-center justify-center transition-colors flex-shrink-0 ${
-                         playingAudioIdx === idx 
-                           ? 'border-purple-600 bg-purple-600 text-white shadow-md shadow-purple-500/30 ring-2 ring-purple-100' 
-                           : 'border-violet-600 text-violet-600 hover:bg-violet-600 hover:text-white'
-                       }`}
-                     >
-                       {playingAudioIdx === idx ? (
-                         <Pause className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current" />
-                       ) : (
-                         <Play className="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-0.5 fill-current" />
-                       )}
-                     </button>
-                     
-                     {/* Waveform Visualization */}
-                     <div className="flex flex-1 items-center gap-[2px] sm:gap-1 h-5 overflow-hidden pr-2">
-                       {[30, 60, 40, 80, 50, 90, 70, 40, 60, 100, 80, 50, 40, 60, 30, 70, 90, 50, 80, 40, 60, 30, 70, 90].map((h, i) => (
-                         <div 
-                           key={i} 
-                           className={`w-[3px] sm:w-1 rounded-full transition-all duration-300 ${
-                             playingAudioIdx === idx
-                               ? 'bg-purple-600 opacity-100 animate-pulse'
-                               : 'bg-violet-600 opacity-60 group-hover:opacity-100'
-                           }`} 
-                           style={{ 
-                             height: playingAudioIdx === idx ? `${Math.max(20, h + (Math.sin(i) * 20))}%` : `${h}%`,
-                             animationDelay: `${i * 0.05}s`
-                           }}
-                         />
-                       ))}
-                     </div>
-                   </div>
-                 </div>
-               </div>
-             ))}
-          </div>
-        </div>
-      </section>
-
       <section id="testimonials" className="bg-[#F9F5FF] py-24 scroll-mt-24 pb-40">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-[#2D1B4D] text-center mb-16 sm:text-5xl">
@@ -1159,7 +924,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
           </h2>
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {testimonialShortsData.map((video: { id: string; url: string; thumbnail: string }, idx: number) => (
+            {testimonialShortsData.map((video, idx) => (
                 <a
                   key={video.id + idx}
                   href={video.url}
@@ -1187,137 +952,43 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      <section id="client-love" className="relative bg-gradient-to-b from-white via-[#F8F7FF] to-white py-24 sm:py-32 scroll-mt-24 overflow-hidden">
-        {/* Decorative Background Elements */}
-        <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-40">
-          <div className="absolute top-20 -left-20 w-96 h-96 bg-purple-200/30 rounded-full blur-[100px]" />
-          <div className="absolute bottom-20 -right-20 w-96 h-96 bg-violet-200/30 rounded-full blur-[100px]" />
-        </div>
-
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#2D1B4D] tracking-tight mb-6">
+      <section id="client-love" className="bg-white py-16 sm:py-24 scroll-mt-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">
               {clientLoveTitle}
             </h2>
-            <div className="flex items-center justify-center gap-2 mb-6">
-              <div className="h-1 w-12 bg-purple-600 rounded-full" />
-              <Quote className="w-5 h-5 text-purple-600 fill-current" />
-              <div className="h-1 w-12 bg-purple-600 rounded-full" />
-            </div>
-            <p className="text-lg sm:text-xl text-slate-600 leading-relaxed font-medium">
+            <p className="text-lg text-slate-600 leading-relaxed">
               {clientLoveDescription}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-            {clientTestimonials.map((testimonial: any, index: number) => (
-              <div 
-                key={index} 
-                className="group relative bg-white/70 backdrop-blur-xl rounded-[2rem] p-8 border border-white/80 shadow-[0_10px_40px_rgba(45,27,77,0.04)] hover:shadow-[0_20px_50px_rgba(45,27,77,0.08)] transition-all duration-500 hover:-translate-y-3"
-              >
-                {/* Floating Quote Icon */}
-                <div className="absolute -top-4 -right-4 w-12 h-12 bg-purple-600 text-white rounded-2xl flex items-center justify-center shadow-lg transform rotate-12 group-hover:rotate-0 transition-transform duration-500">
-                  <Quote className="w-6 h-6 fill-current" />
-                </div>
-
-                <div className="flex flex-col h-full">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="relative">
-                      <div className="absolute inset-0 bg-purple-600 rounded-2xl blur-md opacity-20 group-hover:opacity-40 transition-opacity" />
-                      <img
-                        src={testimonial.image}
-                        alt={testimonial.name}
-                        className="relative w-16 h-16 rounded-2xl object-cover border-2 border-white shadow-sm"
-                      />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-[#2D1B4D] text-lg leading-tight">{testimonial.name}</h3>
-                      <p className="text-sm font-semibold text-purple-600/80 mt-1 uppercase tracking-wider">{testimonial.role}</p>
-                    </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {clientTestimonials.map((testimonial, index) => (
+              <div key={index} className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0">
+                    <img
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      className="w-12 h-12 rounded-full object-cover"
+                    />
                   </div>
-
-                  <div className="flex-1 relative">
-                    <p className="text-[#4A4A68] leading-relaxed text-base italic font-medium">
-                      "{testimonial.content}"
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <h3 className="font-semibold text-gray-900">{testimonial.name}</h3>
+                    </div>
+                    <p className="text-sm text-gray-500 mb-3">{testimonial.role}</p>
+                    <p className="text-gray-700 leading-relaxed text-sm">
+                      {testimonial.content}
                     </p>
-                  </div>
-
-                  <div className="mt-8 pt-6 border-t border-purple-100/50 flex items-center justify-between">
-                    <div className="flex items-center gap-1">
+                    <div className="mt-3 flex items-center gap-1">
                       {[1, 2, 3, 4, 5].map((star) => (
-                        <Star 
-                          key={star} 
-                          className={`w-4 h-4 ${star <= (testimonial.rating || 5) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200'}`} 
-                        />
+                        <svg key={star} className="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                          <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                        </svg>
                       ))}
                     </div>
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">Verified Review</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Glaringly Painful Reviews Section */}
-      <section id="painful-reviews" className="bg-gradient-to-br from-[#F5F3FF] to-[#FAFAFA] py-24 scroll-mt-24 font-sans border-y border-purple-50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-[#2D1B4D] tracking-tight flex items-center justify-center gap-3 flex-wrap mb-4">
-              Our Brutally Honest 1 
-              <span className="bg-red-500 text-white rounded-md px-1.5 py-1.5 inline-flex shadow-sm">
-                <Star className="w-5 h-5 sm:w-6 sm:h-6 fill-white" />
-              </span> 
-              Reviews 
-              <span className="text-purple-300">
-                <Info className="w-7 h-7 sm:w-9 sm:h-9" strokeWidth={1.5} />
-              </span>
-            </h2>
-            <div className="flex items-center justify-center gap-4 flex-wrap text-lg text-slate-600 mt-2">
-              <p>There is a reason for this section.</p>
-              <button className="bg-violet-600 text-white text-xs font-bold px-4 py-1.5 rounded-full hover:bg-violet-700 transition-colors shadow-sm tracking-wide">
-                Read Why?
-              </button>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {negativeReviewsData.map((review: any, idx: number) => (
-              <div key={idx} className="bg-white rounded-[1.25rem] p-7 md:p-8 shadow-[0_4px_30px_rgb(0,0,0,0.03)] hover:shadow-xl transition-shadow duration-300 flex flex-col relative overflow-hidden group border border-purple-50">
-                <div className="flex items-center justify-between mb-8">
-                  <div className="flex items-center gap-3">
-                    <img src={review.avatar} alt={review.name} className="w-12 h-12 rounded-full object-cover shadow-sm bg-gray-100" />
-                    <h3 className="font-bold text-gray-900 text-[17px]">{review.name}</h3>
-                  </div>
-                  <div className="flex gap-0.5">
-                    {[...Array(5)].map((_, i) => (
-                      <div key={i} className={`${i < (review.rating || 1) ? 'bg-red-500' : 'bg-gray-200'} p-[2px] rounded-sm`}>
-                         <Star className="w-3.5 h-3.5 fill-white text-white" />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <h4 className="font-bold text-gray-900 mb-4 text-[15px]">{review.title}</h4>
-                <p className="text-gray-500 leading-relaxed text-[15px] flex-1 mb-8">
-                  {review.content}
-                </p>
-
-                <div className="flex items-center justify-between mt-auto pt-2">
-                  <span className="text-violet-600 font-bold text-sm flex items-center gap-1 cursor-pointer hover:opacity-80 transition-opacity">
-                    Read More <ArrowRight className="w-4 h-4 ml-0.5" strokeWidth={2.5} />
-                  </span>
-                  <span className="text-slate-400 text-xs font-semibold">{review.date}</span>
-                </div>
-
-                {/* Hover Reply Overlay */}
-                <div className="absolute inset-x-0 bottom-0 top-[22%] bg-[#2D1B4D] rounded-t-xl rounded-b-[1.25rem] p-6 sm:p-8 flex flex-col translate-y-[105%] group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out z-10 shadow-[0_-10px_40px_rgb(0,0,0,0.15)]">
-                  <div>
-                    <h5 className="text-violet-400 tracking-[0.15em] text-[10px] font-bold uppercase mb-4 blur-[0.3px]">FOUNDERS REPLY</h5>
-                    <p className="text-white/95 text-[15px] leading-relaxed">
-                      {review.reply}
-                    </p>
                   </div>
                 </div>
               </div>
@@ -1634,147 +1305,6 @@ export default function HomeClient({ initialData }: { initialData: any }) {
             </div>
           </div>
 
-        </div>
-      </section>
-
-      {/* Get In Touch Section */}
-      <section id="get-in-touch" className="bg-gradient-to-b from-white to-[#FDFCFE] py-24 sm:py-32 border-t border-gray-100">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-            
-            {/* Left Side - Content */}
-            <div className="space-y-8">
-              <div>
-                <h2 className="text-4xl md:text-5xl font-bold text-[#1A112B] tracking-tight mb-4">
-                  Get In Touch
-                </h2>
-                <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
-                  Have questions or ready to start your career journey? We're here to help you succeed.
-                </p>
-              </div>
-
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                    <PhoneCall className="w-6 h-6 text-purple-700" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-[#2D1B4D] text-lg">Call Us</h3>
-                    <p className="text-gray-600 mt-1">+44 7441 391851</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                    <MessageCircle className="w-6 h-6 text-green-700" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-[#2D1B4D] text-lg">WhatsApp</h3>
-                    <a href="https://wa.me/447441391851" target="_blank" rel="noopener noreferrer" className="text-gray-600 mt-1 hover:text-purple-700 transition-colors">
-                      Chat with us directly
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                    <Globe className="w-6 h-6 text-blue-700" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-[#2D1B4D] text-lg">Email Us</h3>
-                    <p className="text-gray-600 mt-1">hello@qbaycareers.com</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Side - Contact Form */}
-            <div className="bg-white rounded-[2rem] p-8 md:p-12 shadow-[0_8px_30px_rgba(45,27,77,0.08)] border border-purple-50">
-              <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="firstName" className="block text-sm font-bold text-[#2D1B4D] mb-2">
-                      First Name *
-                    </label>
-                    <input
-                      type="text"
-                      id="firstName"
-                      name="firstName"
-                      required
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all outline-none text-[#2D1B4D]"
-                      placeholder="John"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="lastName" className="block text-sm font-bold text-[#2D1B4D] mb-2">
-                      Last Name *
-                    </label>
-                    <input
-                      type="text"
-                      id="lastName"
-                      name="lastName"
-                      required
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all outline-none text-[#2D1B4D]"
-                      placeholder="Doe"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-bold text-[#2D1B4D] mb-2">
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all outline-none text-[#2D1B4D]"
-                    placeholder="john@example.com"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-bold text-[#2D1B4D] mb-2">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all outline-none text-[#2D1B4D]"
-                    placeholder="+44 7441 391851"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-bold text-[#2D1B4D] mb-2">
-                    Your Message *
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={4}
-                    required
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all outline-none text-[#2D1B4D] resize-none"
-                    placeholder="Tell us about your career goals..."
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all bg-[#594A7A] rounded-xl hover:bg-[#4a3b61] hover:scale-[1.02] shadow-xl hover:shadow-2xl active:scale-95"
-                >
-                  Send Message
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </button>
-
-                <p className="text-sm text-gray-500 text-center">
-                  We'll get back to you within 24 hours.
-                </p>
-              </form>
-            </div>
-          </div>
         </div>
       </section>
 
