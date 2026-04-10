@@ -336,22 +336,35 @@ export default function HomeClient({ initialData }: { initialData: any }) {
   const resultsDescription = resultsData 
     ? (resultsData.description || resultsData.text || '') 
     : 'Don\'t just take our word for it—hear from students and parents whose journeys have been transformed by Qbay.';
+  // resultsImages: supports both old string[] format and new {src, flag}[] format
   const resultsImages = (() => {
+    const defaultImages = [1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => ({
+      src: `/testimonials/whatsapp${num}.jpeg`,
+      flag: 'https://flagcdn.com/w80/in.png'
+    }));
+
+    // New structure: resultsData.images is an array of {src, flag} objects
+    if (resultsData?.images && Array.isArray(resultsData.images) && resultsData.images.length > 0) {
+      return resultsData.images.map((item: any) => {
+        if (typeof item === 'string') return { src: item, flag: 'https://flagcdn.com/w80/in.png' };
+        return {
+          src: item.src || item.image || '',
+          flag: item.flag || 'https://flagcdn.com/w80/in.png'
+        };
+      }).filter((item: { src: string; flag: string }) => item.src);
+    }
+
+    // Legacy: scan for any image URLs in the data
     const urls: string[] = [];
     const scan = (val: any) => {
       if (typeof val === 'string') {
         const trimmed = val.trim();
-        // Only consider it an image if it has a common image extension or starts with http and looks like a Pexels/Unsplash link
-        const isImagePattern = /\.(jpg|jpeg|png|webp|gif|svg|bmp|tiff)(\?.*)?$/i.test(trimmed) || 
+        const isImagePattern = /\.(jpg|jpeg|png|webp|gif|svg|bmp|tiff)(\?.*)?$/i.test(trimmed) ||
                                (trimmed.startsWith('http') && (trimmed.includes('/photos/') || trimmed.includes('/img/')));
-        
-        if (isImagePattern) {
-          urls.push(trimmed);
-        }
+        if (isImagePattern) urls.push(trimmed);
       } else if (val && typeof val === 'object' && !Array.isArray(val)) {
-        // Scan object properties (but skip common text fields if they are explicitly known)
         Object.entries(val).forEach(([k, v]) => {
-          if (!['title', 'subtitle', 'heading', 'subHeading', 'description', 'text'].includes(k.toLowerCase())) {
+          if (!['title', 'subtitle', 'heading', 'subHeading', 'description', 'text', 'flag'].includes(k.toLowerCase())) {
             scan(v);
           }
         });
@@ -360,8 +373,15 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       }
     };
     scan(resultsData);
-    return urls.length > 0 ? urls : [1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => `/testimonials/whatsapp${num}.jpeg`);
-  })().filter(src => src && !src.includes('[object') && (src.includes('.') || src.includes('/') || src.startsWith('http'))) as string[];
+
+    if (urls.length > 0) {
+      return urls
+        .filter(src => src && !src.includes('[object'))
+        .map(src => ({ src, flag: 'https://flagcdn.com/w80/in.png' }));
+    }
+
+    return defaultImages;
+  })() as { src: string; flag: string }[];
 
   console.log('Final Results Images Count:', resultsImages.length);
   console.log('Final Results Images:', resultsImages);
@@ -869,17 +889,23 @@ export default function HomeClient({ initialData }: { initialData: any }) {
               onMouseLeave={() => setIsResultsPaused(false)}
               className="flex gap-4 overflow-x-auto pb-6 scrollbar-hide"
             >
-              {resultsImages.map((src, idx) => (
+              {resultsImages.map((item, idx) => (
                 <div
                   key={idx}
                   className="min-w-[240px] w-[70vw] sm:w-[300px] flex-shrink-0 overflow-hidden rounded-2xl shadow-lg border border-purple-100 bg-white cursor-pointer group"
-                  onClick={() => setSelectedImage(src)}
+                  onClick={() => setSelectedImage(item.src)}
                 >
                   <div className="relative">
+                    {/* Country Flag Overlay */}
+                    {item.flag && (
+                      <div className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full border-2 border-white overflow-hidden shadow-lg transition-transform duration-300 group-hover:scale-110">
+                        <img src={item.flag} alt="Country flag" className="w-full h-full object-cover" />
+                      </div>
+                    )}
                     <img
-                      src={src}
+                      src={item.src}
                       alt={`Student success story ${idx + 1}`}
-                      className="w-full h-[380px] object-cover"
+                      className="w-full h-[380px] object-cover transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">

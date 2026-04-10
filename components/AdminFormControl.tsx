@@ -46,30 +46,51 @@ export const AdminFormControl: React.FC<AdminFormControlProps> = ({
 
   // Render Arrays (Recursive)
   if (Array.isArray(value)) {
-    // Detect if this is an image URL array (all items are strings that look like URLs)
+    // Detect string-URL image arrays
     const isImageArray = value.length > 0 && value.every(v => typeof v === 'string' && (v.startsWith('http') || v.startsWith('/')));
+    // Detect object-based image arrays e.g. {src, flag} from WhatsApp results
+    const isObjectImageArray = value.length > 0 && value.every(v => typeof v === 'object' && v !== null && ('src' in v || 'image' in v || 'flag' in v));
 
     return (
       <div className={`space-y-4 ${depth > 0 ? 'mt-4 border-l-2 border-purple-200 pl-6' : ''}`}>
         <div className="flex items-center justify-between">
           <h4 className="text-sm font-bold text-purple-700 uppercase tracking-wider">{label}</h4>
           <button
-            onClick={() => onChange([...value, typeof value[0] === 'object' ? {} : ''])}
+            onClick={() => {
+              let template: any = '';
+              if (isObjectImageArray && value.length > 0) {
+                // Clone the structure of the first item, clearing string values
+                const first = value[0];
+                template = Object.fromEntries(
+                  Object.keys(first).map(k => [
+                    k,
+                    k === 'flag' ? 'https://flagcdn.com/w80/in.png' : (typeof first[k] === 'string' ? '' : first[k])
+                  ])
+                );
+              } else if (isObjectImageArray || label.toLowerCase().includes('image')) {
+                template = { src: '', flag: 'https://flagcdn.com/w80/in.png' };
+              } else if (isImageArray) {
+                template = '';
+              } else {
+                template = typeof value[0] === 'object' ? {} : '';
+              }
+              onChange([...value, template]);
+            }}
             className="flex items-center gap-1 rounded bg-purple-100 px-2 py-1 text-[10px] font-bold text-purple-600 hover:bg-purple-200 transition-colors"
           >
             <Plus size={12} /> ADD ITEM
           </button>
         </div>
 
-        {/* Image Grid Preview for image arrays */}
+        {/* Image Grid Preview for string-URL image arrays */}
         {isImageArray && (
           <div className="grid grid-cols-3 gap-3 mb-4">
-            {value.map((url, index) => (
+            {value.map((url: string, index: number) => (
               <div key={index} className="relative group rounded-xl overflow-hidden border border-purple-100 bg-slate-50 aspect-[16/10] shadow-sm">
-                <img 
-                  src={url} 
-                  alt={`Image ${index + 1}`} 
-                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" 
+                <img
+                  src={url}
+                  alt={`Image ${index + 1}`}
+                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   onError={(e) => (e.currentTarget.style.display = 'none')}
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
@@ -78,7 +99,7 @@ export const AdminFormControl: React.FC<AdminFormControlProps> = ({
                   </span>
                 </div>
                 <button
-                  onClick={() => onChange(value.filter((_, i) => i !== index))}
+                  onClick={() => onChange(value.filter((_: any, i: number) => i !== index))}
                   className="absolute top-2 right-2 rounded-full bg-red-500 p-1 text-white opacity-0 group-hover:opacity-100 transition-opacity shadow-lg hover:bg-red-600"
                 >
                   <Minus size={12} />
@@ -88,8 +109,50 @@ export const AdminFormControl: React.FC<AdminFormControlProps> = ({
           </div>
         )}
 
+        {/* Image + Flag Grid Preview for object-image arrays like WhatsApp results */}
+        {isObjectImageArray && (
+          <div className="grid grid-cols-3 gap-3 mb-4">
+            {value.map((item: any, index: number) => {
+              const imgSrc = item.src || item.image || '';
+              const flagSrc = item.flag || '';
+              return (
+                <div key={index} className="relative group rounded-xl overflow-hidden border border-purple-100 bg-slate-50 aspect-[3/4] shadow-sm">
+                  {imgSrc ? (
+                    <img
+                      src={imgSrc}
+                      alt={`Image ${index + 1}`}
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      onError={(e) => (e.currentTarget.style.display = 'none')}
+                    />
+                  ) : (
+                    <div className="h-full w-full flex items-center justify-center text-slate-300">
+                      <ImageIcon size={28} />
+                    </div>
+                  )}
+                  {flagSrc && (
+                    <div className="absolute top-2 right-2 w-7 h-7 rounded-full border-2 border-white overflow-hidden shadow-md z-10">
+                      <img src={flagSrc} alt="flag" className="w-full h-full object-cover" />
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                    <span className="text-white text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity bg-black/50 px-2 py-1 rounded">
+                      #{index + 1}
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => onChange(value.filter((_: any, i: number) => i !== index))}
+                    className="absolute top-2 left-2 rounded-full bg-red-500 p-1 text-white opacity-0 group-hover:opacity-100 transition-opacity shadow-lg hover:bg-red-600"
+                  >
+                    <Minus size={12} />
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
         <div className="space-y-4">
-          {value.map((val, index) => (
+          {value.map((val: any, index: number) => (
             <div key={index} className="group relative flex items-start gap-4 pr-10">
               <div className="flex-1">
                 {isImageArray ? (
@@ -128,9 +191,9 @@ export const AdminFormControl: React.FC<AdminFormControlProps> = ({
                   />
                 )}
               </div>
-              {!isImageArray && (
+              {!isImageArray && !isObjectImageArray && (
                 <button
-                  onClick={() => onChange(value.filter((_, i) => i !== index))}
+                  onClick={() => onChange(value.filter((_: any, i: number) => i !== index))}
                   className="absolute right-0 top-8 rounded-full p-1 text-slate-300 hover:bg-red-50 hover:text-red-500 transition-all opacity-0 group-hover:opacity-100"
                 >
                   <Minus size={16} />

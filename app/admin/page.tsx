@@ -186,6 +186,44 @@ export default function AdminDashboard() {
         };
       }
 
+      // Auto-migrate WhatsApp Results: convert old string[] images to {src, flag}[] objects
+      if (newData.results && !parentKey) {
+        const r = newData.results;
+        const isObj = typeof r === 'object' && !Array.isArray(r);
+        const existingMeta = isObj ? r : {};
+        const rawImages: any[] = isObj ? (r.images || []) : (Array.isArray(r) ? r : []);
+
+        // Default to 9 local WhatsApp images when nothing is stored in DB
+        const defaultLocalImages = [1, 2, 3, 4, 5, 6, 7, 8, 9].map(
+          n => `/testimonials/whatsapp${n}.jpeg`
+        );
+        const imagesToUse = rawImages.length === 0 ? defaultLocalImages : rawImages;
+        const needsConversion = imagesToUse.some((item: any) => typeof item === 'string');
+
+        if (!isObj || needsConversion || rawImages.length === 0) {
+          newData.results = {
+            title: existingMeta.title || 'Success Stories That Inspire',
+            subtitle: existingMeta.subtitle || 'Real Experiences. Real Results.',
+            description: existingMeta.description || "Don't just take our word for it—hear from students and parents whose journeys have been transformed by Qbay.",
+            images: imagesToUse.map((item: any) =>
+              typeof item === 'string'
+                ? { src: item, flag: 'https://flagcdn.com/w80/in.png' }
+                : { src: item.src || '', flag: item.flag || 'https://flagcdn.com/w80/in.png' }
+            )
+          };
+        } else if (isObj && Array.isArray(r.images)) {
+          // Ensure all existing objects have a non-empty flag
+          newData.results = {
+            ...r,
+            images: r.images.map((item: any) =>
+              typeof item === 'string'
+                ? { src: item, flag: 'https://flagcdn.com/w80/in.png' }
+                : { src: item.src || '', flag: item.flag || 'https://flagcdn.com/w80/in.png' }
+            )
+          };
+        }
+      }
+
       // Auto-migrate Negative Reviews
       if (newData.negativeReviews === undefined && !parentKey && newData.hero) {
         newData.negativeReviews = [
@@ -430,6 +468,8 @@ export default function AdminDashboard() {
       template = { name: "New Client", role: "Job Seeker", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150", content: "Write the feedback here...", rating: 5 };
     } else if (activeSubSection === 'negativeReviews') {
       template = { name: "New Reviewer", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150", title: "Review Title", content: "Negative review content...", date: "Jan 2026", reply: "Our professional response...", rating: 1 };
+    } else if (activeSubSection === 'results') {
+      template = { src: "", flag: "https://flagcdn.com/w80/in.png" };
     }
 
     if (sub?.targetKey) {
