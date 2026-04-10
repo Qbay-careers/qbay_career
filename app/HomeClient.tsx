@@ -439,9 +439,11 @@ export default function HomeClient({ initialData }: { initialData: any }) {
 
   const [activePhase, setActivePhase] = useState(0);
   const resultsScrollRef = useRef<HTMLDivElement>(null);
+  const testimonialScrollRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
   const [isResultsPaused, setIsResultsPaused] = useState(false);
+  const [isTestimonialPaused, setIsTestimonialPaused] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
@@ -469,6 +471,31 @@ export default function HomeClient({ initialData }: { initialData: any }) {
 
     return () => cancelAnimationFrame(animationFrameId);
   }, [isResultsPaused]);
+
+  useEffect(() => {
+    const scrollContainer = testimonialScrollRef.current;
+    if (!scrollContainer) return;
+
+    let animationFrameId: number;
+
+    const scroll = () => {
+      if (!isTestimonialPaused) {
+        if (
+          Math.ceil(scrollContainer.scrollLeft) + scrollContainer.clientWidth >=
+          scrollContainer.scrollWidth
+        ) {
+          scrollContainer.scrollLeft = 0;
+        } else {
+          scrollContainer.scrollLeft += 1;
+        }
+      }
+      animationFrameId = requestAnimationFrame(scroll);
+    };
+
+    animationFrameId = requestAnimationFrame(scroll);
+
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [isTestimonialPaused]);
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
@@ -894,37 +921,45 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       )}
 
       <section id="testimonials" className="bg-[#F9F5FF] py-24 scroll-mt-24 pb-40">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-[#2D1B4D] text-center mb-16 sm:text-5xl">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-16">
+          <h2 className="text-4xl font-bold text-[#2D1B4D] text-center sm:text-5xl">
             {testimonialsGridTitle}
           </h2>
+        </div>
 
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="w-full overflow-hidden relative">
+          <div 
+            ref={testimonialScrollRef}
+            onMouseEnter={() => setIsTestimonialPaused(true)}
+            onMouseLeave={() => setIsTestimonialPaused(false)}
+            className="flex gap-6 overflow-x-auto pb-12 scrollbar-hide px-4 md:px-0"
+          >
             {testimonialShortsData.map((video, idx) => (
                 <a
                   key={video.id + idx}
                   href={video.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="group relative block cursor-pointer"
+                  className="relative w-[220px] aspect-[9/16] flex-shrink-0 rounded-[2.2rem] overflow-hidden bg-gray-900 shadow-2xl group cursor-pointer block"
                 >
-                  <div className="aspect-video overflow-hidden rounded-2xl bg-gray-900 shadow-xl border border-white/10 relative">
-                    <img
-                      src={video.thumbnail}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      alt="Testimonial"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="flex h-14 w-14 items-center justify-center rounded-full bg-red-600 text-white shadow-2xl transition-transform duration-300 group-hover:scale-110">
-                        <Play className="h-7 w-7 fill-current" />
-                      </div>
+                  <img
+                    src={video.thumbnail}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    alt="Testimonial"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-red-600 text-white shadow-2xl transition-transform duration-300 group-hover:scale-110">
+                      <Play className="h-7 w-7 fill-current" />
                     </div>
                   </div>
                 </a>
             ))}
           </div>
-
+          
+          {/* Fade overlays for the edges */}
+          <div className="absolute top-0 bottom-0 left-0 w-32 bg-gradient-to-r from-[#F9F5FF] to-transparent z-10 pointer-events-none" />
+          <div className="absolute top-0 bottom-0 right-0 w-32 bg-gradient-to-l from-[#F9F5FF] to-transparent z-10 pointer-events-none" />
         </div>
       </section>
 
@@ -974,7 +1009,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       </section>
 
       <section id="shorts" className="bg-[#FDFBFF] py-24 scroll-mt-24">
-        <div className="w-full overflow-hidden">
+        <div className="w-full overflow-hidden relative">
           <div 
             ref={scrollRef}
             onMouseEnter={() => setIsPaused(true)}
@@ -987,7 +1022,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                 href={s.url}
                 target="_blank"
                 rel="noreferrer"
-                className="relative w-[220px] aspect-[9/16] flex-shrink-0 rounded-[2.2rem] overflow-hidden bg-gray-900 shadow-2xl border border-white/10 group cursor-pointer block"
+                className="relative w-[220px] aspect-[9/16] flex-shrink-0 rounded-[2.2rem] overflow-hidden bg-gray-900 shadow-2xl group cursor-pointer block"
               >
                 <img
                   src={s.thumbnail}
@@ -1003,6 +1038,10 @@ export default function HomeClient({ initialData }: { initialData: any }) {
               </a>
              ))}
           </div>
+
+          {/* Fade overlays for the edges */}
+          <div className="absolute top-0 bottom-0 left-0 w-32 bg-gradient-to-r from-[#FDFBFF] to-transparent z-10 pointer-events-none" />
+          <div className="absolute top-0 bottom-0 right-0 w-32 bg-gradient-to-l from-[#FDFBFF] to-transparent z-10 pointer-events-none" />
         </div>
       </section>
 
