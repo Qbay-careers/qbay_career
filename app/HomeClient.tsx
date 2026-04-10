@@ -1637,6 +1637,147 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
+      {/* Get In Touch Section */}
+      <section id="get-in-touch" className="bg-gradient-to-b from-white to-[#FDFCFE] py-24 sm:py-32 border-t border-gray-100">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            
+            {/* Left Side - Content */}
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-4xl md:text-5xl font-bold text-[#1A112B] tracking-tight mb-4">
+                  Get In Touch
+                </h2>
+                <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
+                  Have questions or ready to start your career journey? We're here to help you succeed.
+                </p>
+              </div>
+
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                    <PhoneCall className="w-6 h-6 text-purple-700" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-[#2D1B4D] text-lg">Call Us</h3>
+                    <p className="text-gray-600 mt-1">+44 7441 391851</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                    <MessageCircle className="w-6 h-6 text-green-700" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-[#2D1B4D] text-lg">WhatsApp</h3>
+                    <a href="https://wa.me/447441391851" target="_blank" rel="noopener noreferrer" className="text-gray-600 mt-1 hover:text-purple-700 transition-colors">
+                      Chat with us directly
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                    <Globe className="w-6 h-6 text-blue-700" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-[#2D1B4D] text-lg">Email Us</h3>
+                    <p className="text-gray-600 mt-1">hello@qbaycareers.com</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Side - Contact Form */}
+            <div className="bg-white rounded-[2rem] p-8 md:p-12 shadow-[0_8px_30px_rgba(45,27,77,0.08)] border border-purple-50">
+              <form onSubmit={(e) => e.preventDefault()} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="firstName" className="block text-sm font-bold text-[#2D1B4D] mb-2">
+                      First Name *
+                    </label>
+                    <input
+                      type="text"
+                      id="firstName"
+                      name="firstName"
+                      required
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all outline-none text-[#2D1B4D]"
+                      placeholder="John"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="lastName" className="block text-sm font-bold text-[#2D1B4D] mb-2">
+                      Last Name *
+                    </label>
+                    <input
+                      type="text"
+                      id="lastName"
+                      name="lastName"
+                      required
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all outline-none text-[#2D1B4D]"
+                      placeholder="Doe"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="email" className="block text-sm font-bold text-[#2D1B4D] mb-2">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all outline-none text-[#2D1B4D]"
+                    placeholder="john@example.com"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-bold text-[#2D1B4D] mb-2">
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all outline-none text-[#2D1B4D]"
+                    placeholder="+44 7441 391851"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="block text-sm font-bold text-[#2D1B4D] mb-2">
+                    Your Message *
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={4}
+                    required
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all outline-none text-[#2D1B4D] resize-none"
+                    placeholder="Tell us about your career goals..."
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all bg-[#594A7A] rounded-xl hover:bg-[#4a3b61] hover:scale-[1.02] shadow-xl hover:shadow-2xl active:scale-95"
+                >
+                  Send Message
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </button>
+
+                <p className="text-sm text-gray-500 text-center">
+                  We'll get back to you within 24 hours.
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <FeaturedOn />
       <QBayFooter />
 

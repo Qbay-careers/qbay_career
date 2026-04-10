@@ -42,7 +42,7 @@ export default function StickyActionBar() {
         isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 px-0'
       }`}
     >
-      <div className="bg-white/90 backdrop-blur-2xl border border-white/40 rounded-full p-1.5 shadow-2xl shadow-purple-900/10 flex gap-2 pointer-events-auto items-center">
+      <div className="bg-white/90 backdrop-blur-2xl border border-white/40 rounded-full p-1.5 shadow-2xl shadow-purple-900/10 flex gap-2 pointer-events-auto items-center animate-premium-pulse">
         <a
           href="/contact"
           className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-full bg-white px-2 sm:px-3 py-2.5 text-[11px] sm:text-xs font-bold text-[#4B2C83] border border-purple-100 hover:bg-purple-50 transition-all font-sans whitespace-nowrap"

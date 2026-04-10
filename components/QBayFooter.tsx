@@ -23,10 +23,10 @@ export default function QBayFooter() {
             <ul className="space-y-4">
               <li><Link href="/" className="text-gray-500 hover:text-[#5D4A7A] transition-colors font-medium">Home</Link></li>
               <li><Link href="/about-us" className="text-gray-500 hover:text-[#5D4A7A] transition-colors font-medium">About Us</Link></li>
+              <li><Link href="/services" className="text-gray-500 hover:text-[#5D4A7A] transition-colors font-medium">Services</Link></li>
               <li><Link href="/wall-of-fame" className="text-gray-500 hover:text-[#5D4A7A] transition-colors font-medium">Wall of Fame</Link></li>
               <li><Link href="/blog" className="text-gray-500 hover:text-[#5D4A7A] transition-colors font-medium">Blog</Link></li>
               <li><Link href="/pricing" className="text-gray-500 hover:text-[#5D4A7A] transition-colors font-medium">Pricing</Link></li>
-              <li><Link href="/contact" className="text-gray-500 hover:text-[#5D4A7A] transition-colors font-medium">Contact</Link></li>
             </ul>
           </div>
 
