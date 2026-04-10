@@ -17,6 +17,7 @@ import {
   CalendarDays,
   X,
   ArrowRight,
+  Quote,
 } from 'lucide-react';
 import QBayNavbar from '@/components/QBayNavbar';
 import FeaturedOn from '@/components/FeaturedOn';
@@ -78,6 +79,7 @@ const defaultClientTestimonials = [
     image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150',
     content:
       'Balancing work and job applications was exhausting. Each application felt repetitive and draining. I almost gave up after weeks of no responses. But once I got structured support and a smarter strategy, everything changed. Within weeks, interviews started lining up. The clarity and consistency made all the difference. I finally felt confident and supported throughout the process.',
+    rating: 5,
   },
   {
     name: 'Daniel Brooks',
@@ -85,6 +87,7 @@ const defaultClientTestimonials = [
     image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150&h=150',
     content:
       'Moving to a new country meant starting from scratch. I didn\'t understand how the hiring process worked here. Applications went unanswered and I felt stuck. After getting guidance and optimizing my approach, I started seeing real traction. Recruiters began reaching out. In just one month, I secured multiple offers and negotiated a better package than I expected.',
+    rating: 5,
   },
   {
     name: 'Emily Chen',
@@ -92,6 +95,7 @@ const defaultClientTestimonials = [
     image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150',
     content:
       'After facing a sudden layoff, I had limited time to secure a new role. The pressure was intense. Instead of applying randomly, I followed a focused and aggressive strategy. The results were unbelievable. Within four weeks, I received three strong offers and increased my salary significantly. The support system kept me motivated and organized.',
+    rating: 5,
   },
 ];
 
@@ -1055,41 +1059,40 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      <section id="client-love" className="bg-white py-16 sm:py-24 scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">
-              {clientLoveTitle}
+      <section id="client-love" className="relative bg-gradient-to-b from-white via-[#F8F7FF] to-white py-24 scroll-mt-24 overflow-hidden">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#2D1B4D] tracking-tight mb-6" dangerouslySetInnerHTML={{ __html: clientLoveTitle }}>
             </h2>
-            <p className="text-lg text-slate-600 leading-relaxed">
+            <p className="text-lg sm:text-xl text-slate-600 leading-relaxed font-medium">
               {clientLoveDescription}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
             {clientTestimonials.map((testimonial, index) => (
-              <div key={index} className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0">
-                    <img
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-full object-cover"
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <h3 className="font-semibold text-gray-900">{testimonial.name}</h3>
+              <div 
+                key={index} 
+                className="group relative bg-white/70 backdrop-blur-xl rounded-[2rem] p-8 border border-white/80 shadow-[0_10px_40px_rgba(45,27,77,0.04)] hover:shadow-[0_20px_50px_rgba(45,27,77,0.08)] transition-all duration-500 hover:-translate-y-3"
+              >
+                <div className="absolute -top-4 -right-4 w-12 h-12 bg-purple-600 text-white rounded-2xl flex items-center justify-center shadow-lg transform rotate-12 group-hover:rotate-0 transition-transform duration-500">
+                  <Quote className="w-6 h-6 fill-current" />
+                </div>
+                <div className="flex flex-col h-full">
+                  <div className="flex items-center gap-4 mb-6">
+                    <img src={testimonial.image} alt={testimonial.name} className="w-16 h-16 rounded-2xl object-cover border-2 border-white shadow-sm" />
+                    <div>
+                      <h3 className="font-bold text-[#2D1B4D] text-lg leading-tight">{testimonial.name}</h3>
+                      <p className="text-sm font-semibold text-purple-600/80 mt-1 uppercase tracking-wider">{testimonial.role}</p>
                     </div>
-                    <p className="text-sm text-gray-500 mb-3">{testimonial.role}</p>
-                    <p className="text-gray-700 leading-relaxed text-sm">
-                      {testimonial.content}
-                    </p>
-                    <div className="mt-3 flex items-center gap-1">
+                  </div>
+                  <p className="text-[#4A4A68] leading-relaxed text-base italic font-medium flex-1">
+                    "{testimonial.content}"
+                  </p>
+                  <div className="mt-8 pt-6 border-t border-purple-100/50 flex items-center justify-between">
+                    <div className="flex items-center gap-1">
                       {[1, 2, 3, 4, 5].map((star) => (
-                        <svg key={star} className="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                          <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-                        </svg>
+                        <Star key={star} className={`w-4 h-4 ${star <= (testimonial.rating || 5) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200'}`} />
                       ))}
                     </div>
                   </div>
@@ -1441,41 +1444,87 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      {/* Founder Letter & Final CTA Section */}
-      <section className="bg-gradient-to-b from-[#FAF5FB] to-white py-24 sm:py-32 relative border-t border-purple-50">
+      {/* Founder Letter Section */}
+      <section className="bg-[#FAF8F6] py-24 sm:py-32 relative overflow-hidden">
+        {/* Subtle background decorative elements */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-purple-100/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-50/40 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 relative z-10">
+          {/* The "Letter" Card */}
+          <div className="bg-[#FDFBF7] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05),0_10px_30px_-10px_rgba(0,0,0,0.03)] border border-[#E5E0D8]/50 rounded-sm p-8 md:p-16 lg:p-20 relative overflow-hidden">
+            {/* Top accent bar */}
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-purple-100 via-purple-600/20 to-purple-100" />
+            
+            {/* Letter Header */}
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 border-b border-[#E5E0D8]/60 pb-8">
+              <div className="flex items-center gap-3 mb-4 md:mb-0">
+                <img src="/cropped-Adobe_Express_-_file-removebg-preview-32x32.png" alt="QBay Logo" className="w-8 h-8 opacity-40 grayscale" />
+                <span className="text-xs font-bold tracking-[0.3em] text-[#A09688] uppercase">QBay Careers</span>
+              </div>
+            </div>
+
+            {/* Letter Content */}
+            <div className="space-y-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#2D1B4D] font-sans tracking-tight">
+                {cmsData?.founderLetter?.title || 'Dear Fellow Job Seeker,'}
+              </h2>
+              
+              <div className="text-lg md:text-xl text-[#4A443D] leading-[1.8] space-y-8 font-serif">
+                {cmsData?.founderLetter?.content ? (
+                  <div 
+                    className="prose prose-purple max-w-none" 
+                    dangerouslySetInnerHTML={{ __html: cmsData.founderLetter.content.replace(/\n/g, '<br/>') }} 
+                  />
+                ) : (
+                  <>
+                    <p>
+                      QBay Career was built with a simple mission: to take the frustration out of your job hunt. We aren&apos;t a faceless tech giant pushing &quot;mass-apply&quot; AI tools. In fact, we know recruiters instantly spot and reject low-effort AI applications. That&apos;s why we take a completely human approach. 
+                    </p>
+                    <p>
+                      Our dedicated team handles the heavy lifting for you. We craft ATS-friendly custom resumes and cover letters, and personally apply to highly relevant jobs on your behalf in under 24 hours. By taking the grueling application process off your plate, we give you your time back so you can focus on what actually gets you hired: networking and interview prep. 
+                    </p>
+                    <p>
+                      When you choose QBay, you&apos;re partnering with a small, passionate team deeply invested in your success. Thank you for trusting us to help you take the next big step in your career.
+                    </p>
+                  </>
+                )}
+                
+                <p className="text-2xl md:text-3xl text-purple-900/80 font-medium pb-4">
+                  {cmsData?.founderLetter?.signature || 'Welcome to QBay Career.'}
+                </p>
+              </div>
+
+              {/* Signature Block */}
+              <div className="mt-12 pt-12 border-t border-[#E5E0D8]/60 flex items-center gap-6">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-purple-200 rounded-full blur-xl opacity-20" />
+                  <img
+                    src={founderData.avatar}
+                    alt={founderData.name}
+                    className="relative w-20 h-20 rounded-full object-cover border-4 border-white shadow-md grayscale-[0.2] hover:grayscale-0 transition-all duration-500"
+                  />
+                </div>
+                <div>
+                  <h4 className="text-3xl md:text-4xl font-script text-purple-700 mb-1">{founderData.name}</h4>
+                  <p className="text-sm font-bold text-[#A09688] tracking-widest uppercase">{founderData.role}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Subtle decorative "stamp" or seal */}
+            <div className="absolute bottom-12 right-12 opacity-[0.03] pointer-events-none select-none">
+              <img src="/cropped-Adobe_Express_-_file-removebg-preview-300x300.png" alt="Seal" className="w-48 h-48 rotate-12" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="bg-white py-24 sm:py-32 relative border-t border-purple-50">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center space-y-16">
           
-          {/* Letter Part */}
-          <div className="space-y-8">
-            <h2 className="text-4xl md:text-5xl font-bold text-[#1A112B] tracking-tight">
-              {cmsData?.founderLetter?.title || 'Dear Fellow Job Seeker,'}
-            </h2>
-            <div className="text-lg md:text-xl text-gray-600 leading-relaxed space-y-6 max-w-3xl mx-auto font-medium">
-              {cmsData?.founderLetter?.content ? (
-                <div dangerouslySetInnerHTML={{ __html: cmsData.founderLetter.content.replace(/\n/g, '<br/>') }} />
-              ) : (
-                <>
-                  <p>
-                    QBay Career was built with a simple mission: to take the frustration out of your job hunt. We aren&apos;t a faceless tech giant pushing &quot;mass-apply&quot; AI tools. In fact, we know recruiters instantly spot and reject low-effort AI applications. That&apos;s why we take a completely human approach. 
-                  </p>
-                  <p>
-                    Our dedicated team handles the heavy lifting for you. We craft ATS-friendly custom resumes and cover letters, and personally apply to highly relevant jobs on your behalf in under 24 hours. By taking the grueling application process off your plate, we give you your time back so you can focus on what actually gets you hired: networking and interview prep. 
-                  </p>
-                  <p>
-                    When you choose QBay, you&apos;re partnering with a small, passionate team deeply invested in your success. Thank you for trusting us to help you take the next big step in your career.
-                  </p>
-                </>
-              )}
-            </div>
-            <p className="text-xl md:text-2xl font-bold text-gray-500 pt-4">
-              {cmsData?.founderLetter?.signature || 'Welcome to QBay Career.'}
-            </p>
-          </div>
-
-          <div className="w-24 h-px bg-purple-200 mx-auto" />
-
-          {/* CTA Part */}
-          <div className="space-y-10 pt-8">
+          <div className="space-y-10">
             <div className="space-y-4">
               <h2 className="text-3xl md:text-5xl font-bold text-[#1A112B]">
                 {cmsData?.finalCTA?.title || "Have more questions? Let's chat!"}
