@@ -35,6 +35,7 @@ const sections = [
     { id: 'clientLove', label: 'Client Reviews', description: 'Detailed customer testimonials and ratings.' },
     { id: 'trustpilotReviews', label: 'Trustpilot', description: 'Trustpilot ratings, names, and reviews.' },
     { id: 'audioReviews', label: 'Audio Testimonials', description: 'Audio success stories, roles, and flags.' },
+    { id: 'negativeReviews', label: 'Negative Reviews', description: 'Glaringly painful 1-star reviews and founder replies.' },
     { id: 'services', label: 'Our Services', description: 'Categories and service cards for the home page.', targetKey: 'services' },
     { id: 'founderLetter', label: 'Founder Letter', description: 'A personal note from the founder.' },
     { id: 'finalCTA', label: 'Bottom CTA', description: 'The final call to action at the bottom.' },
@@ -128,6 +129,66 @@ export default function AdminDashboard() {
           { name: 'Rachel M.', role: 'Data Scientist', title: 'Moved from academia to tech', duration: '1:45', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3', flag: 'https://flagcdn.com/w80/gb.png' },
           { name: 'Kevin B.', role: 'Product Manager', title: 'Landed 3 offers in 2 weeks', duration: '1:10', avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3', flag: 'https://flagcdn.com/w80/ae.png' },
           { name: 'Linda V.', role: 'Financial Analyst', title: 'Overcame career stagnation', duration: '2:05', avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3', flag: 'https://flagcdn.com/w80/ie.png' }
+        ];
+      }
+
+      // Auto-migrate Negative Reviews
+      if (newData.negativeReviews === undefined && !parentKey && newData.hero) {
+        newData.negativeReviews = [
+          {
+            name: 'James',
+            avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150',
+            title: 'Associates are from India',
+            content: 'They hire India based interns to do the applying who don\'t even speak english.',
+            date: 'Dec 2025',
+            reply: 'That\'s correct and we\'re very transparent about it. QBay Careers is a human assistant service... Our assistants are trained to handle the grunt and operational work.',
+            rating: 1
+          },
+          {
+            name: 'David',
+            avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&h=150',
+            title: 'Using AI for Customizing Resumes',
+            content: 'They use Gemini/ChatGPT to write the cover letter and tailor resumes. Which doesn\'t make sense for all jobs.. writing the same content by just changing job title... that any free ai can.',
+            date: 'Sep 2025',
+            reply: 'That\'s correct and we\'re very transparent about it. We use AI to scale our workflows but every step is reviewed by human experts to ensure quality.',
+            rating: 1
+          },
+          {
+            name: 'Manoj',
+            avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150',
+            title: 'Not Issuing Full Refund when canceled',
+            content: 'I paid them 1055 USD. I canceled before any work was used I only received $963 USD. As a customer, their internal operating costs are irrelevant to me. When I return an...',
+            date: 'Jul 2025',
+            reply: 'We have a strict refund policy which accounts for payment processing fees and initial setup time. We are completely transparent about this before any payment is made.',
+            rating: 1
+          },
+          {
+            name: 'Sarah',
+            avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150',
+            title: 'No Guaranteed Job Placement',
+            content: 'I thought they guaranteed a job in the UK. I haven\'t secured an offer yet after 2 months. They only provided interviews and coaching.',
+            date: 'Aug 2025',
+            reply: 'We do not guarantee job offers, we guarantee interviews. Ultimately securing the role depends on your performance in the interview, which we coach you extensively for.',
+            rating: 1
+          },
+          {
+            name: 'Vikram',
+            avatar: 'https://images.unsplash.com/photo-1504257432389-52343af06ae3?auto=format&fit=crop&w=150&h=150',
+            title: 'Pricing is too high',
+            content: 'Their pricing for full career management is way too high compared to local agencies in Kerala. It feels overpriced for standard assistance.',
+            date: 'Oct 2025',
+            reply: 'We provide high-touch international consulting, not just resume forwarding. The investment directly reflects the personalized time our UK/Ireland experts spend manually reviewing your profile.',
+            rating: 1
+          },
+          {
+            name: 'Priya',
+            avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=150&h=150',
+            title: 'Time Zone Constraints',
+            content: 'It\'s hard to schedule mentoring meetings because of the time difference between India and the UK. Sometimes I have to attend calls very late at night.',
+            date: 'Nov 2025',
+            reply: 'We offer flexible slots, but our core team operates in UK/Ireland hours as that is where your target market is. Adjusting to these hours is part of the realistic preparation for working abroad.',
+            rating: 1
+          }
         ];
       }
 
@@ -313,6 +374,8 @@ export default function AdminDashboard() {
       template = { title: "New Service", description: "Service details...", image: "", slug: "new-service" };
     } else if (activeSubSection === 'clientLove') {
       template = { name: "New Client", role: "Job Seeker", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150", content: "Write the feedback here...", rating: 5 };
+    } else if (activeSubSection === 'negativeReviews') {
+      template = { name: "New Reviewer", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150", title: "Review Title", content: "Negative review content...", date: "Jan 2026", reply: "Our professional response...", rating: 1 };
     }
 
     if (sub?.targetKey) {

@@ -424,6 +424,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
   const clientTestimonials = getClientTestimonials() as typeof defaultClientTestimonials;
   const faqData = getFaqData() as typeof defaultFaqData;
   const audioReviewsData = cmsData?.audioReviews || defaultAudioReviews;
+  const negativeReviewsData = cmsData?.negativeReviews || defaultNegativeReviews;
   const heroImages = (() => {
     const cms = Array.isArray(cmsData?.hero?.images) ? cmsData.hero.images : [];
     const merged = [...cms, ...defaultHeroImages.filter(d => !cms.includes(d))];
@@ -1282,7 +1283,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {defaultNegativeReviews.map((review, idx) => (
+            {negativeReviewsData.map((review: any, idx: number) => (
               <div key={idx} className="bg-white rounded-[1.25rem] p-7 md:p-8 shadow-[0_4px_30px_rgb(0,0,0,0.03)] hover:shadow-xl transition-shadow duration-300 flex flex-col relative overflow-hidden group border border-purple-50">
                 <div className="flex items-center justify-between mb-8">
                   <div className="flex items-center gap-3">
@@ -1290,11 +1291,8 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                     <h3 className="font-bold text-gray-900 text-[17px]">{review.name}</h3>
                   </div>
                   <div className="flex gap-0.5">
-                    <div className="bg-red-500 p-[2px] rounded-sm">
-                       <Star className="w-3.5 h-3.5 fill-white text-white" />
-                    </div>
-                    {[...Array(4)].map((_, i) => (
-                      <div key={i} className="bg-gray-200 p-[2px] rounded-sm">
+                    {[...Array(5)].map((_, i) => (
+                      <div key={i} className={`${i < (review.rating || 1) ? 'bg-red-500' : 'bg-gray-200'} p-[2px] rounded-sm`}>
                          <Star className="w-3.5 h-3.5 fill-white text-white" />
                       </div>
                     ))}
