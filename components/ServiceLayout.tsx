@@ -151,12 +151,12 @@ export default function ServiceLayout({ service }: ServiceLayoutProps) {
                 Book your free consultancy
                 <ArrowRight className="h-4 w-4" />
               </a>
-              <button 
+              <a 
+                href="/"
                 className="text-white font-bold px-10 py-4 hover:text-purple-300 transition-colors"
-                onClick={() => router.push('/')}
               >
                 Back to all services
-              </button>
+              </a>
             </div>
           </div>
         </div>

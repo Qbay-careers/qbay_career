@@ -2,7 +2,7 @@
 
 import QBayNavbar from '@/components/QBayNavbar';
 import QBayFooter from '@/components/QBayFooter';
-import { Check, ChevronDown, ChevronUp } from 'lucide-react';
+import { Check, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
@@ -139,7 +139,7 @@ export default function PricingClient({ initialData }: { initialData: any }) {
       </section>
 
       {/* Pricing Grid */}
-      <section className="px-4 pb-20">
+      <section className="px-4 pb-8">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
           {plans.filter((p: any) => p.name?.toLowerCase() !== 'monthly subscription').map((plan: any) => (
             <div
@@ -157,11 +157,11 @@ export default function PricingClient({ initialData }: { initialData: any }) {
                 )}
               </div>
 
-              <p className="text-gray-500 text-sm mb-8 leading-relaxed">
+              <p className="text-gray-500 text-sm mb-4 leading-relaxed">
                 {plan.description || 'Perfect for achieving your career goals.'}
               </p>
 
-              <div className="mb-10">
+              <div className="mb-6">
                 {plan.originalPrice && (
                   <div className="flex items-center gap-2 mb-1">
                     <span className="bg-[#e0e7ff] text-[#6366f1] text-[10px] font-bold px-2 py-0.5 rounded">
@@ -172,20 +172,15 @@ export default function PricingClient({ initialData }: { initialData: any }) {
                     </span>
                   </div>
                 )}
-                <div className="flex items-end justify-between">
-                  <div className="flex items-baseline">
-                    <span className="text-5xl font-bold text-gray-900 tracking-tighter">
-                      {plan.price}
-                    </span>
-                    <span className="text-gray-500 text-sm ml-1">/year</span>
-                  </div>
-                  <div className="border border-gray-200 rounded px-2 py-1 text-[9px] font-bold text-gray-500 uppercase tracking-wider">
-                    USD ($)
-                  </div>
+                <div className="flex items-baseline">
+                  <span className="text-4xl font-bold text-gray-900 tracking-tighter">
+                    {plan.price}
+                  </span>
+                  <span className="text-gray-500 text-sm ml-1">/year</span>
                 </div>
               </div>
 
-              <div className="space-y-3 mb-10 flex-1">
+              <div className="space-y-2 mb-4 flex-1">
                 {plan.features?.map((feature: any, idx: number) => {
                   const featureText = feature.title || feature;
                   const isLast = idx === plan.features.length - 1;
@@ -202,10 +197,10 @@ export default function PricingClient({ initialData }: { initialData: any }) {
                 })}
               </div>
 
-              <div className="mt-auto space-y-3">
+              <div className="mt-auto pt-4">
                 <Link
                   href={plan.buttonLink || '#'}
-                  className={`flex w-full items-center justify-center rounded-2xl py-4 text-sm font-bold transition-all ${
+                  className={`flex w-full items-center justify-center rounded-xl py-3 text-sm font-bold transition-all ${
                     plan.isPopular
                       ? 'bg-[#4f46e5] text-white hover:bg-[#4338ca] shadow-md shadow-indigo-100'
                       : 'bg-[#e0e7ff] text-[#4f46e5] hover:bg-[#d1d5ff]'
@@ -213,13 +208,9 @@ export default function PricingClient({ initialData }: { initialData: any }) {
                 >
                   {plan.buttonText || `Get ${plan.name}`}
                 </Link>
-                {plan.renewalText ? (
-                  <p className="text-center text-[11px] text-gray-400 font-medium">
+                {plan.renewalText && (
+                  <p className="text-center text-[11px] text-gray-400 font-medium mt-3">
                     {plan.renewalText}
-                  </p>
-                ) : (
-                  <p className="text-center text-[11px] text-gray-400 font-medium">
-                    One time payment
                   </p>
                 )}
               </div>
@@ -231,22 +222,22 @@ export default function PricingClient({ initialData }: { initialData: any }) {
       {/* Monthly Plan Section - Dark Beautiful Layout */}
       <section className="px-4 pb-20">
         <div className="max-w-7xl mx-auto">
-          <div className="relative rounded-[2.5rem] overflow-hidden bg-[#0a021c] p-12 lg:p-16 flex flex-col lg:flex-row gap-12 lg:items-center">
+          <div className="relative rounded-[2rem] overflow-hidden bg-[#0a021c] p-8 lg:p-10 flex flex-col lg:flex-row gap-8 lg:items-center">
             {/* Background Effects */}
             <div className="absolute inset-0 bg-gradient-to-br from-[#1a0b3b] via-transparent to-transparent opacity-50" />
             <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-[#6366f1]/10 to-transparent" />
             
             <div className="relative flex-1">
-              <div className="flex items-center gap-3 mb-8">
+              <div className="flex items-center gap-3 mb-4">
                 <div className="bg-white/10 p-2 rounded-xl border border-white/10">
-                  <div className="w-5 h-5 border-2 border-white rotate-45" />
+                  <Sparkles className="w-5 h-5 text-[#facc15]" />
                 </div>
                 <h3 className="text-2xl font-bold text-white tracking-wide">
                   {monthlyPlan.name}
                 </h3>
               </div>
               
-              <h2 className="text-4xl lg:text-5xl font-bold text-white leading-[1.15] mb-12 max-w-xl">
+              <h2 className="text-3xl lg:text-4xl font-bold text-white leading-[1.15] mb-8 max-w-xl">
                 The all-in-one monthly solution for <span className="text-[#facc15] italic">comprehensive</span> career support.
               </h2>
 
@@ -262,8 +253,8 @@ export default function PricingClient({ initialData }: { initialData: any }) {
               </div>
             </div>
 
-            <div className="relative w-full lg:w-[400px] shrink-0">
-              <div className="bg-[#120a26] border border-white/5 rounded-[2rem] p-10 shadow-2xl">
+            <div className="relative w-full lg:w-[360px] shrink-0">
+              <div className="bg-[#120a26] border border-white/5 rounded-[1.5rem] p-8 shadow-2xl">
                 {monthlyPlan.originalPrice && (
                   <div className="flex items-center gap-2 mb-2">
                     <span className="bg-[#4f46e5] text-white text-[10px] font-bold px-2 py-0.5 rounded">
@@ -275,22 +266,24 @@ export default function PricingClient({ initialData }: { initialData: any }) {
                   </div>
                 )}
                 
-                <div className="flex items-baseline mb-8">
-                  <span className="text-5xl font-bold text-white tracking-tighter">
+                <div className="flex items-baseline mb-6">
+                  <span className="text-4xl font-bold text-white tracking-tighter">
                     {monthlyPlan.price}
                   </span>
                 </div>
 
-                <div className="space-y-4 mb-8">
-                  <div className="flex items-center gap-3 text-gray-400">
-                    <div className="w-4 h-4 rounded-full border border-gray-600 flex items-center justify-center text-[10px]">i</div>
-                    <span className="text-sm font-medium">{monthlyPlan.description || 'One time payment'}</span>
-                  </div>
+                <div className="space-y-3 mb-6">
+                  {monthlyPlan.description && monthlyPlan.description !== 'One time payment' && (
+                    <div className="flex items-center gap-3 text-gray-400">
+                      <div className="w-4 h-4 rounded-full border border-gray-600 flex items-center justify-center text-[10px]">i</div>
+                      <span className="text-sm font-medium">{monthlyPlan.description}</span>
+                    </div>
+                  )}
                 </div>
 
                 <Link
                   href={monthlyPlan.buttonLink || '#'}
-                  className="flex w-full items-center justify-center rounded-2xl bg-[#4f46e5] py-5 text-sm font-bold text-white transition-all hover:bg-[#4338ca] shadow-xl shadow-indigo-900/40"
+                  className="flex w-full items-center justify-center rounded-xl bg-[#4f46e5] py-4 text-sm font-bold text-white transition-all hover:bg-[#4338ca] shadow-xl shadow-indigo-900/40"
                 >
                   {monthlyPlan.buttonText || `Checkout →`}
                 </Link>
