@@ -687,7 +687,7 @@ export default function AdminDashboard() {
                       <CheckCircle2 size={12} />
                       Live Sync Active
                     </span>
-                    <span className="text-xs text-slate-400 font-mono">
+                    <span className="text-xs text-slate-400 font-sans">
                       {devMode ? 'Mode: Developer (Raw JSON)' : `Mode: Visual CMS / ${selectedItem ? (selectedItem.title || selectedItem.name) : (activeSubSection || 'Full view')}`}
                     </span>
                   </div>

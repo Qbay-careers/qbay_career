@@ -1,12 +1,15 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Poppins, EB_Garamond, Dancing_Script } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 import { Providers } from './providers';
 import StickyActionBar from '@/components/StickyActionBar';
 
-const poppins = Poppins({ subsets: ['latin'], weight: ['300', '400', '500', '600', '700', '800', '900'], variable: '--font-sans' });
-const serif = EB_Garamond({ subsets: ['latin'], variable: '--font-serif' });
-const script = Dancing_Script({ subsets: ['latin'], variable: '--font-script' });
+const poppins = Poppins({ 
+  subsets: ['latin'], 
+  weight: ['300', '400', '500', '600', '700', '800', '900'], 
+  style: ['normal', 'italic'],
+  variable: '--font-sans' 
+});
 
 export const metadata: Metadata = {
   title: 'QBay Careers',
@@ -40,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${poppins.variable} ${serif.variable} ${script.variable}`}>
+    <html lang="en" className={`${poppins.variable}`}>
       <body className="font-sans antialiased">
         <Providers>
           {children}
