@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import { Providers } from './providers';
 import StickyActionBar from '@/components/StickyActionBar';
+import WhatsAppPopup from '@/components/WhatsAppPopup';
 
 const poppins = Poppins({ 
   subsets: ['latin'], 
@@ -48,6 +49,7 @@ export default function RootLayout({
         <Providers>
           {children}
           <StickyActionBar />
+          <WhatsAppPopup />
         </Providers>
       </body>
     </html>
