@@ -613,28 +613,31 @@ export default function HomeClient({ initialData }: { initialData: any }) {
   }, [isPaused]);
 
   useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: '-30% 0px -30% 0px', // Wider, more stable trigger zone
-      threshold: 0,
-    };
+    const handleScroll = () => {
+      const elements = document.querySelectorAll('[data-framework-step]');
+      if (!elements.length) return;
 
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const index = entry.target.getAttribute('data-index');
-          if (index !== null) {
-            setActivePhase(parseInt(index));
-          }
+      const viewportCenter = window.innerHeight / 2;
+      let closestIndex = 0;
+      let closestDistance = Infinity;
+
+      elements.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        const elCenter = rect.top + rect.height / 2;
+        const distance = Math.abs(elCenter - viewportCenter);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          const idx = el.getAttribute('data-index');
+          if (idx !== null) closestIndex = parseInt(idx);
         }
       });
+
+      setActivePhase(closestIndex);
     };
 
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-    const elements = document.querySelectorAll('[data-framework-step]');
-    elements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Run once on mount
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
@@ -917,10 +920,10 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      <section id="framework" className="bg-[#F9F5FF] scroll-mt-24">
+      <section id="framework" className="scroll-mt-24" style={{ background: '#1a7de3' }}>
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
           <h2 
-            className="mb-12 text-4xl font-bold tracking-tight text-[#2D1B4D] sm:text-5xl"
+            className="mb-12 text-4xl font-bold tracking-tight text-white sm:text-5xl"
             dangerouslySetInnerHTML={{ __html: frameworkHeading }}
           />
 
@@ -934,19 +937,19 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                   data-index={idx}
                   className={`rounded-3xl p-8 sm:p-10 transition-all duration-500 border-l-4 ${
                     activePhase === idx
-                      ? 'bg-white shadow-2xl shadow-purple-500/10 border-purple-600 opacity-100 scale-[1.02]'
-                      : 'opacity-40 border-transparent'
+                      ? 'bg-white/15 shadow-2xl shadow-blue-900/20 border-white opacity-100 scale-[1.02]'
+                      : 'opacity-50 border-transparent'
                   }`}
                 >
                   <h3
                     className={`text-2xl font-bold ${
-                      activePhase === idx ? 'text-purple-700' : 'text-purple-400'
+                      activePhase === idx ? 'text-white' : 'text-white/70'
                     }`}
                   >
                     <span className="mr-4 opacity-50 text-base font-medium font-mono">{phase.number}</span>
                     {phase.title}
                   </h3>
-                  <p className="mt-4 text-base leading-relaxed text-[#5D4A7A]/80">
+                  <p className="mt-4 text-base leading-relaxed text-white/70">
                     {phase.description}
                   </p>
 
@@ -954,10 +957,10 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                   <div className={`mt-8 space-y-4 lg:hidden transition-all duration-500 ${activePhase === idx ? 'block' : 'hidden'}`}>
                     {phase.details.map((detail) => (
                       <div key={detail} className="flex items-start gap-3">
-                        <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-purple-600/10 text-purple-600 mt-0.5">
+                        <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/20 text-white mt-0.5">
                           <Check className="h-3 w-3" />
                         </div>
-                        <span className="text-sm font-medium text-[#4B2C83]">
+                        <span className="text-sm font-medium text-white">
                           {detail}
                         </span>
                       </div>
@@ -969,17 +972,28 @@ export default function HomeClient({ initialData }: { initialData: any }) {
 
             {/* Right Column: Active Phase Details (Desktop only) */}
             <div className="relative hidden lg:block">
-              <div className="sticky top-24 rounded-[2.5rem] bg-white p-8 shadow-2xl shadow-purple-500/5 sm:p-12">
-                <h3 className="text-2xl font-bold text-[#2D1B4D] sm:text-3xl">
+              <div className="sticky top-24 rounded-[2.5rem] bg-white/15 backdrop-blur-sm p-8 shadow-2xl sm:p-12 border border-white/20 overflow-hidden">
+                {/* Large background phase number with bottom fade */}
+                <div
+                  className="absolute bottom-0 right-6 text-[220px] font-black text-white/10 leading-none select-none pointer-events-none transition-all duration-500"
+                  style={{
+                    WebkitMaskImage: 'linear-gradient(to top, transparent 0%, rgba(0,0,0,0.6) 60%, black 100%)',
+                    maskImage: 'linear-gradient(to top, transparent 0%, rgba(0,0,0,0.6) 60%, black 100%)',
+                  }}
+                >
+                  {frameworkPhases[activePhase].number}
+                </div>
+
+                <h3 className="text-2xl font-bold text-white sm:text-3xl relative z-10">
                   {frameworkPhases[activePhase].title}
                 </h3>
-                <div className="mt-10 space-y-6">
+                <div className="mt-10 space-y-6 relative z-10">
                   {frameworkPhases[activePhase].details.map((detail) => (
                     <div key={detail} className="flex items-start gap-4">
-                      <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-purple-600/10 text-purple-600 mt-1">
+                      <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/20 text-white mt-1">
                         <Check className="h-4 w-4" />
                       </div>
-                      <span className="text-lg font-medium text-[#4B2C83]">
+                      <span className="text-lg font-medium text-white">
                         {detail}
                       </span>
                     </div>
