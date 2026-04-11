@@ -38,11 +38,11 @@ export default function StickyActionBar() {
 
   return (
     <div 
-      className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] w-[95%] max-w-md pointer-events-none transition-all duration-500 ease-in-out ${
-        isVisible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 px-0'
+      className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] w-[95%] max-w-md pointer-events-none ${
+        isVisible ? 'translate-y-0 scale-100' : 'translate-y-32 scale-0'
       }`}
     >
-      <div className="bg-white/90 backdrop-blur-2xl border border-white/40 rounded-full p-1.5 shadow-2xl shadow-purple-900/10 flex gap-2 pointer-events-auto items-center animate-premium-pulse">
+      <div className="bg-white/90 backdrop-blur-2xl border border-white/40 rounded-full p-1.5 shadow-2xl shadow-purple-900/10 flex gap-2 pointer-events-auto items-center animate-heartbeat">
         <a
           href="/contact"
           className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-full bg-white px-2 sm:px-3 py-2.5 text-[11px] sm:text-xs font-bold text-[#4B2C83] border border-purple-100 hover:bg-purple-50 transition-all font-sans whitespace-nowrap"
