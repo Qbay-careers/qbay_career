@@ -1,9 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
 import { 
-  ArrowLeft, 
   CheckCircle2, 
   Sparkles, 
   ShieldCheck, 
@@ -36,36 +34,21 @@ interface ServiceLayoutProps {
 }
 
 export default function ServiceLayout({ service }: ServiceLayoutProps) {
-  const router = useRouter();
   const CategoryIcon = iconMap[service.category] || Target;
 
   return (
-    <main className="min-h-screen bg-white selection:bg-purple-100">
+    <main className="min-h-screen selection:bg-purple-100" style={{ background: 'linear-gradient(135deg, #fefce8 0%, #fdf4ff 30%, #f0f9ff 60%, #fce7f3 100%)' }}>
       <QBayNavbar />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-[#FDFCFE]">
-        <div 
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-10 blur-sm scale-105 pointer-events-none" 
-          style={{ backgroundImage: `url("${service.image}")` }}
-        />
-        <div className="absolute inset-0 z-0 bg-gradient-to-b from-[#FDFCFE]/50 via-[#FDFCFE] to-white pointer-events-none" />
+      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        {/* Aurora blob blobs */}
+        <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-yellow-200/50 blur-[120px] pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full bg-purple-200/40 blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] rounded-full bg-pink-200/30 blur-[80px] pointer-events-none" />
         
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center text-center">
-            <button 
-              onClick={() => router.push('/')}
-              className="group mb-8 inline-flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-purple-600 transition-colors"
-            >
-              <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-              Back to Services
-            </button>
-
-            <div className="inline-flex items-center gap-2 rounded-full bg-purple-50 px-4 py-1.5 text-xs font-bold text-purple-700 mb-6 border border-purple-100 shadow-sm animate-fade-in">
-              <CategoryIcon className="h-3.5 w-3.5" />
-              {service.category}
-            </div>
-
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-[#1A112B] tracking-tight leading-[1.1] max-w-4xl mb-8">
               {service.title}
             </h1>
@@ -78,7 +61,7 @@ export default function ServiceLayout({ service }: ServiceLayoutProps) {
       </section>
 
       {/* Detail Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 relative overflow-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="relative group">
@@ -114,7 +97,7 @@ export default function ServiceLayout({ service }: ServiceLayoutProps) {
       </section>
 
       {/* Deliverables Section */}
-      <section className="py-24 bg-[#FAF9FF] border-y border-gray-100">
+      <section className="py-24 relative overflow-hidden border-y border-purple-100/50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-sm font-bold tracking-[0.2em] text-purple-600 uppercase mb-4">Inside the Service</h2>
@@ -148,7 +131,9 @@ export default function ServiceLayout({ service }: ServiceLayoutProps) {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-white overflow-hidden relative">
+      <section className="py-24 overflow-hidden relative">
+        <div className="absolute -bottom-20 -right-20 w-[400px] h-[400px] rounded-full bg-purple-200/30 blur-[100px] pointer-events-none" />
+        <div className="absolute -top-20 -left-20 w-[300px] h-[300px] rounded-full bg-yellow-200/40 blur-[80px] pointer-events-none" />
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="bg-[#1A112B] rounded-[2.5rem] p-8 sm:p-16 text-center text-white shadow-2xl relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-900/50 to-transparent pointer-events-none" />
