@@ -650,10 +650,31 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         id="home"
         className="relative pt-32 pb-0 lg:pt-40 lg:pb-0 overflow-hidden scroll-mt-24 bg-[#FDFCFE]"
       >
-        <div 
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-50 pointer-events-none" 
-          style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1920")' }}
-        />
+        {(() => {
+          const bgUrl = cmsData?.hero?.backgroundImage || 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1920';
+          const isVideo = bgUrl.match(/\.(mp4|webm|ogg)$/i);
+          
+          if (isVideo) {
+            return (
+              <video 
+                autoPlay 
+                loop 
+                muted 
+                playsInline 
+                className="absolute inset-0 z-0 w-full h-full object-cover opacity-50 pointer-events-none"
+              >
+                <source src={bgUrl} type={`video/${bgUrl.split('.').pop()}`} />
+              </video>
+            );
+          }
+          
+          return (
+            <div 
+              className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-50 pointer-events-none" 
+              style={{ backgroundImage: `url("${bgUrl}")` }}
+            />
+          );
+        })()}
         <div className="absolute inset-0 z-0 bg-[#FDFCFE]/80 backdrop-blur-[2px] pointer-events-none" />
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-4 lg:mb-6">

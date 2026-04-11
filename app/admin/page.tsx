@@ -93,6 +93,9 @@ export default function AdminDashboard() {
           const missing = defaultImgs.filter(d => !currentImgs.includes(d));
           newData.hero.images = [...currentImgs, ...missing].slice(0, 6);
         }
+        if (!newData.hero.backgroundImage) {
+          newData.hero.backgroundImage = 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1920';
+        }
       }
 
       // Auto-migrate Pricing Schema: extract 'Monthly Subscription' from 'plans'
