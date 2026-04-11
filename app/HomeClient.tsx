@@ -728,53 +728,106 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      <section id="consultation" className="bg-white py-24 sm:py-32 scroll-mt-24 border-b border-gray-100">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <section id="consultation" className="bg-white py-24 sm:py-32 scroll-mt-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           
-          <div className="flex flex-col items-start gap-10">
-            {/* Top Highlight Badge */}
-            <div className="flex flex-col-reverse sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
-              <span className="inline-flex w-fit items-center rounded-md bg-[#EDE1F5] px-3 py-1.5 text-[13px] font-bold tracking-wide text-[#2D1B4D]">
-                {consultationBadge}
-              </span>
-              <span className="text-xs font-bold tracking-[0.15em] text-slate-500 uppercase">
-                {consultationTopHeading}
-              </span>
-            </div>
-
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-medium text-[#1A112B] tracking-tight leading-[1.15]">
-              {consultationTitle}
-            </h2>
+          <div className="relative overflow-hidden rounded-[2.5rem] bg-[#1A112B] border border-white/5 shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] p-8 md:p-14 lg:p-20">
+            {/* Background decorative elements */}
+            <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-[500px] h-[500px] bg-purple-600/20 blur-[120px] rounded-full pointer-events-none" />
+            <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-indigo-600/10 blur-[120px] rounded-full pointer-events-none" />
             
-            <p className="text-lg text-slate-600 font-normal max-w-2xl leading-relaxed">
-              {consultationSubtitle}
-            </p>
-
-            <div className="w-full h-[1px] bg-slate-100 my-4" />
-
-            <div className="grid sm:grid-cols-2 gap-x-12 gap-y-6 w-full">
-              {(Array.isArray(consultationData?.features) ? consultationData.features : [
-                'Guaranteed Interview Support',
-                'We Apply on Your Behalf',
-                'NHS & HSC Application Assistance',
-                'CPD & Internship Guidance',
-              ]).map((feature: any) => (
-                <div key={typeof feature === 'string' ? feature : feature.title} className="flex items-start gap-4">
-                  <div className="mt-2 h-1.5 w-1.5 rounded-full bg-slate-400" />
-                  <span className="text-base font-medium text-slate-800">{typeof feature === 'string' ? feature : feature.title}</span>
+            <div className="relative z-10 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+              
+              {/* Left Column: Content */}
+              <div className="flex-1 space-y-8">
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-2 w-2 rounded-full bg-purple-400 animate-pulse" />
+                    <span className="text-sm font-bold tracking-[0.2em] text-purple-300/60 uppercase">
+                      {consultationTopHeading}
+                    </span>
+                  </div>
+                  
+                  <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1]">
+                    {consultationTitle}
+                  </h2>
                 </div>
-              ))}
-            </div>
 
-            <div className="pt-8">
-              <a
-                href={consultationData?.ctaLink || "/contact"}
-                className="inline-flex items-center justify-center gap-3 bg-[#1A112B] px-10 py-4 text-sm font-semibold tracking-wide text-white transition-all hover:bg-black w-full sm:w-auto overflow-hidden group relative"
-              >
-                <div className="absolute inset-0 bg-white/10 translate-y-full transition-transform group-hover:translate-y-0" />
-                <img src="/google-meet-icon.png" alt="Google Meet" className="w-5 h-5 object-contain relative z-10" />
-                <span className="relative z-10">{consultationData?.ctaLabel || 'Book your free consultancy'}</span>
-              </a>
+                <div className="inline-flex items-center gap-2 rounded-xl bg-white/5 px-4 py-2 border border-white/10 backdrop-blur-md">
+                  <Star className="h-4 w-4 text-purple-400 fill-purple-400" />
+                  <span className="text-sm font-bold text-purple-100">
+                    {consultationBadge}
+                  </span>
+                </div>
+                
+                <p className="text-lg text-purple-100/70 leading-relaxed max-w-xl">
+                  {consultationSubtitle}
+                </p>
+
+                <div className="grid sm:grid-cols-2 gap-4 pt-4">
+                  {(Array.isArray(consultationData?.features) ? consultationData.features : [
+                    'Guaranteed Interview Support',
+                    'We Apply on Your Behalf',
+                    'NHS & HSC Application Assistance',
+                    'CPD & Internship Guidance',
+                  ])
+                  .filter((feature: any) => {
+                    const text = typeof feature === 'string' ? feature : (feature?.title || feature?.text || '');
+                    return text && text.trim().length > 0;
+                  })
+                  .map((feature: any) => {
+                    const text = typeof feature === 'string' ? feature : (feature?.title || feature?.text || '');
+                    return (
+                      <div key={text} className="flex items-center gap-3">
+                        <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/10 text-white border border-white/5">
+                          <Check className="h-3 w-3" strokeWidth={4} />
+                        </div>
+                        <span className="text-[15px] font-bold text-white/90">{text}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Right Column: Booking Card */}
+              <div className="w-full lg:w-[420px] shrink-0">
+                <div className="relative group">
+                  {/* Decorative Glow */}
+                  <div className="absolute -inset-4 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-[2.5rem] blur-3xl opacity-20 group-hover:opacity-30 transition-opacity duration-500" />
+                  
+                  <div className="relative bg-white rounded-[2rem] border border-white/10 p-8 shadow-2xl">
+                    <div className="flex flex-col items-center text-center space-y-6">
+                      <div className="w-20 h-20 rounded-full bg-purple-50 flex items-center justify-center relative">
+                        <CalendarDays className="w-10 h-10 text-purple-600" />
+                        <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-4 border-white flex items-center justify-center animate-bounce">
+                           <div className="w-1.5 h-1.5 bg-white rounded-full" />
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <h4 className="text-xl font-bold text-[#1A112B]">Personalized Strategy Call</h4>
+                        <p className="text-sm text-slate-500 font-medium leading-relaxed">Join over 200+ healthcare professionals who started their journey here.</p>
+                      </div>
+
+                      <div className="w-full h-px bg-slate-100" />
+
+                      <a
+                        href={consultationData?.ctaLink || "/contact"}
+                        className="group relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-2xl bg-[#1A112B] px-8 py-5 text-sm font-bold text-white transition-all hover:bg-black hover:scale-[1.02] active:scale-[0.98] shadow-xl shadow-black/20"
+                      >
+                        <img src="/google-meet-icon.png" alt="Google Meet" className="w-5 h-5 object-contain" />
+                        <span>{consultationData?.ctaLabel || 'Book your free consultancy'}</span>
+                      </a>
+
+                      <p className="text-xs font-bold text-slate-400 flex items-center gap-2">
+                        <span className="flex h-1.5 w-1.5 rounded-full bg-green-500" />
+                        Available Slots for This Week
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
 
