@@ -151,7 +151,9 @@ export default function WallOfFame() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [selectedReviewForModal, setSelectedReviewForModal] = useState<any | null>(null);
   const testimonialScrollRef = useRef<HTMLDivElement>(null);
+  const resultsScrollRef = useRef<HTMLDivElement>(null);
   const [isTestimonialPaused, setIsTestimonialPaused] = useState(false);
+  const [isResultsPaused, setIsResultsPaused] = useState(false);
 
   useEffect(() => {
     const scrollContainer = testimonialScrollRef.current;
@@ -177,6 +179,31 @@ export default function WallOfFame() {
 
     return () => cancelAnimationFrame(animationFrameId);
   }, [isTestimonialPaused]);
+
+  useEffect(() => {
+    const scrollContainer = resultsScrollRef.current;
+    if (!scrollContainer) return;
+
+    let animationFrameId: number;
+
+    const scroll = () => {
+      if (!isResultsPaused) {
+        if (
+          Math.ceil(scrollContainer.scrollLeft) + scrollContainer.clientWidth >=
+          scrollContainer.scrollWidth
+        ) {
+          scrollContainer.scrollLeft = 0;
+        } else {
+          scrollContainer.scrollLeft += 1;
+        }
+      }
+      animationFrameId = requestAnimationFrame(scroll);
+    };
+
+    animationFrameId = requestAnimationFrame(scroll);
+
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [isResultsPaused]);
 
   useEffect(() => {
     async function fetchData() {
@@ -247,6 +274,21 @@ export default function WallOfFame() {
     : 'Don\'t just take our word for it—hear from students and parents whose journeys have been transformed by Qbay.';
 
   const resultsImages = (() => {
+    const defaultImages = [1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => ({
+      src: `/testimonials/whatsapp${num}.jpeg`,
+      flag: 'https://flagcdn.com/w80/in.png'
+    }));
+
+    if (resultsData?.images && Array.isArray(resultsData.images) && resultsData.images.length > 0) {
+      return resultsData.images.map((item: any) => {
+        if (typeof item === 'string') return { src: item, flag: 'https://flagcdn.com/w80/in.png' };
+        return {
+          src: item.src || item.image || '',
+          flag: item.flag || 'https://flagcdn.com/w80/in.png'
+        };
+      }).filter((item: { src: string; flag: string }) => item.src);
+    }
+
     const urls: string[] = [];
     const scan = (val: any) => {
       if (typeof val === 'string') {
@@ -261,8 +303,15 @@ export default function WallOfFame() {
       } else if (Array.isArray(val)) val.forEach(scan);
     };
     scan(resultsData);
-    return urls.length > 0 ? urls : [1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => `/testimonials/whatsapp${num}.jpeg`);
-  })() as string[];
+    
+    if (urls.length > 0) {
+      return urls
+        .filter(src => src && !src.includes('[object'))
+        .map(src => ({ src, flag: 'https://flagcdn.com/w80/in.png' }));
+    }
+
+    return defaultImages;
+  })() as { src: string; flag: string }[];
 
   const testimonialsCms = cmsData?.testimonials || {};
   const testimonialsGridTitle = testimonialsCms.testimonialGrid?.title || 'Real Results. Real Stories.';
@@ -340,22 +389,58 @@ export default function WallOfFame() {
       </section>
 
       {/* WhatsApp Results Section */}
-      <section className="py-24 bg-[#F9F5FF] overflow-hidden">
+      <section id="results" className="bg-white py-20 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-[#160E22] mb-4">{resultsTitle}</h2>
-            <p className="text-slate-600 max-w-xl mx-auto">{resultsSubtitle || resultsDescription}</p>
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <h2 className="text-4xl font-bold text-[#1A112B] sm:text-5xl">
+              {resultsTitle}
+            </h2>
+            <p className="mt-3 text-lg font-semibold text-gray-900">
+              {resultsSubtitle}
+            </p>
+            <p className="mt-3 text-sm text-gray-600 sm:text-base">
+              {resultsDescription}
+            </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {resultsImages.map((src, i) => (
-              <div 
-                key={i} 
-                className="aspect-[9/16] rounded-2xl overflow-hidden border-4 border-white shadow-md hover:scale-105 transition-transform duration-500 cursor-zoom-in"
-                onClick={() => setSelectedImage(src)}
-              >
-                <img src={src} className="h-full w-full object-cover" alt={`Success result ${i+1}`} loading="lazy" />
-              </div>
-            ))}
+
+          <div className="relative overflow-hidden">
+            <div
+              ref={resultsScrollRef}
+              onMouseEnter={() => setIsResultsPaused(true)}
+              onMouseLeave={() => setIsResultsPaused(false)}
+              className="flex gap-4 overflow-x-auto pb-6 scrollbar-hide"
+            >
+              {resultsImages.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="min-w-[240px] w-[70vw] sm:w-[300px] flex-shrink-0 overflow-hidden rounded-2xl shadow-lg border border-purple-100 bg-white cursor-pointer group"
+                  onClick={() => setSelectedImage(item.src)}
+                >
+                  <div className="relative">
+                    {/* Country Flag Overlay */}
+                    {item.flag && (
+                      <div className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full border-2 border-white overflow-hidden shadow-lg transition-transform duration-300 group-hover:scale-110">
+                        <img src={item.flag} alt="Country flag" className="w-full h-full object-cover" />
+                      </div>
+                    )}
+                    <img
+                      src={item.src}
+                      alt={`Student success story ${idx + 1}`}
+                      className="w-full h-[380px] object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
+                      <div className="bg-white rounded-full p-2 transform scale-90 group-hover:scale-100 transition-transform duration-300">
+                        <Maximize className="w-4 h-4 text-gray-900" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-14 bg-gradient-to-r from-white to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-14 bg-gradient-to-l from-white to-transparent" />
           </div>
         </div>
       </section>
