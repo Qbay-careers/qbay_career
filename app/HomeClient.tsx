@@ -376,7 +376,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
   const heroBadges = (Array.isArray(cmsData?.hero?.badges) ? cmsData.hero.badges : ['100k+ Helped', '4.8 Trustpilot', '1:1 Experts', '90-Day Calls', 'Gov Approved']) as string[];
   const badgeIcons = [BadgeCheck, Star, PhoneCall, ShieldCheck, Globe];
   
-  // Custom badge content for Trustpilot replacement
+  // Custom badge content for Trustpilot, Gov Approved, 90-Day Calls, 100k+ Helped, and Globe/countries replacement
   const badgeContent = (badge: string, idx: number) => {
     if (badge === '4.8 Trustpilot') {
       return (
@@ -384,6 +384,55 @@ export default function HomeClient({ initialData }: { initialData: any }) {
           <img 
             src="/Green-Star-on-Gray-Checkerboard-1.png" 
             alt="Trustpilot Rating" 
+            className="h-6 w-6 object-contain"
+          />
+          <span>{badge}</span>
+        </div>
+      );
+    }
+    if (badge === 'Gov Approved') {
+      return (
+        <div className="flex items-center gap-2">
+          <img 
+            src="/verified.png" 
+            alt="Verified" 
+            className="h-6 w-6 object-contain"
+          />
+          <span>{badge}</span>
+        </div>
+      );
+    }
+    if (badge === '90-Day Calls') {
+      return (
+        <div className="flex items-center gap-2">
+          <img 
+            src="/call.png" 
+            alt="90-Day Calls" 
+            className="h-6 w-6 object-contain"
+          />
+          <span>{badge}</span>
+        </div>
+      );
+    }
+    if (badge === '100k+ Helped') {
+      return (
+        <div className="flex items-center gap-2">
+          <img 
+            src="/help.jpg" 
+            alt="100k+ Helped" 
+            className="h-6 w-6 object-contain"
+          />
+          <span>{badge}</span>
+        </div>
+      );
+    }
+    // Replace Globe icon with global image for any badge that would use it
+    if (idx % 5 === 4) {
+      return (
+        <div className="flex items-center gap-2">
+          <img 
+            src="/global.png" 
+            alt="Global" 
             className="h-6 w-6 object-contain"
           />
           <span>{badge}</span>
@@ -684,7 +733,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                 const Icon = badgeIcons[idx % badgeIcons.length];
                 return (
                   <div key={idx} className="inline-flex items-center gap-2 rounded-full border border-purple-100 bg-white/70 backdrop-blur-md px-4 py-2 text-xs font-bold text-[#2D1B4D] shadow-sm">
-                    {badge === '4.8 Trustpilot' ? (
+                    {(badge === '4.8 Trustpilot' || badge === 'Gov Approved' || badge === '90-Day Calls' || badge === '100k+ Helped' || idx % 5 === 4) ? (
                       badgeContent(badge, idx)
                     ) : (
                       <>
