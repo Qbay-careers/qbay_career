@@ -724,7 +724,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
             />
           );
         })()}
-        <div className="absolute inset-0 z-0 bg-[#FDFCFE]/80 backdrop-blur-[2px] pointer-events-none" />
+        <div className="absolute inset-0 z-0 bg-[#FDFCFE]/40 backdrop-blur-[1px] pointer-events-none" />
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-4 lg:mb-6">
           <div className="mx-auto max-w-5xl text-center">
