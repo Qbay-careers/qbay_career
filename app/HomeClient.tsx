@@ -907,6 +907,25 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
+      {/* Video Section */}
+      <section className="bg-white py-16 scroll-mt-24 border-b border-gray-100">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+            <video
+              controls
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-auto max-h-[500px] object-cover"
+            >
+              <source src="https://res.cloudinary.com/doe5qc2oe/video/upload/q_auto/f_auto/v1776056277/IMG_4996_nzlf1m.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </section>
+
       <section id="about" className="border-t border-gray-100 scroll-mt-24 py-20 bg-[#FDFCFE]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
