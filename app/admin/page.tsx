@@ -18,11 +18,75 @@ import {
   ArrowLeft,
   LayoutGrid,
   Plus,
-  Trash2
+  Trash2,
+  BookOpen
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { Toaster, toast } from 'sonner';
 import { AdminFormControl } from '@/components/AdminFormControl';
+
+const DEFAULT_BLOG_POSTS = [
+  {
+    title: 'Unlocking Global Success: Your UK Visa Roadmap for 2026',
+    slug: 'uk-visa-roadmap-2026',
+    excerpt: 'Navigate the complexities of sponsorship and recent immigration updates with our expert guide to working in the UK.',
+    content: '<h1>Your UK Career Journey Starts Here</h1><p>The UK continues to be a top destination for global talent, but navigating the visa landscape requires a strategic approach. In 2026, several new routes have opened up for tech and healthcare professionals...</p><h2>Key Visa Categories</h2><ul><li>Skilled Worker Visa</li><li>Health and Care Worker Visa</li><li>Global Talent Visa</li></ul>',
+    date: 'April 10, 2026',
+    author: 'QBay Experts',
+    category: 'Migration',
+    image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&q=80&w=800&h=600'
+  },
+  {
+    title: 'Engineering the Perfect CV: How to Pass Global ATS Filters',
+    slug: 'perfection-cv-global-ats',
+    excerpt: 'Learn why standard resumes fail and how to optimize your profile for UK and Irish recruiters using proven ATS-friendly strategies.',
+    content: '<h1>Beating the Bots</h1><p>Did you know that 75% of CVs are never seen by human eyes? Applicant Tracking Systems (ATS) are the first hurdle. To succeed, you must optimize your CV with the right keywords and formatting...</p><h2>ATS Checklist</h2><ul><li>Use standard headings</li><li>Avoid complex graphics</li><li>Include sector-specific keywords</li></ul>',
+    date: 'April 12, 2026',
+    author: 'Sarah Jenkins',
+    category: 'Career Strategy',
+    image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=800&h=600'
+  },
+  {
+    title: 'Why Professionals are Choosing Ireland\'s Tech Ecosystem',
+    slug: 'why-ireland-tech-ecosystem',
+    excerpt: 'From Dublin to Cork, discover why Ireland remains the most strategic entry point for tech talent in Europe.',
+    content: '<h1>Ireland: The Silicon Valley of Europe</h1><p>With its favorable corporate environment and proximity to major markets, Ireland has attracted giants like Google, Meta, and Stripe. For international talent, it offers unique opportunities for residency and high-growth careers...</p>',
+    date: 'April 08, 2026',
+    author: 'Michael O\'Brien',
+    category: 'Tech',
+    image: 'https://images.unsplash.com/photo-1590089415225-401ed6f9db8e?auto=format&fit=crop&q=80&w=800&h=600'
+  },
+  {
+    title: 'Careers in the NHS: A Comprehensive Guide for International Talent',
+    slug: 'nhs-careers-healthcare-guide',
+    excerpt: 'A step-by-step walkthrough for doctors and nurses looking to transition into the UK\'s healthcare system.',
+    content: '<h1>Join the NHS Family</h1><p>The NHS is one of the world\'s largest employers of international professionals. Understanding the compliance steps and interview expectations is critical to your success...</p>',
+    date: 'April 05, 2026',
+    author: 'Dr. Anita Rao',
+    category: 'Healthcare',
+    image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800&h=600'
+  },
+  {
+    title: 'The First 180 Days: Financial Planning for Your International Move',
+    slug: 'financial-planning-international-move',
+    excerpt: 'From housing deposits to initial taxes, here is how to manage your finances during your first six months abroad.',
+    content: '<h1>Money Matters</h1><p>Relocating is an investment in your future. Managing your liquidity during the first few months is essential for a stress-free transition...</p>',
+    date: 'March 25, 2026',
+    author: 'David Chen',
+    category: 'Migration',
+    image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=800&h=600'
+  },
+  {
+    title: 'Master the Video Interview: Connecting with Global Recruiters',
+    slug: 'master-video-interview-tips',
+    excerpt: 'Proven strategies to handle time zones, technical connectivity, and behavioral questions from thousands of miles away.',
+    content: '<h1>Presence at a Distance</h1><p>The first impression happens on a screen. Mastering the nuances of digital communication is what separates candidates from offer-holders...</p>',
+    date: 'March 18, 2026',
+    author: 'Emily White',
+    category: 'Career Strategy',
+    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800&h=600'
+  }
+];
 
 const sections = [
   { id: 'navigation', icon: LayoutDashboard, label: 'Navigation' },
@@ -54,6 +118,7 @@ const sections = [
     { id: 'audioTestimonials', label: 'Audio Testimonials', description: 'Manage audio testimonials for each service.', targetKey: 'services' },
     { id: 'servicePricing', label: 'Service Pricing', description: 'Manage custom pricing packages for each service.', targetKey: 'services' }
   ]},
+  { id: 'blog', icon: BookOpen, label: 'Blog Posts' },
 ];
 
 export default function AdminDashboard() {
@@ -292,6 +357,11 @@ export default function AdminDashboard() {
         ];
       }
 
+      // Handled in fetchContent for top-level key
+      if (newData.blog && Array.isArray(newData.blog) && newData.blog.length === 0) {
+        newData.blog = DEFAULT_BLOG_POSTS;
+      }
+
       // Auto-migrate Client Love Ratings
       if (newData.clientLove && typeof newData.clientLove === 'object') {
         const items = Array.isArray(newData.clientLove) ? newData.clientLove : (newData.clientLove.testimonials || []);
@@ -356,6 +426,10 @@ export default function AdminDashboard() {
       return newData;
     }
 
+    if (Array.isArray(data)) {
+       return data.length === 0 ? DEFAULT_BLOG_POSTS : data.map(i => processContent(i, parentKey));
+    }
+
     return data;
   };
 
@@ -370,7 +444,13 @@ export default function AdminDashboard() {
 
       if (fetchError) throw fetchError;
       
-      const rawContent = data?.content ? data.content : (isSubKey && key === 'services' ? [] : {});
+      let rawContent = data?.content ? data.content : (isSubKey && key === 'services' ? [] : (key === 'blog' ? DEFAULT_BLOG_POSTS : {}));
+      
+      // If it's the blog key and it exists but is empty array, populate it
+      if (key === 'blog' && Array.isArray(rawContent) && rawContent.length === 0) {
+        rawContent = DEFAULT_BLOG_POSTS;
+      }
+
       let processed = processContent(rawContent);
 
       // Initialization for per-service testimonials and pricing with defaults
@@ -497,7 +577,16 @@ export default function AdminDashboard() {
   };
 
   const updateItemContent = (newItemContent: any) => {
-    if (activeItemIndex === null || !activeSubSection) return;
+    if (activeItemIndex === null) return;
+
+    if (currentSection?.id === 'blog') {
+      const newArray = [...content];
+      newArray[activeItemIndex] = newItemContent;
+      setContent(newArray);
+      return;
+    }
+
+    if (!activeSubSection) return;
     const sub = sections.find(s => s.id === activeSection)?.subSections?.find(ss => ss.id === activeSubSection);
     
     if (sub?.targetKey) {
@@ -512,6 +601,25 @@ export default function AdminDashboard() {
   };
 
   const addItem = () => {
+    // Handle sections without sub-sections (like blog)
+    if (currentSection?.id === 'blog') {
+      const template = { 
+        title: "New Blog Post", 
+        slug: "new-blog-post", 
+        excerpt: "Brief summary of the post...", 
+        content: "Write your full blog post here...", 
+        author: "QBay Team", 
+        category: "General", 
+        image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&h=600",
+        date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+      };
+      const newArray = [...(content || []), template];
+      setContent(newArray);
+      setActiveItemIndex(newArray.length - 1);
+      toast.info("Added new blog post template");
+      return;
+    }
+
     if (!activeSubSection) return;
     const sub = sections.find(s => s.id === activeSection)?.subSections?.find(ss => ss.id === activeSubSection);
     
@@ -546,6 +654,17 @@ export default function AdminDashboard() {
       template = { name: "New Reviewer", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150", title: "Review Title", content: "Negative review content...", date: "Jan 2026", reply: "Our professional response...", rating: 1 };
     } else if (activeSubSection === 'results') {
       template = { src: "", flag: "https://flagcdn.com/w80/in.png" };
+    } else if (activeSection === 'blog') {
+      template = { 
+        title: "New Blog Post", 
+        slug: "new-blog-post", 
+        excerpt: "Brief summary of the post...", 
+        content: "Write your full blog post here...", 
+        author: "QBay Team", 
+        category: "General", 
+        image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&q=80&w=800&h=600",
+        date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+      };
     }
 
     if (sub?.targetKey) {
@@ -561,10 +680,18 @@ export default function AdminDashboard() {
   };
 
   const removeItem = (index: number) => {
-    if (!activeSubSection) return;
-    const sub = sections.find(s => s.id === activeSection)?.subSections?.find(ss => ss.id === activeSubSection);
-
     if (window.confirm("Are you sure you want to delete this item?")) {
+      if (currentSection?.id === 'blog') {
+        const newArray = content.filter((_: any, i: number) => i !== index);
+        setContent(newArray);
+        setActiveItemIndex(null);
+        toast.error("Blog post removed. Don't forget to save changes!");
+        return;
+      }
+
+      if (!activeSubSection) return;
+      const sub = sections.find(s => s.id === activeSection)?.subSections?.find(ss => ss.id === activeSubSection);
+
       if (sub?.targetKey) {
         const newArray = subContent.filter((_: any, i: number) => i !== index);
         setSubContent(newArray);
@@ -579,7 +706,7 @@ export default function AdminDashboard() {
 
   const currentSection = sections.find(s => s.id === activeSection);
   const currentSubSection = currentSection?.subSections?.find(s => s.id === activeSubSection);
-  const activeItems = currentSubSection?.targetKey ? subContent : (currentSubSection && activeSubSection ? content[activeSubSection] : null);
+  const activeItems = currentSubSection?.targetKey ? subContent : (currentSection?.id === 'blog' ? content : (currentSubSection && activeSubSection ? content[activeSubSection] : null));
   const isArraySection = Array.isArray(activeItems);
   const selectedItem = isArraySection && activeItemIndex !== null ? activeItems[activeItemIndex] : null;
 

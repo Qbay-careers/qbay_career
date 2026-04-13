@@ -215,11 +215,29 @@ export const AdminFormControl: React.FC<AdminFormControlProps> = ({
       </label>
       
       {isLongText(value) ? (
-        <textarea
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className="w-full rounded-xl border border-slate-200 bg-white p-3 text-sm text-slate-800 outline-none focus:border-purple-300 focus:ring-4 focus:ring-purple-500/5 min-h-[100px]"
-        />
+        <div className="relative">
+          <textarea
+            value={label.toLowerCase() === 'content' ? (value || '').replace(/<br\s*\/?>/gi, '\n').replace(/<p>/gi, '').replace(/<\/p>/gi, '\n\n').trim() : value}
+            onChange={(e) => {
+              let val = e.target.value;
+              if (label.toLowerCase() === 'content') {
+                // Convert plain text newlines to HTML for saving
+                val = val
+                  .split('\n\n')
+                  .map(para => `<p>${para.replace(/\n/g, '<br/>')}</p>`)
+                  .join('');
+              }
+              onChange(val);
+            }}
+            placeholder={`Enter ${label.toLowerCase()}...`}
+            className={`w-full rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-800 outline-none focus:border-purple-300 focus:ring-4 focus:ring-purple-500/5 transition-all leading-relaxed ${label.toLowerCase() === 'content' ? 'min-h-[500px]' : 'min-h-[120px]'}`}
+          />
+          {label.toLowerCase() === 'content' && (
+            <div className="absolute top-3 right-3 px-2 py-1 rounded bg-purple-50 text-[10px] font-bold text-purple-400 uppercase pointer-events-none">
+              Auto-Formatting Active
+            </div>
+          )}
+        </div>
       ) : (
         <div className="flex items-center gap-3">
           <input
