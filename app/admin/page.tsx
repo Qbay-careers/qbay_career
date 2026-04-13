@@ -48,7 +48,11 @@ const sections = [
     { id: 'cancellation', label: 'Cancellation Policy', description: 'Manage refund details and policy items.' }
   ]},
   { id: 'contactPage', icon: Mail, label: 'Contact Page' },
-  { id: 'services', icon: Briefcase, label: 'Services' },
+  { id: 'servicesConfig', icon: Briefcase, label: 'Services Config', subSections: [
+    { id: 'servicesList', label: 'Our Services', description: 'Manage your individual service offerings.', targetKey: 'services' },
+    { id: 'whatsappTestimonials', label: 'WhatsApp Testimonials', description: 'Manage WhatsApp testimonials for each service.', targetKey: 'services' },
+    { id: 'audioTestimonials', label: 'Audio Testimonials', description: 'Manage audio testimonials for each service.', targetKey: 'services' }
+  ]},
 ];
 
 export default function AdminDashboard() {
@@ -361,11 +365,40 @@ export default function AdminDashboard() {
         .from('cms_content')
         .select('content')
         .eq('key', key)
-        .single();
+        .maybeSingle();
 
       if (fetchError) throw fetchError;
       
-      const processed = processContent(data.content);
+      const rawContent = data?.content ? data.content : (isSubKey && key === 'services' ? [] : {});
+      let processed = processContent(rawContent);
+
+      // Initialization for per-service testimonials with defaults
+      if (key === 'services' && Array.isArray(processed)) {
+        processed = processed.map(s => {
+          const defaultAudio = [
+            { name: 'David L.', role: 'UX Designer', title: 'Secured a role at a top agency', duration: '1:24', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', flag: 'https://flagcdn.com/w80/gb.png' },
+            { name: 'Anita P.', role: 'Marketing Lead', title: 'Got my UK visa sponsored job', duration: '0:58', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', flag: 'https://flagcdn.com/w80/ie.png' },
+            { name: 'John D.', role: 'Cloud Architect', title: 'Negotiated a 30% salary bump', duration: '2:15', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', flag: 'https://flagcdn.com/w80/in.png' },
+            { name: 'Rachel M.', role: 'Data Scientist', title: 'Moved from academia to tech', duration: '1:45', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3', flag: 'https://flagcdn.com/w80/gb.png' },
+          ];
+
+          const defaultWhatsapp = [1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => ({
+            src: `/testimonials/whatsapp${n}.jpeg`,
+            flag: 'https://flagcdn.com/w80/in.png'
+          }));
+
+          return {
+            ...s,
+            results: (s.results && s.results.images && s.results.images.length > 0) 
+              ? s.results 
+              : { title: 'Success Stories That Inspire', images: defaultWhatsapp },
+            audioReviews: (s.audioReviews && s.audioReviews.length > 0) 
+              ? s.audioReviews 
+              : defaultAudio
+          };
+        });
+      }
+      
       if (isSubKey) {
         setSubContent(processed);
       } else {
@@ -410,12 +443,24 @@ export default function AdminDashboard() {
         }
       }
 
-      const { error: updateError } = await supabase
-        .from('cms_content')
-        .update({ content: finalContent, updated_at: new Date().toISOString() })
-        .eq('key', targetKey);
+      // Check if key exists
+      const { data: existing } = await supabase.from('cms_content').select('id').eq('key', targetKey).maybeSingle();
+      
+      let finalError;
+      if (existing) {
+        const { error } = await supabase
+          .from('cms_content')
+          .update({ content: finalContent, updated_at: new Date().toISOString() })
+          .eq('key', targetKey);
+        finalError = error;
+      } else {
+        const { error } = await supabase
+          .from('cms_content')
+          .insert({ key: targetKey, content: finalContent });
+        finalError = error;
+      }
 
-      if (updateError) throw updateError;
+      if (finalError) throw finalError;
       toast.success(`${activeSubSection || activeSection} updated successfully!`);
     } catch (err: any) {
       toast.error(err.message || 'Failed to save changes');
@@ -648,16 +693,18 @@ export default function AdminDashboard() {
                 /* Item Selection Grid (Sub-Section OverView) */
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                   {/* Add New Item Button Card */}
-                  <button
-                    onClick={addItem}
-                    className="group flex flex-col items-center justify-center rounded-3xl border-2 border-dashed border-purple-100 bg-purple-50/20 p-8 text-center transition-all hover:bg-purple-50 hover:border-purple-300 hover:shadow-lg h-full min-h-[220px]"
-                  >
-                    <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-white text-purple-600 shadow-sm transition-transform group-hover:scale-110">
-                       <Plus size={28} />
-                    </div>
-                    <h3 className="text-lg font-bold text-[#1A112B]">Add New Item</h3>
-                    <p className="text-sm text-slate-500 mt-1 max-w-[180px]">Expand your {currentSubSection?.label || 'list'} with fresh content.</p>
-                  </button>
+                  {activeSubSection !== 'whatsappTestimonials' && activeSubSection !== 'audioTestimonials' && (
+                    <button
+                      onClick={addItem}
+                      className="group flex flex-col items-center justify-center rounded-3xl border-2 border-dashed border-purple-100 bg-purple-50/20 p-8 text-center transition-all hover:bg-purple-50 hover:border-purple-300 hover:shadow-lg h-full min-h-[220px]"
+                    >
+                      <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-white text-purple-600 shadow-sm transition-transform group-hover:scale-110">
+                         <Plus size={28} />
+                      </div>
+                      <h3 className="text-lg font-bold text-[#1A112B]">Add New Item</h3>
+                      <p className="text-sm text-slate-500 mt-1 max-w-[180px]">Expand your {currentSubSection?.label || 'list'} with fresh content.</p>
+                    </button>
+                  )}
 
                   {activeItems.map((item: any, index: number) => (
                     <button
@@ -708,12 +755,26 @@ export default function AdminDashboard() {
                       <div className="space-y-10 max-w-4xl mx-auto py-10">
                         {/* Render Visual Form Fields */}
                         {activeItemIndex !== null && selectedItem ? (
-                          <AdminFormControl 
-                            label={selectedItem.title || selectedItem.name || 'Item Details'} 
-                            value={selectedItem} 
-                            onChange={updateItemContent}
-                            excludeFields={['bookStrategyCall', 'whatsappNow']}
-                          />
+                          activeSubSection === 'whatsappTestimonials' ? (
+                            <AdminFormControl 
+                              label="WhatsApp Testimonials for this Service"
+                              value={selectedItem.results}
+                              onChange={(newVal) => updateItemContent({ ...selectedItem, results: newVal })}
+                            />
+                          ) : activeSubSection === 'audioTestimonials' ? (
+                            <AdminFormControl 
+                              label="Audio Testimonials for this Service"
+                              value={selectedItem.audioReviews}
+                              onChange={(newVal) => updateItemContent({ ...selectedItem, audioReviews: newVal })}
+                            />
+                          ) : (
+                            <AdminFormControl 
+                              label={selectedItem.title || selectedItem.name || 'Item Details'} 
+                              value={selectedItem} 
+                              onChange={updateItemContent}
+                              excludeFields={['bookStrategyCall', 'whatsappNow', 'results', 'audioReviews']}
+                            />
+                          )
                         ) : activeSubSection ? (
                           <AdminFormControl 
                             label={activeSubSection} 

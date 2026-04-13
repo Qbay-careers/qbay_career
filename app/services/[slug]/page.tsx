@@ -8,21 +8,22 @@ export const revalidate = 0; // Disable caching to fetch updated data instantly
 export default async function ServiceDetailPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
 
-  // Fetch all services from CMS
+  // Fetch all content from CMS
   const { data, error } = await supabase
     .from('cms_content')
-    .select('content')
-    .eq('key', 'services')
-    .single();
+    .select('key, content')
+    .in('key', ['services', 'service_details_page']); // Fetch services and service details data
 
   if (error) {
-    console.error('Error fetching services CMS data:', error);
+    console.error('Error fetching CMS data:', error);
   }
 
-  const cmsServices: any[] = data && Array.isArray(data.content) ? data.content : [];
+  const servicesData = data?.find(item => item.key === 'services')?.content;
+  const serviceDetailsData = data?.find(item => item.key === 'service_details_page')?.content || {};
+
+  const cmsServices: any[] = Array.isArray(servicesData) ? servicesData : [];
 
   // Find the exact service matching the slug
-  // Try CMS data first, fall back to static data
   let service = cmsServices.find((s: any) => s.slug === slug);
 
   if (!service) {
@@ -33,5 +34,5 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
     notFound();
   }
 
-  return <ServiceLayout service={service} />;
+  return <ServiceLayout service={service} servicePageContent={serviceDetailsData} />;
 }

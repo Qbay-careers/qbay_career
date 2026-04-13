@@ -7,6 +7,21 @@ export interface Service {
   image: string;
   features: { title: string; description: string }[];
   benefits: string[];
+  results?: {
+    title?: string;
+    subtitle?: string;
+    description?: string;
+    images: { src: string; flag: string }[];
+  };
+  audioReviews?: {
+    name: string;
+    role: string;
+    title: string;
+    duration: string;
+    avatar: string;
+    audioUrl: string;
+    flag: string;
+  }[];
 }
 
 const defaultFeatureDesc = "Carefully tailored to ensure maximum success in your specific career path and market conditions.";
