@@ -88,6 +88,11 @@ const DEFAULT_BLOG_POSTS = [
   }
 ];
 
+const DEFAULT_ACTION_BAR = {
+  button1: { label: "Book Strategy Call", link: "/contact" },
+  button2: { label: "Whatsapp Now", link: "https://wa.me/447441391851" }
+};
+
 const sections = [
   { id: 'navigation', icon: LayoutDashboard, label: 'Navigation' },
   { id: 'home', icon: Home, label: 'Home Page', subSections: [
@@ -119,6 +124,7 @@ const sections = [
     { id: 'servicePricing', label: 'Service Pricing', description: 'Manage custom pricing packages for each service.', targetKey: 'services' }
   ]},
   { id: 'blog', icon: BookOpen, label: 'Blog Posts' },
+  { id: 'actionBar', icon: Settings, label: 'Action Bar' },
 ];
 
 export default function AdminDashboard() {
@@ -444,11 +450,16 @@ export default function AdminDashboard() {
 
       if (fetchError) throw fetchError;
       
-      let rawContent = data?.content ? data.content : (isSubKey && key === 'services' ? [] : (key === 'blog' ? DEFAULT_BLOG_POSTS : {}));
+      let rawContent = data?.content ? data.content : (isSubKey && key === 'services' ? [] : (key === 'blog' ? DEFAULT_BLOG_POSTS : (key === 'actionBar' ? DEFAULT_ACTION_BAR : {})));
       
       // If it's the blog key and it exists but is empty array, populate it
       if (key === 'blog' && Array.isArray(rawContent) && rawContent.length === 0) {
         rawContent = DEFAULT_BLOG_POSTS;
+      }
+
+      // If it's the action bar and empty object, populate it
+      if (key === 'actionBar' && Object.keys(rawContent).length === 0) {
+        rawContent = DEFAULT_ACTION_BAR;
       }
 
       let processed = processContent(rawContent);

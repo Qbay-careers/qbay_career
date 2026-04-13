@@ -3,15 +3,40 @@
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { PhoneCall } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
 
 export default function StickyActionBar() {
   const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(true);
+  const [data, setData] = useState({
+    button1: { label: "Book Strategy Call", link: "/contact" },
+    button2: { label: "Whatsapp Now", link: "https://wa.me/447441391851" }
+  });
 
   // Do not show on admin pages
   if (pathname?.startsWith('/admin')) {
     return null;
   }
+
+  useEffect(() => {
+    async function fetchActionBar() {
+      try {
+        const { data: cmsData, error } = await supabase
+          .from('cms_content')
+          .select('content')
+          .eq('key', 'actionBar')
+          .maybeSingle();
+        
+        if (error) throw error;
+        if (cmsData?.content) {
+          setData(cmsData.content);
+        }
+      } catch (err) {
+        console.error('Error fetching action bar:', err);
+      }
+    }
+    fetchActionBar();
+  }, []);
 
   useEffect(() => {
     // Re-initialize observer whenever the pathname changes
@@ -44,16 +69,16 @@ export default function StickyActionBar() {
     >
       <div className="bg-white/90 backdrop-blur-2xl border border-white/40 rounded-full p-1.5 shadow-2xl shadow-purple-900/10 flex gap-2 pointer-events-auto items-center animate-heartbeat">
         <a
-          href="/contact"
+          href={data.button1.link}
           className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-full bg-white px-2 sm:px-3 py-2.5 text-[11px] sm:text-xs font-bold text-[#4B2C83] border border-purple-100 hover:bg-purple-50 transition-all font-sans whitespace-nowrap"
         >
           <span className="inline-flex h-4 w-4 items-center justify-center flex-shrink-0">
             <img src="/google-meet-icon.png" alt="Google Meet" className="h-4 w-4" />
           </span>
-          Book Strategy Call
+          {data.button1.label}
         </a>
         <a
-          href="https://wa.me/447441391851"
+          href={data.button2.link}
           target="_blank"
           rel="noopener noreferrer"
           className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-full bg-[#25D366] px-2 sm:px-3 py-2.5 text-[11px] sm:text-xs font-bold text-white hover:bg-[#128C7E] shadow-lg shadow-green-500/20 transition-all hover:scale-[1.02] font-sans whitespace-nowrap"
@@ -66,7 +91,7 @@ export default function StickyActionBar() {
               />
             </svg>
           </span>
-          Whatsapp Now
+          {data.button2.label}
         </a>
       </div>
     </div>
