@@ -58,7 +58,9 @@ export const AdminFormControl: React.FC<AdminFormControlProps> = ({
           <button
             onClick={() => {
               let template: any = '';
-              if (isObjectImageArray && value.length > 0) {
+              if (isImageArray) {
+                template = '';
+              } else if (isObjectImageArray && value.length > 0) {
                 // Clone the structure of the first item, clearing string values
                 const first = value[0];
                 template = Object.fromEntries(
@@ -67,12 +69,10 @@ export const AdminFormControl: React.FC<AdminFormControlProps> = ({
                     k === 'flag' ? 'https://flagcdn.com/w80/in.png' : (typeof first[k] === 'string' ? '' : first[k])
                   ])
                 );
-              } else if (isObjectImageArray || label.toLowerCase().includes('image')) {
+              } else if (isObjectImageArray) {
                 template = { src: '', flag: 'https://flagcdn.com/w80/in.png' };
-              } else if (isImageArray) {
-                template = '';
               } else {
-                template = typeof value[0] === 'object' ? {} : '';
+                template = value.length > 0 && typeof value[0] === 'object' ? {} : '';
               }
               onChange([...value, template]);
             }}
