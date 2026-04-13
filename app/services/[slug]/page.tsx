@@ -12,7 +12,7 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
   const { data, error } = await supabase
     .from('cms_content')
     .select('key, content')
-    .in('key', ['services', 'service_details_page']); // Fetch services and service details data
+    .in('key', ['services', 'service_details_page', 'pricing']); // Fetch pricing data too
 
   if (error) {
     console.error('Error fetching CMS data:', error);
@@ -20,6 +20,7 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
 
   const servicesData = data?.find(item => item.key === 'services')?.content;
   const serviceDetailsData = data?.find(item => item.key === 'service_details_page')?.content || {};
+  const pricingData = data?.find(item => item.key === 'pricing')?.content || {};
 
   const cmsServices: any[] = Array.isArray(servicesData) ? servicesData : [];
 
@@ -34,5 +35,6 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
     notFound();
   }
 
-  return <ServiceLayout service={service} servicePageContent={serviceDetailsData} />;
+  const pricingToUse = service.pricing || pricingData;
+  return <ServiceLayout service={service} servicePageContent={serviceDetailsData} pricingData={pricingToUse} />;
 }

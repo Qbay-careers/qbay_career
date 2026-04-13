@@ -51,7 +51,8 @@ const sections = [
   { id: 'servicesConfig', icon: Briefcase, label: 'Services Config', subSections: [
     { id: 'servicesList', label: 'Our Services', description: 'Manage your individual service offerings.', targetKey: 'services' },
     { id: 'whatsappTestimonials', label: 'WhatsApp Testimonials', description: 'Manage WhatsApp testimonials for each service.', targetKey: 'services' },
-    { id: 'audioTestimonials', label: 'Audio Testimonials', description: 'Manage audio testimonials for each service.', targetKey: 'services' }
+    { id: 'audioTestimonials', label: 'Audio Testimonials', description: 'Manage audio testimonials for each service.', targetKey: 'services' },
+    { id: 'servicePricing', label: 'Service Pricing', description: 'Manage custom pricing packages for each service.', targetKey: 'services' }
   ]},
 ];
 
@@ -372,7 +373,7 @@ export default function AdminDashboard() {
       const rawContent = data?.content ? data.content : (isSubKey && key === 'services' ? [] : {});
       let processed = processContent(rawContent);
 
-      // Initialization for per-service testimonials with defaults
+      // Initialization for per-service testimonials and pricing with defaults
       if (key === 'services' && Array.isArray(processed)) {
         processed = processed.map(s => {
           const defaultAudio = [
@@ -387,6 +388,17 @@ export default function AdminDashboard() {
             flag: 'https://flagcdn.com/w80/in.png'
           }));
 
+          const defaultPricing = {
+            plans: [
+              { name: 'Qbay Career Plan', price: '€193/-', originalPrice: '€263/-', description: 'One time payment', features: ['UK/Germany/Ireland Internship', '60-Day Success Club Access'] },
+              { name: 'Qbay Master Plan', price: '€329/-', originalPrice: '€499/-', isPopular: true, badgeText: 'MOST POPULAR', description: 'One time payment', features: ['Career Strategy Development', 'Effective Career Roadmap'] },
+              { name: 'Qbay Premium Plan', price: '€639/-', originalPrice: '€799/-', isPopular: true, badgeText: 'MAX RESULTS!', description: 'One time payment', features: ['3 Month Application Assistance', 'UK & India Career Roadmap'] }
+            ],
+            monthlyPlan: {
+              name: 'Monthly Subscription', price: '€219/-', originalPrice: '€258/-', description: 'One time payment', features: ['Job applications on your behalf', 'Daily 10 job applications']
+            }
+          };
+
           return {
             ...s,
             results: (s.results && s.results.images && s.results.images.length > 0) 
@@ -394,7 +406,8 @@ export default function AdminDashboard() {
               : { title: 'Success Stories That Inspire', images: defaultWhatsapp },
             audioReviews: (s.audioReviews && s.audioReviews.length > 0) 
               ? s.audioReviews 
-              : defaultAudio
+              : defaultAudio,
+            pricing: s.pricing || defaultPricing
           };
         });
       }
@@ -510,8 +523,23 @@ export default function AdminDashboard() {
       template = { name: "New Candidate", role: "Job Seeker", title: "My Career Success", audioUrl: "", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150", flag: "https://flagcdn.com/w80/gb.png", duration: "1:00" };
     } else if (activeSubSection === 'plans') {
       template = { name: "New Plan", price: "0", features: ["Benefit 1"], isRecommended: false };
-    } else if (activeSubSection === 'services') {
-      template = { title: "New Service", description: "Service details...", image: "", slug: "new-service" };
+    } else if (activeSubSection === 'services' || activeSubSection === 'servicesList') {
+      template = { 
+        title: "New Service", 
+        description: "Service details...", 
+        image: "", 
+        slug: "new-service",
+        pricing: {
+          plans: [
+            { name: 'Qbay Career Plan', price: '€193/-', originalPrice: '€263/-', description: 'One time payment', features: ['UK/Germany/Ireland Internship', '60-Day Success Club Access'] },
+            { name: 'Qbay Master Plan', price: '€329/-', originalPrice: '€499/-', isPopular: true, badgeText: 'MOST POPULAR', description: 'One time payment', features: ['Career Strategy Development', 'Effective Career Roadmap'] },
+            { name: 'Qbay Premium Plan', price: '€639/-', originalPrice: '€799/-', isPopular: true, badgeText: 'MAX RESULTS!', description: 'One time payment', features: ['3 Month Application Assistance', 'UK & India Career Roadmap'] }
+          ],
+          monthlyPlan: {
+            name: 'Monthly Subscription', price: '€219/-', originalPrice: '€258/-', description: 'One time payment', features: ['Job applications on your behalf', 'Daily 10 job applications']
+          }
+        }
+      };
     } else if (activeSubSection === 'clientLove') {
       template = { name: "New Client", role: "Job Seeker", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150", content: "Write the feedback here...", rating: 5 };
     } else if (activeSubSection === 'negativeReviews') {
@@ -755,24 +783,18 @@ export default function AdminDashboard() {
                       <div className="space-y-10 max-w-4xl mx-auto py-10">
                         {/* Render Visual Form Fields */}
                         {activeItemIndex !== null && selectedItem ? (
-                          activeSubSection === 'whatsappTestimonials' ? (
+                          activeSubSection === 'servicePricing' ? (
                             <AdminFormControl 
-                              label="WhatsApp Testimonials for this Service"
-                              value={selectedItem.results}
-                              onChange={(newVal) => updateItemContent({ ...selectedItem, results: newVal })}
-                            />
-                          ) : activeSubSection === 'audioTestimonials' ? (
-                            <AdminFormControl 
-                              label="Audio Testimonials for this Service"
-                              value={selectedItem.audioReviews}
-                              onChange={(newVal) => updateItemContent({ ...selectedItem, audioReviews: newVal })}
+                              label="Pricing Configuration for this Service"
+                              value={selectedItem.pricing}
+                              onChange={(newVal) => updateItemContent({ ...selectedItem, pricing: newVal })}
                             />
                           ) : (
                             <AdminFormControl 
                               label={selectedItem.title || selectedItem.name || 'Item Details'} 
                               value={selectedItem} 
                               onChange={updateItemContent}
-                              excludeFields={['bookStrategyCall', 'whatsappNow', 'results', 'audioReviews']}
+                              excludeFields={['bookStrategyCall', 'whatsappNow', 'results', 'audioReviews', 'pricing']}
                             />
                           )
                         ) : activeSubSection ? (
