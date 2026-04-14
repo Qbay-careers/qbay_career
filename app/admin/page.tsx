@@ -19,7 +19,8 @@ import {
   LayoutGrid,
   Plus,
   Trash2,
-  BookOpen
+  BookOpen,
+  MessageCircle
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { Toaster, toast } from 'sonner';
@@ -124,6 +125,7 @@ const sections = [
     { id: 'servicePricing', label: 'Service Pricing', description: 'Manage custom pricing packages for each service.', targetKey: 'services' }
   ]},
   { id: 'blog', icon: BookOpen, label: 'Blog Posts' },
+  { id: 'popup', icon: MessageCircle, label: 'Popup' },
   { id: 'actionBar', icon: Settings, label: 'Action Bar' },
 ];
 
@@ -391,6 +393,36 @@ export default function AdminDashboard() {
             newData.clientLove = items;
           }
         }
+      }
+
+      // Auto-migrate Popup Content
+      const isPopupObject = newData.isEnabled !== undefined || newData.delay !== undefined || newData.whatsappLink !== undefined;
+      const isEmpty = Object.keys(newData).length === 0;
+
+      if (!parentKey && (isEmpty || isPopupObject)) {
+        // If it's the top-level 'popup' key, ensure all fields exist
+        if (newData.isEnabled === undefined) newData.isEnabled = true;
+        if (!newData.title) newData.title = "Join Our WhatsApp Community";
+        if (!newData.subtitle) newData.subtitle = "Talk directly with our experts, get guidance, and be part of a community that helps you move forward — for free.";
+        if (!newData.buttonLabel) newData.buttonLabel = "Join Community";
+        if (!newData.whatsappLink) newData.whatsappLink = "https://wa.me/447441391851";
+        if (newData.delay === undefined) newData.delay = 6000;
+        if (!newData.primaryColor) newData.primaryColor = "#0d6e4c";
+        if (!newData.secondaryColor) newData.secondaryColor = "#25D366";
+      }
+
+      // Legacy support for when popup was inside another object
+      if (newData.popup === undefined && !parentKey && newData.hero) {
+        newData.popup = {
+          isEnabled: true,
+          title: "Join Our WhatsApp Community",
+          subtitle: "Talk directly with our experts, get guidance, and be part of a community that helps you move forward — for free.",
+          buttonLabel: "Join Community",
+          whatsappLink: "https://wa.me/447441391851",
+          delay: 6000,
+          primaryColor: "#0d6e4c",
+          secondaryColor: "#25D366"
+        };
       }
 
       for (const [key, value] of Object.entries(newData)) {
