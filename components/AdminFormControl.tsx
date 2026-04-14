@@ -238,14 +238,52 @@ export const AdminFormControl: React.FC<AdminFormControlProps> = ({
             </div>
           )}
         </div>
+      ) : label.toLowerCase().includes('font family') ? (
+        <select
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="w-full rounded-xl border border-slate-200 bg-white p-3 text-sm text-slate-800 outline-none focus:border-purple-300 focus:ring-4 focus:ring-purple-500/5 transition-all appearance-none cursor-pointer"
+        >
+          {[
+            'Poppins', 
+            'Inter', 
+            'Roboto', 
+            'Outfit', 
+            'Montserrat', 
+            'Playfair Display', 
+            'Merriweather', 
+            'sans-serif', 
+            'serif'
+          ].map(font => (
+            <option key={font} value={font === 'sans-serif' || font === 'serif' ? font : `${font}, sans-serif`}>
+              {font}
+            </option>
+          ))}
+        </select>
       ) : (
         <div className="flex items-center gap-3">
-          <input
-            type="text"
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            className="flex-1 rounded-xl border border-slate-200 bg-white p-3 text-sm text-slate-800 outline-none focus:border-purple-300 focus:ring-4 focus:ring-purple-500/5"
-          />
+          <div className="relative flex-1 group/input">
+            <input
+              type="text"
+              value={value}
+              onChange={(e) => onChange(e.target.value)}
+              className={`w-full rounded-xl border border-slate-200 bg-white p-3 text-sm text-slate-800 outline-none focus:border-purple-300 focus:ring-4 focus:ring-purple-500/5 transition-all ${label.toLowerCase().includes('color') ? 'pr-12' : ''}`}
+            />
+            {label.toLowerCase().includes('color') && (
+              <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                <div 
+                  className="h-6 w-6 rounded-md border border-slate-200 shadow-sm"
+                  style={{ backgroundColor: value }}
+                />
+                <input
+                  type="color"
+                  value={value?.startsWith('#') ? value : '#000000'}
+                  onChange={(e) => onChange(e.target.value)}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                />
+              </div>
+            )}
+          </div>
           {isUrl(value) && (
             <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-lg border border-slate-100 bg-slate-50 shadow-inner group relative">
                <img 

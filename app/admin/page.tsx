@@ -172,6 +172,16 @@ export default function AdminDashboard() {
         if (!newData.hero.backgroundImage) {
           newData.hero.backgroundImage = 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1920';
         }
+        // New Hero Customization Defaults
+        if (!newData.hero.titleColor) newData.hero.titleColor = '#160E22';
+        if (!newData.hero.subtitleColor) newData.hero.subtitleColor = '#5D4A7A';
+        if (!newData.hero.descriptionColor) newData.hero.descriptionColor = '#5D4A7A';
+        if (!newData.hero.titleFontSize) newData.hero.titleFontSize = '6rem';
+        if (!newData.hero.titleFontSizeMobile) newData.hero.titleFontSizeMobile = '3.5rem';
+        if (!newData.hero.subtitleFontSize) newData.hero.subtitleFontSize = '1.875rem';
+        if (!newData.hero.badgeColor) newData.hero.badgeColor = '#FFFFFF';
+        if (!newData.hero.badgeTextColor) newData.hero.badgeTextColor = '#2D1B4D';
+        if (!newData.hero.fontFamily) newData.hero.fontFamily = 'Poppins, sans-serif';
       }
 
       // Auto-migrate Pricing Schema: extract 'Monthly Subscription' from 'plans'
@@ -940,7 +950,7 @@ export default function AdminDashboard() {
                             label={activeSubSection} 
                             value={currentSubSection?.targetKey ? subContent : content[activeSubSection]} 
                             onChange={updateSubSection}
-                            excludeFields={['bookStrategyCall', 'whatsappNow']}
+                            excludeFields={['bookStrategyCall', 'whatsappNow', 'titleFontSize', 'titleFontSizeMobile', 'subtitleFontSize']}
                           />
                         ) : (
                           <AdminFormControl 

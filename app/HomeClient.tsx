@@ -726,13 +726,20 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         })()}
         <div className="absolute inset-0 z-0 bg-[#FDFCFE]/40 backdrop-blur-[1px] pointer-events-none" />
 
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-4 lg:mb-6">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-4 lg:mb-6" style={{ fontFamily: cmsData?.hero?.fontFamily || 'inherit' }}>
           <div className="mx-auto max-w-5xl text-center">
             <div className="flex flex-wrap justify-center gap-3">
               {heroBadges.map((badge, idx) => {
                 const Icon = badgeIcons[idx % badgeIcons.length];
                 return (
-                  <div key={idx} className="inline-flex items-center gap-2 rounded-full border border-purple-100 bg-white/70 backdrop-blur-md px-4 py-2 text-xs font-bold text-[#2D1B4D] shadow-sm">
+                  <div 
+                    key={idx} 
+                    className="inline-flex items-center gap-2 rounded-full border border-purple-100 backdrop-blur-md px-4 py-2 text-xs font-bold shadow-sm"
+                    style={{ 
+                      backgroundColor: cmsData?.hero?.badgeColor ? `${cmsData.hero.badgeColor}B3` : 'rgba(255, 255, 255, 0.7)', // 70% opacity if hex
+                      color: cmsData?.hero?.badgeTextColor || '#2D1B4D'
+                    }}
+                  >
                     {(badge === '4.8 Trustpilot' || badge === 'Gov Approved' || badge === '90-Day Calls' || badge === '100k+ Helped' || idx % 5 === 4) ? (
                       badgeContent(badge, idx)
                     ) : (
@@ -747,17 +754,30 @@ export default function HomeClient({ initialData }: { initialData: any }) {
             </div>
 
             <h1 
-              className="mt-10 text-[3.5rem] leading-[1.1] font-extrabold tracking-tight text-[#160E22] sm:text-7xl lg:text-[6rem]"
+              className="mt-10 text-[3.5rem] leading-[1.1] font-extrabold tracking-tight sm:text-7xl lg:text-[6rem]"
+              style={{ 
+                color: cmsData?.hero?.titleColor || '#160E22'
+              }}
               dangerouslySetInnerHTML={{ __html: cmsData?.hero?.title || 'A SMARTER <br/> WAY TO APPLY' }}
             />
-            <p className="mt-6 text-xl font-bold text-[#5D4A7A] sm:text-2xl lg:text-3xl max-w-3xl mx-auto">
+            
+            <p 
+              className="mt-6 text-xl font-bold sm:text-2xl lg:text-3xl max-w-3xl mx-auto"
+              style={{ color: cmsData?.hero?.subtitleColor || '#5D4A7A' }}
+            >
               {cmsData?.hero?.subtitle || 'A Faster Way To Get Interview Calls.'}
             </p>
 
-            <p className="mt-8 text-base font-semibold text-[#4B2C83]">
+            <p 
+              className="mt-8 text-base font-semibold"
+              style={{ color: cmsData?.hero?.descriptionHeaderColor || cmsData?.hero?.descriptionColor || '#4B2C83' }}
+            >
               {cmsData?.hero?.descriptionHeader || 'Career success starts with the right guidance'}
             </p>
-            <p className="mt-2 text-base leading-relaxed text-[#5D4A7A]/80 sm:text-lg max-w-2xl mx-auto">
+            <p 
+              className="mt-2 text-base leading-relaxed sm:text-lg max-w-2xl mx-auto"
+              style={{ color: cmsData?.hero?.descriptionColor ? `${cmsData.hero.descriptionColor}CC` : '#5D4A7A' }} // 80% opacity
+            >
               {cmsData?.hero?.descriptionBody || "You're not just another profile to us. We guide you personally, improve your job search approach, and stay committed until you start seeing interview results."}
             </p>
           </div>
