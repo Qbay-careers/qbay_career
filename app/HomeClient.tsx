@@ -10,6 +10,7 @@ import {
   MessageCircle,
   Check,
   Play,
+  Pause,
   Volume2,
   Share2,
   Maximize,
@@ -97,6 +98,15 @@ const defaultClientTestimonials = [
       'After facing a sudden layoff, I had limited time to secure a new role. The pressure was intense. Instead of applying randomly, I followed a focused and aggressive strategy. The results were unbelievable. Within four weeks, I received three strong offers and increased my salary significantly. The support system kept me motivated and organized.',
     rating: 5,
   },
+];
+
+const defaultAudioReviews = [
+  { name: 'David L.', role: 'UX Designer', title: 'Secured a role at a top agency', duration: '1:24', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', flag: 'https://flagcdn.com/w80/gb.png' },
+  { name: 'Anita P.', role: 'Marketing Lead', title: 'Got my UK visa sponsored job', duration: '0:58', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', flag: 'https://flagcdn.com/w80/ie.png' },
+  { name: 'John D.', role: 'Cloud Architect', title: 'Negotiated a 30% salary bump', duration: '2:15', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', flag: 'https://flagcdn.com/w80/in.png' },
+  { name: 'Rachel M.', role: 'Data Scientist', title: 'Moved from academia to tech', duration: '1:45', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3', flag: 'https://flagcdn.com/w80/gb.png' },
+  { name: 'Kevin B.', role: 'Product Manager', title: 'Landed 3 offers in 2 weeks', duration: '1:10', avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3', flag: 'https://flagcdn.com/w80/ae.png' },
+  { name: 'Linda V.', role: 'Financial Analyst', title: 'Overcame career stagnation', duration: '2:05', avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3', flag: 'https://flagcdn.com/w80/ie.png' }
 ];
 
 const topRowLogos = [
@@ -367,6 +377,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
 
   const frameworkPhases = getFrameworkPhases() as typeof defaultFrameworkPhases;
   const clientTestimonials = getClientTestimonials() as typeof defaultClientTestimonials;
+  const audioReviewsData = cmsData?.audioReviews || defaultAudioReviews;
   const faqData = getFaqData() as typeof defaultFaqData;
   const heroImages = (() => {
     const cms = Array.isArray(cmsData?.hero?.images) ? cmsData.hero.images : [];
@@ -585,6 +596,23 @@ export default function HomeClient({ initialData }: { initialData: any }) {
   const [isTestimonialPaused, setIsTestimonialPaused] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const [playingAudioIdx, setPlayingAudioIdx] = useState<number | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const toggleAudio = (idx: number, url: string) => {
+    if (playingAudioIdx === idx) {
+      audioRef.current?.pause();
+      setPlayingAudioIdx(null);
+    } else {
+      if (audioRef.current) audioRef.current.pause();
+      const audio = new Audio(url);
+      audio.onended = () => setPlayingAudioIdx(null);
+      audio.play().catch(e => console.log('Audio play failed:', e));
+      audioRef.current = audio;
+      setPlayingAudioIdx(idx);
+    }
+  };
 
   useEffect(() => {
     const scrollContainer = resultsScrollRef.current;
@@ -1166,6 +1194,53 @@ export default function HomeClient({ initialData }: { initialData: any }) {
 
             <div className="pointer-events-none absolute inset-y-0 left-0 w-14 bg-gradient-to-r from-white to-transparent" />
             <div className="pointer-events-none absolute inset-y-0 right-0 w-14 bg-gradient-to-l from-white to-transparent" />
+          </div>
+        </div>
+      </section>
+
+      {/* Audio Reviews Section */}
+      <section id="audio-reviews" className="bg-white py-24 scroll-mt-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">Hear their success stories</h2>
+            <p className="text-lg text-slate-600 leading-relaxed">Listen to real experiences from our candidates who cracked top-tier interviews and landed their dream roles.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+             {audioReviewsData.map((audio: any, idx: number) => (
+               <div key={idx} className="bg-white rounded-2xl p-4 border-2 border-purple-100/60 flex items-stretch gap-4 shadow-sm hover:shadow-lg transition-shadow group relative overflow-hidden">
+                 <div className="w-[100px] h-[100px] flex-shrink-0">
+                   <img src={audio.avatar} alt={audio.name} className="w-full h-full rounded-xl object-cover" />
+                 </div>
+                 <div className="flex-1 flex flex-col py-0.5 justify-between min-w-0">
+                   <div className="absolute top-4 right-4 w-8 h-8 rounded-full border border-gray-100 overflow-hidden shadow-sm bg-gray-50">
+                     <img src={audio.flag} alt="Country flag" className="w-full h-full object-cover" />
+                   </div>
+                   <div className="pr-10 min-w-0 pt-2">
+                     <h3 className="font-extrabold text-[#2D1B4D] text-lg leading-tight mb-1 truncate">{audio.name}</h3>
+                     <p className="text-sm font-bold text-violet-600 truncate">{audio.role}</p>
+                   </div>
+                   <div className="flex items-center gap-3 mt-3">
+                     <button 
+                       onClick={() => toggleAudio(idx, audio.audioUrl)}
+                       className={`w-10 h-10 rounded-full border-2 flex items-center justify-center transition-colors ${
+                         playingAudioIdx === idx ? 'border-purple-600 bg-purple-600 text-white shadow-md' : 'border-violet-600 text-violet-600 hover:bg-violet-600 hover:text-white'
+                       }`}
+                     >
+                       {playingAudioIdx === idx ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 ml-0.5 fill-current" />}
+                     </button>
+                     <div className="flex-1 flex items-center gap-1 h-5 overflow-hidden">
+                       {[30, 60, 40, 80, 50, 90, 70, 40, 60, 100, 80, 50, 40, 60].map((h, i) => (
+                         <div 
+                           key={i} 
+                           className={`w-1 rounded-full transition-all duration-300 ${playingAudioIdx === idx ? 'bg-purple-600 animate-pulse' : 'bg-violet-600 opacity-60'}`} 
+                           style={{ height: playingAudioIdx === idx ? `${Math.max(20, h + (Math.sin(i) * 20))}%` : `${h}%` }}
+                         />
+                       ))}
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             ))}
           </div>
         </div>
       </section>
