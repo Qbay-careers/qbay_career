@@ -66,8 +66,8 @@ export default function QBayNavbar() {
   const topBarHeight = 40; // h-10 = 40px
   const navbarTop = Math.max(0, topBarHeight - currentScrollY);
 
-  // Capsule stays sticky even when scrolling down
-  const isActuallyVisible = visible || useCapsuleStyle;
+  // Navbar stays sticky on mobile, in capsule mode, or when mobile menu is open
+  const isActuallyVisible = visible || useCapsuleStyle || !isDesktop || open;
 
   return (
     <>
