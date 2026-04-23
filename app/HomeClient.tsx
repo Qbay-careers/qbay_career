@@ -1813,48 +1813,59 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       </section>
 
       {/* Final CTA Section */}
-      <section className="bg-white py-24 sm:py-32 relative border-t border-purple-50">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center space-y-16">
-          
-          <div className="space-y-10">
-            <div className="space-y-4">
-              <h2 className="text-3xl md:text-5xl font-bold text-[#1A112B]">
-                {cmsData?.finalCTA?.title || "Have more questions? Let's chat!"}
-              </h2>
-              <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto">
-                {cmsData?.finalCTA?.subtitle || "We understand that you might have questions specific to your situation. Schedule a call with our founder – we're here to help you succeed!"}
-              </p>
-            </div>
+      {/* Final CTA Section */}
+      <section className="bg-white py-12 sm:py-16 relative overflow-hidden border-t border-purple-50">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1A112B] via-[#2D1B4D] to-[#1A112B] pointer-events-none" />
+        
+        {/* Decorative background elements */}
+        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-[500px] h-[500px] bg-purple-600/20 blur-[120px] rounded-full" />
+        <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-indigo-600/10 blur-[120px] rounded-full" />
+        
+        <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="bg-white/5 backdrop-blur-2xl rounded-[2.5rem] border border-white/10 p-8 md:p-12 lg:p-16 shadow-2xl relative overflow-hidden">
+            <div className="text-center space-y-8">
+              <div className="space-y-4">
+                <h2 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white font-syne tracking-tight">
+                  {cmsData?.finalCTA?.title || "Have more questions? Let's chat!"}
+                </h2>
+                
+                <p className="text-lg md:text-xl text-purple-100/70 font-outfit max-w-2xl mx-auto leading-relaxed">
+                  {cmsData?.finalCTA?.subtitle || "We understand that you might have questions specific to your situation. Schedule a call with our founder – we're here to help you succeed!"}
+                </p>
+              </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 md:gap-16 pt-4">
-              {(Array.isArray(cmsData?.finalCTA?.benefits) ? cmsData.finalCTA.benefits : [
-                { icon: CalendarDays, text: 'Flexible Scheduling' },
-                { icon: PhoneCall, text: 'One-on-One Call' },
-                { icon: MessageCircle, text: 'Personalized Advice' },
-              ]).map((benefit: any, idx: number) => {
-                const Icon = benefit.icon || [CalendarDays, PhoneCall, MessageCircle][idx % 3];
-                return (
-                  <div key={idx} className="flex items-center gap-3 text-[#5D4A7A] font-semibold text-lg">
-                    <Icon className="w-6 h-6" />
-                    <span>{typeof benefit === 'string' ? benefit : benefit.text}</span>
-                  </div>
-                );
-              })}
-            </div>
+              <div className="flex flex-wrap justify-center gap-6 sm:gap-10">
+                {(Array.isArray(cmsData?.finalCTA?.benefits) ? cmsData.finalCTA.benefits : [
+                  { icon: CalendarDays, text: 'Flexible Scheduling' },
+                  { icon: PhoneCall, text: 'One-on-One Call' },
+                  { icon: MessageCircle, text: 'Personalized Advice' },
+                ]).map((benefit: any, idx: number) => {
+                  const Icon = benefit.icon || [CalendarDays, PhoneCall, MessageCircle][idx % 3];
+                  return (
+                    <div key={idx} className="flex items-center gap-3 text-purple-100 font-bold text-base group cursor-default">
+                      <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-purple-600/20 group-hover:border-purple-600/40 transition-all duration-300">
+                        <Icon className="w-4 h-4 text-purple-400" />
+                      </div>
+                      <span className="font-outfit">{typeof benefit === 'string' ? benefit : benefit.text}</span>
+                    </div>
+                  );
+                })}
+              </div>
 
-            <div className="flex flex-col items-center justify-center pt-8 gap-4">
-              <a
-                href={cmsData?.finalCTA?.ctaLink || "#book"}
-                className="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all bg-[#594A7A] rounded-xl hover:bg-[#4a3b61] hover:scale-105 shadow-xl hover:shadow-2xl active:scale-95"
-              >
-                {cmsData?.finalCTA?.ctaLabel || 'Talk to Founder'}
-              </a>
-              <p className="text-sm font-medium text-gray-400">
-                {cmsData?.finalCTA?.footerText || 'Limited slots available. Book your call now!'}
-              </p>
+              <div className="flex flex-col items-center justify-center pt-4 gap-4">
+                <a
+                  href={cmsData?.finalCTA?.ctaLink || "#book"}
+                  className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all bg-purple-600 rounded-xl hover:bg-purple-700 hover:scale-105 shadow-[0_15px_40px_rgba(147,51,234,0.3)] hover:shadow-[0_20px_50px_rgba(147,51,234,0.5)] active:scale-95"
+                >
+                  <span>{cmsData?.finalCTA?.ctaLabel || 'Talk to Founder'}</span>
+                  <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+                </a>
+                <p className="text-xs font-bold text-purple-300/40 font-outfit uppercase tracking-widest">
+                  {cmsData?.finalCTA?.footerText || 'Limited slots available for this week'}
+                </p>
+              </div>
             </div>
           </div>
-
         </div>
       </section>
 
