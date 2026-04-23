@@ -1067,7 +1067,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      <section id="framework" className="scroll-mt-24" style={{ background: '#1a7de3' }}>
+      <section id="framework" className="scroll-mt-24 bg-[#0F172A]">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
           <h2 
             className="mb-12 text-4xl font-bold tracking-tight text-white sm:text-5xl"
@@ -1084,8 +1084,8 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                   data-index={idx}
                   className={`rounded-3xl p-8 sm:p-10 transition-all duration-500 border-l-4 ${
                     activePhase === idx
-                      ? 'bg-white/15 shadow-2xl shadow-blue-900/20 border-white opacity-100 scale-[1.02]'
-                      : 'opacity-50 border-transparent'
+                      ? 'bg-[#1a7de3] shadow-2xl shadow-blue-900/20 border-white opacity-100 scale-[1.02]'
+                      : 'bg-white/5 opacity-50 border-transparent'
                   }`}
                 >
                   <h3
@@ -1119,7 +1119,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
 
             {/* Right Column: Active Phase Details (Desktop only) */}
             <div className="relative hidden lg:block">
-              <div className="sticky top-24 rounded-[2.5rem] bg-white/15 backdrop-blur-sm p-8 shadow-2xl sm:p-12 border border-white/20 overflow-hidden">
+              <div className="sticky top-24 rounded-[2.5rem] bg-[#1a7de3] backdrop-blur-sm p-8 shadow-2xl sm:p-12 border border-white/20 overflow-hidden">
                 {/* Large background phase number with bottom fade */}
                 <div
                   className="absolute bottom-0 right-6 text-[220px] font-black text-white/10 leading-none select-none pointer-events-none transition-all duration-500"
