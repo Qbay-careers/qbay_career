@@ -109,6 +109,15 @@ const defaultAudioReviews = [
   { name: 'Linda V.', role: 'Financial Analyst', title: 'Overcame career stagnation', duration: '2:05', avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3', flag: 'https://flagcdn.com/w80/ie.png' }
 ];
 
+const defaultTrustpilotReviews = [
+  { name: 'James W.', title: 'Outstanding support from start to finish', content: 'They guided me through every step of the process. I landed a senior role faster than I expected.', rating: 5, time: '4 days ago' },
+  { name: 'Emily C.', title: 'Best career investment', content: 'Worth every penny. The 1:1 coaching gave me the confidence I lacked during technical interviews.', rating: 5, time: '2 weeks ago' },
+  { name: 'Rahul M.', title: 'Highly professional and effective', content: 'Their market insights are brilliant. I secured two competing offers thanks to their negotiation coaching.', rating: 5, time: '1 month ago' },
+  { name: 'Anna K.', title: 'Life-changing career guidance', content: 'I transitioned to a completely new industry with their help. The support system is unmatched.', rating: 5, time: '2 months ago' },
+  { name: 'Sophie L.', title: 'Incredible resume overhaul', content: 'My callback rate jumped from 0% to 40% after they rewrote my CV and LinkedIn profile.', rating: 5, time: '3 months ago' },
+  { name: 'Daniel P.', title: 'Helped me relocate smoothly', content: 'Got a sponsored job in the UK. Their guidance on visa processes and international interviews was vital.', rating: 5, time: '3 months ago' }
+];
+
 const topRowLogos = [
   '/Brock-University.png',
   '/Dublin-City-University-768x419.png',
@@ -378,6 +387,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
   const frameworkPhases = getFrameworkPhases() as typeof defaultFrameworkPhases;
   const clientTestimonials = getClientTestimonials() as typeof defaultClientTestimonials;
   const audioReviewsData = cmsData?.audioReviews || defaultAudioReviews;
+  const trustpilotData = cmsData?.trustpilotReviews || defaultTrustpilotReviews;
   const faqData = getFaqData() as typeof defaultFaqData;
   const heroImages = (() => {
     const cms = Array.isArray(cmsData?.hero?.images) ? cmsData.hero.images : [];
@@ -1241,6 +1251,37 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                  </div>
                </div>
              ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Trustpilot Reviews Section */}
+      <section id="trustpilot-reviews" className="bg-[#1C1C28] py-24 scroll-mt-24 text-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold">Excellent on Trustpilot</h2>
+            <div className="flex items-center gap-1">
+              {[...Array(5)].map((_, i) => (
+                <div key={i} className="bg-[#00B67A] p-1.5 rounded-sm"><Star className="w-5 h-5 fill-white text-white" /></div>
+              ))}
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {trustpilotData.map((review: any, idx: number) => (
+              <div key={idx} className="bg-[#262635] rounded-xl p-6 border border-white/5 hover:border-[#00B67A]/50 transition-colors">
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(review.rating || 5)].map((_, i) => (
+                    <div key={i} className="bg-[#00B67A] p-1 rounded-sm"><Star className="w-3 h-3 fill-white text-white" /></div>
+                  ))}
+                </div>
+                <h3 className="font-bold text-white text-lg mb-3">{review.title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed mb-6">{review.content}</p>
+                <div className="flex justify-between items-center text-xs">
+                  <span className="font-medium text-white">{review.name}</span>
+                  <span className="text-gray-500">{review.time}</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
