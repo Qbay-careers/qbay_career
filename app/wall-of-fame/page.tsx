@@ -25,6 +25,7 @@ import {
   defaultTrustpilotReviews,
   defaultAudioReviews,
   defaultNegativeReviews,
+  youtubeShortUrls,
 } from '../homeData';
 
 const mapYoutubeUrls = (urls: any[], quality: 'hqdefault' | 'maxresdefault' = 'hqdefault') => {
@@ -225,7 +226,7 @@ export default function WallOfFame() {
 
   const gridUrls = Array.isArray(testimonialsCms.testimonialGrid?.videoUrls) 
     ? testimonialsCms.testimonialGrid.videoUrls 
-    : (Array.isArray(testimonialsCms) ? testimonialsCms : []);
+    : (Array.isArray(testimonialsCms) && testimonialsCms.length > 0 ? testimonialsCms : youtubeShortUrls);
   const testimonialShortsData = mapYoutubeUrls(gridUrls, 'maxresdefault');
 
   const founderData = {

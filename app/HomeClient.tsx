@@ -613,7 +613,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                 const rawTitle = (cmsData?.hero?.title || 'Land Jobs Faster and Easier with AI Agents + Human Assistants').replace(/<br\s*\/?>/gi, ' ');
                 // Convert to Title Case for a more premium look if it's all caps
                 const fullTitle = (rawTitle === rawTitle.toUpperCase()) 
-                  ? rawTitle.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+                  ? rawTitle.toLowerCase().split(' ').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
                   : rawTitle;
 
                 // Split logic for styling emphasis
