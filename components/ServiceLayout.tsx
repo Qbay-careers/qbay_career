@@ -437,76 +437,6 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
         </div>
       </section>
 
-      {/* Detail Section */}
-      <section className="py-20 relative overflow-hidden">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="relative group">
-              <div className="absolute -inset-4 bg-gradient-to-tr from-purple-200 to-indigo-100 rounded-[2.5rem] blur-2xl opacity-30 group-hover:opacity-50 transition-opacity duration-700" />
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] shadow-2xl border border-white ring-8 ring-purple-50/30">
-                <img 
-                  src={service.image} 
-                  alt={service.title} 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-8">
-              <div>
-                <h2 className="text-3xl font-bold text-[#1A112B] mb-6">Expert Guidance. Proven Results.</h2>
-                <p className="text-lg text-slate-600 leading-relaxed font-normal whitespace-pre-line">
-                  {service.fullDescription}
-                </p>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-6">
-                {service.benefits.map((benefit, i) => (
-                  <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-purple-50/50 border border-purple-100/50 hover:bg-purple-50 transition-colors">
-                    <CheckCircle2 className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
-                    <span className="text-sm font-bold text-[#2D1B4D]">{benefit}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Deliverables Section */}
-      <section className="py-24 relative overflow-hidden border-y border-purple-100/50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-sm font-bold tracking-[0.2em] text-purple-600 uppercase mb-4">Inside the Service</h2>
-            <h3 className="text-3xl sm:text-4xl font-bold text-[#1A112B]">Key Deliverables</h3>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {service.features.map((feature: any, i) => {
-              const title = typeof feature === 'string' ? feature : (feature?.title || `Deliverable ${i + 1}`);
-              const description = typeof feature === 'string' 
-                ? "Carefully tailored to ensure maximum success in your specific career path and market conditions." 
-                : (feature?.description || "");
-                
-              return (
-                <div 
-                  key={i} 
-                  className="group p-8 rounded-2xl bg-white border border-purple-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-                >
-                  <div className="h-12 w-12 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600 mb-6 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300">
-                    <span className="text-lg font-bold">0{i + 1}</span>
-                  </div>
-                  <h4 className="text-xl font-bold text-[#2D1B4D] mb-4">{title}</h4>
-                  <p className="text-sm text-slate-500 leading-relaxed">
-                    {description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* Pricing Section - Replicated from Pricing Page */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -666,6 +596,76 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
         </div>
       </section>
 
+      {/* Detail Section */}
+      <section className="py-20 relative overflow-hidden">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="relative group">
+              <div className="absolute -inset-4 bg-gradient-to-tr from-purple-200 to-indigo-100 rounded-[2.5rem] blur-2xl opacity-30 group-hover:opacity-50 transition-opacity duration-700" />
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] shadow-2xl border border-white ring-8 ring-purple-50/30">
+                <img 
+                  src={service.image} 
+                  alt={service.title} 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-3xl font-bold text-[#1A112B] mb-6">Expert Guidance. Proven Results.</h2>
+                <p className="text-lg text-slate-600 leading-relaxed font-normal whitespace-pre-line">
+                  {service.fullDescription}
+                </p>
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-6">
+                {service.benefits.map((benefit, i) => (
+                  <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-purple-50/50 border border-purple-100/50 hover:bg-purple-50 transition-colors">
+                    <CheckCircle2 className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
+                    <span className="text-sm font-bold text-[#2D1B4D]">{benefit}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Deliverables Section */}
+      <section className="py-24 relative overflow-hidden border-y border-purple-100/50">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-sm font-bold tracking-[0.2em] text-purple-600 uppercase mb-4">Inside the Service</h2>
+            <h3 className="text-3xl sm:text-4xl font-bold text-[#1A112B]">Key Deliverables</h3>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {service.features.map((feature: any, i) => {
+              const title = typeof feature === 'string' ? feature : (feature?.title || `Deliverable ${i + 1}`);
+              const description = typeof feature === 'string' 
+                ? "Carefully tailored to ensure maximum success in your specific career path and market conditions." 
+                : (feature?.description || "");
+                
+              return (
+                <div 
+                  key={i} 
+                  className="group p-8 rounded-2xl bg-white border border-purple-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                >
+                  <div className="h-12 w-12 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600 mb-6 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300">
+                    <span className="text-lg font-bold">0{i + 1}</span>
+                  </div>
+                  <h4 className="text-xl font-bold text-[#2D1B4D] mb-4">{title}</h4>
+                  <p className="text-sm text-slate-500 leading-relaxed">
+                    {description}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-24 overflow-hidden relative">
         <div className="absolute -bottom-20 -right-20 w-[400px] h-[400px] rounded-full bg-purple-200/30 blur-[100px] pointer-events-none" />
@@ -681,11 +681,20 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
               <a 
-                href="/contact"
-                className="inline-flex items-center justify-center gap-3 bg-white px-10 py-4 text-sm font-bold tracking-wide text-[#1A112B] transition-all hover:bg-purple-50 w-full sm:w-auto rounded-full"
+                href="https://wa.me/447551940676"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-3 bg-[#25D366] px-10 py-4 text-sm font-bold tracking-wide text-white transition-all hover:bg-[#128C7E] w-full sm:w-auto rounded-full shadow-lg shadow-green-500/20"
               >
-                Book your free consultancy
-                <ArrowRight className="h-4 w-4" />
+                <span className="inline-flex h-5 w-5 items-center justify-center flex-shrink-0">
+                  <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
+                    <path
+                      fill="currentColor"
+                      d="M12 2a10 10 0 0 0-8.66 15.02L2 22l5.13-1.34A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.04.8.8-2.96-.2-.31A8.2 8.2 0 1 1 12 20.2Zm4.79-6.13c-.26-.13-1.54-.76-1.78-.85-.24-.09-.41-.13-.58.13-.17.26-.67.85-.82 1.02-.15.17-.3.2-.56.07-.26-.13-1.1-.4-2.1-1.28-.78-.69-1.3-1.54-1.45-1.8-.15-.26-.02-.4.11-.53.12-.12.26-.3.39-.45.13-.15.17-.26-.26-.43.09-.17.04-.32-.02-.45-.06-.13-.58-1.4-.8-1.92-.21-.5-.43-.43-.58-.44h-.5c-.17 0-.45.07-.69.32-.24.26-.9.88-.9 2.16 0 1.27.93 2.5 1.06 2.67.13.17 1.83 2.8 4.44 3.92.62.27 1.1.43 1.48.55.62.2 1.18.17 1.63.1.5-.08 1.54-.63 1.76-1.24.22-.61.22-1.13.15-1.24-.06-.11-.24-.17-.5-.3Z"
+                    />
+                  </svg>
+                </span>
+                Whatsapp Now
               </a>
               <a 
                 href="/"

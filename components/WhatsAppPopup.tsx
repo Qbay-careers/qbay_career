@@ -55,7 +55,7 @@ export default function WhatsAppPopup() {
     title = "Join Our WhatsApp Community",
     subtitle = "Talk directly with our experts, get guidance, and be part of a community that helps you move forward — for free.",
     buttonLabel = "Join Community",
-    whatsappLink = "https://wa.me/447441391851",
+    whatsappLink = "https://wa.me/447551940676",
     primaryColor = "#0d6e4c",
     secondaryColor = "#25D366"
   } = cmsData;

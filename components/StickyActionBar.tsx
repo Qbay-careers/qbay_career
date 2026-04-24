@@ -10,7 +10,7 @@ export default function StickyActionBar() {
   const [isVisible, setIsVisible] = useState(true);
   const [data, setData] = useState({
     button1: { label: "Book Strategy Call", link: "/contact" },
-    button2: { label: "Whatsapp Now", link: "https://wa.me/447441391851" }
+    button2: { label: "Whatsapp Now", link: "https://wa.me/447551940676" }
   });
 
   // Do not show on admin pages
