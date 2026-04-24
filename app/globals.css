@@ -82,6 +82,12 @@
     color: hsl(var(--foreground));
     font-family: var(--font-sans), system-ui, sans-serif;
   }
+  .font-playfair {
+    font-family: var(--font-playfair), serif;
+  }
+  .font-instrument {
+    font-family: var(--font-instrument), serif;
+  }
 }
 
 @layer utilities {

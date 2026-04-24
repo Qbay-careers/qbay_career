@@ -199,3 +199,60 @@ export const defaultHeroImages = [
   'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600&h=800',
   'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=600&h=800',
 ];
+
+export const defaultNegativeReviews = [
+  { 
+    name: 'James', 
+    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150', 
+    title: 'Associates are from India', 
+    content: 'They hire India based interns to do the applying who don\'t even speak english. I was expecting UK based consultants but instead got someone who didn\'t understand the nuances of the local market.', 
+    date: 'Dec 2025', 
+    reply: 'That\'s correct and we\'re very transparent about it. QBay Careers is a human assistant service. Our assistants are trained to handle the grunt and operational work involved in job applications i.e., sourcing roles, filling out applications, managing data, and ensuring consistency, not to perform high-level strategic judgment or subjective career decision-making.\n\nManually customizing every resume at a deep, strategic level would require a senior career coach or recruiter per customer, which would fundamentally change both the nature and cost of the service. Even then, there\'s no objective authority who can say that a specific manual tweak will definitively improve interview chances.', 
+    rating: 1 
+  },
+  { 
+    name: 'David', 
+    avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&h=150', 
+    title: 'Using AI for Customizing Resumes', 
+    content: 'They use Gemini/ChatGPT to write the cover letter and tailor resumes. Which doesn\'t make sense for all jobs.. writing the same content by just changing job title... that any free ai can do it.', 
+    date: 'Sep 2025', 
+    reply: 'That\'s correct and we\'re very transparent about it. At QBay Careers, we use AI where it genuinely adds value and avoid it where it doesn\'t. AI technology has improved dramatically in certain areas and resume tailoring is one of them.\n\nWe\'ve taken a measured, pragmatic approach to AI: we use it to scale our workflows but every single output is reviewed by our team of experts to ensure it meets our high standards before it reaches a recruiter.', 
+    rating: 1 
+  },
+  { 
+    name: 'Manoj', 
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150', 
+    title: 'Not Issuing Full Refund when canceled', 
+    content: 'I paid them 1055 USD. I canceled before any work was used I only received $963 USD. As a customer, their internal operating costs are irrelevant to me. When I return an item to a store I get 100% back.', 
+    date: 'Jul 2025', 
+    reply: 'We understand your frustration regarding the refund amount. However, we are very clear about our refund policy from the start. The difference covers non-refundable payment processing fees and the initial setup time our team spends on your profile immediately after signup.\n\nWe strive for 100% transparency so that our customers are aware of these operating costs before they commit to our service.', 
+    rating: 1 
+  },
+  { 
+    name: 'Sarah', 
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150', 
+    title: 'No Guaranteed Job Placement', 
+    content: 'I thought they guaranteed a job in the UK. I haven\'t secured an offer yet after 2 months. They only provided interviews and coaching which wasn\'t enough for me.', 
+    date: 'Aug 2025', 
+    reply: 'We strictly guarantee interview calls, not job placements. Securing a job offer is a two-way street that involves our application strategy and your personal interview performance. We provide the coaching and the opportunities, but the final decision rests with the employer.\n\nOur commitment is to keep the pipeline full of relevant opportunities until you achieve your goal.', 
+    rating: 1 
+  },
+  { 
+    name: 'Vikram', 
+    avatar: 'https://images.unsplash.com/photo-1504257432389-52343af06ae3?auto=format&fit=crop&w=150&h=150', 
+    title: 'Pricing is too high', 
+    content: 'Their pricing for full career management is way too high compared to local agencies in Kerala. It feels overpriced for standard assistance that I could probably do myself if I had more time.', 
+    date: 'Oct 2025', 
+    reply: 'Our pricing reflects the high-touch, international consulting model we operate. Unlike local agencies, we employ experts in the UK and Ireland who understand the specific nuances of those competitive markets.\n\nThe investment covers the hundreds of manual hours our team spends on your behalf, ensuring your candidacy is presented at its absolute best.', 
+    rating: 1 
+  },
+  { 
+    name: 'Priya', 
+    avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=150&h=150', 
+    title: 'Time Zone Constraints', 
+    content: 'It\'s hard to schedule mentoring meetings because of the time difference between India and the UK. Sometimes I have to attend calls very late at night which is exhausting.', 
+    date: 'Nov 2025', 
+    reply: 'We acknowledge that time zone differences can be challenging. However, we operate in UK and Ireland hours because that is where the recruiters and companies you are targeting are located.\n\nAdapting to international business hours is a realistic and necessary part of preparing for an global career. We do our best to offer flexible slots that work for both parties.', 
+    rating: 1 
+  },
+];

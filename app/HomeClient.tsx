@@ -604,12 +604,54 @@ export default function HomeClient({ initialData }: { initialData: any }) {
             </div>
 
             <h1 
-              className="mt-10 text-[3.5rem] leading-[1.1] font-extrabold tracking-tight sm:text-7xl lg:text-[6rem]"
+              className="mt-10 text-[3rem] leading-[1.2] font-normal tracking-tight sm:text-6xl lg:text-[6.5rem] font-instrument lg:whitespace-nowrap flex flex-wrap justify-center items-center gap-x-4"
               style={{ 
                 color: cmsData?.hero?.titleColor || '#160E22'
               }}
-              dangerouslySetInnerHTML={{ __html: cmsData?.hero?.title || 'A SMARTER <br/> WAY TO APPLY' }}
-            />
+            >
+              {(() => {
+                const rawTitle = (cmsData?.hero?.title || 'Land Jobs Faster and Easier with AI Agents + Human Assistants').replace(/<br\s*\/?>/gi, ' ');
+                // Convert to Title Case for a more premium look if it's all caps
+                const fullTitle = (rawTitle === rawTitle.toUpperCase()) 
+                  ? rawTitle.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+                  : rawTitle;
+
+                // Split logic for styling emphasis
+                let main = '';
+                let emphasis = '';
+
+                if (fullTitle.includes('+')) {
+                  [main, emphasis] = fullTitle.split('+');
+                  main = main.trim() + ' +';
+                } else {
+                  // If no '+', split by last word
+                  const words = fullTitle.trim().split(' ');
+                  if (words.length > 2) {
+                    emphasis = words.pop() || '';
+                    main = words.join(' ');
+                  } else {
+                    return fullTitle;
+                  }
+                }
+
+                return (
+                  <>
+                    <span>{main}</span>
+                    <span className="inline-flex items-center gap-3">
+                      {fullTitle.includes('+') && (
+                        <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-lg shrink-0">
+                          <img src="/founder-avatar.png" alt="Assistant" className="w-full h-full object-cover" onError={(e) => (e.currentTarget.src = 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100')} />
+                        </div>
+                      )}
+                      <span className="italic text-[#00A884] relative inline-block">
+                        &nbsp;{emphasis.trim()}
+                        <div className="absolute -bottom-1.5 left-0 w-full h-[6px] bg-[#00A884]/40 rounded-full" />
+                      </span>
+                    </span>
+                  </>
+                );
+              })()}
+            </h1>
             
             <p 
               className="mt-6 text-xl font-bold sm:text-2xl lg:text-3xl max-w-3xl mx-auto"
@@ -841,41 +883,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
             ))}
           </div>
 
-          {/* Full-width Mental Wellness card */}
-          <div className="mt-12">
-            <div className="group relative overflow-hidden rounded-3xl border border-purple-100/50 bg-white shadow-sm transition-all duration-500 hover:shadow-xl hover:border-purple-200">
-              <div className="flex flex-col lg:flex-row min-h-[320px]">
-                {/* Image side */}
-                <div className="lg:w-1/3 aspect-[2/1] lg:aspect-auto overflow-hidden bg-purple-50">
-                  <img
-                    src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=800"
-                    alt="Mental Wellness"
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
 
-                {/* Content side */}
-                <div className="lg:w-2/3 p-8 lg:p-12 flex flex-col justify-center">
-                  <div className="inline-flex items-center gap-2 rounded-full bg-purple-50 px-4 py-1.5 text-xs font-bold text-purple-700 mb-6 w-fit border border-purple-100">
-                    Mindset Support
-                  </div>
-                  <h3 className="text-2xl sm:text-3xl font-bold text-[#2D1B4D] mb-4">
-                    Mental Wellness
-                  </h3>
-                  <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-8 max-w-2xl">
-                    Our guidance helps you stay mentally strong, confident, and prepared for career challenges. We provide comprehensive support for your mental well-being throughout your job search journey.
-                  </p>
-                  <a
-                    href="/services/mental-wellness"
-                    className="inline-flex items-center gap-2 text-base font-bold text-purple-600 hover:text-purple-800 group/link transition-colors w-fit"
-                  >
-                    Explore support programs
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 

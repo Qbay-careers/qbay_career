@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Poppins } from 'next/font/google';
+import { Poppins, Playfair_Display, Instrument_Serif } from 'next/font/google';
 import { Providers } from './providers';
 import StickyActionBar from '@/components/StickyActionBar';
 import WhatsAppPopup from '@/components/WhatsAppPopup';
@@ -10,6 +10,20 @@ const poppins = Poppins({
   weight: ['300', '400', '500', '600', '700', '800', '900'], 
   style: ['normal', 'italic'],
   variable: '--font-sans' 
+});
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800', '900'],
+  style: ['normal', 'italic'],
+  variable: '--font-playfair'
+});
+
+const instrument = Instrument_Serif({
+  subsets: ['latin'],
+  weight: ['400'],
+  style: ['normal', 'italic'],
+  variable: '--font-instrument'
 });
 
 export const metadata: Metadata = {
@@ -44,7 +58,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${poppins.variable}`}>
+    <html lang="en" className={`${poppins.variable} ${playfair.variable} ${instrument.variable}`}>
       <body className="font-sans antialiased">
         <Providers>
           {children}

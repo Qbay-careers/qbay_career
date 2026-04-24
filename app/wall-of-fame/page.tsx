@@ -20,115 +20,12 @@ import {
 import QBayNavbar from '@/components/QBayNavbar';
 import QBayFooter from '@/components/QBayFooter';
 import { supabase } from '@/lib/supabase';
-
-// Reuse constants and helpers from HomeClient (normally these should be in a shared utils/constants file)
-const defaultClientTestimonials = [
-  {
-    name: 'Sophia Martinez',
-    role: 'UX Designer',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150',
-    content:
-      'Balancing work and job applications was exhausting. Each application felt repetitive and draining. I almost gave up after weeks of no responses. But once I got structured support and a smarter strategy, everything changed. Within weeks, interviews started lining up. The clarity and consistency made all the difference. I finally felt confident and supported throughout the process.',
-    rating: 5,
-  },
-  {
-    name: 'Daniel Brooks',
-    role: 'Marketing Analyst',
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150&h=150',
-    content:
-      'Moving to a new country meant starting from scratch. I didn\'t understand how the hiring process worked here. Applications went unanswered and I felt stuck. After getting guidance and optimizing my approach, I started seeing real traction. Recruiters began reaching out. In just one month, I secured multiple offers and negotiated a better package than I expected.',
-    rating: 5,
-  },
-  {
-    name: 'Emily Chen',
-    role: 'Software Developer',
-    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150',
-    content:
-      'After facing a sudden layoff, I had limited time to secure a new role. The pressure was intense. Instead of applying randomly, I followed a focused and aggressive strategy. The results were unbelievable. Within four weeks, I received three strong offers and increased my salary significantly. The support system kept me motivated and organized.',
-    rating: 5,
-  },
-];
-
-const defaultTrustpilotReviews = [
-  { name: 'James W.', title: 'Outstanding support from start to finish', content: 'They guided me through every step of the process. I landed a senior role faster than I expected.', rating: 5, time: '4 days ago' },
-  { name: 'Emily C.', title: 'Best career investment', content: 'Worth every penny. The 1:1 coaching gave me the confidence I lacked during technical interviews.', rating: 5, time: '2 weeks ago' },
-  { name: 'Rahul M.', title: 'Highly professional and effective', content: 'Their market insights are brilliant. I secured two competing offers thanks to their negotiation coaching.', rating: 5, time: '1 month ago' },
-  { name: 'Anna K.', title: 'Life-changing career guidance', content: 'I transitioned to a completely new industry with their help. The support system is unmatched.', rating: 5, time: '2 months ago' },
-  { name: 'Sophie L.', title: 'Incredible resume overhaul', content: 'My callback rate jumped from 0% to 40% after they rewrote my CV and LinkedIn profile.', rating: 5, time: '3 months ago' },
-  { name: 'Daniel P.', title: 'Helped me relocate smoothly', content: 'Got a sponsored job in the UK. Their guidance on visa processes and international interviews was vital.', rating: 5, time: '3 months ago' }
-];
-
-const defaultAudioReviews = [
-  { name: 'David L.', role: 'UX Designer', title: 'Secured a role at a top agency', duration: '1:24', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', flag: 'https://flagcdn.com/w80/gb.png' },
-  { name: 'Anita P.', role: 'Marketing Lead', title: 'Got my UK visa sponsored job', duration: '0:58', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', flag: 'https://flagcdn.com/w80/ie.png' },
-  { name: 'John D.', role: 'Cloud Architect', title: 'Negotiated a 30% salary bump', duration: '2:15', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', flag: 'https://flagcdn.com/w80/in.png' },
-  { name: 'Rachel M.', role: 'Data Scientist', title: 'Moved from academia to tech', duration: '1:45', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3', flag: 'https://flagcdn.com/w80/gb.png' },
-  { name: 'Kevin B.', role: 'Product Manager', title: 'Landed 3 offers in 2 weeks', duration: '1:10', avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3', flag: 'https://flagcdn.com/w80/ae.png' },
-  { name: 'Linda V.', role: 'Financial Analyst', title: 'Overcame career stagnation', duration: '2:05', avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', flag: 'https://flagcdn.com/w80/ie.png' }
-];
-
-const defaultNegativeReviews = [
-  { 
-    name: 'James', 
-    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150', 
-    title: 'Associates are from India', 
-    content: 'They hire India based interns to do the applying who don\'t even speak english. I was expecting UK based consultants but instead got someone who didn\'t understand the nuances of the local market.', 
-    date: 'Dec 2025', 
-    reply: 'That\'s correct and we\'re very transparent about it. QBay Careers is a human assistant service. Our assistants are trained to handle the grunt and operational work involved in job applications i.e., sourcing roles, filling out applications, managing data, and ensuring consistency, not to perform high-level strategic judgment or subjective career decision-making.\n\nManually customizing every resume at a deep, strategic level would require a senior career coach or recruiter per customer, which would fundamentally change both the nature and cost of the service. Even then, there\'s no objective authority who can say that a specific manual tweak will definitively improve interview chances.', 
-    rating: 1 
-  },
-  { 
-    name: 'David', 
-    avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=150&h=150', 
-    title: 'Using AI for Customizing Resumes', 
-    content: 'They use Gemini/ChatGPT to write the cover letter and tailor resumes. Which doesn\'t make sense for all jobs.. writing the same content by just changing job title... that any free ai can do it.', 
-    date: 'Sep 2025', 
-    reply: 'That\'s correct and we\'re very transparent about it. At QBay Careers, we use AI where it genuinely adds value and avoid it where it doesn\'t. AI technology has improved dramatically in certain areas and resume tailoring is one of them.\n\nWe\'ve taken a measured, pragmatic approach to AI: we use it to scale our workflows but every single output is reviewed by our team of experts to ensure it meets our high standards before it reaches a recruiter.', 
-    rating: 1 
-  },
-  { 
-    name: 'Manoj', 
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150', 
-    title: 'Not Issuing Full Refund when canceled', 
-    content: 'I paid them 1055 USD. I canceled before any work was used I only received $963 USD. As a customer, their internal operating costs are irrelevant to me. When I return an item to a store I get 100% back.', 
-    date: 'Jul 2025', 
-    reply: 'We understand your frustration regarding the refund amount. However, we are very clear about our refund policy from the start. The difference covers non-refundable payment processing fees and the initial setup time our team spends on your profile immediately after signup.\n\nWe strive for 100% transparency so that our customers are aware of these operating costs before they commit to our service.', 
-    rating: 1 
-  },
-  { 
-    name: 'Sarah', 
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150', 
-    title: 'No Guaranteed Job Placement', 
-    content: 'I thought they guaranteed a job in the UK. I haven\'t secured an offer yet after 2 months. They only provided interviews and coaching which wasn\'t enough for me.', 
-    date: 'Aug 2025', 
-    reply: 'We strictly guarantee interview calls, not job placements. Securing a job offer is a two-way street that involves our application strategy and your personal interview performance. We provide the coaching and the opportunities, but the final decision rests with the employer.\n\nOur commitment is to keep the pipeline full of relevant opportunities until you achieve your goal.', 
-    rating: 1 
-  },
-  { 
-    name: 'Vikram', 
-    avatar: 'https://images.unsplash.com/photo-1504257432389-52343af06ae3?auto=format&fit=crop&w=150&h=150', 
-    title: 'Pricing is too high', 
-    content: 'Their pricing for full career management is way too high compared to local agencies in Kerala. It feels overpriced for standard assistance that I could probably do myself if I had more time.', 
-    date: 'Oct 2025', 
-    reply: 'Our pricing reflects the high-touch, international consulting model we operate. Unlike local agencies, we employ experts in the UK and Ireland who understand the specific nuances of those competitive markets.\n\nThe investment covers the hundreds of manual hours our team spends on your behalf, ensuring your candidacy is presented at its absolute best.', 
-    rating: 1 
-  },
-  { 
-    name: 'Priya', 
-    avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=150&h=150', 
-    title: 'Time Zone Constraints', 
-    content: 'It\'s hard to schedule mentoring meetings because of the time difference between India and the UK. Sometimes I have to attend calls very late at night which is exhausting.', 
-    date: 'Nov 2025', 
-    reply: 'We acknowledge that time zone differences can be challenging. However, we operate in UK and Ireland hours because that is where the recruiters and companies you are targeting are located.\n\nAdapting to international business hours is a realistic and necessary part of preparing for an global career. We do our best to offer flexible slots that work for both parties.', 
-    rating: 1 
-  },
-];
-
-const founderData = {
-  name: "Fazil Karatt",
-  role: "Founder & CEO",
-  avatar: "/Hizana-Web-61-768x768.webp"
-};
+import {
+  defaultClientTestimonials,
+  defaultTrustpilotReviews,
+  defaultAudioReviews,
+  defaultNegativeReviews,
+} from '../homeData';
 
 const mapYoutubeUrls = (urls: any[], quality: 'hqdefault' | 'maxresdefault' = 'hqdefault') => {
   if (!Array.isArray(urls)) return [];
@@ -144,16 +41,45 @@ const mapYoutubeUrls = (urls: any[], quality: 'hqdefault' | 'maxresdefault' = 'h
 };
 
 export default function WallOfFame() {
-  const [cmsData, setCmsData] = useState<any>(null);
+  const [cmsData, setCmsData] = useState<any>({});
   const [loading, setLoading] = useState(true);
+  const [activeStory, setActiveStory] = useState<number | null>(null);
   const [playingAudioIdx, setPlayingAudioIdx] = useState<number | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [isAudioPaused, setIsAudioPaused] = useState(false);
+  const audioScrollRef = useRef<HTMLDivElement>(null);
+  const whatsappScrollRef = useRef<HTMLDivElement>(null);
+  const [isWhatsappPaused, setIsWhatsappPaused] = useState(false);
   const [selectedReviewForModal, setSelectedReviewForModal] = useState<any | null>(null);
   const testimonialScrollRef = useRef<HTMLDivElement>(null);
   const resultsScrollRef = useRef<HTMLDivElement>(null);
   const [isTestimonialPaused, setIsTestimonialPaused] = useState(false);
   const [isResultsPaused, setIsResultsPaused] = useState(false);
+
+  useEffect(() => {
+    const fetchCmsData = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('cms_content')
+          .select('*');
+
+        if (error) {
+          console.error('Error fetching CMS data:', error);
+        } else {
+          const dataMap = (data || []).reduce((acc: any, item: any) => ({
+            ...acc,
+            [item.key]: item.content
+          }), {});
+          setCmsData(dataMap);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCmsData();
+  }, []);
 
   useEffect(() => {
     const scrollContainer = testimonialScrollRef.current;
@@ -206,22 +132,51 @@ export default function WallOfFame() {
   }, [isResultsPaused]);
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const { data, error } = await supabase
-          .from('cms_content')
-          .select('content')
-          .eq('key', 'home')
-          .single();
-        if (data) setCmsData(data.content);
-      } catch (e) {
-        console.error('Fetch error:', e);
-      } finally {
-        setLoading(false);
+    const scrollContainer = audioScrollRef.current;
+    if (!scrollContainer) return;
+
+    let animationFrameId: number;
+
+    const scroll = () => {
+      if (!isAudioPaused) {
+        if (
+          Math.ceil(scrollContainer.scrollLeft) + scrollContainer.clientWidth >=
+          scrollContainer.scrollWidth
+        ) {
+          scrollContainer.scrollLeft = 0;
+        } else {
+          scrollContainer.scrollLeft += 1;
+        }
       }
-    }
-    fetchData();
-  }, []);
+      animationFrameId = requestAnimationFrame(scroll);
+    };
+
+    animationFrameId = requestAnimationFrame(scroll);
+
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [isAudioPaused]);
+
+  useEffect(() => {
+    const scrollContainer = whatsappScrollRef.current;
+    if (!scrollContainer) return;
+
+    let animationFrameId: number;
+
+    const scroll = () => {
+      if (!isWhatsappPaused) {
+        if (scrollContainer.scrollLeft <= 0) {
+          scrollContainer.scrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+        } else {
+          scrollContainer.scrollLeft -= 1;
+        }
+      }
+      animationFrameId = requestAnimationFrame(scroll);
+    };
+
+    animationFrameId = requestAnimationFrame(scroll);
+
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [isWhatsappPaused]);
 
   const toggleAudio = (idx: number, url: string) => {
     if (playingAudioIdx === idx) {
@@ -245,73 +200,25 @@ export default function WallOfFame() {
     );
   }
 
-  // --- Dynamic Mappings (Mirrored from HomeClient) ---
-  const clientLoveData = cmsData?.clientLove || {};
-  const getClientTestimonials = () => {
-    const raw = clientLoveData;
-    if (Array.isArray(raw)) return raw;
-    if (Array.isArray(raw?.testimonials)) return raw.testimonials;
-    return defaultClientTestimonials;
-  };
+  const resultsImages = [1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => ({
+    src: `/testimonials/whatsapp${num}.jpeg`,
+    flag: 'https://flagcdn.com/w80/in.png'
+  }));
 
-  const clientTestimonials = getClientTestimonials();
+  const midPoint = Math.ceil(resultsImages.length / 2);
+  const col1Images = resultsImages.slice(0, midPoint);
+  const col2Images = resultsImages.slice(midPoint);
+
+  const audioReviewsData = cmsData?.audioReviews || defaultAudioReviews;
+
+  const clientLoveData = cmsData?.home?.clientLove || {};
+  const clientTestimonials = Array.isArray(clientLoveData) ? clientLoveData : (clientLoveData?.testimonials || defaultClientTestimonials);
+
   const clientLoveTitle = clientLoveData.title || clientLoveData.heading || 'Love ❤️ Letters from our Clients';
   const clientLoveDescription = clientLoveData.description || clientLoveData.subtitle || clientLoveData.text || "Don't just take our word for it—hear from students and parents whose journeys have been transformed by Qbay.";
 
   const trustpilotData = cmsData?.trustpilotReviews || defaultTrustpilotReviews;
-  const audioReviewsData = cmsData?.audioReviews || defaultAudioReviews;
   const negativeReviewsData = cmsData?.negativeReviews || defaultNegativeReviews;
-  
-  const resultsData = cmsData?.results || null;
-  const resultsTitle = resultsData 
-    ? (resultsData.title || resultsData.heading || '') 
-    : 'Success Stories That Inspire';
-  const resultsSubtitle = resultsData 
-    ? (resultsData.subtitle || resultsData.subHeading || '') 
-    : 'Real Experiences. Real Results.';
-  const resultsDescription = resultsData 
-    ? (resultsData.description || resultsData.text || '') 
-    : 'Don\'t just take our word for it—hear from students and parents whose journeys have been transformed by Qbay.';
-
-  const resultsImages = (() => {
-    const defaultImages = [1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => ({
-      src: `/testimonials/whatsapp${num}.jpeg`,
-      flag: 'https://flagcdn.com/w80/in.png'
-    }));
-
-    if (resultsData?.images && Array.isArray(resultsData.images) && resultsData.images.length > 0) {
-      return resultsData.images.map((item: any) => {
-        if (typeof item === 'string') return { src: item, flag: 'https://flagcdn.com/w80/in.png' };
-        return {
-          src: item.src || item.image || '',
-          flag: item.flag || 'https://flagcdn.com/w80/in.png'
-        };
-      }).filter((item: { src: string; flag: string }) => item.src);
-    }
-
-    const urls: string[] = [];
-    const scan = (val: any) => {
-      if (typeof val === 'string') {
-        const trimmed = val.trim();
-        const isImagePattern = /\.(jpg|jpeg|png|webp|gif|svg|bmp|tiff)(\?.*)?$/i.test(trimmed) || 
-                               (trimmed.startsWith('http') && (trimmed.includes('/photos/') || trimmed.includes('/img/')));
-        if (isImagePattern) urls.push(trimmed);
-      } else if (val && typeof val === 'object' && !Array.isArray(val)) {
-        Object.entries(val).forEach(([k, v]) => {
-          if (!['title', 'subtitle', 'heading', 'subHeading', 'description', 'text'].includes(k.toLowerCase())) scan(v);
-        });
-      } else if (Array.isArray(val)) val.forEach(scan);
-    };
-    scan(resultsData);
-    
-    if (urls.length > 0) {
-      return urls
-        .filter(src => src && !src.includes('[object'))
-        .map(src => ({ src, flag: 'https://flagcdn.com/w80/in.png' }));
-    }
-
-    return defaultImages;
-  })() as { src: string; flag: string }[];
 
   const testimonialsCms = cmsData?.testimonials || {};
   const testimonialsGridTitle = testimonialsCms.testimonialGrid?.title || 'Real Results. Real Stories.';
@@ -321,25 +228,194 @@ export default function WallOfFame() {
     : (Array.isArray(testimonialsCms) ? testimonialsCms : []);
   const testimonialShortsData = mapYoutubeUrls(gridUrls, 'maxresdefault');
 
+  const founderData = {
+    name: "Fazil Karatt",
+    role: "Founder & CEO",
+    avatar: "/Hizana-Web-61-768x768.webp"
+  };
+
   return (
     <main className="min-h-screen bg-[#FDFCFE] text-[#1A112B]">
       <QBayNavbar />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden bg-gradient-to-br from-white via-purple-50 to-white">
-        <div className="absolute inset-0 z-0 opacity-40 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
+      <section className="relative h-[70vh] lg:h-screen overflow-hidden bg-gradient-to-br from-[#FEFCE8] via-[#FDF4FF] to-[#F0F9FF]">
+        {/* Aurora blob blobs */}
+        <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full bg-yellow-200/50 blur-[120px] pointer-events-none" />
+        <div className="absolute top-[20%] right-0 w-[400px] h-[400px] rounded-full bg-purple-200/40 blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-0 left-[20%] w-[600px] h-[200px] rounded-full bg-pink-200/30 blur-[80px] pointer-events-none" />
         
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-purple-100 bg-white/70 backdrop-blur-md px-4 py-2 text-xs font-bold text-purple-600 shadow-sm mb-6">
-            <Award className="h-4 w-4" />
-            CELEBRATING SUCCESS
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-full">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-stretch h-full">
+            <div className="flex flex-col items-center text-center lg:items-start lg:text-left py-24 lg:py-32 z-20 self-center">
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-[#1A112B] tracking-tight leading-[1.1] max-w-2xl mb-8">
+                Wall of <span className="text-purple-600 italic">Fame</span>
+              </h1>
+              <p className="text-lg sm:text-xl text-slate-600 font-medium max-w-xl leading-relaxed">
+                Real stories, real dreams, and the journey of thousands who transformed their careers with QBay.
+              </p>
+            </div>
+
+            {/* Right side WhatsApp Marquee */}
+            <div className="relative hidden lg:block h-full w-full overflow-hidden mask-image-vertical">
+              <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#FDF4FF] to-transparent z-10 pointer-events-none" />
+              <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#F0F9FF] to-transparent z-10 pointer-events-none" />
+              
+              <div className="grid grid-cols-2 gap-4 h-[200%] w-full rotate-2 transform-gpu pt-10 pb-20">
+                {/* Column 1: Top to Bottom */}
+                <div className="flex flex-col gap-4 animate-marquee-vertical-reverse mt-[-50%] transform-gpu">
+                  {[...col1Images, ...col1Images, ...col1Images].map((item, idx) => (
+                    <div
+                      key={`col1-${idx}`}
+                      className="w-full flex-shrink-0 overflow-hidden rounded-2xl shadow-lg border border-purple-100 bg-white cursor-pointer group"
+                      onClick={() => setSelectedImage(item.src)}
+                    >
+                      <div className="relative aspect-[3/4]">
+                        {item.flag && (
+                          <div className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full border-2 border-white overflow-hidden shadow-md transition-transform duration-300 group-hover:scale-110">
+                            <img src={item.flag} alt="Country flag" className="w-full h-full object-cover" />
+                          </div>
+                        )}
+                        <img
+                          src={item.src}
+                          alt={`Student success story col 1`}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-3">
+                          <div className="bg-white rounded-full p-2 transform scale-90 group-hover:scale-100 transition-transform duration-300">
+                            <Maximize className="w-4 h-4 text-gray-900" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Column 2: Bottom to Top */}
+                <div className="flex flex-col gap-4 animate-marquee-vertical transform-gpu">
+                  {[...col2Images, ...col2Images, ...col2Images].map((item, idx) => (
+                    <div
+                      key={`col2-${idx}`}
+                      className="w-full flex-shrink-0 overflow-hidden rounded-2xl shadow-lg border border-purple-100 bg-white cursor-pointer group"
+                      onClick={() => setSelectedImage(item.src)}
+                    >
+                      <div className="relative aspect-[3/4]">
+                        {item.flag && (
+                          <div className="absolute top-3 left-3 z-10 w-8 h-8 rounded-full border-2 border-white overflow-hidden shadow-md transition-transform duration-300 group-hover:scale-110">
+                            <img src={item.flag} alt="Country flag" className="w-full h-full object-cover" />
+                          </div>
+                        )}
+                        <img
+                          src={item.src}
+                          alt={`Student success story col 2`}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-3">
+                          <div className="bg-white rounded-full p-2 transform scale-90 group-hover:scale-100 transition-transform duration-300">
+                            <Maximize className="w-4 h-4 text-gray-900" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
-          <h1 className="text-[3.5rem] leading-[1.1] font-extrabold tracking-tight text-[#160E22] sm:text-7xl lg:text-[5rem] mb-6">
-            Wall of <span className="text-purple-600 italic">Fame</span>
-          </h1>
-          <p className="mt-6 text-xl font-medium text-[#5D4A7A] max-w-2xl mx-auto">
-            Real stories, real dreams, and the journey of thousands who transformed their careers with QBay.
-          </p>
+        </div>
+      </section>
+
+      {/* Audio Testimonials Section Right Below Hero */}
+      <section className="bg-white py-12 lg:py-16 overflow-hidden border-b border-purple-100/50">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-8 text-left lg:text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold text-[#2D1B4D] tracking-tight">Hear it from our successful candidates</h2>
+        </div>
+        <div className="relative w-full">
+          {/* Fade overlays for the edges */}
+          <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+
+          <div
+            ref={audioScrollRef}
+            onMouseEnter={() => setIsAudioPaused(true)}
+            onMouseLeave={() => setIsAudioPaused(false)}
+            className="flex gap-4 lg:gap-6 overflow-x-auto pb-6 pt-2 scrollbar-hide px-4 md:px-0"
+          >
+            {[...audioReviewsData, ...audioReviewsData, ...audioReviewsData].map((audio: any, idx: number) => (
+              <div 
+                key={idx} 
+                className="w-[320px] lg:w-[380px] flex-shrink-0 bg-white rounded-2xl p-4 border border-purple-100/60 shadow-sm hover:shadow-md transition-shadow group relative overflow-hidden flex items-stretch gap-4"
+              >
+                <div className="w-[80px] h-[80px] lg:w-[90px] lg:h-[90px] flex-shrink-0">
+                  <img src={audio.avatar} alt={audio.name} className="w-full h-full rounded-xl object-cover" />
+                </div>
+                <div className="flex-1 flex flex-col justify-between min-w-0">
+                  <div className="absolute top-3 right-3 w-7 h-7 rounded-full border border-gray-100 overflow-hidden shadow-sm bg-gray-50">
+                    <img src={audio.flag} alt="Country flag" className="w-full h-full object-cover" />
+                  </div>
+                  <div className="pr-8 min-w-0 pt-1">
+                    <h3 className="font-extrabold text-[#2D1B4D] text-base leading-tight mb-0.5 truncate">{audio.name}</h3>
+                    <p className="text-xs font-bold text-violet-600 truncate">{audio.role}</p>
+                  </div>
+                  <div className="flex items-center gap-3 mt-2">
+                    <button 
+                      onClick={() => toggleAudio(idx, audio.audioUrl)}
+                      className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-colors ${
+                        playingAudioIdx === idx ? 'border-purple-600 bg-purple-600 text-white shadow-md' : 'border-violet-600 text-violet-600 hover:bg-violet-600 hover:text-white'
+                      }`}
+                    >
+                      {playingAudioIdx === idx ? <Pause className="w-3 h-3 fill-current" /> : <Play className="w-3 h-3 ml-0.5 fill-current" />}
+                    </button>
+                    <div className="flex-1 flex items-center gap-1 h-3 overflow-hidden">
+                      {[30, 60, 40, 80, 50, 90, 70, 40, 60, 100].map((h, i) => (
+                        <div 
+                          key={i} 
+                          className={`w-1 rounded-full transition-all duration-300 ${playingAudioIdx === idx ? 'bg-purple-600 animate-pulse' : 'bg-violet-600 opacity-60'}`} 
+                          style={{ height: playingAudioIdx === idx ? `${Math.max(20, h + (Math.sin(i) * 20))}%` : `${h}%` }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Mobile WhatsApp Testimonials (Moved after Audio) */}
+      <section className="lg:hidden bg-white py-12 overflow-hidden border-b border-purple-100/50">
+        <div className="relative w-full">
+          <div 
+            ref={whatsappScrollRef}
+            onMouseEnter={() => setIsWhatsappPaused(true)}
+            onMouseLeave={() => setIsWhatsappPaused(false)}
+            className="flex gap-4 overflow-x-auto pb-6 pt-2 scrollbar-hide px-4"
+          >
+            {[...resultsImages, ...resultsImages].map((item, idx) => (
+              <div
+                key={`mobile-whatsapp-${idx}`}
+                className="w-[200px] flex-shrink-0 overflow-hidden rounded-2xl shadow-md border border-purple-100 bg-white cursor-pointer group"
+                onClick={() => setSelectedImage(item.src)}
+              >
+                <div className="relative aspect-[3/4]">
+                  {item.flag && (
+                    <div className="absolute top-2 right-2 z-10 w-6 h-6 rounded-full border border-white overflow-hidden shadow-sm">
+                      <img src={item.flag} alt="Country flag" className="w-full h-full object-cover" />
+                    </div>
+                  )}
+                  <img
+                    src={item.src}
+                    alt={`Success story ${idx + 1}`}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -384,110 +460,6 @@ export default function WallOfFame() {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* WhatsApp Results Section */}
-      <section id="results" className="bg-white py-20 scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto mb-12 max-w-3xl text-center">
-            <h2 className="text-4xl font-bold text-[#1A112B] sm:text-5xl">
-              {resultsTitle}
-            </h2>
-            <p className="mt-3 text-lg font-semibold text-gray-900">
-              {resultsSubtitle}
-            </p>
-            <p className="mt-3 text-sm text-gray-600 sm:text-base">
-              {resultsDescription}
-            </p>
-          </div>
-
-          <div className="relative overflow-hidden">
-            <div
-              ref={resultsScrollRef}
-              onMouseEnter={() => setIsResultsPaused(true)}
-              onMouseLeave={() => setIsResultsPaused(false)}
-              className="flex gap-4 overflow-x-auto pb-6 scrollbar-hide"
-            >
-              {resultsImages.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="min-w-[240px] w-[70vw] sm:w-[300px] flex-shrink-0 overflow-hidden rounded-2xl shadow-lg border border-purple-100 bg-white cursor-pointer group"
-                  onClick={() => setSelectedImage(item.src)}
-                >
-                  <div className="relative">
-                    {/* Country Flag Overlay */}
-                    {item.flag && (
-                      <div className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full border-2 border-white overflow-hidden shadow-lg transition-transform duration-300 group-hover:scale-110">
-                        <img src={item.flag} alt="Country flag" className="w-full h-full object-cover" />
-                      </div>
-                    )}
-                    <img
-                      src={item.src}
-                      alt={`Student success story ${idx + 1}`}
-                      className="w-full h-[380px] object-cover transition-transform duration-500 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
-                      <div className="bg-white rounded-full p-2 transform scale-90 group-hover:scale-100 transition-transform duration-300">
-                        <Maximize className="w-4 h-4 text-gray-900" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-14 bg-gradient-to-r from-white to-transparent" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-14 bg-gradient-to-l from-white to-transparent" />
-          </div>
-        </div>
-      </section>
-
-      {/* Audio Reviews Section */}
-      <section id="audio-reviews" className="bg-white py-24 scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">Hear their success stories</h2>
-            <p className="text-lg text-slate-600 leading-relaxed">Listen to real experiences from our candidates who cracked top-tier interviews and landed their dream roles.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-             {audioReviewsData.map((audio: any, idx: number) => (
-               <div key={idx} className="bg-white rounded-2xl p-4 border-2 border-purple-100/60 flex items-stretch gap-4 shadow-sm hover:shadow-lg transition-shadow group relative overflow-hidden">
-                 <div className="w-[100px] h-[100px] flex-shrink-0">
-                   <img src={audio.avatar} alt={audio.name} className="w-full h-full rounded-xl object-cover" />
-                 </div>
-                 <div className="flex-1 flex flex-col py-0.5 justify-between min-w-0">
-                   <div className="absolute top-4 right-4 w-8 h-8 rounded-full border border-gray-100 overflow-hidden shadow-sm bg-gray-50">
-                     <img src={audio.flag} alt="Country flag" className="w-full h-full object-cover" />
-                   </div>
-                   <div className="pr-10 min-w-0 pt-2">
-                     <h3 className="font-extrabold text-[#2D1B4D] text-lg leading-tight mb-1 truncate">{audio.name}</h3>
-                     <p className="text-sm font-bold text-violet-600 truncate">{audio.role}</p>
-                   </div>
-                   <div className="flex items-center gap-3 mt-3">
-                     <button 
-                       onClick={() => toggleAudio(idx, audio.audioUrl)}
-                       className={`w-10 h-10 rounded-full border-2 flex items-center justify-center transition-colors ${
-                         playingAudioIdx === idx ? 'border-purple-600 bg-purple-600 text-white shadow-md' : 'border-violet-600 text-violet-600 hover:bg-violet-600 hover:text-white'
-                       }`}
-                     >
-                       {playingAudioIdx === idx ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 ml-0.5 fill-current" />}
-                     </button>
-                     <div className="flex-1 flex items-center gap-1 h-5 overflow-hidden">
-                       {[30, 60, 40, 80, 50, 90, 70, 40, 60, 100, 80, 50, 40, 60].map((h, i) => (
-                         <div 
-                           key={i} 
-                           className={`w-1 rounded-full transition-all duration-300 ${playingAudioIdx === idx ? 'bg-purple-600 animate-pulse' : 'bg-violet-600 opacity-60'}`} 
-                           style={{ height: playingAudioIdx === idx ? `${Math.max(20, h + (Math.sin(i) * 20))}%` : `${h}%` }}
-                         />
-                       ))}
-                     </div>
-                   </div>
-                 </div>
-               </div>
-             ))}
           </div>
         </div>
       </section>
