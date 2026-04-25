@@ -405,6 +405,18 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       description: 'Get valuable internship opportunities and hands-on experience to kickstart your career.',
       image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800',
     },
+    {
+      title: 'Personal Branding',
+      slug: 'personal-branding',
+      description: 'Build a powerful professional identity that attracts global opportunities.',
+      image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800',
+    },
+    {
+      title: 'Interview Assistance',
+      slug: 'interview-assistance',
+      description: 'Master your interviews with targeted preparation and mock sessions.',
+      image: 'https://images.unsplash.com/photo-1573164574572-cb89e39749b4?auto=format&fit=crop&q=80&w=800',
+    },
   ]) as any[];
 
   const [activePhase, setActivePhase] = useState(0);
@@ -848,7 +860,44 @@ export default function HomeClient({ initialData }: { initialData: any }) {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {servicesList.filter(item => item.title !== 'Mental Wellness').map((item) => (
+            {servicesList.filter(item => item.title !== 'Mental Wellness' && item.title !== 'Personal Branding' && item.title !== 'Interview Assistance').map((item) => (
+              <div
+                key={item.title}
+                className="group relative flex flex-col overflow-hidden rounded-lg border border-purple-100/50 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-purple-200"
+              >
+                <div className="aspect-[16/10] overflow-hidden bg-slate-100">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
+                
+                <div className="flex flex-1 flex-col p-6">
+                  <h3 className="text-xl font-bold text-[#2D1B4D] mb-3 group-hover:text-purple-700 transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-slate-600 mb-6 flex-1">
+                    {item.description || item.desc}
+                  </p>
+                  
+                  <div className="mt-auto">
+                    <a
+                      href={item.slug ? `/services/${item.slug}` : '#'}
+                      className="inline-flex items-center gap-2 text-sm font-bold text-purple-600 hover:text-purple-800 group/link transition-colors"
+                    >
+                      View More
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-1" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* New 2 Column Services */}
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
+            {servicesList.filter(item => item.title === 'Personal Branding' || item.title === 'Interview Assistance').map((item) => (
               <div
                 key={item.title}
                 className="group relative flex flex-col overflow-hidden rounded-lg border border-purple-100/50 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-purple-200"

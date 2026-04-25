@@ -1,0 +1,1620 @@
+[
+  {
+    "id": "f5f9a0cf-a734-432a-88e1-17a71736227f",
+    "key": "services",
+    "content": [
+      {
+        "slug": "guaranteed-interview-calls",
+        "image": "https://images.pexels.com/photos/4342496/pexels-photo-4342496.jpeg",
+        "title": "Guaranteed Interview Calls",
+        "pricing": {
+          "plans": [
+            {
+              "name": "Qbay Career Plan",
+              "price": "€193/-",
+              "features": [
+                {
+                  "title": "UK/Germany/Ireland Internship"
+                },
+                {
+                  "title": "60-Day Success Club Access"
+                }
+              ],
+              "description": "One time payment",
+              "originalPrice": "€263/-"
+            },
+            {
+              "name": "Qbay Master Plan",
+              "price": "€329/-",
+              "features": [
+                {
+                  "title": "Career Strategy Development"
+                },
+                {
+                  "title": "Effective Career Roadmap"
+                }
+              ],
+              "badgeText": "MOST POPULAR",
+              "isPopular": true,
+              "description": "One time payment",
+              "originalPrice": "€499/-"
+            },
+            {
+              "name": "Qbay Premium Plan",
+              "price": "€639/-",
+              "features": [
+                {
+                  "title": "3 Month Application Assistance"
+                },
+                {
+                  "title": "UK & India Career Roadmap"
+                }
+              ],
+              "badgeText": "MAX RESULTS!",
+              "isPopular": true,
+              "description": "One time payment",
+              "originalPrice": "€799/-"
+            }
+          ],
+          "monthlyPlan": {
+            "name": "Monthly Subscription",
+            "price": "€219/-",
+            "features": [
+              {
+                "title": "Job applications on your behalf"
+              },
+              {
+                "title": "Daily 10 job applications"
+              }
+            ],
+            "description": "One time payment",
+            "originalPrice": "€258/-"
+          }
+        },
+        "results": {
+          "title": "Success Stories That Inspire",
+          "images": [
+            {
+              "src": "/testimonials/whatsapp1.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp2.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp3.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp4.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp5.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp6.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp7.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp8.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp9.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            }
+          ]
+        },
+        "benefits": [
+          "Reduced Job Search Time",
+          "Higher Interview Conversion Rate",
+          "Access to Hidden Job Market",
+          "Personalized Matchmaking"
+        ],
+        "category": "Placement Support",
+        "features": [
+          {
+            "title": "Direct Employer Connections ",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "90-Day Call Guarantee",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Strategic Profile Positioning",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Global Network Access",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Follow-up Management",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          }
+        ],
+        "description": "Connect with the right employers and receive guaranteed interview opportunities.",
+        "audioReviews": [
+          {
+            "flag": "https://flagcdn.com/w80/gb.png",
+            "name": "David L.",
+            "role": "UX Designer",
+            "title": "Secured a role at a top agency",
+            "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+            "duration": "1:24"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/ie.png",
+            "name": "Anita P.",
+            "role": "Marketing Lead",
+            "title": "Got my UK visa sponsored job",
+            "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+            "duration": "0:58"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/in.png",
+            "name": "John D.",
+            "role": "Cloud Architect",
+            "title": "Negotiated a 30% salary bump",
+            "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+            "duration": "2:15"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/gb.png",
+            "name": "Rachel M.",
+            "role": "Data Scientist",
+            "title": "Moved from academia to tech",
+            "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+            "duration": "1:45"
+          }
+        ],
+        "fullDescription": "Our hallmark service ensures you do not just apply, but actually get in front of decision-makers. We bridge the gap between talented candidates and global employers by leveraging our extensive network and strategic positioning. Our 90-day commitment means we stay with you until those interview calls start coming in."
+      },
+      {
+        "slug": "we-apply-for-you",
+        "image": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80&w=1200",
+        "title": "We Apply For You",
+        "pricing": {
+          "plans": [
+            {
+              "name": "Qbay Career Plan",
+              "price": "€193/-",
+              "features": [
+                {
+                  "title": "UK/Germany/Ireland Internship"
+                },
+                {
+                  "title": "60-Day Success Club Access"
+                }
+              ],
+              "description": "One time payment",
+              "originalPrice": "€263/-"
+            },
+            {
+              "name": "Qbay Master Plan",
+              "price": "€329/-",
+              "features": [
+                {
+                  "title": "Career Strategy Development"
+                },
+                {
+                  "title": "Effective Career Roadmap"
+                }
+              ],
+              "badgeText": "MOST POPULAR",
+              "isPopular": true,
+              "description": "One time payment",
+              "originalPrice": "€499/-"
+            },
+            {
+              "name": "Qbay Premium Plan",
+              "price": "€639/-",
+              "features": [
+                {
+                  "title": "3 Month Application Assistance"
+                },
+                {
+                  "title": "UK & India Career Roadmap"
+                }
+              ],
+              "badgeText": "MAX RESULTS!",
+              "isPopular": true,
+              "description": "One time payment",
+              "originalPrice": "€799/-"
+            }
+          ],
+          "monthlyPlan": {
+            "name": "Monthly Subscription",
+            "price": "€219/-",
+            "features": [
+              {
+                "title": "Job applications on your behalf"
+              },
+              {
+                "title": "Daily 10 job applications"
+              }
+            ],
+            "description": "One time payment",
+            "originalPrice": "€258/-"
+          }
+        },
+        "results": {
+          "title": "Success Stories That Inspire",
+          "images": [
+            {
+              "src": "/testimonials/whatsapp1.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp2.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp3.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp4.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp5.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp6.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp7.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp8.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp9.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            }
+          ]
+        },
+        "benefits": [
+          "Save 20+ Hours per Week",
+          "Eliminate Application Fatigue",
+          "Zero Margin for Error",
+          "Industry-Standard Submissions"
+        ],
+        "category": "Application Management",
+        "features": [
+          {
+            "title": "Personalized JD Analysis",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Meticulous Form Filling",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Tailored Cover Letters",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Application Tracking",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Regular Status Updates",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          }
+        ],
+        "description": "Our team handles your profile optimization and job applications to boost your chances.",
+        "audioReviews": [
+          {
+            "flag": "https://flagcdn.com/w80/gb.png",
+            "name": "David L.",
+            "role": "UX Designer",
+            "title": "Secured a role at a top agency",
+            "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+            "duration": "1:24"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/ie.png",
+            "name": "Anita P.",
+            "role": "Marketing Lead",
+            "title": "Got my UK visa sponsored job",
+            "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+            "duration": "0:58"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/in.png",
+            "name": "John D.",
+            "role": "Cloud Architect",
+            "title": "Negotiated a 30% salary bump",
+            "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+            "duration": "2:15"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/gb.png",
+            "name": "Rachel M.",
+            "role": "Data Scientist",
+            "title": "Moved from academia to tech",
+            "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+            "duration": "1:45"
+          }
+        ],
+        "fullDescription": "Stop spending hours on repetitive forms. Our dedicated application experts take over the heavy lifting. We analyze job descriptions, tailor your profile for each role, and submit meticulously prepared applications on your behalf, ensuring maximum impact with minimum effort from your side."
+      },
+      {
+        "slug": "nhs-hsc-applications",
+        "image": "https://peopleshistorynhs.org/wp-content/uploads/2016/01/nhs-logo-880x4951.jpeg",
+        "title": "NHS - HSC Applications",
+        "pricing": {
+          "plans": [
+            {
+              "name": "Qbay Career Plan",
+              "price": "€193/-",
+              "features": [
+                {
+                  "title": "UK/Germany/Ireland Internship"
+                },
+                {
+                  "title": "60-Day Success Club Access"
+                }
+              ],
+              "description": "One time payment",
+              "originalPrice": "€263/-"
+            },
+            {
+              "name": "Qbay Master Plan",
+              "price": "€329/-",
+              "features": [
+                {
+                  "title": "Career Strategy Development"
+                },
+                {
+                  "title": "Effective Career Roadmap"
+                }
+              ],
+              "badgeText": "MOST POPULAR",
+              "isPopular": true,
+              "description": "One time payment",
+              "originalPrice": "€499/-"
+            },
+            {
+              "name": "Qbay Premium Plan",
+              "price": "€639/-",
+              "features": [
+                {
+                  "title": "3 Month Application Assistance"
+                },
+                {
+                  "title": "UK & India Career Roadmap"
+                }
+              ],
+              "badgeText": "MAX RESULTS!",
+              "isPopular": true,
+              "description": "One time payment",
+              "originalPrice": "€799/-"
+            }
+          ],
+          "monthlyPlan": {
+            "name": "Monthly Subscription",
+            "price": "€219/-",
+            "features": [
+              {
+                "title": "Job applications on your behalf"
+              },
+              {
+                "title": "Daily 10 job applications"
+              }
+            ],
+            "description": "One time payment",
+            "originalPrice": "€258/-"
+          }
+        },
+        "results": {
+          "title": "Success Stories That Inspire",
+          "images": [
+            {
+              "src": "/testimonials/whatsapp1.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp2.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp3.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp4.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp5.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp6.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp7.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp8.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp9.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            }
+          ]
+        },
+        "benefits": [
+          "Higher Success in Public Sector",
+          "Expert Guidance on UK Standards",
+          "Stress-Free Compliance",
+          "Faster Healthcare Placement"
+        ],
+        "category": "Healthcare Careers",
+        "features": [
+          {
+            "title": "NHS Jobs/TRAC Portal Expertise",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Healthcare-Specific CV Mapping",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Clinical Competency Highlighting",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Trust-Specific Research",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Compliance Checklist Support",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          }
+        ],
+        "description": "Dedicated team applies to relevant NHS and HSC roles on your behalf.",
+        "audioReviews": [
+          {
+            "flag": "https://flagcdn.com/w80/gb.png",
+            "name": "David L.",
+            "role": "UX Designer",
+            "title": "Secured a role at a top agency",
+            "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+            "duration": "1:24"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/ie.png",
+            "name": "Anita P.",
+            "role": "Marketing Lead",
+            "title": "Got my UK visa sponsored job",
+            "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+            "duration": "0:58"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/in.png",
+            "name": "John D.",
+            "role": "Cloud Architect",
+            "title": "Negotiated a 30% salary bump",
+            "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+            "duration": "2:15"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/gb.png",
+            "name": "Rachel M.",
+            "role": "Data Scientist",
+            "title": "Moved from academia to tech",
+            "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+            "duration": "1:45"
+          }
+        ],
+        "fullDescription": "Navigating the UK healthcare recruitment system can be complex. Whether you are a nurse, doctor, or allied health professional, our specialist team understands the nuances of NHS and HSC applications. We ensure your clinical and soft skills are highlighted to meet specific Trust requirements."
+      },
+      {
+        "slug": "cpd-professional-development",
+        "image": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=1200",
+        "title": "CPD (Continuing Professional Development)",
+        "pricing": {
+          "plans": [
+            {
+              "name": "Qbay Career Plan",
+              "price": "€193/-",
+              "features": [
+                {
+                  "title": "UK/Germany/Ireland Internship"
+                },
+                {
+                  "title": "60-Day Success Club Access"
+                }
+              ],
+              "description": "One time payment",
+              "originalPrice": "€263/-"
+            },
+            {
+              "name": "Qbay Master Plan",
+              "price": "€329/-",
+              "features": [
+                {
+                  "title": "Career Strategy Development"
+                },
+                {
+                  "title": "Effective Career Roadmap"
+                }
+              ],
+              "badgeText": "MOST POPULAR",
+              "isPopular": true,
+              "description": "One time payment",
+              "originalPrice": "€499/-"
+            },
+            {
+              "name": "Qbay Premium Plan",
+              "price": "€639/-",
+              "features": [
+                {
+                  "title": "3 Month Application Assistance"
+                },
+                {
+                  "title": "UK & India Career Roadmap"
+                }
+              ],
+              "badgeText": "MAX RESULTS!",
+              "isPopular": true,
+              "description": "One time payment",
+              "originalPrice": "€799/-"
+            }
+          ],
+          "monthlyPlan": {
+            "name": "Monthly Subscription",
+            "price": "€219/-",
+            "features": [
+              {
+                "title": "Job applications on your behalf"
+              },
+              {
+                "title": "Daily 10 job applications"
+              }
+            ],
+            "description": "One time payment",
+            "originalPrice": "€258/-"
+          }
+        },
+        "results": {
+          "title": "Success Stories That Inspire",
+          "images": [
+            {
+              "src": "/testimonials/whatsapp1.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp2.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp3.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp4.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp5.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp6.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp7.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp8.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp9.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            }
+          ]
+        },
+        "benefits": [
+          "Faster Career Progression",
+          "Higher Salary Potential",
+          "Validated Skillsets",
+          "Global Professional Credibility"
+        ],
+        "category": "Skill Enhancement",
+        "features": [
+          {
+            "title": "Industry-Recognized Certifications",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Flexible Learning Paths",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Advanced Skill Modules",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Professional Credit Tracking",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Expert-Led Workshops",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          }
+        ],
+        "description": "Enhance your skills with industry-recognized CPD programs for career advancement.",
+        "audioReviews": [
+          {
+            "flag": "https://flagcdn.com/w80/gb.png",
+            "name": "David L.",
+            "role": "UX Designer",
+            "title": "Secured a role at a top agency",
+            "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+            "duration": "1:24"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/ie.png",
+            "name": "Anita P.",
+            "role": "Marketing Lead",
+            "title": "Got my UK visa sponsored job",
+            "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+            "duration": "0:58"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/in.png",
+            "name": "John D.",
+            "role": "Cloud Architect",
+            "title": "Negotiated a 30% salary bump",
+            "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+            "duration": "2:15"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/gb.png",
+            "name": "Rachel M.",
+            "role": "Data Scientist",
+            "title": "Moved from academia to tech",
+            "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+            "duration": "1:45"
+          }
+        ],
+        "fullDescription": "Stay ahead of the curve with our curated Continuing Professional Development programs. In today is rapidly evolving job market, staying relevant is key. We provide access to industry-recognized certifications and training modules that add significant weight to your professional profile."
+      },
+      {
+        "slug": "domain-specified-interview-assistance",
+        "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=1200",
+        "title": "Domain Specified Interview  Assistance",
+        "pricing": {
+          "plans": [
+            {
+              "name": "Qbay Career Plan",
+              "price": "€193/-",
+              "features": [
+                {
+                  "title": "UK/Germany/Ireland Internship"
+                },
+                {
+                  "title": "60-Day Success Club Access"
+                }
+              ],
+              "description": "One time payment",
+              "originalPrice": "€263/-"
+            },
+            {
+              "name": "Qbay Master Plan",
+              "price": "€329/-",
+              "features": [
+                {
+                  "title": "Career Strategy Development"
+                },
+                {
+                  "title": "Effective Career Roadmap"
+                }
+              ],
+              "badgeText": "MOST POPULAR",
+              "isPopular": true,
+              "description": "One time payment",
+              "originalPrice": "€499/-"
+            },
+            {
+              "name": "Qbay Premium Plan",
+              "price": "€639/-",
+              "features": [
+                {
+                  "title": "3 Month Application Assistance"
+                },
+                {
+                  "title": "UK & India Career Roadmap"
+                }
+              ],
+              "badgeText": "MAX RESULTS!",
+              "isPopular": true,
+              "description": "One time payment",
+              "originalPrice": "€799/-"
+            }
+          ],
+          "monthlyPlan": {
+            "name": "Monthly Subscription",
+            "price": "€219/-",
+            "features": [
+              {
+                "title": "Job applications on your behalf"
+              },
+              {
+                "title": "Daily 10 job applications"
+              }
+            ],
+            "description": "One time payment",
+            "originalPrice": "€258/-"
+          }
+        },
+        "results": {
+          "title": "Success Stories That Inspire",
+          "images": [
+            {
+              "src": "/testimonials/whatsapp1.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp2.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp3.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp4.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp5.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp6.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp7.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp8.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp9.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            }
+          ]
+        },
+        "benefits": [
+          "Boosted Confidence",
+          "Higher Technical Pass Rate",
+          "Polished Professionalism",
+          "Stress-Free Preparation"
+        ],
+        "category": "Interview Prep",
+        "features": [
+          {
+            "title": "Mock Technical Interviews",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Role-Specific Q&A Banks",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Industry Scenario Drills",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Body Language & Tone Coaching",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Post-Interview Analysis",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          }
+        ],
+        "description": "Prepare for industry-specific interviews with practical tips and expert support.",
+        "audioReviews": [
+          {
+            "flag": "https://flagcdn.com/w80/gb.png",
+            "name": "David L.",
+            "role": "UX Designer",
+            "title": "Secured a role at a top agency",
+            "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+            "duration": "1:24"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/ie.png",
+            "name": "Anita P.",
+            "role": "Marketing Lead",
+            "title": "Got my UK visa sponsored job",
+            "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+            "duration": "0:58"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/in.png",
+            "name": "John D.",
+            "role": "Cloud Architect",
+            "title": "Negotiated a 30% salary bump",
+            "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+            "duration": "2:15"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/gb.png",
+            "name": "Rachel M.",
+            "role": "Data Scientist",
+            "title": "Moved from academia to tech",
+            "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+            "duration": "1:45"
+          }
+        ],
+        "fullDescription": "General interview tips are not enough for specialized roles. Our domain experts provide deep-dive preparation for your specific industry — whether it is IT, Healthcare, Finance, or Engineering. We focus on technical questions, scenario-based evaluations, and culture-fit assessments."
+      },
+      {
+        "slug": "ats-cv-linkedin-cover-letter",
+        "image": "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=1200",
+        "title": "ATS – CV, LinkedIn, Cover Letter",
+        "pricing": {
+          "plans": [
+            {
+              "name": "Qbay Career Plan",
+              "price": "€193/-",
+              "features": [
+                {
+                  "title": "UK/Germany/Ireland Internship"
+                },
+                {
+                  "title": "60-Day Success Club Access"
+                }
+              ],
+              "description": "One time payment",
+              "originalPrice": "€263/-"
+            },
+            {
+              "name": "Qbay Master Plan",
+              "price": "€329/-",
+              "features": [
+                {
+                  "title": "Career Strategy Development"
+                },
+                {
+                  "title": "Effective Career Roadmap"
+                }
+              ],
+              "badgeText": "MOST POPULAR",
+              "isPopular": true,
+              "description": "One time payment",
+              "originalPrice": "€499/-"
+            },
+            {
+              "name": "Qbay Premium Plan",
+              "price": "€639/-",
+              "features": [
+                {
+                  "title": "3 Month Application Assistance"
+                },
+                {
+                  "title": "UK & India Career Roadmap"
+                }
+              ],
+              "badgeText": "MAX RESULTS!",
+              "isPopular": true,
+              "description": "One time payment",
+              "originalPrice": "€799/-"
+            }
+          ],
+          "monthlyPlan": {
+            "name": "Monthly Subscription",
+            "price": "€219/-",
+            "features": [
+              {
+                "title": "Job applications on your behalf"
+              },
+              {
+                "title": "Daily 10 job applications"
+              }
+            ],
+            "description": "One time payment",
+            "originalPrice": "€258/-"
+          }
+        },
+        "results": {
+          "title": "Success Stories That Inspire",
+          "images": [
+            {
+              "src": "/testimonials/whatsapp1.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp2.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp3.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp4.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp5.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp6.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp7.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp8.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp9.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            }
+          ]
+        },
+        "benefits": [
+          "Score 90%+ on ATS Scanners",
+          "Increased Profile Visibility",
+          "Strong First Impression",
+          "Cohesive Personal Brand"
+        ],
+        "category": "Personal Branding",
+        "features": [
+          {
+            "title": "Keyword Optimization",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Modern Design Templates",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "LinkedIn SEO Enhancement",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Psychology-Driven Content",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Multiple Format Delivery",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          }
+        ],
+        "description": "Stand out with ATS-optimized CVs, impactful cover letters, and LinkedIn profiles.",
+        "audioReviews": [
+          {
+            "flag": "https://flagcdn.com/w80/gb.png",
+            "name": "David L.",
+            "role": "UX Designer",
+            "title": "Secured a role at a top agency",
+            "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+            "duration": "1:24"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/ie.png",
+            "name": "Anita P.",
+            "role": "Marketing Lead",
+            "title": "Got my UK visa sponsored job",
+            "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+            "duration": "0:58"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/in.png",
+            "name": "John D.",
+            "role": "Cloud Architect",
+            "title": "Negotiated a 30% salary bump",
+            "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+            "duration": "2:15"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/gb.png",
+            "name": "Rachel M.",
+            "role": "Data Scientist",
+            "title": "Moved from academia to tech",
+            "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+            "duration": "1:45"
+          }
+        ],
+        "fullDescription": "Most resumes are rejected by robots before a human even sees them. We create ATS-friendly documents that pass through automated filters with ease. Beyond CVs, we optimize your LinkedIn presence and craft persuasive cover letters that tell your unique professional story."
+      },
+      {
+        "slug": "humanized-sop-guidance",
+        "image": "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=1200",
+        "title": "Humanized SOP Guidance And Preparation",
+        "pricing": {
+          "plans": [
+            {
+              "name": "Qbay Career Plan",
+              "price": "€193/-",
+              "features": [
+                {
+                  "title": "UK/Germany/Ireland Internship"
+                },
+                {
+                  "title": "60-Day Success Club Access"
+                }
+              ],
+              "description": "One time payment",
+              "originalPrice": "€263/-"
+            },
+            {
+              "name": "Qbay Master Plan",
+              "price": "€329/-",
+              "features": [
+                {
+                  "title": "Career Strategy Development"
+                },
+                {
+                  "title": "Effective Career Roadmap"
+                }
+              ],
+              "badgeText": "MOST POPULAR",
+              "isPopular": true,
+              "description": "One time payment",
+              "originalPrice": "€499/-"
+            },
+            {
+              "name": "Qbay Premium Plan",
+              "price": "€639/-",
+              "features": [
+                {
+                  "title": "3 Month Application Assistance"
+                },
+                {
+                  "title": "UK & India Career Roadmap"
+                }
+              ],
+              "badgeText": "MAX RESULTS!",
+              "isPopular": true,
+              "description": "One time payment",
+              "originalPrice": "€799/-"
+            }
+          ],
+          "monthlyPlan": {
+            "name": "Monthly Subscription",
+            "price": "€219/-",
+            "features": [
+              {
+                "title": "Job applications on your behalf"
+              },
+              {
+                "title": "Daily 10 job applications"
+              }
+            ],
+            "description": "One time payment",
+            "originalPrice": "€258/-"
+          }
+        },
+        "results": {
+          "title": "Success Stories That Inspire",
+          "images": [
+            {
+              "src": "/testimonials/whatsapp1.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp2.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp3.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp4.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp5.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp6.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp7.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp8.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp9.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            }
+          ]
+        },
+        "benefits": [
+          "Increased Admission Success",
+          "Distinctive Personal Story",
+          "Clarity of Career Goals",
+          "Professional Academic Tone"
+        ],
+        "category": "Documentation",
+        "features": [
+          {
+            "title": "Narrative Storytelling",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Personal Voice Retention",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Structure & Flow Optimization",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Admissions-Aligned Editing",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Plagiarism-Free Content",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          }
+        ],
+        "description": "Build a strong and well-structured SOP that reflects your career goals.",
+        "audioReviews": [
+          {
+            "flag": "https://flagcdn.com/w80/gb.png",
+            "name": "David L.",
+            "role": "UX Designer",
+            "title": "Secured a role at a top agency",
+            "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+            "duration": "1:24"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/ie.png",
+            "name": "Anita P.",
+            "role": "Marketing Lead",
+            "title": "Got my UK visa sponsored job",
+            "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+            "duration": "0:58"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/in.png",
+            "name": "John D.",
+            "role": "Cloud Architect",
+            "title": "Negotiated a 30% salary bump",
+            "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+            "duration": "2:15"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/gb.png",
+            "name": "Rachel M.",
+            "role": "Data Scientist",
+            "title": "Moved from academia to tech",
+            "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+            "duration": "1:45"
+          }
+        ],
+        "fullDescription": "A Statement of Purpose (SOP) should not sound like a template. We help you craft humanized SOPs that reflect your genuine voice, aspirations, and journey. Whether for university admissions or specialized job applications, we ensure your narrative stands out in a sea of generic applicants."
+      },
+      {
+        "slug": "internship-guidance",
+        "image": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1200",
+        "title": "Internship Guidance",
+        "pricing": {
+          "plans": [
+            {
+              "name": "Qbay Career Plan",
+              "price": "€193/-",
+              "features": [
+                {
+                  "title": "UK/Germany/Ireland Internship"
+                },
+                {
+                  "title": "60-Day Success Club Access"
+                }
+              ],
+              "description": "One time payment",
+              "originalPrice": "€263/-"
+            },
+            {
+              "name": "Qbay Master Plan",
+              "price": "€329/-",
+              "features": [
+                {
+                  "title": "Career Strategy Development"
+                },
+                {
+                  "title": "Effective Career Roadmap"
+                }
+              ],
+              "badgeText": "MOST POPULAR",
+              "isPopular": true,
+              "description": "One time payment",
+              "originalPrice": "€499/-"
+            },
+            {
+              "name": "Qbay Premium Plan",
+              "price": "€639/-",
+              "features": [
+                {
+                  "title": "3 Month Application Assistance"
+                },
+                {
+                  "title": "UK & India Career Roadmap"
+                }
+              ],
+              "badgeText": "MAX RESULTS!",
+              "isPopular": true,
+              "description": "One time payment",
+              "originalPrice": "€799/-"
+            }
+          ],
+          "monthlyPlan": {
+            "name": "Monthly Subscription",
+            "price": "€219/-",
+            "features": [
+              {
+                "title": "Job applications on your behalf"
+              },
+              {
+                "title": "Daily 10 job applications"
+              }
+            ],
+            "description": "One time payment",
+            "originalPrice": "€258/-"
+          }
+        },
+        "results": {
+          "title": "Success Stories That Inspire",
+          "images": [
+            {
+              "src": "/testimonials/whatsapp1.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp2.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp3.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp4.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp5.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp6.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp7.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp8.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp9.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            }
+          ]
+        },
+        "benefits": [
+          "Real-World Skill Gain",
+          "Industry Networking",
+          "Career Path Validation",
+          "Resume Strength Boost"
+        ],
+        "category": "Experience Building",
+        "features": [
+          {
+            "title": "Internship Matchmaking",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Portfolio Development",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Corporate Etiquette Training",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Mentor Network Access",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Conversion Strategy (Intern to Full-time)",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          }
+        ],
+        "description": "Get valuable internship opportunities and hands-on experience to kickstart your career.",
+        "audioReviews": [
+          {
+            "flag": "https://flagcdn.com/w80/gb.png",
+            "name": "David L.",
+            "role": "UX Designer",
+            "title": "Secured a role at a top agency",
+            "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+            "duration": "1:24"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/ie.png",
+            "name": "Anita P.",
+            "role": "Marketing Lead",
+            "title": "Got my UK visa sponsored job",
+            "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+            "duration": "0:58"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/in.png",
+            "name": "John D.",
+            "role": "Cloud Architect",
+            "title": "Negotiated a 30% salary bump",
+            "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+            "duration": "2:15"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/gb.png",
+            "name": "Rachel M.",
+            "role": "Data Scientist",
+            "title": "Moved from academia to tech",
+            "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+            "duration": "1:45"
+          }
+        ],
+        "fullDescription": "Experience is the most valuable currency in the job market. We guide you toward internships that offer real-world exposure and skill-building. From application to successful completion, we support your journey in gaining the practical experience employers crave."
+      },
+      {
+        "slug": "mental-wellness",
+        "image": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=1200",
+        "title": "Mental Wellness",
+        "pricing": {
+          "plans": [
+            {
+              "name": "Qbay Career Plan",
+              "price": "€193/-",
+              "features": [
+                {
+                  "title": "UK/Germany/Ireland Internship"
+                },
+                {
+                  "title": "60-Day Success Club Access"
+                }
+              ],
+              "description": "One time payment",
+              "originalPrice": "€263/-"
+            },
+            {
+              "name": "Qbay Master Plan",
+              "price": "€329/-",
+              "features": [
+                {
+                  "title": "Career Strategy Development"
+                },
+                {
+                  "title": "Effective Career Roadmap"
+                }
+              ],
+              "badgeText": "MOST POPULAR",
+              "isPopular": true,
+              "description": "One time payment",
+              "originalPrice": "€499/-"
+            },
+            {
+              "name": "Qbay Premium Plan",
+              "price": "€639/-",
+              "features": [
+                {
+                  "title": "3 Month Application Assistance"
+                },
+                {
+                  "title": "UK & India Career Roadmap"
+                }
+              ],
+              "badgeText": "MAX RESULTS!",
+              "isPopular": true,
+              "description": "One time payment",
+              "originalPrice": "€799/-"
+            }
+          ],
+          "monthlyPlan": {
+            "name": "Monthly Subscription",
+            "price": "€219/-",
+            "features": [
+              {
+                "title": "Job applications on your behalf"
+              },
+              {
+                "title": "Daily 10 job applications"
+              }
+            ],
+            "description": "One time payment",
+            "originalPrice": "€258/-"
+          }
+        },
+        "results": {
+          "title": "Success Stories That Inspire",
+          "images": [
+            {
+              "src": "/testimonials/whatsapp1.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp2.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp3.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp4.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp5.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp6.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp7.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp8.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            },
+            {
+              "src": "/testimonials/whatsapp9.jpeg",
+              "flag": "https://flagcdn.com/w80/in.png"
+            }
+          ]
+        },
+        "benefits": [
+          "Emotional Resilience",
+          "Consistent Motivation",
+          "Mental Clarity",
+          "Long-Term Career Health"
+        ],
+        "category": "Stability & Growth",
+        "features": [
+          {
+            "title": "Confidence Coaching",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Stress Management Sessions",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Mindset Reframing",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Regular Wellness Checks",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          },
+          {
+            "title": "Community Support",
+            "description": "Carefully tailored to ensure maximum success in your specific career path and market conditions."
+          }
+        ],
+        "description": "Our guidance helps you stay mentally strong, confident, and prepared for career challenges.",
+        "audioReviews": [
+          {
+            "flag": "https://flagcdn.com/w80/gb.png",
+            "name": "David L.",
+            "role": "UX Designer",
+            "title": "Secured a role at a top agency",
+            "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+            "duration": "1:24"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/ie.png",
+            "name": "Anita P.",
+            "role": "Marketing Lead",
+            "title": "Got my UK visa sponsored job",
+            "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+            "duration": "0:58"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/in.png",
+            "name": "John D.",
+            "role": "Cloud Architect",
+            "title": "Negotiated a 30% salary bump",
+            "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+            "duration": "2:15"
+          },
+          {
+            "flag": "https://flagcdn.com/w80/gb.png",
+            "name": "Rachel M.",
+            "role": "Data Scientist",
+            "title": "Moved from academia to tech",
+            "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150",
+            "audioUrl": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+            "duration": "1:45"
+          }
+        ],
+        "fullDescription": "The job search journey can be mentally taxing. We believe professional success is impossible without personal well-being. Our mental wellness program provides support, confidence-building techniques, and stress management strategies to keep you motivated and resilient."
+      }
+    ],
+    "updated_at": "2026-04-23T05:14:59.07941+00:00"
+  }
+]

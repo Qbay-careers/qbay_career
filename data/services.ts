@@ -215,6 +215,48 @@ export const services: Service[] = [
       'Mental Clarity',
       'Long-Term Career Health'
     ]
+  },
+  {
+    slug: 'personal-branding',
+    title: 'Personal Branding',
+    category: 'Personal Branding',
+    description: 'Build a powerful professional identity that attracts global opportunities.',
+    fullDescription: 'Your personal brand is your strongest asset. We help you craft a cohesive and compelling narrative across all platforms. From LinkedIn optimization to personal portfolio guidance, we ensure you stand out as a top-tier professional in your industry.',
+    image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1200',
+    features: [
+      { title: 'Personal Brand Audit', description: defaultFeatureDesc },
+      { title: 'LinkedIn Profile Makeover', description: defaultFeatureDesc },
+      { title: 'Content Strategy', description: defaultFeatureDesc },
+      { title: 'Networking Strategies', description: defaultFeatureDesc },
+      { title: 'Portfolio Development', description: defaultFeatureDesc }
+    ],
+    benefits: [
+      'Increased Inbound Opportunities',
+      'Stronger Industry Presence',
+      'Higher Professional Credibility',
+      'Clear Career Narrative'
+    ]
+  },
+  {
+    slug: 'interview-assistance',
+    title: 'Interview Assistance',
+    category: 'Interview Prep',
+    description: 'Master your interviews with targeted preparation and mock sessions.',
+    fullDescription: 'Don\'t let interview anxiety hold you back. Our comprehensive interview assistance covers everything from common HR questions to complex behavioral scenarios. We provide personalized feedback, mock interviews, and confidence-building exercises to ensure you perform at your best.',
+    image: 'https://images.unsplash.com/photo-1573164574572-cb89e39749b4?auto=format&fit=crop&q=80&w=1200',
+    features: [
+      { title: 'Mock Interview Sessions', description: defaultFeatureDesc },
+      { title: 'Behavioral Question Prep', description: defaultFeatureDesc },
+      { title: 'Salary Negotiation Tactics', description: defaultFeatureDesc },
+      { title: 'Feedback & Action Plan', description: defaultFeatureDesc },
+      { title: 'Company Research Guide', description: defaultFeatureDesc }
+    ],
+    benefits: [
+      'Overcome Interview Anxiety',
+      'Structured Answer Delivery',
+      'Higher Offer Rate',
+      'Confident Negotiation'
+    ]
   }
 ];
 
