@@ -1412,7 +1412,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                <div className="flex items-center gap-2">
                  <div className="w-2 h-2 rounded-full bg-violet-700" />
                  <span className="text-sm font-bold text-violet-700">
-                   Trusted by 200+ job seekers
+                   Trusted by 110k job seekers
                  </span>
                </div>
 
