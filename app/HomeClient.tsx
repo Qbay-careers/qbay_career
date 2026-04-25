@@ -791,7 +791,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                       
                       <div className="space-y-2">
                         <h4 className="text-xl font-bold text-[#1A112B]">Personalized Strategy Call</h4>
-                        <p className="text-sm text-slate-500 font-medium leading-relaxed">Join over 200+ healthcare professionals who started their journey here.</p>
+                        <p className="text-sm text-slate-500 font-medium leading-relaxed">Join over 110k immigrant professionals who started their journey here.</p>
                       </div>
 
                       <div className="w-full h-px bg-slate-100" />

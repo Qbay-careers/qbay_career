@@ -62,40 +62,14 @@ export default function QBayNavbar() {
 
   const useCapsuleStyle = isScrolled && isDesktop;
   
-  // Calculate top position for fixed navbar to stay below TopBar when at the very top
-  const topBarHeight = 40; // h-10 = 40px
-  const navbarTop = Math.max(0, topBarHeight - currentScrollY);
+  // Calculate top position for fixed navbar
+  const navbarTop = 0;
 
   // Navbar stays sticky on mobile, in capsule mode, or when mobile menu is open
   const isActuallyVisible = visible || useCapsuleStyle || !isDesktop || open;
 
   return (
     <>
-      {/* Top Bar Section - Normal Document Flow (Scrolls away) */}
-      <div 
-        className="w-full bg-[#5D4A7A] text-white flex items-center justify-center h-10 relative z-[60]"
-      >
-        <div className="max-w-7xl w-full px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-center sm:justify-end items-center gap-3 sm:gap-6">
-          <div className="flex items-center gap-4 text-[10px] sm:text-xs font-bold tracking-wide uppercase">
-            <a 
-              href="tel:+447551940676" 
-              className="flex items-center gap-1.5 hover:text-purple-100 transition-colors py-1"
-            >
-              <Phone className="h-3 w-3" />
-              <span>+44 7551940676</span>
-            </a>
-            <span className="opacity-30 hidden sm:inline">|</span>
-            <a 
-              href="tel:+447551928080" 
-              className="flex items-center gap-1.5 hover:text-purple-100 transition-colors py-1"
-            >
-              <Phone className="h-3 w-3" />
-              <span>+44 7551928080</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
       {/* Main Navbar - Fixed with Reveal/Sticky Animation */}
       <div 
         className={`fixed left-0 w-full z-50 flex flex-col items-center transition-all duration-500 ease-in-out ${
