@@ -1021,6 +1021,49 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
+      <section id="testimonials" className="bg-[#F9F5FF] py-24 scroll-mt-24 pb-40">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-16">
+          <h2 className="text-4xl font-bold text-[#2D1B4D] text-center sm:text-5xl">
+            {testimonialsGridTitle}
+          </h2>
+        </div>
+
+        <div className="w-full overflow-hidden relative">
+          <div 
+            ref={testimonialScrollRef}
+            onMouseEnter={() => setIsTestimonialPaused(true)}
+            onMouseLeave={() => setIsTestimonialPaused(false)}
+            className="flex gap-6 overflow-x-auto pb-12 scrollbar-hide px-4 md:px-0"
+          >
+            {testimonialShortsData.map((video, idx) => (
+                <a
+                  key={video.id + idx}
+                  href={video.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="relative w-[220px] aspect-[9/16] flex-shrink-0 rounded-[2.2rem] overflow-hidden bg-gray-900 shadow-2xl group cursor-pointer block"
+                >
+                  <img
+                    src={video.thumbnail}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    alt="Testimonial"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-red-600 text-white shadow-2xl transition-transform duration-300 group-hover:scale-110">
+                      <Play className="h-7 w-7 fill-current" />
+                    </div>
+                  </div>
+                </a>
+            ))}
+          </div>
+          
+          {/* Fade overlays for the edges */}
+          <div className="absolute top-0 bottom-0 left-0 w-32 bg-gradient-to-r from-[#F9F5FF] to-transparent z-10 pointer-events-none" />
+          <div className="absolute top-0 bottom-0 right-0 w-32 bg-gradient-to-l from-[#F9F5FF] to-transparent z-10 pointer-events-none" />
+        </div>
+      </section>
+
       <section id="results" className="bg-white py-20 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto mb-12 max-w-3xl text-center">
@@ -1177,49 +1220,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       )}
 
-      <section id="testimonials" className="bg-[#F9F5FF] py-24 scroll-mt-24 pb-40">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-16">
-          <h2 className="text-4xl font-bold text-[#2D1B4D] text-center sm:text-5xl">
-            {testimonialsGridTitle}
-          </h2>
-        </div>
-
-        <div className="w-full overflow-hidden relative">
-          <div 
-            ref={testimonialScrollRef}
-            onMouseEnter={() => setIsTestimonialPaused(true)}
-            onMouseLeave={() => setIsTestimonialPaused(false)}
-            className="flex gap-6 overflow-x-auto pb-12 scrollbar-hide px-4 md:px-0"
-          >
-            {testimonialShortsData.map((video, idx) => (
-                <a
-                  key={video.id + idx}
-                  href={video.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="relative w-[220px] aspect-[9/16] flex-shrink-0 rounded-[2.2rem] overflow-hidden bg-gray-900 shadow-2xl group cursor-pointer block"
-                >
-                  <img
-                    src={video.thumbnail}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    alt="Testimonial"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-red-600 text-white shadow-2xl transition-transform duration-300 group-hover:scale-110">
-                      <Play className="h-7 w-7 fill-current" />
-                    </div>
-                  </div>
-                </a>
-            ))}
-          </div>
-          
-          {/* Fade overlays for the edges */}
-          <div className="absolute top-0 bottom-0 left-0 w-32 bg-gradient-to-r from-[#F9F5FF] to-transparent z-10 pointer-events-none" />
-          <div className="absolute top-0 bottom-0 right-0 w-32 bg-gradient-to-l from-[#F9F5FF] to-transparent z-10 pointer-events-none" />
-        </div>
-      </section>
-
+      
       <section id="client-love" className="relative bg-gradient-to-b from-white via-[#F8F7FF] to-white py-24 scroll-mt-24 overflow-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-20">
