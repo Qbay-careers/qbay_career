@@ -1459,7 +1459,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         {/* Top Marquee Row */}
         <div className="flex overflow-hidden relative w-full mb-12">
           {/* We duplicate the content to create a seamless infinite scroll loop */}
-          <div className="flex gap-16 min-w-full animate-marquee items-center justify-start shrink-0 px-8">
+          <div className="flex gap-6 min-w-full animate-marquee items-center justify-start shrink-0 px-8">
             {topRowLogos.map((src, idx) => (
               <div
                 key={idx}
@@ -1468,13 +1468,13 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                 <img
                   src={src}
                   alt="University logo"
-                  className="h-16 w-auto max-w-[280px] object-contain"
+                  className="h-24 w-auto max-w-[280px] object-contain"
                   loading="lazy"
                 />
               </div>
             ))}
           </div>
-          <div className="flex gap-16 min-w-full animate-marquee items-center justify-start shrink-0 px-8" aria-hidden="true">
+          <div className="flex gap-8 min-w-full animate-marquee items-center justify-start shrink-0 px-8" aria-hidden="true">
             {topRowLogos.map((src, idx) => (
               <div
                 key={`dup-${idx}`}
@@ -1483,7 +1483,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                 <img
                   src={src}
                   alt="University logo"
-                  className="h-16 w-auto max-w-[280px] object-contain"
+                  className="h-24 w-auto max-w-[280px] object-contain"
                   loading="lazy"
                 />
               </div>
@@ -1493,7 +1493,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
 
         {/* Bottom Marquee Row (Reverse) */}
         <div className="flex overflow-hidden relative w-full">
-          <div className="flex gap-16 min-w-full animate-marquee-reverse items-center justify-start shrink-0 px-8">
+          <div className="flex gap-6 min-w-full animate-marquee-reverse items-center justify-start shrink-0 px-8">
             {bottomRowLogos.map((src, idx) => (
               <div
                 key={idx}
@@ -1502,13 +1502,13 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                 <img
                   src={src}
                   alt="University logo"
-                  className="h-16 w-auto max-w-[280px] object-contain"
+                  className="h-24 w-auto max-w-[280px] object-contain"
                   loading="lazy"
                 />
               </div>
             ))}
           </div>
-          <div className="flex gap-16 min-w-full animate-marquee-reverse items-center justify-start shrink-0 px-8" aria-hidden="true">
+          <div className="flex gap-8 min-w-full animate-marquee-reverse items-center justify-start shrink-0 px-8" aria-hidden="true">
             {bottomRowLogos.map((src, idx) => (
               <div
                 key={`dup-${idx}`}
@@ -1517,7 +1517,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                 <img
                   src={src}
                   alt="University logo"
-                  className="h-16 w-auto max-w-[280px] object-contain"
+                  className="h-24 w-auto max-w-[280px] object-contain"
                   loading="lazy"
                 />
               </div>
