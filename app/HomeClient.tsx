@@ -101,6 +101,19 @@ export default function HomeClient({ initialData }: { initialData: any }) {
     ? (consultationData.subHeaderText || consultationData['sub Header Text'] || consultationData.topHeading || consultationData.topHeader || '')
     : 'Free 30-Minute Consultation';
 
+  // Right column booking card fields (now CMS-driven)
+  const consultationCardHeading = consultationData
+    ? (consultationData.cardHeading || consultationData.cardTitle || 'Personalized Strategy Call')
+    : 'Personalized Strategy Call';
+
+  const consultationCardSubtext = consultationData
+    ? (consultationData.cardSubtext || consultationData.cardDescription || 'Join over 110k immigrant professionals who started their journey here.')
+    : 'Join over 110k immigrant professionals who started their journey here.';
+
+  const consultationAvailabilityText = consultationData
+    ? (consultationData.availabilityText || consultationData.slotText || 'Available Slots for This Week')
+    : 'Available Slots for This Week';
+
   // Robust mapping for Services Section Header
   const servicesHeader = cmsData?.servicesSection || cmsData?.servicesHeader || cmsData?.services || {};
   const servicesTagline = typeof servicesHeader?.tagline === 'string' ? servicesHeader.tagline : 'Our Services';
@@ -802,8 +815,8 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                       </div>
                       
                       <div className="space-y-2">
-                        <h4 className="text-xl font-bold text-[#1A112B]">Personalized Strategy Call</h4>
-                        <p className="text-sm text-slate-500 font-medium leading-relaxed">Join over 110k immigrant professionals who started their journey here.</p>
+                        <h4 className="text-xl font-bold text-[#1A112B]">{consultationCardHeading}</h4>
+                        <p className="text-sm text-slate-500 font-medium leading-relaxed">{consultationCardSubtext}</p>
                       </div>
 
                       <div className="w-full h-px bg-slate-100" />
@@ -818,7 +831,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
 
                       <p className="text-xs font-bold text-slate-400 flex items-center gap-2">
                         <span className="flex h-1.5 w-1.5 rounded-full bg-green-500" />
-                        Available Slots for This Week
+                        {consultationAvailabilityText}
                       </p>
                     </div>
                   </div>

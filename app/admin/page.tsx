@@ -211,6 +211,15 @@ export default function AdminDashboard() {
          ];
       }
 
+      // Auto-migrate Consultation Right Column Defaults
+      if (newData.consultation && typeof newData.consultation === 'object' && !parentKey) {
+        if (!newData.consultation.cardHeading) newData.consultation.cardHeading = 'Personalized Strategy Call';
+        if (!newData.consultation.cardSubtext) newData.consultation.cardSubtext = 'Join over 110k immigrant professionals who started their journey here.';
+        if (!newData.consultation.availabilityText) newData.consultation.availabilityText = 'Available Slots for This Week';
+        if (!newData.consultation.ctaLabel) newData.consultation.ctaLabel = 'Book your free consultancy';
+        if (!newData.consultation.ctaLink) newData.consultation.ctaLink = '/contact';
+      }
+
       // Auto-migrate Audio Reviews
       if (newData.audioReviews === undefined && !parentKey && newData.hero) {
         newData.audioReviews = [
