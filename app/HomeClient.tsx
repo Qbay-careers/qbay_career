@@ -19,6 +19,8 @@ import {
   X,
   ArrowRight,
   Quote,
+  Linkedin,
+  Instagram,
 } from 'lucide-react';
 import QBayNavbar from '@/components/QBayNavbar';
 import FeaturedOn from '@/components/FeaturedOn';
@@ -213,9 +215,11 @@ export default function HomeClient({ initialData }: { initialData: any }) {
   ];
 
   const founderData = {
-    name: "Fazil Karatt",
-    role: "Founder & CEO",
-    avatar: "/Hizana-Web-61-768x768.webp" // Reusing the existing founder image from the site
+    name: cmsData?.founderLetter?.founderName || "Fazil Karatt",
+    role: cmsData?.founderLetter?.founderRole || "Founder & CEO",
+    avatar: cmsData?.founderLetter?.founderImage || "/Hizana-Web-61-768x768.webp",
+    linkedin: cmsData?.founderLetter?.linkedinUrl || "https://www.linkedin.com/in/fazil-karatt/",
+    instagram: cmsData?.founderLetter?.instagramUrl || "https://www.instagram.com/fazil_karat/"
   };
   const negativeReviewsData = (Array.isArray(cmsData?.negativeReviews) && cmsData.negativeReviews.length > 0)
     ? cmsData.negativeReviews
@@ -482,29 +486,94 @@ export default function HomeClient({ initialData }: { initialData: any }) {
     }
   };
 
+  const resultsScrollPosRef = useRef<number>(0);
+  const resultsInitializedRef = useRef<boolean>(false);
+
   useEffect(() => {
     const scrollContainer = resultsScrollRef.current;
     if (!scrollContainer) return;
 
     let animationFrameId: number;
 
+    const updateScaling = () => {
+      const container = resultsScrollRef.current;
+      if (!container) return;
+      const cards = container.querySelectorAll('.whatsapp-review-card');
+      const containerWidth = container.offsetWidth;
+      const containerCenter = containerWidth / 2;
+      const scrollLeft = container.scrollLeft;
+
+      cards.forEach((card: any, idx: number) => {
+        // Use offsetLeft for better performance than getBoundingClientRect
+        const cardWidth = card.offsetWidth;
+        const cardLeft = card.offsetLeft - scrollLeft;
+        const cardCenter = cardLeft + cardWidth / 2;
+        
+        const distanceFromCenter = Math.abs(containerCenter - cardCenter);
+        const normalizedDistance = Math.min(distanceFromCenter / (containerWidth / 1.5), 1);
+        
+        const scale = 1.2 - (normalizedDistance * 0.45); 
+        const opacity = 1 - (normalizedDistance * 0.65);
+        const zIndex = Math.round(100 - normalizedDistance * 100);
+        const rotation = (cardCenter < containerCenter ? 10 : -10) * normalizedDistance;
+        
+        // Use translate3d to force hardware acceleration and avoid shivering
+        card.style.transform = `translate3d(0,0,0) scale(${scale}) rotateY(${rotation}deg)`;
+        card.style.opacity = `${opacity}`;
+        card.style.zIndex = zIndex.toString();
+      });
+    };
+
+    let scrollPos = resultsScrollPosRef.current;
+    
     const scroll = () => {
-      if (!isResultsPaused) {
-        if (
-          Math.ceil(scrollContainer.scrollLeft) + scrollContainer.clientWidth >=
-          scrollContainer.scrollWidth
-        ) {
-          scrollContainer.scrollLeft = 0;
-        } else {
-          scrollContainer.scrollLeft += 1;
+      if (!isResultsPaused && scrollContainer) {
+        const itemWidth = scrollContainer.scrollWidth / 3;
+        if (itemWidth > 0) {
+          scrollPos += 1.2;
+          if (scrollPos >= itemWidth * 2) {
+            scrollPos -= itemWidth;
+          }
+          scrollContainer.scrollLeft = scrollPos;
+          resultsScrollPosRef.current = scrollPos;
+          updateScaling();
         }
       }
       animationFrameId = requestAnimationFrame(scroll);
     };
 
+    const handleManualScroll = () => {
+      scrollPos = scrollContainer.scrollLeft;
+      resultsScrollPosRef.current = scrollPos;
+      updateScaling();
+    };
+
+    scrollContainer.addEventListener('scroll', handleManualScroll, { passive: true });
+    
+    const initialScroll = () => {
+      if (scrollContainer.scrollWidth > 0) {
+        if (!resultsInitializedRef.current) {
+          scrollPos = scrollContainer.scrollWidth / 3;
+          scrollContainer.scrollLeft = scrollPos;
+          resultsScrollPosRef.current = scrollPos;
+          resultsInitializedRef.current = true;
+        } else {
+          scrollContainer.scrollLeft = resultsScrollPosRef.current;
+          scrollPos = resultsScrollPosRef.current;
+        }
+        updateScaling();
+      } else {
+        setTimeout(initialScroll, 50);
+      }
+    };
+    initialScroll();
+
     animationFrameId = requestAnimationFrame(scroll);
 
-    return () => cancelAnimationFrame(animationFrameId);
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      scrollContainer.removeEventListener('scroll', handleManualScroll);
+    };
   }, [isResultsPaused]);
 
   useEffect(() => {
@@ -1157,18 +1226,19 @@ export default function HomeClient({ initialData }: { initialData: any }) {
           </div>
 
           <div className="relative overflow-hidden">
-            <div
-              ref={resultsScrollRef}
-              onMouseEnter={() => setIsResultsPaused(true)}
-              onMouseLeave={() => setIsResultsPaused(false)}
-              className="flex gap-4 overflow-x-auto pb-6 scrollbar-hide"
-            >
-              {resultsImages.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="min-w-[240px] w-[70vw] sm:w-[300px] flex-shrink-0 overflow-hidden rounded-2xl shadow-lg border border-purple-100 bg-white cursor-pointer group"
-                  onClick={() => setSelectedImage(item.src)}
-                >
+              <div
+                ref={resultsScrollRef}
+                onMouseEnter={() => setIsResultsPaused(true)}
+                onMouseLeave={() => setIsResultsPaused(false)}
+                className="flex gap-4 overflow-x-auto pb-16 pt-10 scrollbar-hide perspective-[1000px] py-10"
+                style={{ perspective: '1200px' }}
+              >
+                {[...resultsImages, ...resultsImages, ...resultsImages].map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="min-w-[130px] w-[42vw] sm:w-[220px] flex-shrink-0 overflow-hidden rounded-2xl shadow-2xl border border-purple-100 bg-white cursor-pointer group transition-all duration-300 transform-gpu whatsapp-review-card will-change-transform"
+                    onClick={() => setSelectedImage(item.src)}
+                  >
                   <div className="relative">
                     {/* Country Flag Overlay */}
                     {item.flag && (
@@ -1179,7 +1249,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                     <img
                       src={item.src}
                       alt={`Student success story ${idx + 1}`}
-                      className="w-full h-[380px] object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-[260px] sm:h-[340px] object-cover transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
@@ -1498,26 +1568,53 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-6xl rounded-2xl bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:px-16 sm:py-12 p-8 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16">
             
-            {/* Left side text content */}
             <div className="z-10 flex-1 space-y-6">
                <div className="flex items-center gap-2">
                  <div className="w-2 h-2 rounded-full bg-violet-700" />
                  <span className="text-sm font-bold text-violet-700">
-                   Trusted by 110k job seekers
+                   {cmsData?.founderQuote?.trustedText || "Trusted by 110k job seekers"}
                  </span>
                </div>
 
                <h2 className="text-2xl md:text-4xl font-medium text-[#2D1B4D] leading-[1.4]">
-                 &ldquo;Put your energy into <span className="text-violet-700">interview preparation</span>, we&apos;ll take care of the applications for you.&rdquo;
+                 &ldquo;{cmsData?.founderQuote?.quote?.split('interview preparation').map((part: string, i: number, arr: any[]) => (
+                   <React.Fragment key={i}>
+                     {part}
+                     {i < arr.length - 1 && <span className="text-violet-700">interview preparation</span>}
+                   </React.Fragment>
+                 )) || "Put your energy into interview preparation, we'll take care of the applications for you."}&rdquo;
                </h2>
 
-               <div className="pt-4">
-                 <h3 className="text-base md:text-lg font-bold text-gray-400">
-                   Fazil Karatt
-                 </h3>
-                 <p className="text-xs md:text-sm font-bold text-gray-400 mt-1">
-                   Founder & CEO
-                 </p>
+               <div className="pt-4 flex items-center justify-between">
+                 <div>
+                   <h3 className="text-base md:text-lg font-bold text-gray-900">
+                     {cmsData?.founderQuote?.name || "Fazil Karatt"}
+                   </h3>
+                   <p className="text-xs md:text-sm font-bold text-gray-500 mt-1">
+                     {cmsData?.founderQuote?.role || "Founder & CEO"}
+                   </p>
+                 </div>
+                 
+                 <div className="flex items-center gap-3">
+                   <a 
+                     href={cmsData?.founderQuote?.linkedinUrl || "https://www.linkedin.com/in/fazil-karatt/"}
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                     className="p-2 rounded-full bg-[#0077b5]/10 text-[#0077b5] hover:bg-[#0077b5] hover:text-white transition-all duration-300"
+                     title="LinkedIn"
+                   >
+                     <Linkedin size={18} />
+                   </a>
+                   <a 
+                     href={cmsData?.founderQuote?.instagramUrl || "https://www.instagram.com/fazil_karat/"}
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                     className="p-2 rounded-full bg-[#E4405F]/10 text-[#E4405F] hover:bg-[#E4405F] hover:text-white transition-all duration-300"
+                     title="Instagram"
+                   >
+                     <Instagram size={18} />
+                   </a>
+                 </div>
                </div>
             </div>
 
@@ -1526,7 +1623,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
               <div 
                 className="absolute inset-0 bg-[center_bottom] bg-no-repeat bg-contain filter grayscale transition-all duration-500 ease-in-out group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100"
                 style={{
-                   backgroundImage: `url('/Hizana-Web-61-768x768.webp')`,
+                   backgroundImage: `url('${cmsData?.founderQuote?.image || '/Hizana-Web-61-768x768.webp'}')`,
                    maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
                    WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)'
                 }}
@@ -1759,7 +1856,29 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                 </div>
                 <div>
                   <h4 className="text-3xl md:text-4xl font-script text-purple-700 mb-1">{founderData.name}</h4>
-                  <p className="text-sm font-bold text-[#A09688] tracking-widest uppercase">{founderData.role}</p>
+                  <div className="flex items-center gap-3">
+                    <p className="text-sm font-bold text-[#A09688] tracking-widest uppercase">{founderData.role}</p>
+                    <div className="flex items-center gap-2 border-l border-slate-200 pl-3">
+                      <a 
+                        href={founderData.linkedin} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="p-1.5 rounded-full bg-[#0077b5]/10 text-[#0077b5] hover:bg-[#0077b5] hover:text-white transition-all duration-300"
+                        title="LinkedIn"
+                      >
+                        <Linkedin size={14} />
+                      </a>
+                      <a 
+                        href={founderData.instagram} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="p-1.5 rounded-full bg-[#E4405F]/10 text-[#E4405F] hover:bg-[#E4405F] hover:text-white transition-all duration-300"
+                        title="Instagram"
+                      >
+                        <Instagram size={14} />
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

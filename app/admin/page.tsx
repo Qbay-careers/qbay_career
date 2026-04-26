@@ -108,6 +108,7 @@ const sections = [
     { id: 'negativeReviews', label: 'Negative Reviews', description: 'Glaringly painful 1-star reviews and founder replies.' },
     { id: 'services', label: 'Our Services', description: 'Categories and service cards for the home page.', targetKey: 'services' },
     { id: 'founderLetter', label: 'Founder Letter', description: 'A personal note from the founder.' },
+    { id: 'founderQuote', label: 'Founder Quote', description: 'The large quote card with founder image.' },
     { id: 'finalCTA', label: 'Bottom CTA', description: 'The final call to action at the bottom.' },
   ]},
   { id: 'about', icon: Info, label: 'About Us' },
@@ -428,6 +429,28 @@ export default function AdminDashboard() {
         if (newData.delay === undefined) newData.delay = 6000;
         if (!newData.primaryColor) newData.primaryColor = "#0d6e4c";
         if (!newData.secondaryColor) newData.secondaryColor = "#25D366";
+      }
+
+      // Auto-migrate Founder Letter
+      if (newData.founderLetter && typeof newData.founderLetter === 'object' && !parentKey) {
+        if (!newData.founderLetter.founderName) newData.founderLetter.founderName = "Fazil Karatt";
+        if (!newData.founderLetter.founderRole) newData.founderLetter.founderRole = "Founder & CEO";
+        if (!newData.founderLetter.founderImage) newData.founderLetter.founderImage = "/Hizana-Web-61-768x768.webp";
+        if (!newData.founderLetter.title) newData.founderLetter.title = "Dear Fellow Job Seeker,";
+        if (!newData.founderLetter.signature) newData.founderLetter.signature = "Welcome to QBay Career.";
+        if (!newData.founderLetter.linkedinUrl) newData.founderLetter.linkedinUrl = "https://www.linkedin.com/in/fazil-karatt/";
+        if (!newData.founderLetter.instagramUrl) newData.founderLetter.instagramUrl = "https://www.instagram.com/fazil_karat/";
+      }
+
+      // Auto-migrate Founder Quote
+      if (newData.founderQuote && typeof newData.founderQuote === 'object' && !parentKey) {
+        if (!newData.founderQuote.name) newData.founderQuote.name = "Fazil Karatt";
+        if (!newData.founderQuote.role) newData.founderQuote.role = "Founder & CEO";
+        if (!newData.founderQuote.image) newData.founderQuote.image = "/Hizana-Web-61-768x768.webp";
+        if (!newData.founderQuote.quote) newData.founderQuote.quote = "Put your energy into interview preparation, we'll take care of the applications for you.";
+        if (!newData.founderQuote.trustedText) newData.founderQuote.trustedText = "Trusted by 110k job seekers";
+        if (!newData.founderQuote.linkedinUrl) newData.founderQuote.linkedinUrl = "https://www.linkedin.com/in/fazil-karatt/";
+        if (!newData.founderQuote.instagramUrl) newData.founderQuote.instagramUrl = "https://www.instagram.com/fazil_karat/";
       }
 
       // Legacy support for when popup was inside another object
