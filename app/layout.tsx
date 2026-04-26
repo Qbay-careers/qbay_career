@@ -9,21 +9,24 @@ const poppins = Poppins({
   subsets: ['latin'], 
   weight: ['300', '400', '500', '600', '700', '800', '900'], 
   style: ['normal', 'italic'],
-  variable: '--font-sans' 
+  variable: '--font-sans',
+  display: 'swap',
 });
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800', '900'],
   style: ['normal', 'italic'],
-  variable: '--font-playfair'
+  variable: '--font-playfair',
+  display: 'swap',
 });
 
 const instrument = Instrument_Serif({
   subsets: ['latin'],
   weight: ['400'],
   style: ['normal', 'italic'],
-  variable: '--font-instrument'
+  variable: '--font-instrument',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
