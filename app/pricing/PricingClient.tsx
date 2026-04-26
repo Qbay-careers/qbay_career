@@ -505,9 +505,12 @@ export default function PricingClient({
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {trustpilotData.map((review: any, idx: number) => (
-              <div 
+              <a 
                 key={idx} 
-                className="block bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300"
+                href="https://www.trustpilot.com/review/qbaycareer.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block bg-white rounded-2xl p-6 border border-gray-100 hover:border-[#00B67A]/50 transition-all duration-300 shadow-sm hover:shadow-xl hover:scale-[1.02] cursor-pointer group"
               >
                 <div className="flex items-center gap-1 mb-4">
                   {[...Array(Math.floor(Number(review.rating || 5)))].map((_, i) => (
@@ -520,7 +523,7 @@ export default function PricingClient({
                   <span className="font-bold text-[#2D1B4D]">{review.name}</span>
                   <span className="text-gray-400">{review.time}</span>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </div>
