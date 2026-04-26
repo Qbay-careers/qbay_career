@@ -27,21 +27,27 @@ const instrument = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: 'QBay Careers',
-  description: 'QBay Careers website',
+  title: 'QBay Careers – #1 Career Consultant for Indians in UK & Ireland',
+  description: 'QBay Career is the best career consultant for Indian and Malayali professionals in the UK and Ireland. We handle job applications, CV writing, interview coaching, and visa-sponsored roles.',
+  keywords: 'career consultant UK, Malayali career consultant, Indian career consultant Ireland, UK visa sponsored jobs, CV writing UK, interview coaching UK, QBay Career',
   icons: {
-    icon: '/cropped-Adobe_Express_-_file-removebg-preview-32x32.png',
-    shortcut: '/cropped-Adobe_Express_-_file-removebg-preview-192x192.png',
-    apple: '/cropped-Adobe_Express_-_file-removebg-preview-180x180.png',
+    icon: [
+      { url: '/cropped-Adobe_Express_-_file-removebg-preview-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/cropped-Adobe_Express_-_file-removebg-preview-192x192.png', sizes: '192x192', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/cropped-Adobe_Express_-_file-removebg-preview-180x180.png', sizes: '180x180', type: 'image/png' },
+    ],
+    shortcut: '/cropped-Adobe_Express_-_file-removebg-preview-32x32.png',
   },
   openGraph: {
-    title: 'QBay Careers',
-    description: 'QBay Careers website',
-    url: 'https://qbaycareers.com',
+    title: 'QBay Careers – #1 Career Consultant for Indians in UK & Ireland',
+    description: 'QBay Career is not just another service. It is a consultancy created for Indian and Malayali professionals who want to build strong and meaningful careers in the UK and Ireland.',
+    url: 'https://qbaycareer.com',
     siteName: 'QBay Careers',
     images: [
       {
-        url: '/cropped-Adobe_Express_-_file-removebg-preview-300x300.png',
+        url: 'https://qbaycareer.com/cropped-Adobe_Express_-_file-removebg-preview-300x300.png',
         width: 300,
         height: 300,
         alt: 'QBay Careers Logo',
@@ -50,7 +56,14 @@ export const metadata: Metadata = {
     locale: 'en_US',
     type: 'website',
   },
+  twitter: {
+    card: 'summary',
+    title: 'QBay Careers – #1 Career Consultant for Indians in UK & Ireland',
+    description: 'QBay Career helps Indian and Malayali professionals land jobs in the UK and Ireland through expert CV writing, interview coaching, and job applications.',
+    images: ['https://qbaycareer.com/cropped-Adobe_Express_-_file-removebg-preview-300x300.png'],
+  },
 };
+
 
 export default function RootLayout({
   children,
