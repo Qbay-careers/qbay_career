@@ -1876,26 +1876,6 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                   <h4 className="text-3xl md:text-4xl font-script text-purple-700 mb-1">{founderData.name}</h4>
                   <div className="flex items-center gap-3">
                     <p className="text-sm font-bold text-[#A09688] tracking-widest uppercase">{founderData.role}</p>
-                    <div className="flex items-center gap-2 border-l border-slate-200 pl-3">
-                      <a 
-                        href={founderData.linkedin} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="p-1.5 rounded-full bg-[#0077b5]/10 text-[#0077b5] hover:bg-[#0077b5] hover:text-white transition-all duration-300"
-                        title="LinkedIn"
-                      >
-                        <Linkedin size={14} />
-                      </a>
-                      <a 
-                        href={founderData.instagram} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="p-1.5 rounded-full bg-[#E4405F]/10 text-[#E4405F] hover:bg-[#E4405F] hover:text-white transition-all duration-300"
-                        title="Instagram"
-                      >
-                        <Instagram size={14} />
-                      </a>
-                    </div>
                   </div>
                 </div>
               </div>
