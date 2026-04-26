@@ -38,13 +38,29 @@ import {
 } from './homeData';
 
 
-// Helper to map YouTube URLs to video objects with extracted IDs and thumbnails
-const mapYoutubeUrls = (urls: any[], quality: 'hqdefault' | 'maxresdefault' = 'hqdefault') => {
+// Helper to map video URLs to objects with extracted IDs and thumbnails
+const mapVideoUrls = (urls: any[], quality: 'hqdefault' | 'maxresdefault' = 'hqdefault') => {
   if (!Array.isArray(urls)) return [];
   return urls
     .map((url) => {
       if (typeof url !== 'string') return null;
-      // Robust regex for both shorts and regular videos
+
+      // Handle Cloudinary URLs
+      if (url.includes('cloudinary.com')) {
+        // Example: https://res.cloudinary.com/demo/video/upload/v123456789/video.mp4
+        // To get a thumbnail, replace /video/upload/ with /video/upload/so_auto/ and .mp4 with .jpg
+        const thumbnail = url
+          .replace(/\/video\/upload\//, '/video/upload/f_auto,q_auto,so_auto/')
+          .replace(/\.[^/.]+$/, '.jpg');
+        return {
+          id: url,
+          url,
+          thumbnail,
+          isCloudinary: true
+        };
+      }
+
+      // Robust regex for both shorts and regular YouTube videos
       const match = url.match(/(?:shorts\/|v=|\/)([a-zA-Z0-9_-]{11})/);
       const id = match?.[1];
       if (!id) return null;
@@ -52,9 +68,10 @@ const mapYoutubeUrls = (urls: any[], quality: 'hqdefault' | 'maxresdefault' = 'h
         id,
         url,
         thumbnail: `https://i.ytimg.com/vi/${id}/${quality}.jpg`,
+        isCloudinary: false
       };
     })
-    .filter((s): s is { id: string; url: string; thumbnail: string } => Boolean(s));
+    .filter((s): s is { id: string; url: string; thumbnail: string; isCloudinary: boolean } => Boolean(s));
 };
 
 
@@ -212,7 +229,10 @@ export default function HomeClient({ initialData }: { initialData: any }) {
   const frameworkPhases = getFrameworkPhases() as typeof defaultFrameworkPhases;
   const clientTestimonials = getClientTestimonials() as typeof defaultClientTestimonials;
   const audioReviewsData = cmsData?.audioReviews || defaultAudioReviews;
-  const trustpilotData = cmsData?.trustpilotReviews || defaultTrustpilotReviews;
+  const trustpilotDataObj = cmsData?.trustpilotReviews || { title: 'Excellent on Trustpilot', rating: 5, reviews: defaultTrustpilotReviews };
+  const trustpilotData = Array.isArray(trustpilotDataObj) ? trustpilotDataObj : (trustpilotDataObj.reviews || []);
+  const trustpilotRating = typeof trustpilotDataObj === 'object' && !Array.isArray(trustpilotDataObj) ? (trustpilotDataObj.rating || 5) : 5;
+  const trustpilotTitle = typeof trustpilotDataObj === 'object' && !Array.isArray(trustpilotDataObj) ? (trustpilotDataObj.title || 'Excellent on Trustpilot') : 'Excellent on Trustpilot';
   const faqData = getFaqData() as typeof defaultFaqData;
   const heroImages = (() => {
     const cms = Array.isArray(cmsData?.hero?.images) ? cmsData.hero.images : [];
@@ -224,7 +244,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
   
   // Custom badge content for Trustpilot, Gov Approved, 90-Day Calls, 100k+ Helped, and Globe/countries replacement
   const badgeContent = (badge: string, idx: number) => {
-    if (badge === '4.8 Trustpilot') {
+    if (badge.toLowerCase().includes('trustpilot')) {
       return (
         <div className="flex items-center gap-2">
           <img 
@@ -358,7 +378,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
     ? testimonialsCms.testimonialGrid.videoUrls 
     : (Array.isArray(testimonialsCms) ? testimonialsCms : testimonialShortUrls);
   
-  const testimonialShortsData = mapYoutubeUrls(gridUrls, 'maxresdefault');
+  const testimonialShortsData = mapVideoUrls(gridUrls, 'maxresdefault');
   const testimonialsGridTitle = testimonialsCms.testimonialGrid?.title || 'Real Results. Real Stories.';
 
   // 2. Animated Shorts (Carousel section)
@@ -367,7 +387,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
     ? testimonialsCms.animatedShorts.videoUrls
     : youtubeShortUrls;
     
-  const youtubeShortsData = mapYoutubeUrls(carouselUrls, 'hqdefault');
+  const youtubeShortsData = mapVideoUrls(carouselUrls, 'hqdefault');
 
   const servicesList = (Array.isArray(cmsData?.services) ? cmsData.services : [
     {
@@ -435,6 +455,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
   const [activePhase, setActivePhase] = useState(0);
   const [expandedReviewId, setExpandedReviewId] = useState<number | null>(null);
   const [selectedReviewForModal, setSelectedReviewForModal] = useState<any | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<any | null>(null);
   const resultsScrollRef = useRef<HTMLDivElement>(null);
   const testimonialScrollRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -1034,48 +1055,92 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      <section id="testimonials" className="bg-[#F9F5FF] py-24 scroll-mt-24 pb-40">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-16">
-          <h2 className="text-4xl font-bold text-[#2D1B4D] text-center sm:text-5xl">
-            {testimonialsGridTitle}
-          </h2>
-        </div>
+      <section id="testimonials" className="bg-[#F9F5FF] py-24 scroll-mt-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">
+              {testimonialsGridTitle}
+            </h2>
+            <p className="text-lg text-slate-600 font-medium">
+              Watch real stories from candidates who transformed their careers.
+            </p>
+          </div>
 
-        <div className="w-full overflow-hidden relative">
-          <div 
-            ref={testimonialScrollRef}
-            onMouseEnter={() => setIsTestimonialPaused(true)}
-            onMouseLeave={() => setIsTestimonialPaused(false)}
-            className="flex gap-6 overflow-x-auto pb-12 scrollbar-hide px-4 md:px-0"
-          >
-            {testimonialShortsData.map((video, idx) => (
-                <a
-                  key={video.id + idx}
-                  href={video.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="relative w-[220px] aspect-[9/16] flex-shrink-0 rounded-[2.2rem] overflow-hidden bg-gray-900 shadow-2xl group cursor-pointer block"
-                >
-                  <img
-                    src={video.thumbnail}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    alt="Testimonial"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-red-600 text-white shadow-2xl transition-transform duration-300 group-hover:scale-110">
-                      <Play className="h-7 w-7 fill-current" />
-                    </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+            {testimonialShortsData.slice(0, 4).map((video: any, idx: number) => (
+              <div
+                key={video.id + idx}
+                onClick={() => setSelectedVideo(video)}
+                className="group relative aspect-[9/16] rounded-2xl overflow-hidden bg-gray-900 shadow-xl cursor-pointer transform-gpu transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
+              >
+                <img
+                  src={video.thumbnail}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  alt={`Success Story ${idx + 1}`}
+                  loading="lazy"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    if (video.isCloudinary) {
+                        target.src = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=400";
+                    }
+                  }}
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white border border-white/30 shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:bg-red-600 group-hover:border-red-500">
+                    <Play className="h-8 w-8 fill-current" />
                   </div>
-                </a>
+                </div>
+                <div className="absolute bottom-6 left-6 right-6">
+                  <div className="h-1 w-full bg-white/20 rounded-full overflow-hidden">
+                    <div className="h-full bg-white w-0 group-hover:w-full transition-all duration-1000 ease-out" />
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
-          
-          {/* Fade overlays for the edges */}
-          <div className="absolute top-0 bottom-0 left-0 w-32 bg-gradient-to-r from-[#F9F5FF] to-transparent z-10 pointer-events-none" />
-          <div className="absolute top-0 bottom-0 right-0 w-32 bg-gradient-to-l from-[#F9F5FF] to-transparent z-10 pointer-events-none" />
         </div>
       </section>
+
+      {/* Video Player Modal */}
+      {selectedVideo && (
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-black/90 backdrop-blur-sm"
+          onClick={() => setSelectedVideo(null)}
+        >
+          <div 
+            className="relative w-full max-w-4xl max-h-[90vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setSelectedVideo(null)}
+              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors z-10"
+            >
+              <X className="w-8 h-8" />
+            </button>
+            
+            {selectedVideo.isCloudinary ? (
+              <video
+                src={selectedVideo.url}
+                controls
+                autoPlay
+                className="w-full h-auto max-h-[85vh] rounded-2xl"
+              >
+                Your browser does not support the video tag.
+              </video>
+            ) : (
+              <div className="relative w-full aspect-[9/16] max-h-[85vh] rounded-2xl overflow-hidden">
+                <iframe
+                  src={`https://www.youtube.com/embed/${selectedVideo.id}?autoplay=1&rel=0`}
+                  className="w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       <section id="results" className="bg-white py-20 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -1181,31 +1246,43 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       </section>
 
       {/* Trustpilot Reviews Section */}
-      <section id="trustpilot-reviews" className="bg-[#1C1C28] py-24 scroll-mt-24 text-white">
+      <section id="trustpilot-reviews" className="bg-white py-24 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold">Excellent on Trustpilot</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#2D1B4D]">{trustpilotTitle}</h2>
             <div className="flex items-center gap-1">
-              {[...Array(5)].map((_, i) => (
+              {[...Array(Math.floor(Number(trustpilotRating)))].map((_, i) => (
                 <div key={i} className="bg-[#00B67A] p-1.5 rounded-sm"><Star className="w-5 h-5 fill-white text-white" /></div>
               ))}
+              {Number(trustpilotRating) % 1 !== 0 && (
+                <div className="bg-[#00B67A] p-1.5 rounded-sm relative overflow-hidden">
+                  <Star className="w-5 h-5 fill-white text-white" />
+                  <div className="absolute inset-0 bg-gray-200 translate-x-[50%]" />
+                </div>
+              )}
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {trustpilotData.map((review: any, idx: number) => (
-              <div key={idx} className="bg-[#262635] rounded-xl p-6 border border-white/5 hover:border-[#00B67A]/50 transition-colors">
+              <a 
+                key={idx} 
+                href="https://www.trustpilot.com/review/qbaycareer.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block bg-white rounded-2xl p-6 border border-gray-100 hover:border-[#00B67A]/50 transition-all duration-300 shadow-sm hover:shadow-xl hover:scale-[1.02] cursor-pointer group"
+              >
                 <div className="flex items-center gap-1 mb-4">
-                  {[...Array(review.rating || 5)].map((_, i) => (
+                  {[...Array(Math.floor(Number(review.rating || 5)))].map((_, i) => (
                     <div key={i} className="bg-[#00B67A] p-1 rounded-sm"><Star className="w-3 h-3 fill-white text-white" /></div>
                   ))}
                 </div>
-                <h3 className="font-bold text-white text-lg mb-3">{review.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed mb-6">{review.content}</p>
-                <div className="flex justify-between items-center text-xs">
-                  <span className="font-medium text-white">{review.name}</span>
-                  <span className="text-gray-500">{review.time}</span>
+                <h3 className="font-bold text-[#2D1B4D] text-lg mb-3 group-hover:text-[#00B67A] transition-colors">{review.title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed mb-6">{review.content}</p>
+                <div className="flex justify-between items-center text-xs border-t border-gray-50 pt-4">
+                  <span className="font-bold text-[#2D1B4D]">{review.name}</span>
+                  <span className="text-gray-400">{review.time}</span>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </div>
@@ -1267,7 +1344,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                   <div className="mt-8 pt-6 border-t border-purple-100/50 flex items-center justify-between">
                     <div className="flex items-center gap-1">
                       {[1, 2, 3, 4, 5].map((star) => (
-                        <Star key={star} className={`w-4 h-4 ${star <= (testimonial.rating || 5) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200'}`} />
+                        <Star key={star} className={`w-4 h-4 ${star <= Number(testimonial.rating || 5) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200'}`} />
                       ))}
                     </div>
                   </div>
