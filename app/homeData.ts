@@ -48,29 +48,75 @@ export const defaultFrameworkPhases = [
 
 export const defaultClientTestimonials = [
   {
-    name: 'Sophia Martinez',
-    role: 'UX Designer',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150',
-    content:
-      'Balancing work and job applications was exhausting. Each application felt repetitive and draining. I almost gave up after weeks of no responses. But once I got structured support and a smarter strategy, everything changed. Within weeks, interviews started lining up. The clarity and consistency made all the difference. I finally felt confident and supported throughout the process.',
-    rating: 5,
+    name: 'Melissa Grabiner',
+    followers: '387K+ followers',
+    title: '#1 HR LinkedIn Creator in US',
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600&h=800',
+    description: 'scale.jobs is more than just a job board. It\'s a comprehensive platform that understands the struggles of job seekers and provides real solutions.',
+    socialLinks: [
+      { platform: 'linkedin', url: 'https://linkedin.com' },
+      { platform: 'instagram', url: 'https://instagram.com' }
+    ],
+    actionLink: { label: 'View LinkedIn Post', url: '#' }
   },
   {
-    name: 'Daniel Brooks',
-    role: 'Marketing Analyst',
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=150&h=150',
-    content:
-      'Moving to a new country meant starting from scratch. I didn\'t understand how the hiring process worked here. Applications went unanswered and I felt stuck. After getting guidance and optimizing my approach, I started seeing real traction. Recruiters began reaching out. In just one month, I secured multiple offers and negotiated a better package than I expected.',
-    rating: 5,
+    name: 'Harnoor Singh',
+    followers: '1.3M+ followers',
+    title: '#1 Tech Career Creator',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=600&h=800',
+    description: 'I\'ve tried many career platforms, but the level of detail and support at scale.jobs is unmatched. It\'s the only tool I recommend to my community.',
+    socialLinks: [
+      { platform: 'youtube', url: 'https://youtube.com' },
+      { platform: 'instagram', url: 'https://instagram.com' }
+    ],
+    actionLink: { label: 'View YouTube Review', url: '#' }
   },
   {
-    name: 'Emily Chen',
-    role: 'Software Developer',
-    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150',
-    content:
-      'After facing a sudden layoff, I had limited time to secure a new role. The pressure was intense. Instead of applying randomly, I followed a focused and aggressive strategy. The results were unbelievable. Within four weeks, I received three strong offers and increased my salary significantly. The support system kept me motivated and organized.',
-    rating: 5,
+    name: 'Soundarya B.',
+    followers: '150K+ followers',
+    title: '#1 LinkedIn Creator',
+    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=600&h=800',
+    description: 'The strategy at scale.jobs is fundamentally different from anything else. They focus on what actually works in today\'s competitive job market.',
+    socialLinks: [
+      { platform: 'linkedin', url: 'https://linkedin.com' },
+      { platform: 'youtube', url: 'https://youtube.com' }
+    ],
+    actionLink: { label: 'View LinkedIn Post', url: '#' }
   },
+  {
+    name: 'Will McTighe',
+    followers: '192K+ followers',
+    title: '#1 Career Tech Creator',
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=600&h=800',
+    description: 'If you are serious about landing a high-paying role, you need a system. scale.jobs provides that system better than any other service.',
+    socialLinks: [
+      { platform: 'linkedin', url: 'https://linkedin.com' }
+    ],
+    actionLink: { label: 'View LinkedIn Post', url: '#' }
+  },
+  {
+    name: 'Sanjeev Sriram',
+    followers: '150K+ followers',
+    title: '#1 Job Hunting Creator',
+    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=600&h=800',
+    description: 'The end-to-end support provided by scale.jobs is exactly what immigrant professionals need to succeed in new markets.',
+    socialLinks: [
+      { platform: 'linkedin', url: 'https://linkedin.com' }
+    ],
+    actionLink: { label: 'View LinkedIn Post', url: '#' }
+  },
+  {
+    name: 'Pritesh Jagani',
+    followers: '400K+ followers',
+    title: '#1 Interview Prep Creator',
+    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=600&h=800',
+    description: 'Mastering interviews is half the battle. scale.jobs ensures you get the interviews first, and then gives you the tools to crack them.',
+    socialLinks: [
+      { platform: 'linkedin', url: 'https://linkedin.com' },
+      { platform: 'youtube', url: 'https://youtube.com' }
+    ],
+    actionLink: { label: 'View LinkedIn Post', url: '#' }
+  }
 ];
 
 export const defaultAudioReviews = [

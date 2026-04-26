@@ -102,7 +102,7 @@ const sections = [
     { id: 'framework', label: 'Framework', description: 'The 5-phase career success steps.' },
     { id: 'results', label: 'WhatsApp Results', description: 'Success story images and social proof.' },
     { id: 'testimonials', label: 'Video Shorts', description: 'YouTube shorts and video testimonials.' },
-    { id: 'clientLove', label: 'Client Reviews', description: 'Detailed customer testimonials and ratings.' },
+    { id: 'clientLove', label: 'Trusted Influencers', description: 'Manage influencers and experts who endorse your platform.' },
     { id: 'trustpilotReviews', label: 'Trustpilot', description: 'Trustpilot ratings, names, and reviews.' },
     { id: 'audioReviews', label: 'Audio Testimonials', description: 'Audio success stories, roles, and flags.' },
     { id: 'negativeReviews', label: 'Negative Reviews', description: 'Glaringly painful 1-star reviews and founder replies.' },
@@ -400,17 +400,39 @@ export default function AdminDashboard() {
         newData.blog = DEFAULT_BLOG_POSTS;
       }
 
-      // Auto-migrate Client Love Ratings
+      // Auto-migrate Trusted Influencers (formerly Client Love)
       if (newData.clientLove && typeof newData.clientLove === 'object') {
         const items = Array.isArray(newData.clientLove) ? newData.clientLove : (newData.clientLove.testimonials || []);
         if (Array.isArray(items)) {
-          items.forEach((item: any) => {
-            if (item.rating === undefined) item.rating = 5;
-          });
+          const migratedItems = items.map((item: any) => ({
+            ...item,
+            followers: item.followers || "100K+ followers",
+            title: item.title || item.role || "Career Expert",
+            description: item.description || item.content || "Expert in helping job seekers land their dream roles.",
+            socialLinks: item.socialLinks || [
+              { platform: 'youtube', url: 'https://youtube.com' },
+              { platform: 'instagram', url: 'https://instagram.com' },
+              { platform: 'linkedin', url: 'https://linkedin.com' }
+            ],
+            actionLink: item.actionLink || { label: 'View LinkedIn Post', url: 'https://linkedin.com' }
+          }));
+
           if (!Array.isArray(newData.clientLove) && newData.clientLove.testimonials) {
-            newData.clientLove.testimonials = items;
-          } else if (Array.isArray(newData.clientLove)) {
-            newData.clientLove = items;
+            newData.clientLove.testimonials = migratedItems;
+            
+            // Proactively replace old headings/descriptions
+            if (!newData.clientLove.title || newData.clientLove.title === 'Love Letters from our Clients') {
+              newData.clientLove.title = 'Trusted by People You Trust';
+            }
+            if (!newData.clientLove.subtitle || newData.clientLove.subtitle.includes('students and parents')) {
+              newData.clientLove.subtitle = 'See why top influencers endorse scale.jobs as the smartest way to land your next role.';
+            }
+          } else {
+            newData.clientLove = {
+              title: 'Trusted by People You Trust',
+              subtitle: 'See why top influencers endorse scale.jobs as the smartest way to land your next role.',
+              testimonials: migratedItems
+            };
           }
         }
       }
@@ -744,7 +766,19 @@ export default function AdminDashboard() {
         }
       };
     } else if (activeSubSection === 'clientLove') {
-      template = { name: "New Client", role: "Job Seeker", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150", content: "Write the feedback here...", rating: 5 };
+      template = { 
+        name: "New Influencer", 
+        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=600&h=800", 
+        followers: "150K+ followers",
+        title: "#1 Career Expert on LinkedIn",
+        description: "Helping thousands of professionals navigate their global career journey.",
+        socialLinks: [
+          { platform: 'youtube', url: '' },
+          { platform: 'instagram', url: '' },
+          { platform: 'linkedin', url: '' }
+        ],
+        actionLink: { label: 'View LinkedIn Post', url: '' }
+      };
     } else if (activeSubSection === 'negativeReviews') {
       template = { name: "New Reviewer", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150", title: "Review Title", content: "Negative review content...", date: "Jan 2026", reply: "Our professional response...", rating: 1 };
     } else if (activeSubSection === 'results') {

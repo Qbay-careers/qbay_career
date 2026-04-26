@@ -2,9 +2,21 @@
 
 import QBayNavbar from '@/components/QBayNavbar';
 import QBayFooter from '@/components/QBayFooter';
-import { Check, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
+import { Check, ChevronDown, ChevronUp, Sparkles, Play, Pause, Star, Maximize, X } from 'lucide-react';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+
+const defaultAudioReviews = [
+  { name: 'David L.', role: 'UX Designer', title: 'Secured a role at a top agency', duration: '1:24', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', flag: 'https://flagcdn.com/w80/gb.png' },
+  { name: 'Anita P.', role: 'Marketing Lead', title: 'Got my UK visa sponsored job', duration: '0:58', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', flag: 'https://flagcdn.com/w80/ie.png' },
+  { name: 'John D.', role: 'Cloud Architect', title: 'Negotiated a 30% salary bump', duration: '2:15', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', flag: 'https://flagcdn.com/w80/in.png' }
+];
+
+const defaultTrustpilotReviews = [
+  { name: 'James W.', title: 'Outstanding support from start to finish', content: 'They guided me through every step of the process. I landed a senior role faster than I expected.', rating: 5, time: '4 days ago' },
+  { name: 'Emily C.', title: 'Best career investment', content: 'Worth every penny. The 1:1 coaching gave me the confidence I lacked during technical interviews.', rating: 5, time: '2 weeks ago' },
+  { name: 'Rahul M.', title: 'Highly professional and effective', content: 'Their market insights are brilliant. I secured two competing offers thanks to their negotiation coaching.', rating: 5, time: '1 month ago' }
+];
 
 const defaultPlans = [
   {
@@ -85,22 +97,82 @@ const defaultMonthlyPlan = {
   buttonLink: '#',
 };
 
-
-export default function PricingClient({ initialData }: { initialData: any }) {
-  const [cmsData, setCmsData] = useState<any>(initialData);
+export default function PricingClient({ 
+  initialPricingData, 
+  initialHomeData,
+  initialTrustpilotData,
+  initialAudioData
+}: { 
+  initialPricingData: any, 
+  initialHomeData: any,
+  initialTrustpilotData: any,
+  initialAudioData: any
+}) {
+  const [cmsData, setCmsData] = useState<any>(initialPricingData);
+  const [homeData, setHomeData] = useState<any>(initialHomeData);
+  const [trustpilotCms, setTrustpilotCms] = useState<any>(initialTrustpilotData);
+  const [audioCms, setAudioCms] = useState<any>(initialAudioData);
 
   useEffect(() => {
-    setCmsData(initialData);
-  }, [initialData]);
+    setCmsData(initialPricingData);
+    setHomeData(initialHomeData);
+    setTrustpilotCms(initialTrustpilotData);
+    setAudioCms(initialAudioData);
+  }, [initialPricingData, initialHomeData, initialTrustpilotData, initialAudioData]);
 
   const [timeWorth, setTimeWorth] = useState(20);
   const [timePerApp, setTimePerApp] = useState(10);
   const [openPolicy, setOpenPolicy] = useState<number | null>(0);
+
+  // Testimonials State
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [playingAudioIdx, setPlayingAudioIdx] = useState<number | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const resultsScrollRef = useRef<HTMLDivElement>(null);
+  const [isResultsPaused, setIsResultsPaused] = useState(false);
+
+  // Marquee Effect for WhatsApp Results
+  useEffect(() => {
+    const scrollContainer = resultsScrollRef.current;
+    if (!scrollContainer || isResultsPaused) return;
+
+    let animationFrameId: number;
+    const scroll = () => {
+      if (scrollContainer) {
+        scrollContainer.scrollLeft += 1;
+        if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
+          scrollContainer.scrollLeft = 0;
+        }
+      }
+      animationFrameId = requestAnimationFrame(scroll);
+    };
+
+    animationFrameId = requestAnimationFrame(scroll);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [isResultsPaused]);
+
+  const toggleAudio = (idx: number, url: string) => {
+    if (playingAudioIdx === idx) {
+      audioRef.current?.pause();
+      setPlayingAudioIdx(null);
+    } else {
+      if (audioRef.current) {
+        audioRef.current.src = url;
+        audioRef.current.play();
+      } else {
+        const audio = new Audio(url);
+        audio.onended = () => setPlayingAudioIdx(null);
+        audio.play();
+        audioRef.current = audio;
+      }
+      setPlayingAudioIdx(idx);
+    }
+  };
   
   const totalHours = Math.round((1000 * timePerApp) / 60);
   const totalSaved = Math.round(totalHours * timeWorth);
 
-  // Mappings
+  // Pricing Mappings
   const header = cmsData?.header || {
     title: 'Choose The Best!',
     subtitle: 'Focus on building your career, not filling out forms.',
@@ -118,6 +190,25 @@ export default function PricingClient({ initialData }: { initialData: any }) {
     subtitle: 'You can cancel your plan anytime, no questions asked',
     policies: []
   };
+
+  // Home Mappings for Testimonials
+  const resultsData = homeData?.results || {};
+  const resultsTitle = resultsData.title || "The Proof is in the Results";
+  const resultsSubtitle = resultsData.subtitle || "Real candidate results, real interview calls, and real success stories.";
+  const resultsDescription = resultsData.description || "These aren't just screenshots; they are the results of our structured application system.";
+  const resultsImages = resultsData.images || [
+    { src: '/whatsapp-results/result-1.jpg', flag: 'https://flagcdn.com/w80/gb.png' },
+    { src: '/whatsapp-results/result-2.jpg', flag: 'https://flagcdn.com/w80/ie.png' },
+    { src: '/whatsapp-results/result-3.jpg', flag: 'https://flagcdn.com/w80/in.png' }
+  ];
+
+  // Logic to match HomeClient.tsx exactly
+  const audioReviewsData = audioCms || homeData?.audioReviews || defaultAudioReviews;
+  
+  const trustpilotDataObj = trustpilotCms || homeData?.trustpilotReviews || { title: 'Excellent on Trustpilot', rating: 5, reviews: defaultTrustpilotReviews };
+  const trustpilotData = Array.isArray(trustpilotDataObj) ? trustpilotDataObj : (trustpilotDataObj.reviews || []);
+  const trustpilotRating = typeof trustpilotDataObj === 'object' && !Array.isArray(trustpilotDataObj) ? (trustpilotDataObj.rating || 5) : 5;
+  const trustpilotTitle = typeof trustpilotDataObj === 'object' && !Array.isArray(trustpilotDataObj) ? (trustpilotDataObj.title || 'Excellent on Trustpilot') : 'Excellent on Trustpilot';
 
   return (
     <main className="min-h-screen bg-white font-sans selection:bg-purple-100">
@@ -292,6 +383,170 @@ export default function PricingClient({ initialData }: { initialData: any }) {
           </div>
         </div>
       </section>
+
+      {/* WhatsApp Results Section */}
+      <section id="results" className="bg-white py-20 scroll-mt-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <h2 className="text-4xl font-bold text-[#1A112B] sm:text-5xl">
+              {resultsTitle}
+            </h2>
+            <p className="mt-3 text-lg font-semibold text-gray-900">
+              {resultsSubtitle}
+            </p>
+            <p className="mt-3 text-sm text-gray-600 sm:text-base">
+              {resultsDescription}
+            </p>
+          </div>
+
+          <div className="relative overflow-hidden">
+            <div
+              ref={resultsScrollRef}
+              onMouseEnter={() => setIsResultsPaused(true)}
+              onMouseLeave={() => setIsResultsPaused(false)}
+              className="flex gap-4 overflow-x-auto pb-16 pt-10 scrollbar-hide perspective-[1000px] py-10"
+              style={{ perspective: '1200px' }}
+            >
+              {[...resultsImages, ...resultsImages].map((item, idx) => (
+                <div
+                  key={idx}
+                  className="min-w-[130px] w-[42vw] sm:w-[220px] flex-shrink-0 overflow-hidden rounded-2xl shadow-2xl border border-purple-100 bg-white cursor-pointer group transition-all duration-300 transform-gpu whatsapp-review-card will-change-transform"
+                  onClick={() => setSelectedImage(item.src)}
+                >
+                  <div className="relative">
+                    {item.flag && (
+                      <div className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full border-2 border-white overflow-hidden shadow-lg">
+                        <img src={item.flag} alt="Country flag" className="w-full h-full object-cover" />
+                      </div>
+                    )}
+                    <img
+                      src={item.src}
+                      alt={`Success story ${idx + 1}`}
+                      className="w-full h-[260px] sm:h-[340px] object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
+                      <div className="bg-white rounded-full p-2">
+                        <Maximize className="w-4 h-4 text-gray-900" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-14 bg-gradient-to-r from-white to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-14 bg-gradient-to-l from-white to-transparent" />
+          </div>
+        </div>
+      </section>
+
+      {/* Audio Reviews Section */}
+      <section id="audio-reviews" className="bg-[#FAF5FB] py-24 scroll-mt-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4 text-center">Hear their success stories</h2>
+            <p className="text-lg text-slate-600 text-center">Listen to real experiences from our candidates who cracked top-tier interviews.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {audioReviewsData.map((audio: any, idx: number) => (
+              <div key={idx} className="bg-white rounded-2xl p-4 border-2 border-purple-100/60 flex items-stretch gap-4 shadow-sm hover:shadow-lg transition-shadow group relative overflow-hidden">
+                <div className="w-[100px] h-[100px] flex-shrink-0">
+                  <img src={audio.avatar} alt={audio.name} className="w-full h-full rounded-xl object-cover" />
+                </div>
+                <div className="flex-1 flex flex-col py-0.5 justify-between min-w-0">
+                  <div className="absolute top-4 right-4 w-8 h-8 rounded-full border border-gray-100 overflow-hidden shadow-sm bg-gray-50">
+                    <img src={audio.flag} alt="Country flag" className="w-full h-full object-cover" />
+                  </div>
+                  <div className="pr-10 min-w-0 pt-2">
+                    <h3 className="font-extrabold text-[#2D1B4D] text-lg leading-tight mb-1 truncate">{audio.name}</h3>
+                    <p className="text-sm font-bold text-violet-600 truncate">{audio.role || audio.title}</p>
+                  </div>
+                  <div className="flex items-center gap-3 mt-3">
+                    <button 
+                      onClick={() => toggleAudio(idx, audio.audioUrl)}
+                      className={`w-10 h-10 rounded-full border-2 flex items-center justify-center transition-colors ${
+                        playingAudioIdx === idx ? 'border-purple-600 bg-purple-600 text-white shadow-md' : 'border-violet-600 text-violet-600 hover:bg-violet-600 hover:text-white'
+                      }`}
+                    >
+                      {playingAudioIdx === idx ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 ml-0.5 fill-current" />}
+                    </button>
+                    <div className="flex-1 flex items-center gap-1 h-5 overflow-hidden">
+                      {[30, 60, 40, 80, 50, 90, 70, 40, 60, 100, 80, 50, 40, 60].map((h, i) => (
+                        <div 
+                          key={i} 
+                          className={`w-1 rounded-full transition-all duration-300 ${playingAudioIdx === idx ? 'bg-purple-600 animate-pulse' : 'bg-violet-600 opacity-60'}`} 
+                          style={{ height: playingAudioIdx === idx ? `${Math.max(20, h + (Math.sin(i) * 20))}%` : `${h}%` }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Trustpilot Reviews Section */}
+      <section id="trustpilot-reviews" className="bg-white py-24 scroll-mt-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16 text-center md:text-left">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#2D1B4D]">{trustpilotTitle}</h2>
+            <div className="flex items-center gap-1">
+              {[...Array(Math.floor(Number(trustpilotRating)))].map((_, i) => (
+                <div key={i} className="bg-[#00B67A] p-1.5 rounded-sm"><Star className="w-5 h-5 fill-white text-white" /></div>
+              ))}
+              {Number(trustpilotRating) % 1 !== 0 && (
+                <div className="bg-[#00B67A] p-1.5 rounded-sm relative overflow-hidden">
+                  <Star className="w-5 h-5 fill-white text-white" />
+                  <div className="absolute inset-0 bg-gray-200 translate-x-[50%]" />
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {trustpilotData.map((review: any, idx: number) => (
+              <div 
+                key={idx} 
+                className="block bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300"
+              >
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(Math.floor(Number(review.rating || 5)))].map((_, i) => (
+                    <div key={i} className="bg-[#00B67A] p-1 rounded-sm"><Star className="w-3 h-3 fill-white text-white" /></div>
+                  ))}
+                </div>
+                <h3 className="font-bold text-[#2D1B4D] text-lg mb-3">{review.title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed mb-6">{review.content}</p>
+                <div className="flex justify-between items-center text-xs border-t border-gray-50 pt-4">
+                  <span className="font-bold text-[#2D1B4D]">{review.name}</span>
+                  <span className="text-gray-400">{review.time}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Image Popup Modal */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative max-w-4xl max-h-[90vh]" onClick={e => e.stopPropagation()}>
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
+            >
+              <X className="w-8 h-8" />
+            </button>
+            <img
+              src={selectedImage}
+              alt="Success story"
+              className="max-w-full max-h-[85vh] object-contain rounded-2xl shadow-2xl"
+            />
+          </div>
+        </div>
+      )}
 
       {/* ROI Calculator Section */}
       <section className="bg-white py-24 px-4 overflow-hidden">

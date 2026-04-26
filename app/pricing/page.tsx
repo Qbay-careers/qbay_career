@@ -10,17 +10,24 @@ export const metadata: Metadata = {
 };
 
 export default async function PricingPage() {
-  const { data, error } = await supabase
-    .from('cms_content')
-    .select('content')
-    .eq('key', 'pricing')
-    .single();
+  const [pricingRes, homeRes, trustpilotRes, audioRes] = await Promise.all([
+    supabase.from('cms_content').select('content').eq('key', 'pricing').single(),
+    supabase.from('cms_content').select('content').eq('key', 'home').single(),
+    supabase.from('cms_content').select('content').eq('key', 'trustpilotReviews').single(),
+    supabase.from('cms_content').select('content').eq('key', 'audioReviews').single()
+  ]);
 
-  if (error) {
-    console.error('Error fetching pricing data on server:', error);
-  }
+  const initialPricingData = pricingRes.data?.content || {};
+  const initialHomeData = homeRes.data?.content || {};
+  const trustpilotData = trustpilotRes.data?.content || null;
+  const audioData = audioRes.data?.content || null;
 
-  const initialData = data?.content || {};
-
-  return <PricingClient initialData={initialData} />;
+  return (
+    <PricingClient 
+      initialPricingData={initialPricingData} 
+      initialHomeData={initialHomeData}
+      initialTrustpilotData={trustpilotData}
+      initialAudioData={audioData}
+    />
+  );
 }
