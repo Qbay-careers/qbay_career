@@ -3,7 +3,7 @@ import ServiceLayout from '@/components/ServiceLayout';
 import { services as defaultServices } from '@/data/services';
 import { notFound } from 'next/navigation';
 
-export const revalidate = 0; // Disable caching to fetch updated data instantly
+export const revalidate = 300; // Cache for 5 minutes — reduces serverless invocations significantly
 
 export default async function ServiceDetailPage({ params }: { params: { slug: string } }) {
   const { slug } = params;

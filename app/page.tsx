@@ -1,7 +1,7 @@
 import { supabase } from '@/lib/supabase';
 import HomeClient from './HomeClient';
 
-export const revalidate = 0; // Disable caching to fetch updated data instantly
+export const revalidate = 300; // Cache for 5 minutes — reduces serverless invocations significantly
 
 export default async function HomePage() {
   // Define relevant keys for the home page to avoid over-fetching

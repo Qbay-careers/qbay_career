@@ -2,7 +2,7 @@ import { supabase } from '@/lib/supabase';
 import PricingClient from './PricingClient';
 import { Metadata } from 'next';
 
-export const revalidate = 0; // Disable caching to fetch updated data instantly
+export const revalidate = 300; // Cache for 5 minutes — reduces serverless invocations significantly
 
 export const metadata: Metadata = {
   title: 'Pricing - QBay Careers',

@@ -61,9 +61,25 @@ export default function WallOfFame() {
   useEffect(() => {
     const fetchCmsData = async () => {
       try {
+        // Check sessionStorage cache first (5-minute TTL)
+        const CACHE_KEY = 'qbay_wof_cms';
+        const cached = sessionStorage.getItem(CACHE_KEY);
+        if (cached) {
+          try {
+            const { data: cachedData, ts } = JSON.parse(cached);
+            if (Date.now() - ts < 5 * 60 * 1000) {
+              setCmsData(cachedData);
+              setLoading(false);
+              return;
+            }
+          } catch { /* stale — fall through */ }
+        }
+
+        // Only fetch the 5 keys this page actually needs (not the entire table)
         const { data, error } = await supabase
           .from('cms_content')
-          .select('*');
+          .select('key, content')
+          .in('key', ['audioReviews', 'trustpilotReviews', 'testimonials', 'negativeReviews', 'home']);
 
         if (error) {
           console.error('Error fetching CMS data:', error);
@@ -73,6 +89,9 @@ export default function WallOfFame() {
             [item.key]: item.content
           }), {});
           setCmsData(dataMap);
+          try {
+            sessionStorage.setItem(CACHE_KEY, JSON.stringify({ data: dataMap, ts: Date.now() }));
+          } catch { /* sessionStorage unavailable — ignore */ }
         }
       } finally {
         setLoading(false);

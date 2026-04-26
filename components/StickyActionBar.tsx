@@ -21,6 +21,19 @@ export default function StickyActionBar() {
   useEffect(() => {
     async function fetchActionBar() {
       try {
+        // Check sessionStorage cache first (5-minute TTL) to avoid repeat Supabase calls
+        const CACHE_KEY = 'qbay_actionbar_cms';
+        const cached = sessionStorage.getItem(CACHE_KEY);
+        if (cached) {
+          try {
+            const { data: cachedData, ts } = JSON.parse(cached);
+            if (Date.now() - ts < 5 * 60 * 1000) {
+              setData(cachedData);
+              return;
+            }
+          } catch { /* stale or corrupt cache — fall through to fetch */ }
+        }
+
         const { data: cmsData, error } = await supabase
           .from('cms_content')
           .select('content')
@@ -30,6 +43,9 @@ export default function StickyActionBar() {
         if (error) throw error;
         if (cmsData?.content) {
           setData(cmsData.content);
+          try {
+            sessionStorage.setItem(CACHE_KEY, JSON.stringify({ data: cmsData.content, ts: Date.now() }));
+          } catch { /* sessionStorage unavailable — ignore */ }
         }
       } catch (err) {
         console.error('Error fetching action bar:', err);

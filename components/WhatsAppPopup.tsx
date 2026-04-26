@@ -12,6 +12,20 @@ export default function WhatsAppPopup() {
   useEffect(() => {
     const fetchSettings = async () => {
       try {
+        // Check sessionStorage cache first (5-minute TTL) to avoid repeat Supabase calls
+        const CACHE_KEY = 'qbay_popup_cms';
+        const cached = sessionStorage.getItem(CACHE_KEY);
+        if (cached) {
+          try {
+            const { data: cachedData, ts } = JSON.parse(cached);
+            if (Date.now() - ts < 5 * 60 * 1000) {
+              setCmsData(cachedData);
+              setLoading(false);
+              return;
+            }
+          } catch { /* stale or corrupt cache — fall through to fetch */ }
+        }
+
         const { data } = await supabase
           .from('cms_content')
           .select('content')
@@ -20,6 +34,9 @@ export default function WhatsAppPopup() {
         
         if (data?.content) {
           setCmsData(data.content);
+          try {
+            sessionStorage.setItem(CACHE_KEY, JSON.stringify({ data: data.content, ts: Date.now() }));
+          } catch { /* sessionStorage unavailable (e.g. private mode) — ignore */ }
         }
       } catch (err) {
         console.error('Failed to fetch popup settings:', err);
