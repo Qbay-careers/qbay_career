@@ -1163,39 +1163,81 @@ export default function HomeClient({ initialData }: { initialData: any }) {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            {testimonialShortsData.slice(0, 4).map((video: any, idx: number) => (
-              <div
-                key={video.id + idx}
-                onClick={() => setSelectedVideo(video)}
-                className="group relative aspect-[9/16] rounded-2xl overflow-hidden bg-gray-900 shadow-xl cursor-pointer transform-gpu transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
-              >
-                <img
-                  src={video.thumbnail}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  alt={`Success Story ${idx + 1}`}
-                  loading="lazy"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    if (video.isCloudinary) {
-                        target.src = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=400";
-                    }
-                  }}
-                />
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white border border-white/30 shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:bg-red-600 group-hover:border-red-500">
-                    <Play className="h-8 w-8 fill-current" />
+          {testimonialShortsData.length > 4 ? (
+            <div className="relative w-full overflow-hidden">
+              {/* Side fades for a smooth transition */}
+              <div className="absolute inset-y-0 left-0 w-12 sm:w-16 lg:w-24 bg-gradient-to-r from-[#F9F5FF] via-[#F9F5FF]/40 to-transparent z-20 pointer-events-none" />
+              <div className="absolute inset-y-0 right-0 w-12 sm:w-16 lg:w-24 bg-gradient-to-l from-[#F9F5FF] via-[#F9F5FF]/40 to-transparent z-20 pointer-events-none" />
+              
+              <div className="flex gap-6 lg:gap-8 animate-hero-scroll hover:[animation-play-state:paused] w-max px-4">
+                {[...testimonialShortsData, ...testimonialShortsData].map((video: any, idx: number) => (
+                  <div
+                    key={video.id + idx}
+                    onClick={() => setSelectedVideo(video)}
+                    className="group relative w-[180px] sm:w-[220px] lg:w-[260px] aspect-[9/16] rounded-2xl overflow-hidden bg-gray-900 shadow-xl cursor-pointer transform-gpu transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl shrink-0"
+                  >
+                    <img
+                      src={video.thumbnail}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      alt={`Success Story ${idx + 1}`}
+                      loading="lazy"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        if (video.isCloudinary) {
+                            target.src = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=400";
+                        }
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white border border-white/30 shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:bg-red-600 group-hover:border-red-500">
+                        <Play className="h-8 w-8 fill-current" />
+                      </div>
+                    </div>
+                    <div className="absolute bottom-6 left-6 right-6">
+                      <div className="h-1 w-full bg-white/20 rounded-full overflow-hidden">
+                        <div className="h-full bg-white w-0 group-hover:w-full transition-all duration-1000 ease-out" />
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="absolute bottom-6 left-6 right-6">
-                  <div className="h-1 w-full bg-white/20 rounded-full overflow-hidden">
-                    <div className="h-full bg-white w-0 group-hover:w-full transition-all duration-1000 ease-out" />
-                  </div>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+              {testimonialShortsData.map((video: any, idx: number) => (
+                <div
+                  key={video.id + idx}
+                  onClick={() => setSelectedVideo(video)}
+                  className="group relative aspect-[9/16] rounded-2xl overflow-hidden bg-gray-900 shadow-xl cursor-pointer transform-gpu transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl mx-auto w-full max-w-[260px]"
+                >
+                  <img
+                    src={video.thumbnail}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    alt={`Success Story ${idx + 1}`}
+                    loading="lazy"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      if (video.isCloudinary) {
+                          target.src = "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=400";
+                      }
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white border border-white/30 shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:bg-red-600 group-hover:border-red-500">
+                      <Play className="h-8 w-8 fill-current" />
+                    </div>
+                  </div>
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <div className="h-1 w-full bg-white/20 rounded-full overflow-hidden">
+                      <div className="h-full bg-white w-0 group-hover:w-full transition-all duration-1000 ease-out" />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

@@ -217,6 +217,8 @@ export const testimonialShortUrls = [
   'https://www.youtube.com/shorts/QV3SJoPKW7c',
   'https://www.youtube.com/shorts/-Wd2QXX1FI4',
   'https://www.youtube.com/shorts/Ci_6FOC_qNY',
+  'https://www.youtube.com/shorts/XZvQ73htuyk',
+  'https://www.youtube.com/shorts/Tv1rnZS-RKE',
 ];
 
 export const youtubeShortUrls = [
