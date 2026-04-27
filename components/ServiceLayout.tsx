@@ -22,6 +22,8 @@ import Link from 'next/link';
 import QBayNavbar from '@/components/QBayNavbar';
 import QBayFooter from '@/components/QBayFooter';
 
+import { defaultAudioReviews } from '@/app/homeData';
+
 const defaultPlans = [
   {
     name: 'Qbay Career Plan',
@@ -132,18 +134,12 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
   const whatsappScrollRef = useRef<HTMLDivElement>(null);
   const [isWhatsappPaused, setIsWhatsappPaused] = useState(false);
 
-  // Audio Review Defaults
-  const defaultAudioReviews = [
-    { name: 'David L.', role: 'UX Designer', title: 'Secured a role at a top agency', duration: '1:24', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', flag: 'https://flagcdn.com/w80/gb.png' },
-    { name: 'Anita P.', role: 'Marketing Lead', title: 'Got my UK visa sponsored job', duration: '0:58', avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', flag: 'https://flagcdn.com/w80/ie.png' },
-    { name: 'John D.', role: 'Cloud Architect', title: 'Negotiated a 30% salary bump', duration: '2:15', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3', flag: 'https://flagcdn.com/w80/in.png' },
-    { name: 'Rachel M.', role: 'Data Scientist', title: 'Moved from academia to tech', duration: '1:45', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3', flag: 'https://flagcdn.com/w80/gb.png' },
-  ];
+  // Audio Review Defaults come from homeData
 
-  const audioReviewsData = service.audioReviews || servicePageContent?.audioReviews || defaultAudioReviews;
+  const audioReviewsData = servicePageContent?.audioReviews || service.audioReviews || defaultAudioReviews;
 
   // WhatsApp Defaults
-  const resultsData = service.results || servicePageContent?.results || null;
+  const resultsData = servicePageContent?.results || service.results || null;
   const resultsImages = (() => {
     const defaultImages = [1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => ({
       src: `/testimonials/whatsapp${num}.jpeg`,
@@ -169,7 +165,7 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
         if (isImagePattern) urls.push(trimmed);
       } else if (val && typeof val === 'object' && !Array.isArray(val)) {
         Object.entries(val).forEach(([k, v]) => {
-          if (!['title', 'subtitle', 'heading', 'subHeading', 'description', 'text'].includes(k.toLowerCase())) scan(v);
+          if (!['title', 'subtitle', 'heading', 'subHeading', 'description', 'text', 'flag'].includes(k.toLowerCase())) scan(v);
         });
       } else if (Array.isArray(val)) val.forEach(scan);
     };

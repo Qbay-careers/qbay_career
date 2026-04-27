@@ -12,7 +12,7 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
   const { data, error } = await supabase
     .from('cms_content')
     .select('key, content')
-    .in('key', ['services', 'service_details_page', 'pricing']); // Fetch pricing data too
+    .in('key', ['services', 'service_details_page', 'pricing', 'home']); // Fetch home data to get testimonials
 
   if (error) {
     console.error('Error fetching CMS data:', error);
@@ -21,6 +21,16 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
   const servicesData = data?.find(item => item.key === 'services')?.content;
   const serviceDetailsData = data?.find(item => item.key === 'service_details_page')?.content || {};
   const pricingData = data?.find(item => item.key === 'pricing')?.content || {};
+  const homeData = data?.find(item => item.key === 'home')?.content || {};
+  
+  const globalResults = homeData.results;
+  const globalAudioReviews = homeData.audioReviews;
+
+  const mergedServiceContent = {
+    ...serviceDetailsData,
+    audioReviews: globalAudioReviews || serviceDetailsData.audioReviews,
+    results: globalResults || serviceDetailsData.results
+  };
 
   const cmsServices: any[] = Array.isArray(servicesData) ? servicesData : [];
 
@@ -36,5 +46,5 @@ export default async function ServiceDetailPage({ params }: { params: { slug: st
   }
 
   const pricingToUse = service.pricing || pricingData;
-  return <ServiceLayout service={service} servicePageContent={serviceDetailsData} pricingData={pricingToUse} />;
+  return <ServiceLayout service={service} servicePageContent={mergedServiceContent} pricingData={pricingToUse} />;
 }
