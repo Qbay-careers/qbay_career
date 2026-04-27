@@ -85,9 +85,7 @@
   .font-playfair {
     font-family: var(--font-playfair), serif;
   }
-  .font-instrument {
-    font-family: var(--font-instrument), serif;
-  }
+
   .font-plus-jakarta {
     font-family: var(--font-plus-jakarta), sans-serif;
   }

@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Poppins, Playfair_Display, Instrument_Serif, Plus_Jakarta_Sans } from 'next/font/google';
+import { Poppins, Playfair_Display, Plus_Jakarta_Sans } from 'next/font/google';
 import { Providers } from './providers';
 import StickyActionBar from '@/components/StickyActionBar';
 import WhatsAppPopup from '@/components/WhatsAppPopup';
@@ -21,13 +21,7 @@ const playfair = Playfair_Display({
   display: 'swap',
 });
 
-const instrument = Instrument_Serif({
-  subsets: ['latin'],
-  weight: ['400'],
-  style: ['normal', 'italic'],
-  variable: '--font-instrument',
-  display: 'swap',
-});
+
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -37,6 +31,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://qbaycareer.com'),
   title: 'QBay Careers – #1 Career Consultant for Indians in UK & Ireland',
   description: 'QBay Career is the best career consultant for Indian and Malayali professionals in the UK and Ireland. We handle job applications, CV writing, interview coaching, and visa-sponsored roles.',
   keywords: 'career consultant UK, Malayali career consultant, Indian career consultant Ireland, UK visa sponsored jobs, CV writing UK, interview coaching UK, QBay Career',
@@ -81,7 +76,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${poppins.variable} ${playfair.variable} ${instrument.variable} ${plusJakartaSans.variable}`}>
+    <html lang="en" className={`${poppins.variable} ${playfair.variable} ${plusJakartaSans.variable}`}>
       <body className="font-sans antialiased">
         <Providers>
           {children}
