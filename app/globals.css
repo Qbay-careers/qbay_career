@@ -88,6 +88,9 @@
   .font-instrument {
     font-family: var(--font-instrument), serif;
   }
+  .font-plus-jakarta {
+    font-family: var(--font-plus-jakarta), sans-serif;
+  }
 }
 
 @layer utilities {

@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Poppins, Playfair_Display, Instrument_Serif } from 'next/font/google';
+import { Poppins, Playfair_Display, Instrument_Serif, Plus_Jakarta_Sans } from 'next/font/google';
 import { Providers } from './providers';
 import StickyActionBar from '@/components/StickyActionBar';
 import WhatsAppPopup from '@/components/WhatsAppPopup';
@@ -26,6 +26,13 @@ const instrument = Instrument_Serif({
   weight: ['400'],
   style: ['normal', 'italic'],
   variable: '--font-instrument',
+  display: 'swap',
+});
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  weight: ['200', '300', '400', '500', '600', '700', '800'],
+  variable: '--font-plus-jakarta',
   display: 'swap',
 });
 
@@ -74,7 +81,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${poppins.variable} ${playfair.variable} ${instrument.variable}`}>
+    <html lang="en" className={`${poppins.variable} ${playfair.variable} ${instrument.variable} ${plusJakartaSans.variable}`}>
       <body className="font-sans antialiased">
         <Providers>
           {children}

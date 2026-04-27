@@ -747,7 +747,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
             </div>
 
             <h1 
-              className="mt-10 text-[3rem] leading-[1.2] font-normal tracking-tight sm:text-6xl lg:text-[6.5rem] font-instrument lg:whitespace-nowrap flex flex-wrap justify-center items-center gap-x-4"
+              className="mt-10 text-[2.2rem] leading-[1.1] font-bold tracking-tight sm:text-5xl lg:text-[6rem] font-plus-jakarta whitespace-nowrap flex flex-nowrap justify-center items-center gap-x-2 sm:gap-x-4"
               style={{ 
                 color: cmsData?.hero?.titleColor || '#160E22'
               }}
