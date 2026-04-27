@@ -1310,7 +1310,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                    <img src={audio.avatar} alt={audio.name} className="w-full h-full rounded-xl object-cover" />
                  </div>
                  <div className="flex-1 flex flex-col py-0.5 justify-between min-w-0">
-                   <div className="absolute top-4 right-4 w-8 h-8 rounded-full border border-gray-100 overflow-hidden shadow-sm bg-gray-50">
+                   <div className="absolute top-4 right-4 w-9 h-6 rounded-sm border border-gray-100 overflow-hidden shadow-sm bg-gray-50">
                      <img src={audio.flag} alt="Country flag" className="w-full h-full object-cover" />
                    </div>
                    <div className="pr-10 min-w-0 pt-2">
