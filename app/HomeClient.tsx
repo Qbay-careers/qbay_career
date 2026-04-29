@@ -1475,7 +1475,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                 name={testimonial.name}
                 image={testimonial.image}
                 followers={testimonial.followers}
-                description={testimonial.description}
+                description={testimonial.description || testimonial.content || ''}
                 socialLinks={testimonial.socialLinks || []}
                 actionLink={testimonial.actionLink || { label: 'View More', url: '#' }}
               />
