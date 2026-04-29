@@ -63,9 +63,10 @@ const InfluencerCard: React.FC<InfluencerCardProps> = ({
       </div>
       {/* Content Section */}
       <div className="p-4 flex flex-col flex-1">
-        <p className="text-[12px] text-slate-500 leading-snug mb-4 line-clamp-3">
-          {description}
-        </p>
+        <div 
+          className="text-[12px] text-slate-500 leading-snug mb-4 line-clamp-3"
+          dangerouslySetInnerHTML={{ __html: description }}
+        />
 
         {/* Links Section */}
         <div className="mt-auto pt-3 border-t border-slate-50 flex items-center justify-between">

@@ -1549,9 +1549,10 @@ export default function HomeClient({ initialData }: { initialData: any }) {
 
                     {/* Review content */}
                     <div className="flex-1 mt-4 mb-4">
-                      <p className={`text-base text-gray-600 leading-relaxed line-clamp-4`}>
-                        {review.content}
-                      </p>
+                      <div 
+                        className="text-base text-gray-600 leading-relaxed line-clamp-4"
+                        dangerouslySetInnerHTML={{ __html: review.content }}
+                      />
                     </div>
 
                     {/* Footer: Read More + Date */}
@@ -2050,9 +2051,10 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                 {selectedReviewForModal.title}
               </h2>
 
-              <p className="text-lg lg:text-xl text-gray-500 leading-relaxed font-medium">
-                {selectedReviewForModal.content}
-              </p>
+              <div 
+                className="text-lg lg:text-xl text-gray-500 leading-relaxed font-medium"
+                dangerouslySetInnerHTML={{ __html: selectedReviewForModal.content }}
+              />
             </div>
 
             {/* Right Column: Founder's Reply */}
