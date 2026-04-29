@@ -119,7 +119,7 @@ export default function AboutClient({ initialData }: { initialData: any }) {
                   <img
                     src={asso.image}
                     alt={asso.name}
-                    className="h-28 md:h-40 object-contain"
+                    className="h-24 md:h-32 w-48 md:w-64 object-contain"
                     onError={(e) => (e.currentTarget.style.display = 'none')}
                   />
                 </div>
