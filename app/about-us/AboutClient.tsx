@@ -43,7 +43,6 @@ export default function AboutClient({ initialData }: { initialData: any }) {
   const associates = (cmsData?.associates && Array.isArray(cmsData.associates) && cmsData.associates.length > 0)
     ? cmsData.associates
     : [
-        { name: "Kerala Startup Mission", image: "/Kerala_StartUp_Mission_Logo.svg-768x429.png" },
         { name: "Associate Partner", image: "/Untitled-design-53-768x512.png" },
         { name: "Associate Partner", image: "/Untitled-design-54-768x512.png" }
       ];

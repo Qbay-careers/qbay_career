@@ -20,6 +20,7 @@ import {
 import QBayNavbar from '@/components/QBayNavbar';
 import QBayFooter from '@/components/QBayFooter';
 import { supabase } from '@/lib/supabase';
+import InfluencerCard from '@/components/InfluencerCard';
 import {
   defaultClientTestimonials,
   defaultTrustpilotReviews,
@@ -442,46 +443,34 @@ export default function WallOfFame() {
         </div>
       </section>
 
-      {/* Love Letters (Client Testimonials) Section */}
-      <section id="client-love" className="relative bg-gradient-to-b from-white via-[#F8F7FF] to-white py-24 scroll-mt-24 overflow-hidden">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#2D1B4D] tracking-tight mb-6" dangerouslySetInnerHTML={{ __html: clientLoveTitle }}>
-            </h2>
-            <p className="text-lg sm:text-xl text-slate-600 leading-relaxed font-medium">
+      {/* Trusted Influencers Marquee Section */}
+      <section id="client-love" className="relative bg-white py-24 scroll-mt-24 overflow-hidden">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-12">
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#2D1B4D] tracking-tight mb-4" dangerouslySetInnerHTML={{ __html: clientLoveTitle }} />
+            <p className="text-lg sm:text-xl text-slate-500 leading-relaxed font-medium">
               {clientLoveDescription}
             </p>
           </div>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-            {clientTestimonials.map((testimonial: any, index: number) => (
-              <div 
-                key={index} 
-                className="group relative bg-white/70 backdrop-blur-xl rounded-[2rem] p-8 border border-white/80 shadow-[0_10px_40px_rgba(45,27,77,0.04)] hover:shadow-[0_20px_50px_rgba(45,27,77,0.08)] transition-all duration-500 hover:-translate-y-3"
-              >
-                <div className="absolute -top-4 -right-4 w-12 h-12 bg-purple-600 text-white rounded-2xl flex items-center justify-center shadow-lg transform rotate-12 group-hover:rotate-0 transition-transform duration-500">
-                  <Quote className="w-6 h-6 fill-current" />
-                </div>
-                <div className="flex flex-col h-full">
-                  <div className="flex items-center gap-4 mb-6">
-                    <img src={testimonial.image} alt={testimonial.name} className="w-16 h-16 rounded-2xl object-cover border-2 border-white shadow-sm" />
-                    <div>
-                      <h3 className="font-bold text-[#2D1B4D] text-lg leading-tight">{testimonial.name}</h3>
-                      <p className="text-sm font-semibold text-purple-600/80 mt-1 uppercase tracking-wider">{testimonial.role}</p>
-                    </div>
-                  </div>
-                  <p className="text-[#4A4A68] leading-relaxed text-base italic font-medium flex-1">
-                    "{testimonial.content}"
-                  </p>
-                  <div className="mt-8 pt-6 border-t border-purple-100/50 flex items-center justify-between">
-                    <div className="flex items-center gap-1">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <Star key={star} className={`w-4 h-4 ${star <= Number(testimonial.rating || 5) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200'}`} />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
+        {/* Marquee */}
+        <div className="relative w-full">
+          {/* Side Fades */}
+          <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white via-white/80 to-transparent z-20 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white via-white/80 to-transparent z-20 pointer-events-none" />
+
+          <div className="flex gap-8 animate-hero-scroll hover:[animation-play-state:paused] w-max px-4">
+            {[...clientTestimonials, ...clientTestimonials].map((testimonial: any, index: number) => (
+              <InfluencerCard
+                key={index}
+                name={testimonial.name}
+                image={testimonial.image}
+                followers={testimonial.followers}
+                description={testimonial.description}
+                socialLinks={testimonial.socialLinks || []}
+                actionLink={testimonial.actionLink || { label: 'View More', url: '#' }}
+              />
             ))}
           </div>
         </div>
