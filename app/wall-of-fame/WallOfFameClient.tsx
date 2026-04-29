@@ -517,8 +517,8 @@ export default function WallOfFame() {
                     <div key={i} className="bg-[#00B67A] p-1 rounded-sm"><Star className="w-3 h-3 fill-white text-white" /></div>
                   ))}
                 </div>
-                <h3 className="font-bold text-[#2D1B4D] text-lg mb-3 group-hover:text-[#00B67A] transition-colors">{review.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed mb-6">{review.content}</p>
+                <h3 className="font-bold text-[#2D1B4D] text-lg mb-3 group-hover:text-[#00B67A] transition-colors" dangerouslySetInnerHTML={{ __html: review.title }} />
+                <div className="text-gray-600 text-sm leading-relaxed mb-6" dangerouslySetInnerHTML={{ __html: review.content }} />
                 <div className="flex justify-between items-center text-xs border-t border-gray-50 pt-4">
                   <span className="font-bold text-[#2D1B4D]">{review.name}</span>
                   <span className="text-gray-400">{review.time}</span>

@@ -17,7 +17,6 @@ interface InfluencerCardProps {
   name: string;
   image: string;
   followers: string;
-  title: string;
   description: string;
   socialLinks: SocialLink[];
   actionLink: ActionLink;
@@ -27,7 +26,6 @@ const InfluencerCard: React.FC<InfluencerCardProps> = ({
   name,
   image,
   followers,
-  title,
   description,
   socialLinks,
   actionLink
@@ -63,18 +61,8 @@ const InfluencerCard: React.FC<InfluencerCardProps> = ({
           <p className="text-[11px] font-semibold text-emerald-400 uppercase tracking-tight">{followers}</p>
         </div>
       </div>
-
       {/* Content Section */}
       <div className="p-4 flex flex-col flex-1">
-        <div className="flex items-center gap-2 mb-2">
-          <div className="flex-shrink-0 p-0.5 rounded bg-amber-50 text-amber-500">
-             <svg viewBox="0 0 24 24" className="w-3 h-3 fill-current">
-                <path d="M12 1L9 9H1L7 15L4 23L12 18L20 23L17 15L23 9H15L12 1Z" />
-             </svg>
-          </div>
-          <span className="text-[10px] font-bold text-slate-700 uppercase tracking-wider line-clamp-1">{title}</span>
-        </div>
-        
         <p className="text-[12px] text-slate-500 leading-snug mb-4 line-clamp-3">
           {description}
         </p>

@@ -188,6 +188,7 @@ export const AdminFormControl: React.FC<AdminFormControlProps> = ({
                       onChange(newArr);
                     }}
                     depth={depth + 1}
+                    excludeFields={excludeFields}
                   />
                 )}
               </div>

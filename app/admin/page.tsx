@@ -770,7 +770,6 @@ export default function AdminDashboard() {
         name: "New Influencer", 
         image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=600&h=800", 
         followers: "150K+ followers",
-        title: "#1 Career Expert on LinkedIn",
         description: "Helping thousands of professionals navigate their global career journey.",
         socialLinks: [
           { platform: 'youtube', url: '' },
@@ -1050,7 +1049,10 @@ export default function AdminDashboard() {
                               label={selectedItem.title || selectedItem.name || 'Item Details'} 
                               value={selectedItem} 
                               onChange={updateItemContent}
-                              excludeFields={['bookStrategyCall', 'whatsappNow', 'results', 'audioReviews', 'pricing']}
+                              excludeFields={[
+                                'bookStrategyCall', 'whatsappNow', 'results', 'audioReviews', 'pricing',
+                                ...(activeSubSection === 'clientLove' ? ['role', 'title', 'rating', 'content'] : [])
+                              ]}
                             />
                           )
                         ) : activeSubSection ? (
@@ -1058,7 +1060,10 @@ export default function AdminDashboard() {
                             label={activeSubSection} 
                             value={currentSubSection?.targetKey ? subContent : content[activeSubSection]} 
                             onChange={updateSubSection}
-                            excludeFields={['bookStrategyCall', 'whatsappNow', 'titleFontSize', 'titleFontSizeMobile', 'subtitleFontSize']}
+                            excludeFields={[
+                              'bookStrategyCall', 'whatsappNow', 'titleFontSize', 'titleFontSizeMobile', 'subtitleFontSize',
+                              ...(activeSubSection === 'clientLove' ? ['role', 'title', 'rating', 'content'] : [])
+                            ]}
                           />
                         ) : (
                           <AdminFormControl 
