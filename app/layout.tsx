@@ -81,6 +81,7 @@ export default function RootLayout({
         <Providers>
           {children}
           <WhatsAppPopup />
+          <StickyActionBar />
         </Providers>
       </body>
     </html>
