@@ -747,61 +747,51 @@ export default function HomeClient({ initialData }: { initialData: any }) {
             </div>
 
             <h1 
-              className="mt-10 text-[2.2rem] leading-[1.1] font-bold tracking-tight sm:text-5xl lg:text-[6rem] font-plus-jakarta whitespace-nowrap flex flex-nowrap justify-center items-center gap-x-2 sm:gap-x-4"
+              className="mt-4 text-[3.5rem] leading-[1.05] font-medium tracking-tight sm:text-6xl lg:text-[7rem] font-playfair flex flex-wrap justify-center items-center"
               style={{ 
-                color: cmsData?.hero?.titleColor || '#160E22'
+                color: cmsData?.hero?.titleColor || '#1A112B'
               }}
             >
               {(() => {
                 const rawTitle = (cmsData?.hero?.title || 'Land Jobs Faster and Easier with AI Agents + Human Assistants').replace(/<br\s*\/?>/gi, ' ');
-                // Convert to Title Case for a more premium look if it's all caps
-                const fullTitle = (rawTitle === rawTitle.toUpperCase()) 
-                  ? rawTitle.toLowerCase().split(' ').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
-                  : rawTitle;
-
-                // Split logic for styling emphasis
+                
+                // Split logic for inline styling
                 let main = '';
                 let emphasis = '';
 
-                if (fullTitle.includes('+')) {
-                  [main, emphasis] = fullTitle.split('+');
-                  main = main.trim() + ' +';
+                if (rawTitle.includes('+')) {
+                  [main, emphasis] = rawTitle.split('+');
+                  main = main.trim();
+                  emphasis = emphasis.trim();
                 } else {
-                  // If no '+', split by last word
-                  const words = fullTitle.trim().split(' ');
+                  const words = rawTitle.trim().split(' ');
                   if (words.length > 2) {
                     emphasis = words.pop() || '';
                     main = words.join(' ');
                   } else {
-                    return fullTitle;
+                    return <span className="capitalize">{rawTitle.toLowerCase()}</span>;
                   }
                 }
 
                 return (
-                  <>
-                    <span>{main}</span>
-                    <span className="inline-flex items-center gap-3">
-                      {fullTitle.includes('+') && (
-                        <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-lg shrink-0">
-                          <img src="/founder-avatar.png" alt="Assistant" className="w-full h-full object-cover" onError={(e) => (e.currentTarget.src = 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=100')} />
-                        </div>
-                      )}
-                      <span className="italic text-[#00A884] relative inline-block">
-                        &nbsp;{emphasis.trim()}
-                        <div className="absolute -bottom-1.5 left-0 w-full h-[6px] bg-[#00A884]/40 rounded-full" />
-                      </span>
+                  <div className="flex flex-wrap justify-center items-baseline gap-x-4">
+                    <span className="capitalize">{main.toLowerCase()}</span>
+                    <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent pb-1 capitalize">
+                      {emphasis.toLowerCase()}
                     </span>
-                  </>
+                  </div>
                 );
               })()}
             </h1>
-            
             <p 
               className="mt-6 text-xl font-bold sm:text-2xl lg:text-3xl max-w-3xl mx-auto"
-              style={{ color: cmsData?.hero?.subtitleColor || '#5D4A7A' }}
+              style={{ 
+                color: cmsData?.hero?.subtitleColor || '#4B3F6B'
+              }}
             >
-              {cmsData?.hero?.subtitle || 'A Faster Way To Get Interview Calls.'}
+              {cmsData?.hero?.subtitle || 'A Faster Way To Get Interview Calls with Ai + Human touch'}
             </p>
+
 
             <p 
               className="mt-8 text-base font-semibold"

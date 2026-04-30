@@ -80,7 +80,6 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <Providers>
           {children}
-          <StickyActionBar />
           <WhatsAppPopup />
         </Providers>
       </body>
