@@ -10,17 +10,19 @@ export const metadata: Metadata = {
 };
 
 export default async function PricingPage() {
-  const [pricingRes, homeRes, trustpilotRes, audioRes] = await Promise.all([
+  const [pricingRes, homeRes, trustpilotRes, audioRes, testimonialsRes] = await Promise.all([
     supabase.from('cms_content').select('content').eq('key', 'pricing').single(),
     supabase.from('cms_content').select('content').eq('key', 'home').single(),
     supabase.from('cms_content').select('content').eq('key', 'trustpilotReviews').single(),
-    supabase.from('cms_content').select('content').eq('key', 'audioReviews').single()
+    supabase.from('cms_content').select('content').eq('key', 'audioReviews').single(),
+    supabase.from('cms_content').select('content').eq('key', 'testimonials').single()
   ]);
 
   const initialPricingData = pricingRes.data?.content || {};
   const initialHomeData = homeRes.data?.content || {};
   const trustpilotData = trustpilotRes.data?.content || null;
   const audioData = audioRes.data?.content || null;
+  const testimonialsData = testimonialsRes.data?.content || null;
 
   return (
     <PricingClient 
@@ -28,6 +30,7 @@ export default async function PricingPage() {
       initialHomeData={initialHomeData}
       initialTrustpilotData={trustpilotData}
       initialAudioData={audioData}
+      initialTestimonialsData={testimonialsData}
     />
   );
 }

@@ -42,16 +42,17 @@ import {
 
 
 // Helper to map video URLs to objects with extracted IDs and thumbnails
-const mapVideoUrls = (urls: any[], quality: 'hqdefault' | 'maxresdefault' = 'hqdefault') => {
-  if (!Array.isArray(urls)) return [];
-  return urls
-    .map((url) => {
-      if (typeof url !== 'string') return null;
+const mapVideoUrls = (items: any[], quality: 'hqdefault' | 'maxresdefault' = 'hqdefault') => {
+  if (!Array.isArray(items)) return [];
+  return items
+    .map((item) => {
+      const url = typeof item === 'string' ? item : item?.url;
+      const flag = typeof item === 'object' ? (item?.flag || 'https://flagcdn.com/w80/in.png') : 'https://flagcdn.com/w80/in.png';
+      
+      if (typeof url !== 'string' || !url) return null;
 
       // Handle Cloudinary URLs
       if (url.includes('cloudinary.com')) {
-        // Example: https://res.cloudinary.com/demo/video/upload/v123456789/video.mp4
-        // To get a thumbnail, replace /video/upload/ with /video/upload/so_auto/ and .mp4 with .jpg
         const thumbnail = url
           .replace(/\/video\/upload\//, '/video/upload/f_auto,q_auto,so_auto/')
           .replace(/\.[^/.]+$/, '.jpg');
@@ -59,7 +60,8 @@ const mapVideoUrls = (urls: any[], quality: 'hqdefault' | 'maxresdefault' = 'hqd
           id: url,
           url,
           thumbnail,
-          isCloudinary: true
+          isCloudinary: true,
+          flag
         };
       }
 
@@ -71,10 +73,11 @@ const mapVideoUrls = (urls: any[], quality: 'hqdefault' | 'maxresdefault' = 'hqd
         id,
         url,
         thumbnail: `https://i.ytimg.com/vi/${id}/${quality}.jpg`,
-        isCloudinary: false
+        isCloudinary: false,
+        flag
       };
     })
-    .filter((s): s is { id: string; url: string; thumbnail: string; isCloudinary: boolean } => Boolean(s));
+    .filter((v): v is any => v !== null);
 };
 
 
@@ -1178,6 +1181,11 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                         }
                       }}
                     />
+                    {video.flag && (
+                      <div className="absolute top-4 right-4 z-10 w-12 h-8 rounded-md overflow-hidden shadow-lg transition-transform duration-500 group-hover:scale-110">
+                        <img src={video.flag} alt="Country flag" className="w-full h-full object-cover" />
+                      </div>
+                    )}
                     <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500" />
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white border border-white/30 shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:bg-red-600 group-hover:border-red-500">
@@ -1213,6 +1221,11 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                       }
                     }}
                   />
+                  {video.flag && (
+                    <div className="absolute top-4 right-4 z-10 w-12 h-8 rounded-md overflow-hidden shadow-lg transition-transform duration-500 group-hover:scale-110">
+                      <img src={video.flag} alt="Country flag" className="w-full h-full object-cover" />
+                    </div>
+                  )}
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500" />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white border border-white/30 shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:bg-red-600 group-hover:border-red-500">

@@ -2,9 +2,59 @@
 
 import QBayNavbar from '@/components/QBayNavbar';
 import QBayFooter from '@/components/QBayFooter';
-import { Check, ChevronDown, ChevronUp, Sparkles, Play, Pause, Star, Maximize, X } from 'lucide-react';
+import { 
+  Check, 
+  ChevronDown, 
+  ChevronUp, 
+  Sparkles, 
+  Play, 
+  Pause, 
+  Star, 
+  Maximize, 
+  X 
+} from 'lucide-react';
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
+import { testimonialShortUrls, youtubeShortUrls } from '../homeData';
+
+// Helper to map video URLs to objects with extracted IDs and thumbnails
+const mapVideoUrls = (items: any[], quality: 'hqdefault' | 'maxresdefault' = 'hqdefault') => {
+  if (!Array.isArray(items)) return [];
+  return items
+    .map((item) => {
+      const url = typeof item === 'string' ? item : item?.url;
+      const flag = typeof item === 'object' ? (item?.flag || 'https://flagcdn.com/w80/in.png') : 'https://flagcdn.com/w80/in.png';
+      
+      if (typeof url !== 'string' || !url) return null;
+
+      // Handle Cloudinary URLs
+      if (url.includes('cloudinary.com')) {
+        const thumbnail = url
+          .replace(/\/video\/upload\//, '/video/upload/f_auto,q_auto,so_auto/')
+          .replace(/\.[^/.]+$/, '.jpg');
+        return {
+          id: url,
+          url,
+          thumbnail,
+          isCloudinary: true,
+          flag
+        };
+      }
+
+      // Robust regex for both shorts and regular YouTube videos
+      const match = url.match(/(?:shorts\/|v=|\/)([a-zA-Z0-9_-]{11})/);
+      const id = match?.[1];
+      if (!id) return null;
+      return {
+        id,
+        url,
+        thumbnail: `https://i.ytimg.com/vi/${id}/${quality}.jpg`,
+        isCloudinary: false,
+        flag
+      };
+    })
+    .filter((v): v is any => v !== null);
+};
 
 const defaultAudioReviews = [
   { name: 'David L.', role: 'UX Designer', title: 'Secured a role at a top agency', duration: '1:24', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150', audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', flag: 'https://flagcdn.com/w80/gb.png' },
@@ -101,24 +151,28 @@ export default function PricingClient({
   initialPricingData, 
   initialHomeData,
   initialTrustpilotData,
-  initialAudioData
+  initialAudioData,
+  initialTestimonialsData
 }: { 
   initialPricingData: any, 
   initialHomeData: any,
   initialTrustpilotData: any,
-  initialAudioData: any
+  initialAudioData: any,
+  initialTestimonialsData: any
 }) {
   const [cmsData, setCmsData] = useState<any>(initialPricingData);
   const [homeData, setHomeData] = useState<any>(initialHomeData);
   const [trustpilotCms, setTrustpilotCms] = useState<any>(initialTrustpilotData);
   const [audioCms, setAudioCms] = useState<any>(initialAudioData);
+  const [testimonialsCms, setTestimonialsCms] = useState<any>(initialTestimonialsData);
 
   useEffect(() => {
     setCmsData(initialPricingData);
     setHomeData(initialHomeData);
     setTrustpilotCms(initialTrustpilotData);
     setAudioCms(initialAudioData);
-  }, [initialPricingData, initialHomeData, initialTrustpilotData, initialAudioData]);
+    setTestimonialsCms(initialTestimonialsData);
+  }, [initialPricingData, initialHomeData, initialTrustpilotData, initialAudioData, initialTestimonialsData]);
 
   const [timeWorth, setTimeWorth] = useState(20);
   const [timePerApp, setTimePerApp] = useState(10);
@@ -126,6 +180,7 @@ export default function PricingClient({
 
   // Testimonials State
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<any | null>(null);
   const [playingAudioIdx, setPlayingAudioIdx] = useState<number | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const resultsScrollRef = useRef<HTMLDivElement>(null);
@@ -209,6 +264,25 @@ export default function PricingClient({
   const trustpilotData = Array.isArray(trustpilotDataObj) ? trustpilotDataObj : (trustpilotDataObj.reviews || []);
   const trustpilotRating = typeof trustpilotDataObj === 'object' && !Array.isArray(trustpilotDataObj) ? (trustpilotDataObj.rating || 5) : 5;
   const trustpilotTitle = typeof trustpilotDataObj === 'object' && !Array.isArray(trustpilotDataObj) ? (trustpilotDataObj.title || 'Excellent on Trustpilot') : 'Excellent on Trustpilot';
+
+  // Video Testimonials Processing
+  const testimonialsData = testimonialsCms || homeData?.testimonials || {};
+  
+  // Grid Testimonials (Real Results section)
+  // Matching Admin logic: If it's a flat array, first 4 go to grid, rest to animated
+  let gridUrls: any[] = [];
+  if (testimonialsData.testimonialGrid?.videoUrls) {
+    gridUrls = testimonialsData.testimonialGrid.videoUrls;
+  } else if (Array.isArray(testimonialsData)) {
+    gridUrls = testimonialsData.slice(0, 4);
+  } else if (testimonialsData.videoUrls) {
+    gridUrls = testimonialsData.videoUrls.slice(0, 4);
+  } else {
+    gridUrls = testimonialShortUrls.slice(0, 4);
+  }
+
+  const testimonialShortsData = mapVideoUrls(gridUrls, 'maxresdefault');
+  const testimonialsGridTitle = testimonialsData.testimonialGrid?.title || 'Real Results. Real Stories.';
 
   return (
     <main className="min-h-screen bg-white font-sans selection:bg-purple-100">
@@ -486,6 +560,94 @@ export default function PricingClient({
         </div>
       </section>
 
+      {/* Video Testimonials Grid */}
+      <section id="video-testimonials" className="bg-[#F9F5FF] py-24 scroll-mt-24">
+        <div className="w-full">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center mb-16">
+            <h2 className="text-4xl sm:text-6xl font-extrabold text-[#1A112B] tracking-tight mb-6">
+              {testimonialsGridTitle}
+            </h2>
+            <p className="text-lg text-slate-600 font-medium">
+              Watch real stories from candidates who transformed their careers.
+            </p>
+          </div>
+
+          {testimonialShortsData.length > 4 ? (
+            <div className="relative w-full overflow-hidden">
+              {/* Side fades for a smooth transition */}
+              <div className="absolute inset-y-0 left-0 w-12 sm:w-16 lg:w-24 bg-gradient-to-r from-[#F9F5FF] via-[#F9F5FF]/40 to-transparent z-20 pointer-events-none" />
+              <div className="absolute inset-y-0 right-0 w-12 sm:w-16 lg:w-24 bg-gradient-to-l from-[#F9F5FF] via-[#F9F5FF]/40 to-transparent z-20 pointer-events-none" />
+              
+              <div className="flex gap-6 lg:gap-8 animate-hero-scroll hover:[animation-play-state:paused] w-max px-4">
+                {[...testimonialShortsData, ...testimonialShortsData].map((video: any, idx: number) => (
+                  <div
+                    key={video.id + idx}
+                    onClick={() => setSelectedVideo(video)}
+                    className="group relative w-[180px] sm:w-[220px] lg:w-[260px] aspect-[9/16] rounded-2xl overflow-hidden bg-gray-900 shadow-xl cursor-pointer transform-gpu transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl shrink-0"
+                  >
+                    <img
+                      src={video.thumbnail}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      alt={`Success Story ${idx + 1}`}
+                      loading="lazy"
+                    />
+                    {video.flag && (
+                      <div className="absolute top-4 right-4 z-10 w-12 h-8 rounded-md overflow-hidden shadow-lg transition-transform duration-500 group-hover:scale-110">
+                        <img src={video.flag} alt="Country flag" className="w-full h-full object-cover" />
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white border border-white/30 shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:bg-red-600 group-hover:border-red-500">
+                        <Play className="h-8 w-8 fill-current" />
+                      </div>
+                    </div>
+                    <div className="absolute bottom-6 left-6 right-6">
+                      <div className="h-1 w-full bg-white/20 rounded-full overflow-hidden">
+                        <div className="h-full bg-white w-0 group-hover:w-full transition-all duration-1000 ease-out" />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+              {testimonialShortsData.map((video: any, idx: number) => (
+                <div
+                  key={video.id + idx}
+                  onClick={() => setSelectedVideo(video)}
+                  className="group relative aspect-[9/16] rounded-2xl overflow-hidden bg-gray-900 shadow-xl cursor-pointer transform-gpu transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl mx-auto w-full max-w-[260px]"
+                >
+                  <img
+                    src={video.thumbnail}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    alt={`Success Story ${idx + 1}`}
+                    loading="lazy"
+                  />
+                  {video.flag && (
+                    <div className="absolute top-4 right-4 z-10 w-12 h-8 rounded-md overflow-hidden shadow-lg transition-transform duration-500 group-hover:scale-110">
+                      <img src={video.flag} alt="Country flag" className="w-full h-full object-cover" />
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white border border-white/30 shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:bg-red-600 group-hover:border-red-500">
+                      <Play className="h-8 w-8 fill-current" />
+                    </div>
+                  </div>
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <div className="h-1 w-full bg-white/20 rounded-full overflow-hidden">
+                      <div className="h-full bg-white w-0 group-hover:w-full transition-all duration-1000 ease-out" />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* Trustpilot Reviews Section */}
       <section id="trustpilot-reviews" className="bg-white py-24 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -547,6 +709,42 @@ export default function PricingClient({
               alt="Success story"
               className="max-w-full max-h-[85vh] object-contain rounded-2xl shadow-2xl"
             />
+          </div>
+        </div>
+      )}
+
+      {/* Video Modal */}
+      {selectedVideo && (
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 backdrop-blur-md"
+          onClick={() => setSelectedVideo(null)}
+        >
+          <div className="relative w-full max-w-[500px] bg-black rounded-3xl overflow-hidden shadow-2xl" onClick={e => e.stopPropagation()}>
+            <button
+              onClick={() => setSelectedVideo(null)}
+              className="absolute top-4 right-4 z-50 text-white/50 hover:text-white transition-colors bg-white/10 hover:bg-white/20 p-2 rounded-full"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            
+            {selectedVideo.isCloudinary ? (
+              <video 
+                src={selectedVideo.url} 
+                controls 
+                autoPlay 
+                className="w-full h-auto max-h-[85vh]"
+              />
+            ) : (
+              <div className="relative w-full aspect-[9/16] max-h-[85vh]">
+                <iframe
+                  src={`https://www.youtube.com/embed/${selectedVideo.id}?autoplay=1&rel=0`}
+                  title="Video testimonial"
+                  className="w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            )}
           </div>
         </div>
       )}

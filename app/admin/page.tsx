@@ -510,27 +510,47 @@ export default function AdminDashboard() {
           }
         } else if (key === 'testimonials' && parentKey === 'clientLove' && value && (value as any).testimonialGrid) {
           // REVERSE MIGRATION: Extract review items out of the accidental video-list structure
-          newData[key] = (value as any).testimonialGrid.videoUrls || [];
-        } else if (key === 'testimonials' && (parentKey === undefined || parentKey === 'home') && (Array.isArray(value) || (value && (value as any).videoUrls && !(value as any).testimonialGrid))) {
-          // Migration: Convert main Video Shorts to dual-list structure
-          // Only migrate if we see string URLs (not review objects)
-          const rawUrls = Array.isArray(value) ? value : ((value as any).videoUrls || []);
-          const isUrlArray = Array.isArray(rawUrls) && (rawUrls.length === 0 || typeof rawUrls[0] === 'string');
+          newData[key] = (value as any).testimonialGrid.videoUrls;
+        } else if (key === 'testimonials' && (parentKey === undefined || parentKey === 'home')) {
+          const isDualStructure = typeof value === 'object' && value !== null && (value.testimonialGrid || value.animatedShorts);
           
-          if (isUrlArray) {
-            newData[key] = {
-              testimonialGrid: {
-                title: (typeof value === 'object' && (value as any).title) ? (value as any).title : "Real Results. Real Stories.",
-                videoUrls: rawUrls.slice(0, 4)
-              },
-              animatedShorts: {
-                title: "Animated Shorts",
-                videoUrls: rawUrls.slice(4)
-              }
-            };
-          } else {
-            newData[key] = processContent(value, key);
+          // Get raw URLs from wherever they might be
+          let gridUrlsRaw = [];
+          let shortsUrlsRaw = [];
+
+          if (isDualStructure) {
+            gridUrlsRaw = Array.isArray(value.testimonialGrid?.videoUrls) ? value.testimonialGrid.videoUrls : [];
+            shortsUrlsRaw = Array.isArray(value.animatedShorts?.videoUrls) ? value.animatedShorts.videoUrls : [];
+          } else if (Array.isArray(value)) {
+            gridUrlsRaw = value.slice(0, 4);
+            shortsUrlsRaw = value.slice(4);
+          } else if (typeof value === 'object' && value !== null && Array.isArray(value.videoUrls)) {
+            gridUrlsRaw = value.videoUrls.slice(0, 4);
+            shortsUrlsRaw = value.videoUrls.slice(4);
           }
+
+          // Process Grid URLs (With Flags)
+          const processedGridUrls = gridUrlsRaw.map((item: any) => {
+            if (typeof item === 'string') return { url: item, flag: 'https://flagcdn.com/w80/in.png' };
+            return { url: item.url || '', flag: item.flag || 'https://flagcdn.com/w80/in.png' };
+          });
+
+          // Process Shorts URLs (Strings only - no flags)
+          const processedShortsUrls = shortsUrlsRaw.map((item: any) => {
+            if (typeof item === 'object' && item !== null) return item.url || '';
+            return typeof item === 'string' ? item : '';
+          }).filter(Boolean);
+
+          newData[key] = {
+            testimonialGrid: {
+              title: (isDualStructure && value.testimonialGrid?.title) ? value.testimonialGrid.title : "Real Results. Real Stories.",
+              videoUrls: processedGridUrls
+            },
+            animatedShorts: {
+              title: (isDualStructure && value.animatedShorts?.title) ? value.animatedShorts.title : "Animated Shorts",
+              videoUrls: processedShortsUrls
+            }
+          };
         } else {
           newData[key] = processContent(value, key);
         }

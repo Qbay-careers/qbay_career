@@ -29,17 +29,20 @@ import {
   youtubeShortUrls,
 } from '../homeData';
 
-const mapYoutubeUrls = (urls: any[], quality: 'hqdefault' | 'maxresdefault' = 'hqdefault') => {
-  if (!Array.isArray(urls)) return [];
-  return urls
-    .map((url) => {
-      if (typeof url !== 'string') return null;
+const mapVideoUrls = (items: any[], quality: 'hqdefault' | 'maxresdefault' = 'hqdefault') => {
+  if (!Array.isArray(items)) return [];
+  return items
+    .map((item) => {
+      const url = typeof item === 'string' ? item : item?.url;
+      const flag = typeof item === 'object' && item !== null ? (item?.flag || 'https://flagcdn.com/w80/in.png') : 'https://flagcdn.com/w80/in.png';
+      
+      if (typeof url !== 'string' || !url) return null;
       const match = url.match(/(?:shorts\/|v=|\/)([a-zA-Z0-9_-]{11})/);
       const id = match?.[1];
       if (!id) return null;
-      return { id, url, thumbnail: `https://i.ytimg.com/vi/${id}/${quality}.jpg` };
+      return { id, url, thumbnail: `https://i.ytimg.com/vi/${id}/${quality}.jpg`, flag };
     })
-    .filter((s): s is { id: string; url: string; thumbnail: string } => Boolean(s));
+    .filter((s): s is any => Boolean(s));
 };
 
 export default function WallOfFame() {
@@ -250,7 +253,7 @@ export default function WallOfFame() {
   const gridUrls = Array.isArray(testimonialsCms.testimonialGrid?.videoUrls) 
     ? testimonialsCms.testimonialGrid.videoUrls 
     : (Array.isArray(testimonialsCms) && testimonialsCms.length > 0 ? testimonialsCms : youtubeShortUrls);
-  const testimonialShortsData = mapYoutubeUrls(gridUrls, 'maxresdefault');
+  const testimonialShortsData = mapVideoUrls(gridUrls, 'maxresdefault');
 
   const founderData = {
     name: "Fazil Karatt",
@@ -296,7 +299,7 @@ export default function WallOfFame() {
                     >
                       <div className="relative aspect-[3/4]">
                         {item.flag && (
-                          <div className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full border-2 border-white overflow-hidden shadow-md transition-transform duration-300 group-hover:scale-110">
+                          <div className="absolute top-3 right-3 z-10 w-12 h-8 rounded-md overflow-hidden shadow-md transition-transform duration-300 group-hover:scale-110">
                             <img src={item.flag} alt="Country flag" className="w-full h-full object-cover" />
                           </div>
                         )}
@@ -326,7 +329,7 @@ export default function WallOfFame() {
                     >
                       <div className="relative aspect-[3/4]">
                         {item.flag && (
-                          <div className="absolute top-3 left-3 z-10 w-8 h-8 rounded-full border-2 border-white overflow-hidden shadow-md transition-transform duration-300 group-hover:scale-110">
+                          <div className="absolute top-3 left-3 z-10 w-12 h-8 rounded-md overflow-hidden shadow-md transition-transform duration-300 group-hover:scale-110">
                             <img src={item.flag} alt="Country flag" className="w-full h-full object-cover" />
                           </div>
                         )}
@@ -376,7 +379,7 @@ export default function WallOfFame() {
                   <img src={audio.avatar} alt={audio.name} className="w-full h-full rounded-xl object-cover" />
                 </div>
                 <div className="flex-1 flex flex-col justify-between min-w-0">
-                  <div className="absolute top-3 right-3 w-7 h-7 rounded-full border border-gray-100 overflow-hidden shadow-sm bg-gray-50">
+                  <div className="absolute top-3 right-3 w-12 h-8 rounded-md overflow-hidden shadow-sm">
                     <img src={audio.flag} alt="Country flag" className="w-full h-full object-cover" />
                   </div>
                   <div className="pr-8 min-w-0 pt-1">
@@ -426,7 +429,7 @@ export default function WallOfFame() {
               >
                 <div className="relative aspect-[3/4]">
                   {item.flag && (
-                    <div className="absolute top-2 right-2 z-10 w-6 h-6 rounded-full border border-white overflow-hidden shadow-sm">
+                    <div className="absolute top-2 right-2 z-10 w-10 h-7 rounded-md overflow-hidden shadow-sm">
                       <img src={item.flag} alt="Country flag" className="w-full h-full object-cover" />
                     </div>
                   )}
@@ -547,6 +550,11 @@ export default function WallOfFame() {
                     alt="Testimonial"
                     loading="lazy"
                   />
+                  {video.flag && (
+                    <div className="absolute top-4 right-4 z-10 w-12 h-8 rounded-md overflow-hidden shadow-lg transition-transform duration-300 group-hover:scale-110">
+                      <img src={video.flag} alt="Country flag" className="w-full h-full object-cover" />
+                    </div>
+                  )}
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="flex h-14 w-14 items-center justify-center rounded-full bg-red-600 text-white shadow-2xl transition-transform duration-300 group-hover:scale-110">
                       <Play className="h-7 w-7 fill-current" />
