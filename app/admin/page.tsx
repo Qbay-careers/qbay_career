@@ -512,21 +512,22 @@ export default function AdminDashboard() {
           // REVERSE MIGRATION: Extract review items out of the accidental video-list structure
           newData[key] = (value as any).testimonialGrid.videoUrls;
         } else if (key === 'testimonials' && (parentKey === undefined || parentKey === 'home')) {
-          const isDualStructure = typeof value === 'object' && value !== null && (value.testimonialGrid || value.animatedShorts);
+          const valAny = value as any;
+          const isDualStructure = typeof value === 'object' && value !== null && (valAny.testimonialGrid || valAny.animatedShorts);
           
           // Get raw URLs from wherever they might be
           let gridUrlsRaw = [];
           let shortsUrlsRaw = [];
 
           if (isDualStructure) {
-            gridUrlsRaw = Array.isArray(value.testimonialGrid?.videoUrls) ? value.testimonialGrid.videoUrls : [];
-            shortsUrlsRaw = Array.isArray(value.animatedShorts?.videoUrls) ? value.animatedShorts.videoUrls : [];
+            gridUrlsRaw = Array.isArray(valAny.testimonialGrid?.videoUrls) ? valAny.testimonialGrid.videoUrls : [];
+            shortsUrlsRaw = Array.isArray(valAny.animatedShorts?.videoUrls) ? valAny.animatedShorts.videoUrls : [];
           } else if (Array.isArray(value)) {
             gridUrlsRaw = value.slice(0, 4);
             shortsUrlsRaw = value.slice(4);
-          } else if (typeof value === 'object' && value !== null && Array.isArray(value.videoUrls)) {
-            gridUrlsRaw = value.videoUrls.slice(0, 4);
-            shortsUrlsRaw = value.videoUrls.slice(4);
+          } else if (typeof value === 'object' && value !== null && Array.isArray(valAny.videoUrls)) {
+            gridUrlsRaw = valAny.videoUrls.slice(0, 4);
+            shortsUrlsRaw = valAny.videoUrls.slice(4);
           }
 
           // Process Grid URLs (With Flags)
@@ -543,11 +544,11 @@ export default function AdminDashboard() {
 
           newData[key] = {
             testimonialGrid: {
-              title: (isDualStructure && value.testimonialGrid?.title) ? value.testimonialGrid.title : "Real Results. Real Stories.",
+              title: (isDualStructure && valAny.testimonialGrid?.title) ? valAny.testimonialGrid.title : "Real Results. Real Stories.",
               videoUrls: processedGridUrls
             },
             animatedShorts: {
-              title: (isDualStructure && value.animatedShorts?.title) ? value.animatedShorts.title : "Animated Shorts",
+              title: (isDualStructure && valAny.animatedShorts?.title) ? valAny.animatedShorts.title : "Animated Shorts",
               videoUrls: processedShortsUrls
             }
           };

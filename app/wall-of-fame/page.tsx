@@ -281,7 +281,7 @@ export default function WallOfFame() {
   const testimonialsCms = cmsData?.testimonials || {};
   const testimonialsGridTitle = testimonialsCms.testimonialGrid?.title || 'Real Results. Real Stories.';
 
-  const gridUrls = (Array.isArray(testimonialsCms.testimonialGrid?.videoUrls) && testimonialsCms.testimonialGrid.videoUrls.length > 0)
+  const gridUrls = Array.isArray(testimonialsCms.testimonialGrid?.videoUrls) 
     ? testimonialsCms.testimonialGrid.videoUrls 
     : (Array.isArray(testimonialsCms) && testimonialsCms.length > 0 ? testimonialsCms : youtubeShortUrls);
   const testimonialShortsData = mapVideoUrls(gridUrls, 'maxresdefault');
