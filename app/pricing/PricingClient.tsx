@@ -270,16 +270,13 @@ export default function PricingClient({
   
   // Grid Testimonials (Real Results section)
   // Matching Admin logic: If it's a flat array, first 4 go to grid, rest to animated
-  let gridUrls: any[] = [];
-  if (testimonialsData.testimonialGrid?.videoUrls) {
-    gridUrls = testimonialsData.testimonialGrid.videoUrls;
-  } else if (Array.isArray(testimonialsData)) {
-    gridUrls = testimonialsData.slice(0, 4);
-  } else if (testimonialsData.videoUrls) {
-    gridUrls = testimonialsData.videoUrls.slice(0, 4);
-  } else {
-    gridUrls = testimonialShortUrls.slice(0, 4);
-  }
+  const gridUrls = (Array.isArray(testimonialsCms?.testimonialGrid?.videoUrls) && testimonialsCms.testimonialGrid.videoUrls.length > 0)
+    ? testimonialsCms.testimonialGrid.videoUrls.slice(0, 4)
+    : (Array.isArray(testimonialsData) && testimonialsData.length > 0)
+    ? testimonialsData.slice(0, 4)
+    : (testimonialsData.videoUrls && testimonialsData.videoUrls.length > 0)
+    ? testimonialsData.videoUrls.slice(0, 4)
+    : testimonialShortUrls.slice(0, 4);
 
   const testimonialShortsData = mapVideoUrls(gridUrls, 'maxresdefault');
   const testimonialsGridTitle = testimonialsData.testimonialGrid?.title || 'Real Results. Real Stories.';

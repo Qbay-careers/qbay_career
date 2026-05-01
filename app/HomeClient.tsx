@@ -409,16 +409,16 @@ export default function HomeClient({ initialData }: { initialData: any }) {
   
   // 1. Grid Testimonials (Real Results section)
   // Look for nested testimonialGrid.videoUrls, then old simple array, then fallback
-  const gridUrls = Array.isArray(testimonialsCms.testimonialGrid?.videoUrls) 
+  const gridUrls = (Array.isArray(testimonialsCms.testimonialGrid?.videoUrls) && testimonialsCms.testimonialGrid.videoUrls.length > 0)
     ? testimonialsCms.testimonialGrid.videoUrls 
-    : (Array.isArray(testimonialsCms) ? testimonialsCms : testimonialShortUrls);
+    : (Array.isArray(testimonialsCms) && testimonialsCms.length > 0 ? testimonialsCms : testimonialShortUrls);
   
   const testimonialShortsData = mapVideoUrls(gridUrls, 'maxresdefault');
   const testimonialsGridTitle = testimonialsCms.testimonialGrid?.title || 'Real Results. Real Stories.';
 
   // 2. Animated Shorts (Carousel section)
   // Look for nested animatedShorts.videoUrls, then fallback
-  const carouselUrls = Array.isArray(testimonialsCms.animatedShorts?.videoUrls)
+  const carouselUrls = (Array.isArray(testimonialsCms.animatedShorts?.videoUrls) && testimonialsCms.animatedShorts.videoUrls.length > 0)
     ? testimonialsCms.animatedShorts.videoUrls
     : youtubeShortUrls;
     
