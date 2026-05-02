@@ -247,12 +247,13 @@ export default function HomeClient({ initialData }: { initialData: any }) {
   ];
 
   const founderData = {
-    name: cmsData?.founderLetter?.founderName || "Fazil Karatt",
-    role: cmsData?.founderLetter?.founderRole || "Founder & CEO",
-    avatar: cmsData?.founderLetter?.founderImage || "/Hizana-Web-61-768x768.webp",
-    linkedin: cmsData?.founderLetter?.linkedinUrl || "https://www.linkedin.com/in/fazil-karatt/",
-    instagram: cmsData?.founderLetter?.instagramUrl || "https://www.instagram.com/fazil_karat/"
+    name: "Fazil Karatt",
+    role: "Founder & CEO",
+    avatar: "/Hizana-Web-61-768x768.webp",
+    linkedin: "https://www.linkedin.com/in/fazil-karatt/",
+    instagram: "https://www.instagram.com/fazil_karat/"
   };
+
   const negativeReviewsData = (Array.isArray(cmsData?.negativeReviews) && cmsData.negativeReviews.length > 0)
     ? cmsData.negativeReviews
     : defaultNegativeReviews;
@@ -503,7 +504,32 @@ export default function HomeClient({ initialData }: { initialData: any }) {
   const [playingAudioIdx, setPlayingAudioIdx] = useState<number | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  useEffect(() => {
+    const handlePopState = () => {
+      if (selectedReviewForModal) {
+        setSelectedReviewForModal(null);
+      }
+    };
+
+    if (selectedReviewForModal) {
+      window.history.pushState({ modal: 'review' }, '');
+      window.addEventListener('popstate', handlePopState);
+    }
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [selectedReviewForModal]);
+
+  const closeReviewModal = () => {
+    setSelectedReviewForModal(null);
+    if (window.history.state?.modal === 'review') {
+      window.history.back();
+    }
+  };
+
   const toggleAudio = (idx: number, url: string) => {
+
     if (playingAudioIdx === idx) {
       audioRef.current?.pause();
       setPlayingAudioIdx(null);
@@ -2012,19 +2038,19 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 lg:p-8">
           <div 
             className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
-            onClick={() => setSelectedReviewForModal(null)}
+            onClick={closeReviewModal}
           />
           
-          <div className="relative w-full max-w-5xl bg-white rounded-[2rem] overflow-hidden shadow-2xl flex flex-col lg:flex-row max-h-[90vh] lg:max-h-[85vh]">
+          <div className="relative w-full max-w-5xl bg-white rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden shadow-2xl flex flex-col lg:flex-row h-full max-h-[92vh] sm:max-h-[90vh] lg:max-h-[85vh]">
             <button 
-              onClick={() => setSelectedReviewForModal(null)}
-              className="absolute top-6 right-6 z-20 text-white/60 hover:text-white transition-colors"
+              onClick={closeReviewModal}
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 z-[110] text-white/60 hover:text-white transition-colors lg:bg-transparent rounded-full p-1"
             >
-              <X className="w-8 h-8" />
+              <X className="w-6 h-6 sm:w-8 sm:h-8" />
             </button>
 
-            {/* Left Column: Reviewer Details */}
-            <div className="flex-1 p-8 lg:p-14 overflow-y-auto bg-white">
+            {/* Left Column: Reviewer Details - Hidden on mobile */}
+            <div className="hidden lg:block flex-1 p-8 lg:p-14 overflow-y-auto bg-white text-left scrollbar-hide">
               <div className="flex items-center justify-between mb-10">
                 <div className="flex items-center gap-4">
                   <img
@@ -2035,6 +2061,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                   />
                   <span className="font-bold text-gray-400 text-xl">{selectedReviewForModal.name}</span>
                 </div>
+
                 
                 <div className="flex items-center gap-0.5">
                   {[1, 2, 3, 4, 5].map((star) => (
@@ -2061,10 +2088,37 @@ export default function HomeClient({ initialData }: { initialData: any }) {
             </div>
 
             {/* Right Column: Founder's Reply */}
-            <div className="flex-1 bg-[#1a9e6e] p-8 lg:p-14 flex flex-col relative">
-              <span className="text-xs font-bold tracking-[0.25em] text-white/50 uppercase mb-8">Founders Reply</span>
+            <div className="flex-1 bg-[#1a9e6e] p-6 sm:p-8 lg:p-14 flex flex-col relative text-left overflow-hidden">
+              {/* Mobile Context Header */}
+              <div className="lg:hidden flex items-center gap-3 mb-6 border-b border-white/10 pb-4">
+                <img
+                  src={selectedReviewForModal.avatar}
+                  alt={selectedReviewForModal.name}
+                  className="w-10 h-10 rounded-full object-cover border border-white/20"
+                />
+                <div>
+                  <h4 className="text-white font-bold text-sm leading-tight">{selectedReviewForModal.name}</h4>
+                  <div className="flex items-center gap-0.5 mt-1.5">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <span
+                        key={star}
+                        className={`inline-flex items-center justify-center w-5 h-5 rounded-sm text-[10px] font-bold ${
+                          star === 1 ? 'bg-[#e8372a] text-white' : 'bg-gray-200 text-gray-400'
+                        }`}
+                      >
+                        ★
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+
+              <span className="text-[10px] sm:text-xs font-bold tracking-[0.25em] text-white/50 uppercase mb-4 sm:mb-8">Founders Reply</span>
+
               
-              <div className="flex-1 overflow-y-auto pr-4 custom-modal-scrollbar mb-10">
+              <div className="flex-1 overflow-y-auto pr-2 sm:pr-4 custom-modal-scrollbar mb-6 sm:mb-10">
+
                 {selectedReviewForModal.reply.split('\n\n').map((para: string, i: number) => (
                   <p key={i} className="text-white text-xl lg:text-2xl leading-relaxed mb-6 font-medium">
                     {para}
