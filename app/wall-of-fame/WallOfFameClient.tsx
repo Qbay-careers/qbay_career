@@ -189,7 +189,8 @@ export default function WallOfFame() {
     const scroll = () => {
       if (!isWhatsappPaused) {
         if (scrollContainer.scrollLeft <= 0) {
-          scrollContainer.scrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+          // Jump to the start of the second duplicated set
+          scrollContainer.scrollLeft = scrollContainer.scrollWidth / 2;
         } else {
           scrollContainer.scrollLeft -= 1;
         }
@@ -203,25 +204,25 @@ export default function WallOfFame() {
   }, [isWhatsappPaused]);
 
   useEffect(() => {
-    const handlePopState = () => {
-      if (selectedReviewForModal) {
+    const handleHashChange = () => {
+      if (window.location.hash !== '#review-modal' && selectedReviewForModal) {
         setSelectedReviewForModal(null);
       }
     };
 
     if (selectedReviewForModal) {
-      window.history.pushState({ modal: 'review' }, '');
-      window.addEventListener('popstate', handlePopState);
+      window.location.hash = 'review-modal';
+      window.addEventListener('hashchange', handleHashChange);
     }
 
     return () => {
-      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('hashchange', handleHashChange);
     };
   }, [selectedReviewForModal]);
 
   const closeReviewModal = () => {
     setSelectedReviewForModal(null);
-    if (window.history.state?.modal === 'review') {
+    if (window.location.hash === '#review-modal') {
       window.history.back();
     }
   };
@@ -763,7 +764,7 @@ export default function WallOfFame() {
             </div>
 
             {/* Right Column: Founder's Reply */}
-            <div className="flex-1 bg-[#1a9e6e] p-6 sm:p-8 lg:p-14 flex flex-col relative text-left overflow-hidden">
+            <div className="flex-1 bg-[#1a9e6e] p-6 sm:p-8 lg:p-14 flex flex-col relative text-left overflow-hidden min-h-0">
               {/* Mobile Context Header */}
               <div className="lg:hidden flex items-center gap-3 mb-6 border-b border-white/10 pb-4">
                 <img

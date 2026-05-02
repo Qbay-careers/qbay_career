@@ -505,25 +505,26 @@ export default function HomeClient({ initialData }: { initialData: any }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    const handlePopState = () => {
-      if (selectedReviewForModal) {
+    const handleHashChange = () => {
+      if (window.location.hash !== '#review-modal' && selectedReviewForModal) {
         setSelectedReviewForModal(null);
       }
     };
 
     if (selectedReviewForModal) {
-      window.history.pushState({ modal: 'review' }, '');
-      window.addEventListener('popstate', handlePopState);
+      // Append hash without triggering a full scroll jump if possible, but standard hash is fine
+      window.location.hash = 'review-modal';
+      window.addEventListener('hashchange', handleHashChange);
     }
 
     return () => {
-      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('hashchange', handleHashChange);
     };
   }, [selectedReviewForModal]);
 
   const closeReviewModal = () => {
     setSelectedReviewForModal(null);
-    if (window.history.state?.modal === 'review') {
+    if (window.location.hash === '#review-modal') {
       window.history.back();
     }
   };
@@ -2088,7 +2089,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
             </div>
 
             {/* Right Column: Founder's Reply */}
-            <div className="flex-1 bg-[#1a9e6e] p-6 sm:p-8 lg:p-14 flex flex-col relative text-left overflow-hidden">
+            <div className="flex-1 bg-[#1a9e6e] p-6 sm:p-8 lg:p-14 flex flex-col relative text-left overflow-hidden min-h-0">
               {/* Mobile Context Header */}
               <div className="lg:hidden flex items-center gap-3 mb-6 border-b border-white/10 pb-4">
                 <img
