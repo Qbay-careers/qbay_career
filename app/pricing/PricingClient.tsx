@@ -16,6 +16,7 @@ import {
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import { testimonialShortUrls, youtubeShortUrls } from '../homeData';
+import CheckoutModal from '@/components/CheckoutModal';
 
 // Helper to map video URLs to objects with extracted IDs and thumbnails
 const mapVideoUrls = (items: any[], quality: 'hqdefault' | 'maxresdefault' = 'hqdefault') => {
@@ -185,6 +186,7 @@ export default function PricingClient({
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const resultsScrollRef = useRef<HTMLDivElement>(null);
   const [isResultsPaused, setIsResultsPaused] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<{name: string, price: string} | null>(null);
 
   // Marquee Effect for WhatsApp Results
   useEffect(() => {
@@ -363,8 +365,11 @@ export default function PricingClient({
               </div>
 
               <div className="mt-auto pt-4">
-                <Link
-                  href={plan.buttonLink || '#'}
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setSelectedPlan({ name: plan.name, price: plan.price });
+                  }}
                   className={`flex w-full items-center justify-center rounded-xl py-3 text-sm font-bold transition-all ${
                     plan.isPopular
                       ? 'bg-[#4f46e5] text-white hover:bg-[#4338ca] shadow-md shadow-indigo-100'
@@ -372,7 +377,7 @@ export default function PricingClient({
                   }`}
                 >
                   {plan.buttonText || `Get ${plan.name}`}
-                </Link>
+                </button>
                 {plan.renewalText && (
                   <p className="text-center text-[11px] text-gray-400 font-medium mt-3">
                     {plan.renewalText}
@@ -446,12 +451,15 @@ export default function PricingClient({
                   )}
                 </div>
 
-                <Link
-                  href={monthlyPlan.buttonLink || '#'}
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setSelectedPlan({ name: monthlyPlan.name, price: monthlyPlan.price });
+                  }}
                   className="flex w-full items-center justify-center rounded-xl bg-[#4f46e5] py-4 text-sm font-bold text-white transition-all hover:bg-[#4338ca] shadow-xl shadow-indigo-900/40"
                 >
                   {monthlyPlan.buttonText || `Checkout →`}
-                </Link>
+                </button>
               </div>
             </div>
           </div>
@@ -903,6 +911,12 @@ export default function PricingClient({
           </div>
         </div>
       </section>
+
+      <CheckoutModal 
+        isOpen={!!selectedPlan} 
+        onClose={() => setSelectedPlan(null)} 
+        plan={selectedPlan} 
+      />
 
       <QBayFooter />
     </main>

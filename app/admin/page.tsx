@@ -20,7 +20,8 @@ import {
   Plus,
   Trash2,
   BookOpen,
-  MessageCircle
+  MessageCircle,
+  CreditCard
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { Toaster, toast } from 'sonner';
@@ -128,6 +129,7 @@ const sections = [
   { id: 'blog', icon: BookOpen, label: 'Blog Posts' },
   { id: 'popup', icon: MessageCircle, label: 'Popup' },
   { id: 'actionBar', icon: Settings, label: 'Action Bar' },
+  { id: 'payments', icon: CreditCard, label: 'Payments' },
 ];
 
 export default function AdminDashboard() {
@@ -140,6 +142,7 @@ export default function AdminDashboard() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [devMode, setDevMode] = useState(false);
+  const [payments, setPayments] = useState<any[]>([]);
 
   const processContent = (data: any, parentKey?: string): any => {
     if (!data) return data;
@@ -633,9 +636,19 @@ export default function AdminDashboard() {
       if (isSubKey) {
         setSubContent(processed);
       } else {
-        setContent(processed);
-        setActiveSubSection(null);
-        setActiveItemIndex(null);
+        if (key === 'payments') {
+          const { data: paymentsData, error: pError } = await supabase
+            .from('payments')
+            .select('*')
+            .order('created_at', { ascending: false });
+          
+          if (pError) throw pError;
+          setPayments(paymentsData || []);
+        } else {
+          setContent(processed);
+          setActiveSubSection(null);
+          setActiveItemIndex(null);
+        }
       }
     } catch (err: any) {
       setError(err.message);
@@ -973,130 +986,192 @@ export default function AdminDashboard() {
             </div>
           ) : (
             <>
-              {/* Category Selection Grid (Page OverView) */}
-              {currentSection?.subSections && !activeSubSection && !devMode ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                  {currentSection.subSections.map((sub) => (
-                    <button
-                      key={sub.id}
-                      onClick={() => setActiveSubSection(sub.id)}
-                      className="group flex flex-col items-start rounded-3xl border border-purple-100 bg-white p-8 text-left shadow-sm transition-all hover:shadow-xl hover:border-purple-300 hover:-translate-y-1"
-                    >
-                      <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300">
-                         <LayoutGrid size={24} />
-                      </div>
-                      <h3 className="text-lg font-bold text-[#1A112B] mb-2">{sub.label}</h3>
-                      <p className="text-sm text-slate-500 leading-relaxed">{sub.description}</p>
-                      <div className="mt-6 flex items-center gap-2 text-xs font-bold text-purple-600 opacity-0 group-hover:opacity-100 transition-opacity">
-                         Edit Content <ChevronRight size={14} />
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              ) : isArraySection && activeItemIndex === null && !devMode ? (
-                /* Item Selection Grid (Sub-Section OverView) */
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                  {/* Add New Item Button Card */}
-                  {activeSubSection !== 'whatsappTestimonials' && activeSubSection !== 'audioTestimonials' && (
-                    <button
-                      onClick={addItem}
-                      className="group flex flex-col items-center justify-center rounded-3xl border-2 border-dashed border-purple-100 bg-purple-50/20 p-8 text-center transition-all hover:bg-purple-50 hover:border-purple-300 hover:shadow-lg h-full min-h-[220px]"
-                    >
-                      <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-white text-purple-600 shadow-sm transition-transform group-hover:scale-110">
-                         <Plus size={28} />
-                      </div>
-                      <h3 className="text-lg font-bold text-[#1A112B]">Add New Item</h3>
-                      <p className="text-sm text-slate-500 mt-1 max-w-[180px]">Expand your {currentSubSection?.label || 'list'} with fresh content.</p>
-                    </button>
-                  )}
-
-                  {activeItems.map((item: any, index: number) => (
-                    <button
-                      key={index}
-                      onClick={() => setActiveItemIndex(index)}
-                      className="group flex flex-col items-start rounded-3xl border border-purple-100 bg-white p-8 text-left shadow-sm transition-all hover:shadow-xl hover:border-purple-300 hover:-translate-y-1"
-                    >
-                      <div className="mb-6 flex h-16 w-full items-center justify-center rounded-2xl bg-purple-50 overflow-hidden group-hover:bg-purple-100 transition-colors">
-                         {item.image ? (
-                           <img src={item.image} alt={item.title} className="h-full w-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
-                         ) : (
-                           <LayoutGrid size={24} className="text-purple-400" />
-                         )}
-                      </div>
-                      <h3 className="text-lg font-bold text-[#1A112B] mb-2 line-clamp-1">{item.title || item.name || `Item #${index + 1}`}</h3>
-                      <p className="text-sm text-slate-500 leading-relaxed line-clamp-2 italic">
-                        {item.description || item.category || 'Click to edit details.'}
-                      </p>
-                      <div className="mt-6 flex items-center gap-2 text-xs font-bold text-purple-600 opacity-0 group-hover:opacity-100 transition-opacity">
-                         Select to Edit <ChevronRight size={14} />
-                      </div>
-                    </button>
-                  ))}
+              {/* Payments Section */}
+              {activeSection === 'payments' ? (
+                <div className="bg-white rounded-3xl border border-purple-100 shadow-xl overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse">
+                      <thead>
+                        <tr className="bg-purple-50/50 border-b border-purple-100">
+                          <th className="px-6 py-4 text-xs font-bold text-purple-700 uppercase tracking-wider">Date</th>
+                          <th className="px-6 py-4 text-xs font-bold text-purple-700 uppercase tracking-wider">Customer</th>
+                          <th className="px-6 py-4 text-xs font-bold text-purple-700 uppercase tracking-wider">Contact</th>
+                          <th className="px-6 py-4 text-xs font-bold text-purple-700 uppercase tracking-wider">Plan</th>
+                          <th className="px-6 py-4 text-xs font-bold text-purple-700 uppercase tracking-wider">Amount</th>
+                          <th className="px-6 py-4 text-xs font-bold text-purple-700 uppercase tracking-wider">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-purple-50">
+                        {payments.length > 0 ? (
+                          payments.map((payment) => (
+                            <tr key={payment.id} className="hover:bg-purple-50/30 transition-colors">
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
+                                {new Date(payment.created_at).toLocaleDateString()}
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap">
+                                <div className="text-sm font-bold text-slate-900">{payment.name}</div>
+                                <div className="text-xs text-slate-500">{payment.email}</div>
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
+                                {payment.phone}
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-purple-600">
+                                {payment.plan_name}
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-slate-900">
+                                {payment.currency} {payment.amount}
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap">
+                                <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-bold ${
+                                  payment.status === 'paid' 
+                                    ? 'bg-green-100 text-green-700' 
+                                    : 'bg-yellow-100 text-yellow-700'
+                                }`}>
+                                  {payment.status === 'paid' ? <CheckCircle2 size={12} /> : <Loader2 size={12} className="animate-spin" />}
+                                  {payment.status.toUpperCase()}
+                                </span>
+                              </td>
+                            </tr>
+                          ))
+                        ) : (
+                          <tr>
+                            <td colSpan={6} className="px-6 py-12 text-center text-slate-400 italic">
+                              No payment records found.
+                            </td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               ) : (
-                /* Editor View */
-                <div className="rounded-3xl border border-purple-100 bg-white p-8 shadow-xl shadow-purple-500/5 animate-in fade-in zoom-in-95 duration-300">
-                   <div className="flex items-center justify-between mb-8 overflow-hidden">
-                    <span className="inline-flex items-center gap-2 rounded-full bg-green-50 px-3 py-1 text-xs font-bold text-green-700 border border-green-100">
-                      <CheckCircle2 size={12} />
-                      Live Sync Active
-                    </span>
-                    <span className="text-xs text-slate-400 font-sans">
-                      {devMode ? 'Mode: Developer (Raw JSON)' : `Mode: Visual CMS / ${selectedItem ? (selectedItem.title || selectedItem.name) : (activeSubSection || 'Full view')}`}
-                    </span>
-                  </div>
+                <>
+                  {/* Category Selection Grid (Page OverView) */}
+                  {currentSection?.subSections && !activeSubSection && !devMode ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                      {currentSection.subSections.map((sub) => (
+                        <button
+                          key={sub.id}
+                          onClick={() => setActiveSubSection(sub.id)}
+                          className="group flex flex-col items-start rounded-3xl border border-purple-100 bg-white p-8 text-left shadow-sm transition-all hover:shadow-xl hover:border-purple-300 hover:-translate-y-1"
+                        >
+                          <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300">
+                             <LayoutGrid size={24} />
+                          </div>
+                          <h3 className="text-lg font-bold text-[#1A112B] mb-2">{sub.label}</h3>
+                          <p className="text-sm text-slate-500 leading-relaxed">{sub.description}</p>
+                          <div className="mt-6 flex items-center gap-2 text-xs font-bold text-purple-600 opacity-0 group-hover:opacity-100 transition-opacity">
+                             Edit Content <ChevronRight size={14} />
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  ) : isArraySection && activeItemIndex === null && !devMode ? (
+                    /* Item Selection Grid (Sub-Section OverView) */
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                      {/* Add New Item Button Card */}
+                      {activeSubSection !== 'whatsappTestimonials' && activeSubSection !== 'audioTestimonials' && (
+                        <button
+                          onClick={addItem}
+                          className="group flex flex-col items-center justify-center rounded-3xl border-2 border-dashed border-purple-100 bg-purple-50/20 p-8 text-center transition-all hover:bg-purple-50 hover:border-purple-300 hover:shadow-lg h-full min-h-[220px]"
+                        >
+                          <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-white text-purple-600 shadow-sm transition-transform group-hover:scale-110">
+                             <Plus size={28} />
+                          </div>
+                          <h3 className="text-lg font-bold text-[#1A112B]">Add New Item</h3>
+                          <p className="text-sm text-slate-500 mt-1 max-w-[180px]">Expand your {currentSubSection?.label || 'list'} with fresh content.</p>
+                        </button>
+                      )}
 
-                  <div className="group relative">
-                    {devMode ? (
-                      <textarea
-                        value={typeof (activeSubSection ? (currentSubSection?.targetKey ? subContent : content[activeSubSection]) : content) === 'string' 
-                          ? (activeSubSection ? (currentSubSection?.targetKey ? subContent : content[activeSubSection]) : content) 
-                          : JSON.stringify(activeSubSection ? (currentSubSection?.targetKey ? subContent : content[activeSubSection]) : content, null, 2)}
-                        onChange={(e) => activeSubSection ? (currentSubSection?.targetKey ? setSubContent(e.target.value) : setContent({...content, [activeSubSection]: e.target.value})) : setContent(e.target.value)}
-                        className="min-h-[600px] w-full rounded-2xl border border-purple-100 bg-[#FAFBFF] p-8 font-mono text-sm leading-relaxed text-slate-800 outline-none transition-all focus:border-purple-300 focus:ring-4 focus:ring-purple-500/5 selection:bg-purple-100"
-                      />
-                    ) : (
-                      <div className="space-y-10 max-w-4xl mx-auto py-10">
-                        {/* Render Visual Form Fields */}
-                        {activeItemIndex !== null && selectedItem ? (
-                          activeSubSection === 'servicePricing' ? (
-                            <AdminFormControl 
-                              label="Pricing Configuration for this Service"
-                              value={selectedItem.pricing}
-                              onChange={(newVal) => updateItemContent({ ...selectedItem, pricing: newVal })}
-                            />
-                          ) : (
-                            <AdminFormControl 
-                              label={selectedItem.title || selectedItem.name || 'Item Details'} 
-                              value={selectedItem} 
-                              onChange={updateItemContent}
-                              excludeFields={[
-                                'bookStrategyCall', 'whatsappNow', 'results', 'audioReviews', 'pricing',
-                                ...(activeSubSection === 'clientLove' ? ['role', 'title', 'rating', 'content'] : [])
-                              ]}
-                            />
-                          )
-                        ) : activeSubSection ? (
-                          <AdminFormControl 
-                            label={activeSubSection} 
-                            value={currentSubSection?.targetKey ? subContent : content[activeSubSection]} 
-                            onChange={updateSubSection}
-                            excludeFields={[
-                              'bookStrategyCall', 'whatsappNow', 'titleFontSize', 'titleFontSizeMobile', 'subtitleFontSize',
-                              ...(activeSubSection === 'clientLove' ? ['role', 'title', 'rating', 'content'] : [])
-                            ]}
+                      {activeItems.map((item: any, index: number) => (
+                        <button
+                          key={index}
+                          onClick={() => setActiveItemIndex(index)}
+                          className="group flex flex-col items-start rounded-3xl border border-purple-100 bg-white p-8 text-left shadow-sm transition-all hover:shadow-xl hover:border-purple-300 hover:-translate-y-1"
+                        >
+                          <div className="mb-6 flex h-16 w-full items-center justify-center rounded-2xl bg-purple-50 overflow-hidden group-hover:bg-purple-100 transition-colors">
+                             {item.image ? (
+                               <img src={item.image} alt={item.title} className="h-full w-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+                             ) : (
+                               <LayoutGrid size={24} className="text-purple-400" />
+                             )}
+                          </div>
+                          <h3 className="text-lg font-bold text-[#1A112B] mb-2 line-clamp-1">{item.title || item.name || `Item #${index + 1}`}</h3>
+                          <p className="text-sm text-slate-500 leading-relaxed line-clamp-2 italic">
+                            {item.description || item.category || 'Click to edit details.'}
+                          </p>
+                          <div className="mt-6 flex items-center gap-2 text-xs font-bold text-purple-600 opacity-0 group-hover:opacity-100 transition-opacity">
+                             Select to Edit <ChevronRight size={14} />
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    /* Editor View */
+                    <div className="rounded-3xl border border-purple-100 bg-white p-8 shadow-xl shadow-purple-500/5 animate-in fade-in zoom-in-95 duration-300">
+                       <div className="flex items-center justify-between mb-8 overflow-hidden">
+                        <span className="inline-flex items-center gap-2 rounded-full bg-green-50 px-3 py-1 text-xs font-bold text-green-700 border border-green-100">
+                          <CheckCircle2 size={12} />
+                          Live Sync Active
+                        </span>
+                        <span className="text-xs text-slate-400 font-sans">
+                          {devMode ? 'Mode: Developer (Raw JSON)' : `Mode: Visual CMS / ${selectedItem ? (selectedItem.title || selectedItem.name) : (activeSubSection || 'Full view')}`}
+                        </span>
+                      </div>
+
+                      <div className="group relative">
+                        {devMode ? (
+                          <textarea
+                            value={typeof (activeSubSection ? (currentSubSection?.targetKey ? subContent : content[activeSubSection]) : content) === 'string' 
+                              ? (activeSubSection ? (currentSubSection?.targetKey ? subContent : content[activeSubSection]) : content) 
+                              : JSON.stringify(activeSubSection ? (currentSubSection?.targetKey ? subContent : content[activeSubSection]) : content, null, 2)}
+                            onChange={(e) => activeSubSection ? (currentSubSection?.targetKey ? setSubContent(e.target.value) : setContent({...content, [activeSubSection]: e.target.value})) : setContent(e.target.value)}
+                            className="min-h-[600px] w-full rounded-2xl border border-purple-100 bg-[#FAFBFF] p-8 font-mono text-sm leading-relaxed text-slate-800 outline-none transition-all focus:border-purple-300 focus:ring-4 focus:ring-purple-500/5 selection:bg-purple-100"
                           />
                         ) : (
-                          <AdminFormControl 
-                            label={activeSection} 
-                            value={content} 
-                            onChange={(newContent: any) => setContent(newContent)} 
-                          />
+                          <div className="space-y-10 max-w-4xl mx-auto py-10">
+                            {/* Render Visual Form Fields */}
+                            {activeItemIndex !== null && selectedItem ? (
+                              activeSubSection === 'servicePricing' ? (
+                                <AdminFormControl 
+                                  label="Pricing Configuration for this Service"
+                                  value={selectedItem.pricing}
+                                  onChange={(newVal) => updateItemContent({ ...selectedItem, pricing: newVal })}
+                                />
+                              ) : (
+                                <AdminFormControl 
+                                  label={selectedItem.title || selectedItem.name || 'Item Details'} 
+                                  value={selectedItem} 
+                                  onChange={updateItemContent}
+                                  excludeFields={[
+                                    'bookStrategyCall', 'whatsappNow', 'results', 'audioReviews', 'pricing',
+                                    ...(activeSubSection === 'clientLove' ? ['role', 'title', 'rating', 'content'] : [])
+                                  ]}
+                                />
+                              )
+                            ) : activeSubSection ? (
+                              <AdminFormControl 
+                                label={activeSubSection} 
+                                value={currentSubSection?.targetKey ? subContent : content[activeSubSection]} 
+                                onChange={updateSubSection}
+                                excludeFields={[
+                                  'bookStrategyCall', 'whatsappNow', 'titleFontSize', 'titleFontSizeMobile', 'subtitleFontSize',
+                                  ...(activeSubSection === 'clientLove' ? ['role', 'title', 'rating', 'content'] : [])
+                                ]}
+                              />
+                            ) : (
+                              <AdminFormControl 
+                                label={activeSection} 
+                                value={content} 
+                                onChange={(newContent: any) => setContent(newContent)} 
+                              />
+                            )}
+                          </div>
                         )}
                       </div>
-                    )}
-                  </div>
-                </div>
+                    </div>
+                  )}
+                </>
               )}
             </>
           )}

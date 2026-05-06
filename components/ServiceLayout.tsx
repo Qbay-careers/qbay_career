@@ -21,6 +21,7 @@ import {
 import Link from 'next/link';
 import QBayNavbar from '@/components/QBayNavbar';
 import QBayFooter from '@/components/QBayFooter';
+import CheckoutModal from '@/components/CheckoutModal';
 
 import { defaultAudioReviews } from '@/app/homeData';
 
@@ -133,6 +134,7 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const whatsappScrollRef = useRef<HTMLDivElement>(null);
   const [isWhatsappPaused, setIsWhatsappPaused] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<{name: string, price: string} | null>(null);
 
   // Audio Review Defaults come from homeData
 
@@ -509,8 +511,11 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
                 </div>
 
                 <div className="mt-auto pt-4">
-                  <Link
-                    href={plan.buttonLink || '#'}
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setSelectedPlan({ name: plan.name, price: plan.price });
+                    }}
                     className={`flex w-full items-center justify-center rounded-xl py-3 text-sm font-bold transition-all ${
                       plan.isPopular
                         ? 'bg-[#4f46e5] text-white hover:bg-[#4338ca] shadow-md shadow-indigo-100'
@@ -518,7 +523,7 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
                     }`}
                   >
                     {plan.buttonText || `Get ${plan.name}`}
-                  </Link>
+                  </button>
                 </div>
               </div>
             ))}
@@ -578,12 +583,15 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
                       </span>
                     </div>
 
-                    <Link
-                      href={monthlyPlan.buttonLink || '#'}
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setSelectedPlan({ name: monthlyPlan.name, price: monthlyPlan.price });
+                      }}
                       className="flex w-full items-center justify-center rounded-xl bg-[#4f46e5] py-4 text-sm font-bold text-white transition-all hover:bg-[#4338ca] shadow-xl shadow-indigo-900/40"
                     >
                       {monthlyPlan.buttonText || `Checkout →`}
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -713,6 +721,12 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
           </div>
         </div>
       )}
+
+      <CheckoutModal 
+        isOpen={!!selectedPlan} 
+        onClose={() => setSelectedPlan(null)} 
+        plan={selectedPlan} 
+      />
 
       <QBayFooter />
     </main>
