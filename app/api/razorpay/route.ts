@@ -11,19 +11,51 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     console.log("Razorpay Order Request:", body);
-    const { amount, currency = "INR", name, email, phone, planName } = body;
+    const { currency = "INR", name, email, phone, planName } = body;
 
-    if (!amount) {
-      return NextResponse.json(
-        { error: "Amount is required" },
-        { status: 400 }
-      );
+    if (!planName) {
+      return NextResponse.json({ error: "Plan name is required" }, { status: 400 });
     }
 
-    // Amount is expected to be in the smallest currency unit (e.g. paise for INR, cents for EUR)
-    // Here we assume the frontend sends the exact amount string (e.g. "193" for €193).
-    // We need to multiply by 100.
-    const amountInSmallestUnit = Math.round(Number(amount) * 100);
+    // 1. Fetch the actual price from the database for security
+    const { data: cmsData, error: cmsError } = await supabase
+      .from('cms_content')
+      .select('content')
+      .eq('key', 'pricing')
+      .single();
+
+    if (cmsError || !cmsData?.content) {
+      console.error("Error fetching pricing from CMS:", cmsError);
+      return NextResponse.json({ error: "Failed to verify pricing" }, { status: 500 });
+    }
+
+    const pricing = cmsData.content;
+    const allPlans = [
+      ...(Array.isArray(pricing.plans) ? pricing.plans : []),
+      pricing.monthlyPlan,
+      pricing.ultimatePlan
+    ].filter(Boolean);
+
+    const selectedPlan = allPlans.find(p => p.name === planName);
+    
+    if (!selectedPlan) {
+      return NextResponse.json({ error: `Plan "${planName}" not found in database` }, { status: 404 });
+    }
+
+    // Parse price from string like "€193/-" or "₹15000"
+    const parsePrice = (priceStr: string) => {
+      const match = priceStr.match(/\d+/);
+      return match ? parseInt(match[0], 10) : 0;
+    };
+
+    const verifiedAmount = parsePrice(selectedPlan.price);
+
+    if (verifiedAmount <= 0) {
+      return NextResponse.json({ error: "Invalid price found in database" }, { status: 400 });
+    }
+
+    // 2. Create Razorpay order with the VERIFIED amount
+    const amountInSmallestUnit = Math.round(verifiedAmount * 100);
 
     const options = {
       amount: amountInSmallestUnit,
@@ -33,7 +65,7 @@ export async function POST(req: Request) {
 
     const order = await razorpay.orders.create(options);
 
-    // Save initial payment record to Supabase
+    // 3. Save initial payment record to Supabase
     const { error: dbError } = await supabase
       .from('payments')
       .insert({
@@ -41,7 +73,7 @@ export async function POST(req: Request) {
         email,
         phone,
         plan_name: planName,
-        amount: Number(amount),
+        amount: verifiedAmount,
         currency,
         status: 'pending',
         razorpay_order_id: order.id,
@@ -56,7 +88,7 @@ export async function POST(req: Request) {
       );
     }
 
-    console.log("Razorpay Order Created:", order.id);
+    console.log("Razorpay Order Created (Verified):", order.id, "Amount:", verifiedAmount);
     return NextResponse.json({ order });
   } catch (error: any) {
     console.error("Razorpay API Route Error:", error);

@@ -62,19 +62,34 @@ export default function StickyActionBar() {
       return;
     }
 
+    // Also check for modal changes periodically or on click
+    let footerIntersecting = false;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Hide if footer is more than 5% visible
-        setIsVisible(!entry.isIntersecting);
+        footerIntersecting = entry.isIntersecting;
+        const isModalOpen = !!document.getElementById('checkout-modal-root');
+        setIsVisible(!footerIntersecting && !isModalOpen);
       },
       { 
         threshold: 0.05,
-        rootMargin: '100px' // Start hiding a bit earlier
+        rootMargin: '100px'
       }
     );
 
+    const checkModal = () => {
+      const isModalOpen = !!document.getElementById('checkout-modal-root');
+      setIsVisible(!footerIntersecting && !isModalOpen);
+    };
+
+    document.addEventListener('click', checkModal);
+    const modalInterval = setInterval(checkModal, 500);
+
     observer.observe(footer);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      document.removeEventListener('click', checkModal);
+      clearInterval(modalInterval);
+    };
   }, [pathname]);
 
   const safeData = {

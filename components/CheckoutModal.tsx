@@ -160,7 +160,7 @@ export default function CheckoutModal({ isOpen, onClose, plan }: CheckoutModalPr
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
+    <div id="checkout-modal-root" className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
       <div 
         className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl p-6 md:p-8 animate-in fade-in zoom-in duration-300"
         onClick={(e) => e.stopPropagation()}
