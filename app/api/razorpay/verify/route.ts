@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
 import { supabase } from "@/lib/supabase";
+import { savePaymentData } from "@/lib/googleSheets";
 
 export async function POST(req: Request) {
   try {
@@ -30,7 +31,7 @@ export async function POST(req: Request) {
     }
 
     // Update status in Supabase
-    const { error: dbError } = await supabase
+    const { data: updatedPayment, error: dbError } = await supabase
       .from('payments')
       .update({ 
         status: 'paid',
@@ -38,14 +39,30 @@ export async function POST(req: Request) {
         razorpay_signature,
         updated_at: new Date().toISOString()
       })
-      .eq('razorpay_order_id', razorpay_order_id);
-
+      .eq('razorpay_order_id', razorpay_order_id)
+      .select()
+      .single();
+    
     if (dbError) {
       console.error("Database update error:", dbError);
       return NextResponse.json(
         { error: "Payment verified but failed to update database" },
         { status: 500 }
       );
+    }
+
+    // Update status in Google Sheets
+    if (updatedPayment) {
+      savePaymentData({
+        name: updatedPayment.name,
+        email: updatedPayment.email,
+        phone: updatedPayment.phone,
+        planName: updatedPayment.plan_name,
+        amount: updatedPayment.amount,
+        status: 'paid',
+        orderId: razorpay_order_id,
+        paymentId: razorpay_payment_id
+      }).catch(err => console.error("Google Sheets Background Error:", err));
     }
 
     return NextResponse.json({ message: "Payment verified successfully" });

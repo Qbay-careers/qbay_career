@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import Razorpay from "razorpay";
 import { supabase } from "@/lib/supabase";
+import { savePaymentData } from "@/lib/googleSheets";
 
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID || "",
@@ -87,6 +88,18 @@ export async function POST(req: Request) {
         { status: 500 }
       );
     }
+
+    // 4. Also log to Google Sheets (Lead Capture)
+    // We don't await this so it doesn't delay the response to the user
+    savePaymentData({
+      name,
+      email,
+      phone,
+      planName,
+      amount: verifiedAmount,
+      status: 'pending',
+      orderId: order.id
+    }).catch(err => console.error("Google Sheets Background Error:", err));
 
     console.log("Razorpay Order Created (Verified):", order.id, "Amount:", verifiedAmount);
     return NextResponse.json({ order });
