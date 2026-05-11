@@ -4,21 +4,21 @@ import { supabase } from "@/lib/supabase";
 import { savePaymentData } from "@/lib/googleSheets";
 
 const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID || "",
-  key_secret: process.env.RAZORPAY_KEY_SECRET || "",
+  key_id: (process.env.RAZORPAY_KEY_ID || "").trim(),
+  key_secret: (process.env.RAZORPAY_KEY_SECRET || "").trim(),
 });
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
     console.log("Razorpay Order Request:", body);
-    const { currency = "INR", name, email, phone, planName } = body;
+    const { name, email, phone, planName } = body;
 
     if (!planName) {
       return NextResponse.json({ error: "Plan name is required" }, { status: 400 });
     }
 
-    // 1. Fetch the actual price from the database for security
+    // 1. Fetch Pricing
     const { data: cmsData, error: cmsError } = await supabase
       .from('cms_content')
       .select('content')
@@ -26,7 +26,7 @@ export async function POST(req: Request) {
       .single();
 
     if (cmsError || !cmsData?.content) {
-      console.error("Error fetching pricing from CMS:", cmsError);
+      console.error("CMS Error:", cmsError);
       return NextResponse.json({ error: "Failed to verify pricing" }, { status: 500 });
     }
 
@@ -38,76 +38,57 @@ export async function POST(req: Request) {
     ].filter(Boolean);
 
     const selectedPlan = allPlans.find(p => p.name === planName);
-    
     if (!selectedPlan) {
-      return NextResponse.json({ error: `Plan "${planName}" not found in database` }, { status: 404 });
+      return NextResponse.json({ error: "Plan not found" }, { status: 404 });
     }
 
-    // Parse price from string like "€193/-" or "₹15000"
-    const parsePrice = (priceStr: string) => {
-      const match = priceStr.match(/\d+/);
-      return match ? parseInt(match[0], 10) : 0;
-    };
+    // 2. Parse Price (Improved: handles commas like 1,500)
+    const amountRaw = selectedPlan.price.replace(/[^0-9]/g, '');
+    const verifiedAmount = parseInt(amountRaw, 10);
+    const currency = "INR"; // Forced for testing
 
-    const verifiedAmount = parsePrice(selectedPlan.price);
-
-    if (verifiedAmount <= 0) {
-      return NextResponse.json({ error: "Invalid price found in database" }, { status: 400 });
+    if (isNaN(verifiedAmount) || verifiedAmount <= 0) {
+      return NextResponse.json({ error: "Invalid price in database" }, { status: 400 });
     }
 
-    // 2. Create Razorpay order with the VERIFIED amount
-    const amountInSmallestUnit = Math.round(verifiedAmount * 100);
-
-    const options = {
-      amount: amountInSmallestUnit,
-      currency: currency,
+    // 3. Create Order
+    const order = await razorpay.orders.create({
+      amount: verifiedAmount * 100, // paise
+      currency,
       receipt: `receipt_${Date.now()}`,
-    };
+    });
 
-    const order = await razorpay.orders.create(options);
-
-    // 3. Save initial payment record to Supabase
-    const { error: dbError } = await supabase
-      .from('payments')
-      .insert({
-        name,
-        email,
-        phone,
-        plan_name: planName,
-        amount: verifiedAmount,
-        currency,
-        status: 'pending',
-        razorpay_order_id: order.id,
-        created_at: new Date().toISOString(),
-      });
-
-    if (dbError) {
-      console.error("Supabase error (insert):", dbError);
-      return NextResponse.json(
-        { error: `Database error: ${dbError.message}. Did you create the 'payments' table?` },
-        { status: 500 }
-      );
-    }
-
-    // 4. Also log to Google Sheets (Lead Capture)
-    // We don't await this so it doesn't delay the response to the user
-    savePaymentData({
+    // 4. Save to Database
+    const { error: dbError } = await supabase.from('payments').insert({
       name,
       email,
       phone,
-      planName,
+      plan_name: planName,
+      amount: verifiedAmount,
+      currency,
+      status: 'pending',
+      razorpay_order_id: order.id,
+      created_at: new Date().toISOString(),
+    });
+
+    if (dbError) console.error("Supabase Error:", dbError);
+
+    // 5. Log Lead
+    savePaymentData({
+      name, email, phone, planName,
       amount: verifiedAmount,
       status: 'pending',
       orderId: order.id
-    }).catch(err => console.error("Google Sheets Background Error:", err));
+    }).catch(err => console.error("Sheet Error:", err));
 
-    console.log("Razorpay Order Created (Verified):", order.id, "Amount:", verifiedAmount);
-    return NextResponse.json({ order });
+    console.log("Order Created:", order.id, "Amount:", verifiedAmount);
+
+    return NextResponse.json({ 
+      order,
+      keyId: (process.env.RAZORPAY_KEY_ID || "").trim()
+    });
   } catch (error: any) {
-    console.error("Razorpay API Route Error:", error);
-    return NextResponse.json(
-      { error: error.message || "Something went wrong" },
-      { status: 500 }
-    );
+    console.error("Razorpay API Error:", error);
+    return NextResponse.json({ error: error.message || "Internal error" }, { status: 500 });
   }
 }

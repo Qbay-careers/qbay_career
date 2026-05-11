@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { X, Loader2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, Loader2, CheckCircle2, ShieldCheck, ChevronDown, ArrowRight, Lock, Globe } from 'lucide-react';
 
 interface CheckoutModalProps {
   isOpen: boolean;
@@ -12,40 +12,52 @@ interface CheckoutModalProps {
   } | null;
 }
 
+const COUNTRIES = [
+  { name: 'India', iso: 'IN', code: '+91', flag: '🇮🇳' },
+  { name: 'United Kingdom', iso: 'GB', code: '+44', flag: '🇬🇧' },
+  { name: 'Ireland', iso: 'IE', code: '+353', flag: '🇮🇪' },
+  { name: 'UAE', iso: 'AE', code: '+971', flag: '🇦🇪' },
+  { name: 'United States', iso: 'US', code: '+1', flag: '🇺🇸' },
+  { name: 'Canada', iso: 'CA', code: '+1', flag: '🇨🇦' },
+  { name: 'Australia', iso: 'AU', code: '+61', flag: '🇦🇺' },
+  { name: 'Germany', iso: 'DE', code: '+49', flag: '🇩🇪' },
+  { name: 'France', iso: 'FR', code: '+33', flag: '🇫🇷' },
+  { name: 'Sweden', iso: 'SE', code: '+46', flag: '🇸🇪' },
+  { name: 'Singapore', iso: 'SG', code: '+65', flag: '🇸🇬' },
+  { name: 'Qatar', iso: 'QA', code: '+974', flag: '🇶🇦' },
+];
+
 export default function CheckoutModal({ isOpen, onClose, plan }: CheckoutModalProps) {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: ''
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
+  const [selectedCountry, setSelectedCountry] = useState(COUNTRIES[0]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+
+  // Handle closing animation
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+      setIsClosing(false);
+    }, 300);
+  };
+
+  useEffect(() => {
+    if (isOpen) setIsClosing(false);
+  }, [isOpen]);
 
   if (!isOpen || !plan) return null;
 
-  // Extract number from price string, e.g. "€193/-" or "329" -> 193
-  const parsePrice = (priceStr: string) => {
-    const match = priceStr.match(/\d+/);
-    return match ? parseInt(match[0], 10) : 0;
-  };
+  const amountRaw = plan.price.replace(/[^0-9]/g, '');
+  const amountNumeric = parseInt(amountRaw, 10);
+  const displayPrice = `₹${amountNumeric.toLocaleString()}/-`;
 
-  const amount = parsePrice(plan.price);
-
-  // Temporarily using INR for testing in India
-  const currency = 'INR';
-
-  // Display price in INR on the modal
-  const displayPrice = `₹${amount}/-`;
-
-  const loadRazorpayScript = () => {
+  const loadRazorpay = () => {
     return new Promise((resolve) => {
-      if ((window as any).Razorpay) {
-        resolve(true);
-        return;
-      }
+      if ((window as any).Razorpay) return resolve(true);
       const script = document.createElement('script');
-      script.id = 'razorpay-checkout-js';
       script.src = 'https://checkout.razorpay.com/v1/checkout.js';
       script.onload = () => resolve(true);
       script.onerror = () => resolve(false);
@@ -59,214 +71,217 @@ export default function CheckoutModal({ isOpen, onClose, plan }: CheckoutModalPr
     setError('');
 
     try {
-      if (amount <= 0) {
-        throw new Error("Invalid plan amount.");
-      }
-
-      // 1. Create order on server
       const res = await fetch('/api/razorpay', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          amount, 
-          currency,
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          planName: plan.name
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, planName: plan.name }),
       });
 
       const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || 'Failed to create order');
-      }
+      if (!res.ok) throw new Error(data.error || "Order creation failed");
 
-      // 2. Load Razorpay Script
-      const isLoaded = await loadRazorpayScript();
-      if (!isLoaded) {
-        throw new Error('Razorpay SDK failed to load. Are you online?');
-      }
+      const loaded = await loadRazorpay();
+      if (!loaded) throw new Error("Razorpay failed to load");
 
-      // 3. Initialize Razorpay Checkout
+      const cleanNumber = formData.phone.replace(/[^0-9]/g, '');
+      const fullPhone = `${selectedCountry.code}${cleanNumber}`;
+
       const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '', // Put your key id here
+        key: data.keyId,
         amount: data.order.amount,
         currency: data.order.currency,
-        name: 'QBay Careers',
-        description: `Payment for ${plan.name} (INR ${amount})`,
+        name: "QBay Careers",
+        description: plan.name,
         order_id: data.order.id,
-        handler: async function (response: any) {
+        prefill: {
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          contact: fullPhone,
+        },
+        handler: async (response: any) => {
+          setLoading(true);
           try {
-            setLoading(true);
-            // 4. Verify payment on server
             const verifyRes = await fetch('/api/razorpay/verify', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature,
-              }),
+              body: JSON.stringify(response),
             });
-
-            const verifyData = await verifyRes.json();
-            if (!verifyRes.ok) throw new Error(verifyData.error || "Verification failed");
-
+            if (!verifyRes.ok) throw new Error("Verification failed");
             setIsSuccess(true);
-            setTimeout(() => {
-              onClose();
-              setIsSuccess(false);
-              setFormData({ name: '', email: '', phone: '' });
-            }, 3000);
+            setTimeout(handleClose, 3000);
           } catch (err: any) {
-            setError(err.message || "Payment verification failed");
+            setError(err.message);
           } finally {
             setLoading(false);
           }
         },
-        prefill: {
-          name: formData.name,
-          email: formData.email,
-          contact: formData.phone,
-        },
-        theme: {
-          color: '#4f46e5', // Brand color
-        },
+        modal: { ondismiss: () => setLoading(false) },
+        theme: { color: '#0F172A' } // Sleek slate blue
       };
 
-      const paymentObject = new (window as any).Razorpay(options);
-      
-      paymentObject.on('payment.failed', function (response: any) {
-        console.error("Payment failed:", response.error);
-        alert(`Payment failed: ${response.error.description}`);
+      const rzp = new (window as any).Razorpay(options);
+      rzp.on('payment.failed', (resp: any) => {
+        console.error("RAZORPAY FAILURE:", resp.error);
+        setError(resp.error.description || "Payment failed");
+        setLoading(false);
       });
-
-      paymentObject.open();
+      rzp.open();
 
     } catch (err: any) {
-      console.error(err);
-      setError(err.message || 'Payment initiation failed. Please try again.');
-    } finally {
+      setError(err.message);
       setLoading(false);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
   return (
-    <div id="checkout-modal-root" className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
-      <div 
-        className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl p-6 md:p-8 animate-in fade-in zoom-in duration-300"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors bg-gray-50 hover:bg-gray-100 p-2 rounded-full"
-        >
-          <X className="w-5 h-5" />
-        </button>
-
-        <div className="text-center mb-6">
-          {isSuccess ? (
-            <div className="flex flex-col items-center animate-in zoom-in duration-500">
-              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>
+    <div className={`fixed inset-0 z-[150] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4 transition-all duration-300 ${isClosing ? 'opacity-0' : 'opacity-100'}`}>
+      <div className={`relative w-full max-w-4xl bg-white shadow-[0_32px_64px_-12px_rgba(0,0,0,0.14)] overflow-hidden transition-all duration-500 flex flex-col md:flex-row h-auto max-h-[85vh] rounded-2xl ${isClosing ? 'scale-95 translate-y-4' : 'scale-100 translate-y-0'}`}>
+        
+        {/* Left Side: Premium Visual */}
+        <div className="relative w-full md:w-[40%] overflow-hidden hidden md:block">
+          <img 
+            src="/images/checkout-visual.png" 
+            alt="Success & Career" 
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
+          
+          <div className="absolute bottom-8 left-8 right-8">
+            <div className="backdrop-blur-xl bg-white/10 border border-white/20 p-6 rounded-xl">
+              <div className="flex items-center gap-2 mb-3">
+                <Globe className="w-3.5 h-3.5 text-indigo-300" />
+                <span className="text-white/60 text-[9px] font-bold tracking-[0.2em] uppercase">Global Career Access</span>
               </div>
-              <h2 className="text-2xl font-bold text-[#1A112B] mb-2">Payment Successful!</h2>
-              <p className="text-gray-500">Thank you for choosing QBay Careers. We&apos;ve received your payment and will contact you shortly.</p>
+              <h3 className="text-white text-xl font-playfair font-medium mb-2 leading-tight">Elevate Your Career Trajectory</h3>
+              <p className="text-white/70 text-[11px] font-sans font-light leading-relaxed">Join 110k+ professionals who have successfully navigated their global job search.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Side: Form */}
+        <div className="w-full md:w-[60%] p-6 md:p-10 relative flex flex-col justify-center overflow-y-auto">
+          <button 
+            onClick={handleClose} 
+            className="absolute top-6 right-6 text-slate-300 hover:text-slate-900 transition-all p-2 rounded-full hover:bg-slate-50"
+          >
+            <X className="w-5 h-5" />
+          </button>
+
+          {isSuccess ? (
+            <div className="text-center py-12 animate-in fade-in slide-in-from-bottom-8 duration-700">
+              <div className="w-16 h-16 bg-emerald-50 text-emerald-500 flex items-center justify-center mx-auto mb-4 rounded-full">
+                <CheckCircle2 className="w-8 h-8" />
+              </div>
+              <h2 className="text-2xl font-playfair font-bold text-slate-900 mb-2">Welcome Aboard!</h2>
+              <p className="text-slate-500 text-sm font-sans">Your payment was successful. Redirecting you shortly...</p>
             </div>
           ) : (
-            <>
-              <h2 className="text-2xl font-bold text-[#1A112B] mb-2">Complete Your Purchase</h2>
-              <p className="text-sm text-gray-500">
-                You are subscribing to the <span className="font-bold text-purple-600">{plan.name}</span>
-              </p>
-              <div className="mt-3 text-3xl font-black text-gray-900">{displayPrice}</div>
-            </>
+            <div className="w-full max-w-sm mx-auto">
+              <header className="mb-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="h-px w-6 bg-indigo-600"></span>
+                  <span className="text-[9px] font-bold tracking-[0.3em] text-indigo-600 uppercase">Secure Checkout</span>
+                </div>
+                <h2 className="text-3xl font-playfair font-bold text-slate-900 mb-1 leading-tight">
+                  {plan.name}
+                </h2>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-xl font-sans font-semibold text-slate-900">{displayPrice}</span>
+                  <span className="text-[10px] text-slate-400 font-sans uppercase tracking-wider">one-time investment</span>
+                </div>
+              </header>
+
+              {error && (
+                <div className="mb-6 p-3 bg-rose-50 border border-rose-100 rounded-lg flex items-start gap-2 text-rose-600 animate-in fade-in zoom-in duration-300">
+                  <div className="shrink-0 mt-0.5"><Lock className="w-3.5 h-3.5" /></div>
+                  <p className="text-[11px] font-medium leading-relaxed">{error}</p>
+                </div>
+              )}
+
+              <form onSubmit={handlePayment} className="space-y-5">
+                <div className="group">
+                  <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 transition-colors group-focus-within:text-indigo-600">Full Name</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Rahul Sharma"
+                    className="w-full py-1.5 border-b border-slate-100 focus:border-indigo-600 transition-all outline-none text-slate-900 font-medium text-base placeholder:text-slate-200 bg-transparent"
+                    value={formData.name}
+                    onChange={e => setFormData({...formData, name: e.target.value})}
+                  />
+                </div>
+
+                <div className="group">
+                  <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 transition-colors group-focus-within:text-indigo-600">Email Address</label>
+                  <input
+                    type="email"
+                    required
+                    placeholder="name@professional.com"
+                    className="w-full py-1.5 border-b border-slate-100 focus:border-indigo-600 transition-all outline-none text-slate-900 font-medium text-base placeholder:text-slate-200 bg-transparent"
+                    value={formData.email}
+                    onChange={e => setFormData({...formData, email: e.target.value})}
+                  />
+                </div>
+
+                <div className="group">
+                  <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 transition-colors group-focus-within:text-indigo-600">Phone Number</label>
+                  <div className="flex gap-4">
+                    <div className="relative shrink-0 flex items-center gap-1.5 py-1.5 border-b border-slate-100 group-focus-within:border-indigo-600 transition-all">
+                      <span className="text-sm font-bold text-slate-900">{selectedCountry.iso}</span>
+                      <span className="text-sm font-medium text-slate-500">{selectedCountry.code}</span>
+                      <select 
+                        className="absolute inset-0 opacity-0 cursor-pointer"
+                        value={selectedCountry.code}
+                        onChange={(e) => {
+                          const country = COUNTRIES.find(c => c.code === e.target.value);
+                          if (country) setSelectedCountry(country);
+                        }}
+                      >
+                        {COUNTRIES.map(c => (
+                          <option key={c.name} value={c.code}>{c.flag} {c.name} ({c.code})</option>
+                        ))}
+                      </select>
+                      <ChevronDown className="w-3.5 h-3.5 text-slate-300" />
+                    </div>
+                    <input
+                      type="tel"
+                      required
+                      placeholder="00000 00000"
+                      className="grow py-1.5 border-b border-slate-100 focus:border-indigo-600 transition-all outline-none text-slate-900 font-medium text-base placeholder:text-slate-200 bg-transparent"
+                      value={formData.phone}
+                      onChange={e => setFormData({...formData, phone: e.target.value})}
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-4">
+                  <button
+                    disabled={loading}
+                    className="w-full bg-slate-900 text-white py-4 rounded-xl font-bold text-xs tracking-[0.2em] uppercase hover:bg-black transition-all active:scale-[0.99] disabled:opacity-50 flex items-center justify-center gap-3 shadow-lg shadow-slate-100"
+                  >
+                    {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : (
+                      <>
+                        <span>Initialize Payment</span>
+                        <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                      </>
+                    )}
+                  </button>
+                  
+                  <div className="mt-6 flex items-center justify-center gap-5 opacity-30">
+                    <div className="flex items-center gap-1.5 text-[8px] font-bold tracking-widest uppercase text-slate-900">
+                      <ShieldCheck className="w-3 h-3" />
+                      <span>Encrypted</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-[8px] font-bold tracking-widest uppercase text-slate-900">
+                      <Lock className="w-3 h-3" />
+                      <span>Secure</span>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
           )}
         </div>
-
-        {!isSuccess && (
-          <>
-            {error && (
-              <div className="mb-4 p-3 bg-red-50 text-red-600 text-sm rounded-lg border border-red-100">
-                {error}
-              </div>
-            )}
-
-            <form onSubmit={handlePayment} className="space-y-4">
-          <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              required
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none transition-all"
-              placeholder="John Doe"
-            />
-          </div>
-          
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none transition-all"
-              placeholder="john@example.com"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              required
-              value={formData.phone}
-              onChange={handleChange}
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none transition-all"
-              placeholder="+44 123 456 7890"
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full flex items-center justify-center gap-2 bg-[#4f46e5] text-white py-4 rounded-xl font-bold hover:bg-[#4338ca] transition-colors disabled:opacity-70 disabled:cursor-not-allowed mt-2"
-          >
-            {loading ? (
-              <>
-                <Loader2 className="w-5 h-5 animate-spin" />
-                Processing...
-              </>
-            ) : (
-              `Pay ${displayPrice}`
-            )}
-          </button>
-        </form>
-        
-        <div className="mt-4 text-center">
-          <p className="text-xs text-gray-400 flex items-center justify-center gap-1">
-            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M12 16V12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M12 8H12.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            Secure payments via Razorpay
-          </p>
-        </div>
-        </>
-      )}
       </div>
     </div>
   );
