@@ -810,42 +810,42 @@ export default function HomeClient({ initialData }: { initialData: any }) {
             </p>
           </div>
         </div>
+      </section>
 
-        {/* Auto-Scrolling 3D Image Gallery */}
-        <div className="relative z-10 w-full mt-10 lg:mt-16 pb-10 lg:pb-20 overflow-hidden">
-          {/* Side fade gradients for depth */}
-          <div className="absolute inset-y-0 left-0 w-16 sm:w-24 lg:w-40 bg-gradient-to-r from-[#FDFCFE] via-[#FDFCFE]/80 to-transparent z-20 pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-16 sm:w-24 lg:w-40 bg-gradient-to-l from-[#FDFCFE] via-[#FDFCFE]/80 to-transparent z-20 pointer-events-none" />
+      {/* Auto-Scrolling 3D Image Gallery Section */}
+      <section className="relative z-10 w-full overflow-hidden bg-gradient-to-b from-[#FDFCFE] via-purple-50/50 to-white py-24 lg:py-40">
+        {/* Side fade gradients for depth */}
+        <div className="absolute inset-y-0 left-0 w-24 sm:w-32 lg:w-48 bg-gradient-to-r from-[#FDFCFE] via-[#FDFCFE]/40 to-transparent z-20 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-24 sm:w-32 lg:w-48 bg-gradient-to-l from-white via-white/40 to-transparent z-20 pointer-events-none" />
 
-          <div className="flex items-center gap-3 sm:gap-4 lg:gap-6 animate-hero-scroll w-max">
-            {[...heroImages, ...heroImages].map((src, i) => {
-              const isOdd = i % 2 !== 0;
-              const translateY = isOdd ? 18 : 0;
-              const rotation = isOdd ? 1.5 : -1.5;
+        <div className="flex items-center gap-3 sm:gap-4 lg:gap-6 animate-hero-scroll w-max">
+          {[...heroImages, ...heroImages].map((src, i) => {
+            const isOdd = i % 2 !== 0;
+            const translateY = isOdd ? 18 : 0;
+            const rotation = isOdd ? 1.5 : -1.5;
 
-              return (
+            return (
+              <div
+                key={i}
+                className="hero-float-animation flex-shrink-0"
+                style={{ animationDelay: `${(i % heroImages.length) * 0.4}s` }}
+              >
                 <div
-                  key={i}
-                  className="hero-float-animation flex-shrink-0"
-                  style={{ animationDelay: `${(i % heroImages.length) * 0.4}s` }}
+                  className="relative w-[260px] sm:w-[340px] lg:w-[440px] xl:w-[520px] aspect-[16/10] rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl ring-1 ring-black/5 group cursor-pointer transition-shadow duration-500 hover:shadow-purple-500/30"
+                  style={{
+                    transform: `translateY(${translateY}px) rotate(${rotation}deg)`,
+                  }}
                 >
-                  <div
-                    className="relative w-[260px] sm:w-[340px] lg:w-[440px] xl:w-[520px] aspect-[16/10] rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl ring-1 ring-black/5 group cursor-pointer transition-shadow duration-500 hover:shadow-purple-500/30"
-                    style={{
-                      transform: `translateY(${translateY}px) rotate(${rotation}deg)`,
-                    }}
-                  >
-                    <img
-                      src={src}
-                      className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
-                      alt={`Career Professional ${(i % heroImages.length) + 1}`}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent opacity-60 group-hover:opacity-0 transition-opacity duration-500" />
-                  </div>
+                  <img
+                    src={src}
+                    className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
+                    alt={`Career Professional ${(i % heroImages.length) + 1}`}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent opacity-60 group-hover:opacity-0 transition-opacity duration-500" />
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
