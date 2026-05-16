@@ -427,60 +427,70 @@ export default function HomeClient({ initialData }: { initialData: any }) {
 
   const servicesList = (Array.isArray(cmsData?.services) ? cmsData.services : [
     {
+      id: 'guaranteed-interviews',
       title: 'Guaranteed Interview Calls',
       slug: 'guaranteed-interview-calls',
       description: 'Connect with the right employers and receive guaranteed interview opportunities.',
       image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=800',
     },
     {
+      id: 'we-apply',
       title: 'We Apply For You',
       slug: 'we-apply-for-you',
       description: 'Our team handles your profile optimization and job applications to boost your chances.',
       image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80&w=800',
     },
     {
+      id: 'nhs-hsc',
       title: 'NHS - HSC Applications',
       slug: 'nhs-hsc-applications',
       description: 'Dedicated team applies to relevant NHS and HSC roles on your behalf.',
       image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800',
     },
     {
-      title: 'CPD (Continuing Professional Development)',
-      slug: 'cpd-professional-development',
-      description: 'Enhance your skills with industry-recognized CPD programs for career advancement.',
-      image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=800',
+      id: 'practical-projects',
+      title: 'Live Practical Projects',
+      slug: 'live-practical-projects',
+      description: 'Gain hands-on experience by working on real-world practical projects to boost your portfolio.',
+      image: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=800',
     },
     {
+      id: 'domain-interviews',
       title: 'Domain Specified Interview Assistance',
       slug: 'domain-specified-interview-assistance',
       description: 'Prepare for industry-specific interviews with practical tips and expert support.',
       image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800',
     },
     {
+      id: 'ats-branding',
       title: 'ATS – CV, LinkedIn, Cover Letter',
       slug: 'ats-cv-linkedin-cover-letter',
       description: 'Stand out with ATS-optimized CVs, impactful cover letters, and LinkedIn profiles.',
       image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=800',
     },
     {
+      id: 'sop-guidance',
       title: 'Humanized SOP Guidance And Preparation',
       slug: 'humanized-sop-guidance',
       description: 'Build a strong and well-structured SOP that reflects your career goals.',
       image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=800',
     },
     {
+      id: 'internships',
       title: 'Internship Guidance',
       slug: 'internship-guidance',
       description: 'Get valuable internship opportunities and hands-on experience to kickstart your career.',
       image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800',
     },
     {
+      id: 'branding',
       title: 'Personal Branding',
       slug: 'personal-branding',
       description: 'Build a powerful professional identity that attracts global opportunities.',
       image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800',
     },
     {
+      id: 'interview-coaching',
       title: 'Interview Assistance',
       slug: 'interview-assistance',
       description: 'Master your interviews with targeted preparation and mock sessions.',
@@ -917,7 +927,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                     'Guaranteed Interview Support',
                     'We Apply on Your Behalf',
                     'NHS & HSC Application Assistance',
-                    'CPD & Internship Guidance',
+                    'Practical Projects & Internship Guidance',
                   ])
                   .filter((feature: any) => {
                     const text = typeof feature === 'string' ? feature : (feature?.title || feature?.text || '');
@@ -1012,7 +1022,14 @@ export default function HomeClient({ initialData }: { initialData: any }) {
 
           {/* New 2 Column Services */}
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2 mb-8">
-            {servicesList.filter(item => item.title === 'Personal Branding' || item.title === 'Interview Assistance').map((item) => (
+            {servicesList.filter(item => {
+              const isBranding = item.id === 'branding' || item.slug === 'personal-branding';
+              const isInterview = item.id === 'interview-coaching' || 
+                                 item.slug === 'interview-assistance' || 
+                                 item.slug === 'career-growth-coaching' ||
+                                 item.title === 'Career Growth Coaching';
+              return isBranding || isInterview;
+            }).map((item) => (
               <div
                 key={item.title}
                 className="group relative flex flex-col overflow-hidden rounded-lg border border-purple-100/50 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-purple-200"
@@ -1048,7 +1065,15 @@ export default function HomeClient({ initialData }: { initialData: any }) {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {servicesList.filter(item => item.title !== 'Mental Wellness' && item.title !== 'Personal Branding' && item.title !== 'Interview Assistance').map((item) => (
+            {servicesList.filter(item => {
+              const isWellness = item.id === 'wellness' || item.slug === 'mental-wellness' || item.title === 'Mental Wellness';
+              const isBranding = item.id === 'branding' || item.slug === 'personal-branding';
+              const isInterview = item.id === 'interview-coaching' || 
+                                 item.slug === 'interview-assistance' || 
+                                 item.slug === 'career-growth-coaching' ||
+                                 item.title === 'Career Growth Coaching';
+              return !isWellness && !isBranding && !isInterview;
+            }).map((item) => (
               <div
                 key={item.title}
                 className="group relative flex flex-col overflow-hidden rounded-lg border border-purple-100/50 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-purple-200"

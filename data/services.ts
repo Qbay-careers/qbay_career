@@ -1,4 +1,5 @@
 export interface Service {
+  id: string;
   slug: string;
   title: string;
   category: string;
@@ -28,6 +29,7 @@ const defaultFeatureDesc = "Carefully tailored to ensure maximum success in your
 
 export const services: Service[] = [
   {
+    id: 'guaranteed-interviews',
     slug: 'guaranteed-interview-calls',
     title: 'Guaranteed Interview Calls',
     category: 'Placement Support',
@@ -49,6 +51,7 @@ export const services: Service[] = [
     ]
   },
   {
+    id: 'we-apply',
     slug: 'we-apply-for-you',
     title: 'We Apply For You',
     category: 'Application Management',
@@ -70,6 +73,7 @@ export const services: Service[] = [
     ]
   },
   {
+    id: 'nhs-hsc',
     slug: 'nhs-hsc-applications',
     title: 'NHS - HSC Applications',
     category: 'Healthcare Careers',
@@ -91,27 +95,29 @@ export const services: Service[] = [
     ]
   },
   {
-    slug: 'cpd-professional-development',
-    title: 'CPD (Continuing Professional Development)',
+    id: 'practical-projects',
+    slug: 'live-practical-projects',
+    title: 'Live Practical Projects',
     category: 'Skill Enhancement',
-    description: 'Enhance your skills with industry-recognized CPD programs for career advancement.',
-    fullDescription: 'Stay ahead of the curve with our curated Continuing Professional Development programs. In today\'s rapidly evolving job market, staying relevant is key. We provide access to industry-recognized certifications and training modules that add significant weight to your professional profile.',
-    image: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=1200',
+    description: 'Gain hands-on experience by working on real-world practical projects to boost your portfolio.',
+    fullDescription: 'Theory only goes so far. Our Live Practical Projects program allows you to apply your skills to real-world scenarios. You\'ll work on industry-relevant projects, collaborate with teams, and build a tangible portfolio that demonstrates your capabilities to potential employers.',
+    image: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=1200',
     features: [
-      { title: 'Industry-Recognized Certifications', description: defaultFeatureDesc },
-      { title: 'Flexible Learning Paths', description: defaultFeatureDesc },
-      { title: 'Advanced Skill Modules', description: defaultFeatureDesc },
-      { title: 'Professional Credit Tracking', description: defaultFeatureDesc },
-      { title: 'Expert-Led Workshops', description: defaultFeatureDesc }
+      { title: 'Real-World Project Briefs', description: defaultFeatureDesc },
+      { title: 'Team Collaboration', description: defaultFeatureDesc },
+      { title: 'Mentor Feedback', description: defaultFeatureDesc },
+      { title: 'Portfolio Building', description: defaultFeatureDesc },
+      { title: 'Industry Standard Tools', description: defaultFeatureDesc }
     ],
     benefits: [
-      'Faster Career Progression',
-      'Higher Salary Potential',
-      'Validated Skillsets',
-      'Global Professional Credibility'
+      'Tangible Experience',
+      'Professional Portfolio',
+      'Confidence in Skills',
+      'Evidence for Interviews'
     ]
   },
   {
+    id: 'domain-interviews',
     slug: 'domain-specified-interview-assistance',
     title: 'Domain Specified Interview Assistance',
     category: 'Interview Prep',
@@ -133,6 +139,7 @@ export const services: Service[] = [
     ]
   },
   {
+    id: 'ats-branding',
     slug: 'ats-cv-linkedin-cover-letter',
     title: 'ATS – CV, LinkedIn, Cover Letter',
     category: 'Personal Branding',
@@ -154,6 +161,7 @@ export const services: Service[] = [
     ]
   },
   {
+    id: 'sop-guidance',
     slug: 'humanized-sop-guidance',
     title: 'Humanized SOP Guidance And Preparation',
     category: 'Documentation',
@@ -175,6 +183,7 @@ export const services: Service[] = [
     ]
   },
   {
+    id: 'internships',
     slug: 'internship-guidance',
     title: 'Internship Guidance',
     category: 'Experience Building',
@@ -196,27 +205,7 @@ export const services: Service[] = [
     ]
   },
   {
-    slug: 'mental-wellness',
-    title: 'Mental Wellness',
-    category: 'Stability & Growth',
-    description: 'Our guidance helps you stay mentally strong, confident, and prepared for career challenges.',
-    fullDescription: 'The job search journey can be mentally taxing. We believe professional success is impossible without personal well-being. Our mental wellness program provides support, confidence-building techniques, and stress management strategies to keep you motivated and resilient.',
-    image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=1200',
-    features: [
-      { title: 'Confidence Coaching', description: defaultFeatureDesc },
-      { title: 'Stress Management Sessions', description: defaultFeatureDesc },
-      { title: 'Mindset Reframing', description: defaultFeatureDesc },
-      { title: 'Regular Wellness Checks', description: defaultFeatureDesc },
-      { title: 'Community Support', description: defaultFeatureDesc }
-    ],
-    benefits: [
-      'Emotional Resilience',
-      'Consistent Motivation',
-      'Mental Clarity',
-      'Long-Term Career Health'
-    ]
-  },
-  {
+    id: 'branding',
     slug: 'personal-branding',
     title: 'Personal Branding',
     category: 'Personal Branding',
@@ -238,6 +227,7 @@ export const services: Service[] = [
     ]
   },
   {
+    id: 'interview-coaching',
     slug: 'interview-assistance',
     title: 'Interview Assistance',
     category: 'Interview Prep',
