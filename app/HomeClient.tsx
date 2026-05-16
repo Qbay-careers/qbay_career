@@ -1010,8 +1010,9 @@ export default function HomeClient({ initialData }: { initialData: any }) {
             </h3>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {servicesList.filter(item => item.title !== 'Mental Wellness' && item.title !== 'Personal Branding' && item.title !== 'Interview Assistance').map((item) => (
+          {/* New 2 Column Services */}
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2 mb-8">
+            {servicesList.filter(item => item.title === 'Personal Branding' || item.title === 'Interview Assistance').map((item) => (
               <div
                 key={item.title}
                 className="group relative flex flex-col overflow-hidden rounded-lg border border-purple-100/50 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-purple-200"
@@ -1046,9 +1047,8 @@ export default function HomeClient({ initialData }: { initialData: any }) {
             ))}
           </div>
 
-          {/* New 2 Column Services */}
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
-            {servicesList.filter(item => item.title === 'Personal Branding' || item.title === 'Interview Assistance').map((item) => (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {servicesList.filter(item => item.title !== 'Mental Wellness' && item.title !== 'Personal Branding' && item.title !== 'Interview Assistance').map((item) => (
               <div
                 key={item.title}
                 className="group relative flex flex-col overflow-hidden rounded-lg border border-purple-100/50 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-purple-200"
