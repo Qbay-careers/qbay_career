@@ -21,6 +21,9 @@ import {
   Quote,
   Linkedin,
   Instagram,
+  Users,
+  Sparkles,
+  Clock,
 } from 'lucide-react';
 import { cn, mapVideoUrls } from '@/lib/utils';
 import QBayNavbar from '@/components/QBayNavbar';
@@ -693,121 +696,169 @@ export default function HomeClient({ initialData }: { initialData: any }) {
 
       <section
         id="home"
-        className="relative pt-32 pb-0 lg:pt-40 lg:pb-0 overflow-hidden scroll-mt-24 bg-[#FDFCFE]"
+        className="relative min-h-[90vh] flex items-center pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden scroll-mt-24 bg-[#FDFCFE]"
       >
-        {(() => {
-          const bgUrl = cmsData?.hero?.backgroundImage || 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1920';
-          const isVideo = bgUrl.match(/\.(mp4|webm|ogg)$/i);
-          
-          if (isVideo) {
+        {/* Abstract Background Elements */}
+        <div className="absolute inset-0 z-0">
+          {(() => {
+            const bgUrl = cmsData?.hero?.backgroundImage || 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1920';
+            const isVideo = bgUrl.match(/\.(mp4|webm|ogg)$/i);
+            
+            if (isVideo) {
+              return (
+                <video 
+                  autoPlay 
+                  loop 
+                  muted 
+                  playsInline 
+                  className="w-full h-full object-cover opacity-[0.03] pointer-events-none"
+                >
+                  <source src={bgUrl} type={`video/${bgUrl.split('.').pop()}`} />
+                </video>
+              );
+            }
             return (
-              <video 
-                autoPlay 
-                loop 
-                muted 
-                playsInline 
-                className="absolute inset-0 z-0 w-full h-full object-cover opacity-50 pointer-events-none"
-              >
-                <source src={bgUrl} type={`video/${bgUrl.split('.').pop()}`} />
-              </video>
+              <div 
+                className="w-full h-full bg-cover bg-center bg-no-repeat bg-fixed opacity-[0.03] pointer-events-none grayscale" 
+                style={{ backgroundImage: `url("${bgUrl}")` }}
+              />
             );
-          }
-          
-          return (
-            <div 
-              className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed opacity-50 pointer-events-none" 
-              style={{ backgroundImage: `url("${bgUrl}")` }}
-            />
-          );
-        })()}
-        <div className="absolute inset-0 z-0 bg-[#FDFCFE]/40 backdrop-blur-[1px] pointer-events-none" />
+          })()}
+          <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[800px] h-[800px] bg-purple-300/30 blur-[120px] rounded-full mix-blend-multiply pointer-events-none" />
+          <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-[600px] h-[600px] bg-indigo-300/30 blur-[100px] rounded-full mix-blend-multiply pointer-events-none" />
+          <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none" />
+        </div>
 
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-4 lg:mb-6" style={{ fontFamily: cmsData?.hero?.fontFamily || 'inherit' }}>
-          <div className="mx-auto max-w-5xl text-center">
-            <div className="flex flex-wrap justify-center gap-3">
-              {heroBadges.map((badge, idx) => {
-                const Icon = badgeIcons[idx % badgeIcons.length];
-                return (
-                  <div 
-                    key={idx} 
-                    className="inline-flex items-center gap-2 rounded-full border border-purple-100 backdrop-blur-md px-4 py-2 text-xs font-bold shadow-sm"
-                    style={{ 
-                      backgroundColor: cmsData?.hero?.badgeColor ? `${cmsData.hero.badgeColor}B3` : 'rgba(255, 255, 255, 0.7)', // 70% opacity if hex
-                      color: cmsData?.hero?.badgeTextColor || '#2D1B4D'
-                    }}
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" style={{ fontFamily: cmsData?.hero?.fontFamily || 'inherit' }}>
+          <div className="grid lg:grid-cols-12 gap-16 lg:gap-12 items-center">
+            
+            {/* Left Column: Text Content */}
+            <div className="lg:col-span-7 text-left space-y-8">
+              <h1 
+                className="text-[3.5rem] leading-[1.05] font-medium tracking-tight sm:text-6xl lg:text-[5.5rem] font-playfair animate-fade-in-up"
+                style={{ color: cmsData?.hero?.titleColor || '#1A112B' }}
+              >
+                {(() => {
+                  const rawTitle = (cmsData?.hero?.title || 'Land Jobs Faster and Easier with AI Agents + Human Assistants').replace(/<br\s*\/?>/gi, ' ');
+                  let main = '';
+                  let emphasis = '';
+
+                  if (rawTitle.includes('+')) {
+                    [main, emphasis] = rawTitle.split('+');
+                    main = main.trim();
+                    emphasis = emphasis.trim();
+                  } else {
+                    const words = rawTitle.trim().split(' ');
+                    if (words.length > 2) {
+                      emphasis = words.pop() || '';
+                      main = words.join(' ');
+                    } else {
+                      return <span className="capitalize">{rawTitle.toLowerCase()}</span>;
+                    }
+                  }
+
+                  return (
+                    <div className="flex flex-col">
+                      <span className="capitalize">{main.toLowerCase()}</span>
+                      <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent pb-2 capitalize pr-4 w-fit">
+                        {emphasis.toLowerCase()}
+                      </span>
+                    </div>
+                  );
+                })()}
+              </h1>
+              
+              <div className="space-y-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+                <p 
+                  className="text-xl font-bold sm:text-2xl lg:text-3xl"
+                  style={{ color: cmsData?.hero?.subtitleColor || '#4B3F6B' }}
+                >
+                  {cmsData?.hero?.subtitle || 'A Faster Way To Get Interview Calls with Ai + Human touch'}
+                </p>
+                
+                <div className="w-20 h-1 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full" />
+
+                <div>
+                  <p 
+                    className="text-base font-bold mb-2"
+                    style={{ color: cmsData?.hero?.descriptionHeaderColor || cmsData?.hero?.descriptionColor || '#4B2C83' }}
                   >
-                    {(badge === '4.8 Trustpilot' || badge === 'Gov Approved' || badge === '90-Day Calls' || badge === '100k+ Helped' || idx % 5 === 4) ? (
-                      badgeContent(badge, idx)
-                    ) : (
-                      <>
-                        <Icon className="h-4 w-4 text-purple-600" />
-                        {badge}
-                      </>
-                    )}
-                  </div>
-                );
-              })}
+                    {cmsData?.hero?.descriptionHeader || 'Career success starts with the right guidance'}
+                  </p>
+                  <p 
+                    className="text-base leading-relaxed sm:text-lg max-w-xl"
+                    style={{ color: cmsData?.hero?.descriptionColor ? `${cmsData.hero.descriptionColor}CC` : '#5D4A7A' }}
+                  >
+                    {cmsData?.hero?.descriptionBody || "You're not just another profile to us. We guide you personally, improve your job search approach, and stay committed until you start seeing interview results."}
+                  </p>
+                </div>
+                
+                {/* CTA Buttons inside Hero (Optional but good for split layout) */}
+                <div className="flex flex-wrap gap-4 pt-4">
+                  <a 
+                    href="#consultation" 
+                    className="inline-flex items-center justify-center rounded-full bg-[#1A112B] px-8 py-4 text-sm font-bold text-white transition-all hover:bg-black hover:scale-105 shadow-xl shadow-black/10"
+                  >
+                    Book Strategy Call
+                  </a>
+                  <a 
+                    href="#about" 
+                    className="inline-flex items-center justify-center rounded-full bg-white px-8 py-4 text-sm font-bold text-[#1A112B] transition-all hover:bg-purple-50 hover:scale-105 shadow-xl shadow-black/5 border border-purple-100"
+                  >
+                    Explore Services
+                  </a>
+                </div>
+              </div>
             </div>
 
-            <h1 
-              className="mt-4 text-[3.5rem] leading-[1.05] font-medium tracking-tight sm:text-6xl lg:text-[7rem] font-playfair flex flex-wrap justify-center items-center"
-              style={{ 
-                color: cmsData?.hero?.titleColor || '#1A112B'
-              }}
-            >
-              {(() => {
-                const rawTitle = (cmsData?.hero?.title || 'Land Jobs Faster and Easier with AI Agents + Human Assistants').replace(/<br\s*\/?>/gi, ' ');
+            {/* Right Column: Top 5 Points (Glassmorphic Stack) */}
+            <div className="lg:col-span-5 relative animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+              <div className="relative rounded-[2rem] bg-white/40 border border-white/60 shadow-[0_8px_32px_rgba(31,38,135,0.05)] backdrop-blur-xl p-6 sm:p-8 overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-purple-400/20 rounded-full blur-2xl pointer-events-none" />
+                <div className="absolute bottom-0 left-0 w-32 h-32 bg-indigo-400/20 rounded-full blur-2xl pointer-events-none" />
                 
-                // Split logic for inline styling
-                let main = '';
-                let emphasis = '';
+                <div className="relative z-10 flex flex-col gap-4">
+                  {heroBadges.map((badge, idx) => {
+                    let customIcon = null;
+                    if (badge.toLowerCase().includes('trustpilot')) {
+                      customIcon = <img src="/Green-Star-on-Gray-Checkerboard-1.png" alt="Trustpilot" className="w-6 h-6 object-contain" />;
+                    } else if (badge.toLowerCase().includes('gov')) {
+                      customIcon = <ShieldCheck className="h-6 w-6" />;
+                    } else if (badge.toLowerCase().includes('90-day')) {
+                      customIcon = <Clock className="h-6 w-6" />;
+                    } else if (badge.toLowerCase().includes('100k')) {
+                      customIcon = <Users className="h-6 w-6" />;
+                    } else if (badge.toLowerCase().includes('expert') || badge.toLowerCase().includes('1:1')) {
+                      customIcon = <Sparkles className="h-6 w-6" />;
+                    }
 
-                if (rawTitle.includes('+')) {
-                  [main, emphasis] = rawTitle.split('+');
-                  main = main.trim();
-                  emphasis = emphasis.trim();
-                } else {
-                  const words = rawTitle.trim().split(' ');
-                  if (words.length > 2) {
-                    emphasis = words.pop() || '';
-                    main = words.join(' ');
-                  } else {
-                    return <span className="capitalize">{rawTitle.toLowerCase()}</span>;
-                  }
-                }
+                    const Icon = badgeIcons[idx % badgeIcons.length];
 
-                return (
-                  <div className="flex flex-wrap justify-center items-baseline gap-x-4">
-                    <span className="capitalize">{main.toLowerCase()}</span>
-                    <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent pb-1 capitalize">
-                      {emphasis.toLowerCase()}
-                    </span>
-                  </div>
-                );
-              })()}
-            </h1>
-            <p 
-              className="mt-6 text-xl font-bold sm:text-2xl lg:text-3xl max-w-3xl mx-auto"
-              style={{ 
-                color: cmsData?.hero?.subtitleColor || '#4B3F6B'
-              }}
-            >
-              {cmsData?.hero?.subtitle || 'A Faster Way To Get Interview Calls with Ai + Human touch'}
-            </p>
+                    return (
+                      <div 
+                        key={idx} 
+                        className="group flex items-center gap-4 rounded-2xl bg-white/60 border border-white/80 p-4 shadow-sm hover:shadow-md hover:bg-white/80 transition-all duration-300"
+                      >
+                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-purple-50 text-purple-600 group-hover:scale-110 group-hover:bg-purple-100 transition-all duration-300">
+                          {customIcon || <Icon className="h-6 w-6" />}
+                        </div>
+                        <div>
+                          <h3 className="text-base font-bold text-[#1A112B]">{badge}</h3>
+                          <p className="text-xs text-slate-500 font-medium mt-0.5">
+                            {idx === 0 ? "Rated by successful candidates" :
+                             idx === 1 ? "Fully compliant & certified" :
+                             idx === 2 ? "Exclusive interview guarantee" :
+                             idx === 3 ? "A proven track record" :
+                             "Personalized strategic coaching"}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
 
-
-            <p 
-              className="mt-8 text-base font-semibold"
-              style={{ color: cmsData?.hero?.descriptionHeaderColor || cmsData?.hero?.descriptionColor || '#4B2C83' }}
-            >
-              {cmsData?.hero?.descriptionHeader || 'Career success starts with the right guidance'}
-            </p>
-            <p 
-              className="mt-2 text-base leading-relaxed sm:text-lg max-w-2xl mx-auto"
-              style={{ color: cmsData?.hero?.descriptionColor ? `${cmsData.hero.descriptionColor}CC` : '#5D4A7A' }} // 80% opacity
-            >
-              {cmsData?.hero?.descriptionBody || "You're not just another profile to us. We guide you personally, improve your job search approach, and stay committed until you start seeing interview results."}
-            </p>
           </div>
         </div>
       </section>
