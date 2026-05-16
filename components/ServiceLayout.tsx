@@ -23,7 +23,7 @@ import QBayNavbar from '@/components/QBayNavbar';
 import QBayFooter from '@/components/QBayFooter';
 import CheckoutModal from '@/components/CheckoutModal';
 
-import { defaultAudioReviews, testimonialShortUrls, youtubeShortUrls } from '@/app/homeData';
+import { defaultAudioReviews, testimonialShortUrls } from '@/app/homeData';
 import { mapVideoUrls } from '@/lib/utils';
 
 const defaultPlans = [
@@ -251,49 +251,13 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
   const col1Images = resultsImages.slice(0, midPoint);
   const col2Images = resultsImages.slice(midPoint);
 
-  // Process Video Sections
-  // 1. Grid Testimonials (Real Results section)
+  // Process Video Testimonials
   const gridUrls = Array.isArray(testimonialsData?.testimonialGrid?.videoUrls) 
     ? testimonialsData.testimonialGrid.videoUrls 
     : (Array.isArray(testimonialsData) ? testimonialsData : testimonialShortUrls);
   
   const testimonialShortsData = mapVideoUrls(gridUrls, 'maxresdefault');
   const testimonialsGridTitle = testimonialsData?.testimonialGrid?.title || 'Real Results. Real Stories.';
-
-  // 2. Animated Shorts (Carousel section)
-  const carouselUrls = Array.isArray(testimonialsData?.animatedShorts?.videoUrls)
-    ? testimonialsData.animatedShorts.videoUrls
-    : youtubeShortUrls;
-    
-  const youtubeShortsData = mapVideoUrls(carouselUrls, 'hqdefault');
-
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [isPaused, setIsPaused] = useState(false);
-
-  useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
-
-    let animationFrameId: number;
-
-    const scroll = () => {
-      if (!isPaused) {
-        if (
-          Math.ceil(scrollContainer.scrollLeft) + scrollContainer.clientWidth >=
-          scrollContainer.scrollWidth
-        ) {
-          scrollContainer.scrollLeft = 0;
-        } else {
-          scrollContainer.scrollLeft += 1;
-        }
-      }
-      animationFrameId = requestAnimationFrame(scroll);
-    };
-
-    animationFrameId = requestAnimationFrame(scroll);
-
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [isPaused]);
 
   return (
     <main className="min-h-screen selection:bg-purple-100 bg-[#FDFCFE] text-[#1A112B]">
@@ -744,42 +708,6 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
               ))}
             </div>
           )}
-        </div>
-      </section>
-
-      {/* Animated Shorts Carousel Section */}
-      <section id="shorts" className="bg-[#FDFBFF] py-24 scroll-mt-24 border-b border-purple-100/50">
-        <div className="w-full overflow-hidden relative">
-          <div 
-            ref={scrollRef}
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-            className="flex gap-6 overflow-x-auto pb-12 scrollbar-hide px-4 md:px-0"
-          >
-            {youtubeShortsData.map((s, idx) => (
-              <div
-                key={`${s.id}-${idx}`}
-                onClick={() => setSelectedVideo(s)}
-                className="relative w-[220px] aspect-[9/16] flex-shrink-0 rounded-[2.2rem] overflow-hidden bg-gray-900 shadow-2xl group cursor-pointer block"
-              >
-                <img
-                  src={s.thumbnail}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  alt={`QBay Short ${idx + 1}`}
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-red-600 text-white shadow-2xl transition-transform duration-300 group-hover:scale-110">
-                    <Play className="h-7 w-7 fill-current" />
-                  </div>
-                </div>
-              </div>
-             ))}
-          </div>
-
-          {/* Fade overlays for the edges */}
-          <div className="absolute top-0 bottom-0 left-0 w-32 bg-gradient-to-r from-[#FDFBFF] to-transparent z-10 pointer-events-none" />
-          <div className="absolute top-0 bottom-0 right-0 w-32 bg-gradient-to-l from-[#FDFBFF] to-transparent z-10 pointer-events-none" />
         </div>
       </section>
 
