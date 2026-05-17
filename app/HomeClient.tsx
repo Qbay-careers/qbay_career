@@ -711,7 +711,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                   loop 
                   muted 
                   playsInline 
-                  className="w-full h-full object-cover opacity-[0.03] pointer-events-none"
+                  className="w-full h-full object-cover opacity-25 pointer-events-none"
                 >
                   <source src={bgUrl} type={`video/${bgUrl.split('.').pop()}`} />
                 </video>
@@ -719,7 +719,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
             }
             return (
               <div 
-                className="w-full h-full bg-cover bg-center bg-no-repeat bg-fixed opacity-[0.03] pointer-events-none grayscale" 
+                className="w-full h-full bg-cover bg-center bg-no-repeat bg-fixed opacity-25 pointer-events-none grayscale" 
                 style={{ backgroundImage: `url("${bgUrl}")` }}
               />
             );
