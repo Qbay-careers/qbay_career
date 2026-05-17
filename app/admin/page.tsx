@@ -1023,12 +1023,12 @@ export default function AdminDashboard() {
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap">
                                 <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-bold ${
-                                  payment.status === 'paid' 
+                                  payment.status === 'completed' 
                                     ? 'bg-green-100 text-green-700' 
                                     : 'bg-yellow-100 text-yellow-700'
                                 }`}>
-                                  {payment.status === 'paid' ? <CheckCircle2 size={12} /> : <Loader2 size={12} className="animate-spin" />}
-                                  {payment.status.toUpperCase()}
+                                  {payment.status === 'completed' ? <CheckCircle2 size={12} /> : <Loader2 size={12} className="animate-spin" />}
+                                  {payment.status === 'completed' ? 'PAID' : payment.status.toUpperCase()}
                                 </span>
                               </td>
                             </tr>

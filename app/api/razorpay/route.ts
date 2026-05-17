@@ -42,10 +42,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Plan not found" }, { status: 404 });
     }
 
-    // 2. Parse Price (Improved: handles commas like 1,500)
-    const amountRaw = selectedPlan.price.replace(/[^0-9]/g, '');
-    const verifiedAmount = parseInt(amountRaw, 10);
-    const currency = "INR"; // Forced for testing
+    // 2. Parse Price (Improved: handles commas like 1,500 and decimals like 1500.50)
+    const amountRaw = parseFloat(selectedPlan.price.replace(/[^0-9.]/g, ''));
+    const verifiedAmount = Math.round(amountRaw); // Round to whole euros
+    const currency = "EUR"; // Forced for testing
 
     if (isNaN(verifiedAmount) || verifiedAmount <= 0) {
       return NextResponse.json({ error: "Invalid price in database" }, { status: 400 });

@@ -16,6 +16,7 @@ const COUNTRIES = [
   { name: 'India', iso: 'IN', code: '+91', flag: '🇮🇳' },
   { name: 'United Kingdom', iso: 'GB', code: '+44', flag: '🇬🇧' },
   { name: 'Ireland', iso: 'IE', code: '+353', flag: '🇮🇪' },
+  { name: 'Finland', iso: 'FI', code: '+358', flag: '🇫🇮' },
   { name: 'UAE', iso: 'AE', code: '+971', flag: '🇦🇪' },
   { name: 'United States', iso: 'US', code: '+1', flag: '🇺🇸' },
   { name: 'Canada', iso: 'CA', code: '+1', flag: '🇨🇦' },
@@ -25,11 +26,13 @@ const COUNTRIES = [
   { name: 'Sweden', iso: 'SE', code: '+46', flag: '🇸🇪' },
   { name: 'Singapore', iso: 'SG', code: '+65', flag: '🇸🇬' },
   { name: 'Qatar', iso: 'QA', code: '+974', flag: '🇶🇦' },
+  { name: 'Other', iso: 'INT', code: '', flag: '🌍' },
 ];
 
 export default function CheckoutModal({ isOpen, onClose, plan }: CheckoutModalProps) {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
   const [selectedCountry, setSelectedCountry] = useState(COUNTRIES[0]);
+  const [customCountryCode, setCustomCountryCode] = useState('+');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
@@ -50,9 +53,9 @@ export default function CheckoutModal({ isOpen, onClose, plan }: CheckoutModalPr
 
   if (!isOpen || !plan) return null;
 
-  const amountRaw = plan.price.replace(/[^0-9]/g, '');
-  const amountNumeric = parseInt(amountRaw, 10);
-  const displayPrice = `₹${amountNumeric.toLocaleString()}/-`;
+  const amountRaw = parseFloat(plan.price.replace(/[^0-9.]/g, ''));
+  const amountNumeric = Math.round(amountRaw);
+  const displayPrice = `€${amountNumeric.toLocaleString()}`;
 
   const loadRazorpay = () => {
     return new Promise((resolve) => {
@@ -84,7 +87,8 @@ export default function CheckoutModal({ isOpen, onClose, plan }: CheckoutModalPr
       if (!loaded) throw new Error("Razorpay failed to load");
 
       const cleanNumber = formData.phone.replace(/[^0-9]/g, '');
-      const fullPhone = `${selectedCountry.code}${cleanNumber}`;
+      const activeCode = selectedCountry.name === 'Other' ? customCountryCode : selectedCountry.code;
+      const fullPhone = `${activeCode}${cleanNumber}`;
 
       const options = {
         key: data.keyId,
@@ -227,21 +231,34 @@ export default function CheckoutModal({ isOpen, onClose, plan }: CheckoutModalPr
                   <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 transition-colors group-focus-within:text-indigo-600">Phone Number</label>
                   <div className="flex gap-4">
                     <div className="relative shrink-0 flex items-center gap-1.5 py-1.5 border-b border-slate-100 group-focus-within:border-indigo-600 transition-all">
-                      <span className="text-sm font-bold text-slate-900">{selectedCountry.iso}</span>
-                      <span className="text-sm font-medium text-slate-500">{selectedCountry.code}</span>
-                      <select 
-                        className="absolute inset-0 opacity-0 cursor-pointer"
-                        value={selectedCountry.code}
-                        onChange={(e) => {
-                          const country = COUNTRIES.find(c => c.code === e.target.value);
-                          if (country) setSelectedCountry(country);
-                        }}
-                      >
-                        {COUNTRIES.map(c => (
-                          <option key={c.name} value={c.code}>{c.flag} {c.name} ({c.code})</option>
-                        ))}
-                      </select>
-                      <ChevronDown className="w-3.5 h-3.5 text-slate-300" />
+                      <div className="relative flex items-center gap-1 cursor-pointer hover:bg-slate-50 p-0.5 rounded">
+                        <span className="text-sm font-bold text-slate-900">{selectedCountry.iso}</span>
+                        <ChevronDown className="w-3 h-3 text-slate-300" />
+                        <select 
+                          className="absolute inset-0 opacity-0 cursor-pointer"
+                          value={selectedCountry.name}
+                          onChange={(e) => {
+                            const country = COUNTRIES.find(c => c.name === e.target.value);
+                            if (country) setSelectedCountry(country);
+                          }}
+                        >
+                          {COUNTRIES.map(c => (
+                            <option key={c.name} value={c.name}>{c.flag} {c.name} {c.code ? `(${c.code})` : ''}</option>
+                          ))}
+                        </select>
+                      </div>
+                      
+                      {selectedCountry.name === 'Other' ? (
+                        <input 
+                          type="text" 
+                          className="w-10 text-sm font-medium text-slate-900 bg-transparent outline-none border-b border-dashed border-slate-300 focus:border-indigo-600"
+                          value={customCountryCode}
+                          onChange={(e) => setCustomCountryCode(e.target.value)}
+                          placeholder="+"
+                        />
+                      ) : (
+                        <span className="text-sm font-medium text-slate-500">{selectedCountry.code}</span>
+                      )}
                     </div>
                     <input
                       type="tel"
