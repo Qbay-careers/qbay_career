@@ -83,7 +83,7 @@ export default function QBayFooter() {
               </p>
               <div className="flex justify-start">
                 <a 
-                  href="https://wa.me/447551940676" 
+                  href="https://www.whatsapp.com/channel/0029Vb5n9ib8F2pCzI5gEZ3H" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="bg-black text-white px-6 py-3.5 rounded-full font-bold text-xs uppercase tracking-widest"
