@@ -53,23 +53,31 @@ export default function AboutClient({ initialData }: { initialData: any }) {
 
       <section className="bg-[#FAF5FB] pt-24 pb-20">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <h1 className="text-center text-4xl md:text-5xl font-sans font-black text-[#5D4A7A] tracking-tight uppercase mb-16">
-            {title}
-          </h1>
+          {/* Header */}
+          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+            <div className="inline-flex items-center gap-2 rounded-full bg-purple-100/60 px-3 py-1 text-xs font-bold text-purple-700 border border-purple-200/50 mb-4 uppercase tracking-widest">
+              Who We Are
+            </div>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-[#1A112B] uppercase">
+              {title}
+            </h1>
+            <div className="w-16 h-1 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full mx-auto mt-4" />
+          </div>
 
-          <div className="space-y-8 text-gray-800 text-lg md:text-xl font-serif leading-relaxed max-w-4xl mx-auto">
+          {/* Main Story Content - keep the beautiful new responsive glass card */}
+          <div className="space-y-6 sm:space-y-8 text-slate-700 text-base sm:text-lg md:text-xl font-normal leading-relaxed max-w-3xl mx-auto bg-white/40 border border-white/60 shadow-xl shadow-black/[0.02] backdrop-blur-md p-6 sm:p-10 rounded-2xl sm:rounded-[1.5rem]">
             {contentParagraphs.map((paragraph, index) => (
-              <p key={index} className={index === contentParagraphs.length - 1 ? 'pt-2' : ''}>
+              <p key={index} className="text-slate-600">
                 {paragraph}
               </p>
             ))}
           </div>
 
-          {/* Founders Profile Images */}
+          {/* Founders Profile Images - reverted to original design */}
           <div className="mt-24 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8 max-w-3xl mx-auto">
             {founders.map((founder: any, idx: number) => (
               <div key={idx} className="flex flex-col items-center group">
-                <div className="w-64 h-64 md:w-72 md:h-72 rounded-[2.5rem] overflow-hidden shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:-translate-y-1 bg-white">
+                <div className="w-64 h-64 md:w-72 md:h-72 rounded-[2.5rem] overflow-hidden shadow-lg bg-white">
                   <img 
                     src={founder.image} 
                     alt={founder.name} 
@@ -89,7 +97,7 @@ export default function AboutClient({ initialData }: { initialData: any }) {
 
       <FeaturedOn />
 
-      {/* Backed By & Associates Section */}
+      {/* Backed By & Associates Section - reverted to original design */}
       <section className="bg-[#FAF5FB] py-16 md:py-20 border-t border-purple-50">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-16">
           {/* Backed By */}
