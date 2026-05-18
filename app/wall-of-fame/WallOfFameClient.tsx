@@ -61,6 +61,7 @@ export default function WallOfFame() {
   const resultsScrollRef = useRef<HTMLDivElement>(null);
   const [isTestimonialPaused, setIsTestimonialPaused] = useState(false);
   const [isResultsPaused, setIsResultsPaused] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState<any | null>(null);
 
   useEffect(() => {
     const fetchCmsData = async () => {
@@ -549,31 +550,67 @@ export default function WallOfFame() {
 
       {/* Video Testimonials Section */}
       <section id="testimonials" className="bg-[#F9F5FF] py-24 scroll-mt-24 pb-40">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-16">
-          <h2 className="text-4xl font-bold text-[#2D1B4D] text-center sm:text-5xl">
-            {testimonialsGridTitle}
-          </h2>
-        </div>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">
+              {testimonialsGridTitle}
+            </h2>
+            <p className="text-lg text-slate-600 font-medium">
+              Watch real stories from candidates who transformed their careers.
+            </p>
+          </div>
 
-        <div className="w-full overflow-hidden relative">
-          <div 
-            ref={testimonialScrollRef}
-            onMouseEnter={() => setIsTestimonialPaused(true)}
-            onMouseLeave={() => setIsTestimonialPaused(false)}
-            className="flex gap-6 overflow-x-auto pb-12 scrollbar-hide px-4 md:px-0"
-          >
-            {testimonialShortsData.map((video: any, idx: number) => (
-                <a
+          {testimonialShortsData.length > 4 ? (
+            <div className="relative w-full overflow-hidden">
+              {/* Side fades for a smooth transition */}
+              <div className="absolute inset-y-0 left-0 w-12 sm:w-16 lg:w-24 bg-gradient-to-r from-[#F9F5FF] via-[#F9F5FF]/40 to-transparent z-20 pointer-events-none" />
+              <div className="absolute inset-y-0 right-0 w-12 sm:w-16 lg:w-24 bg-gradient-to-l from-[#F9F5FF] via-[#F9F5FF]/40 to-transparent z-20 pointer-events-none" />
+              
+              <div className="flex gap-6 lg:gap-8 animate-hero-scroll hover:[animation-play-state:paused] w-max px-4">
+                {[...testimonialShortsData, ...testimonialShortsData].map((video: any, idx: number) => (
+                  <div
+                    key={video.id + idx}
+                    onClick={() => setSelectedVideo(video)}
+                    className="group relative w-[180px] sm:w-[220px] lg:w-[260px] aspect-[9/16] rounded-2xl overflow-hidden bg-gray-900 shadow-xl cursor-pointer transform-gpu transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl shrink-0"
+                  >
+                    <img
+                      src={video.thumbnail}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      alt={`Success Story ${idx + 1}`}
+                      loading="lazy"
+                    />
+                    {video.flag && (
+                      <div className="absolute top-4 right-4 z-10 w-12 h-8 rounded-md overflow-hidden shadow-lg transition-transform duration-300 group-hover:scale-110">
+                        <img src={video.flag} alt="Country flag" className="w-full h-full object-cover" />
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white border border-white/30 shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:bg-red-600 group-hover:border-red-500">
+                        <Play className="h-8 w-8 fill-current" />
+                      </div>
+                    </div>
+                    <div className="absolute bottom-6 left-6 right-6">
+                      <div className="h-1 w-full bg-white/20 rounded-full overflow-hidden">
+                        <div className="h-full bg-white w-0 group-hover:w-full transition-all duration-1000 ease-out" />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+              {testimonialShortsData.map((video: any, idx: number) => (
+                <div
                   key={video.id + idx}
-                  href={video.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="relative w-[220px] aspect-[9/16] flex-shrink-0 rounded-[2.2rem] overflow-hidden bg-gray-900 shadow-2xl group cursor-pointer block"
+                  onClick={() => setSelectedVideo(video)}
+                  className="group relative aspect-[9/16] rounded-2xl overflow-hidden bg-gray-900 shadow-xl cursor-pointer transform-gpu transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl mx-auto w-full max-w-[260px]"
                 >
                   <img
                     src={video.thumbnail}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    alt="Testimonial"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    alt={`Success Story ${idx + 1}`}
                     loading="lazy"
                   />
                   {video.flag && (
@@ -581,18 +618,21 @@ export default function WallOfFame() {
                       <img src={video.flag} alt="Country flag" className="w-full h-full object-cover" />
                     </div>
                   )}
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500" />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-red-600 text-white shadow-2xl transition-transform duration-300 group-hover:scale-110">
-                      <Play className="h-7 w-7 fill-current" />
+                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white border border-white/30 shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:bg-red-600 group-hover:border-red-500">
+                      <Play className="h-8 w-8 fill-current" />
                     </div>
                   </div>
-                </a>
-            ))}
-          </div>
-          
-          {/* Fade overlays for the edges */}
-          <div className="absolute top-0 bottom-0 left-0 w-32 bg-gradient-to-r from-[#F9F5FF] to-transparent z-10 pointer-events-none" />
-          <div className="absolute top-0 bottom-0 right-0 w-32 bg-gradient-to-l from-[#F9F5FF] to-transparent z-10 pointer-events-none" />
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <div className="h-1 w-full bg-white/20 rounded-full overflow-hidden">
+                      <div className="h-full bg-white w-0 group-hover:w-full transition-all duration-1000 ease-out" />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -814,6 +854,35 @@ export default function WallOfFame() {
                   <p className="text-white/60 font-bold text-lg">{founderData.role}</p>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Video Player Modal */}
+      {selectedVideo && (
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-black/90 backdrop-blur-sm"
+          onClick={() => setSelectedVideo(null)}
+        >
+          <div 
+            className="relative w-full max-w-4xl max-h-[90vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setSelectedVideo(null)}
+              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors z-10"
+            >
+              <X className="w-8 h-8" />
+            </button>
+            
+            <div className="relative w-full aspect-[9/16] max-h-[85vh] rounded-2xl overflow-hidden">
+              <iframe
+                src={`https://www.youtube.com/embed/${selectedVideo.id}?autoplay=1&rel=0`}
+                className="w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
             </div>
           </div>
         </div>
