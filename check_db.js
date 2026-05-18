@@ -9,22 +9,26 @@ const supabase = createClient(
   p('NEXT_PUBLIC_SUPABASE_ANON_KEY')
 );
 
-async function checkPricing() {
+async function checkWeApplyPricing() {
   const { data, error } = await supabase
     .from('cms_content')
     .select('content')
-    .eq('key', 'pricing')
+    .eq('key', 'services')
     .single();
 
   if (error) {
-    console.error('Error fetching:', error);
+    console.error('Error fetching services:', error);
     return;
   }
 
-  console.log('Type of content:', typeof data.content);
-  console.log('Is Array?', Array.isArray(data.content));
-  console.log('Keys:', Object.keys(data.content));
-  console.log('Content snippet:', JSON.stringify(data.content, null, 2));
+  const services = data.content;
+  const weApply = services.find(s => s.slug === 'we-apply-for-you');
+  if (!weApply) {
+    console.log('we-apply-for-you not found.');
+    return;
+  }
+
+  console.log('we-apply-for-you pricing:', JSON.stringify(weApply.pricing, null, 2));
 }
 
-checkPricing();
+checkWeApplyPricing();

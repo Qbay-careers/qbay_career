@@ -505,20 +505,26 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
                 </div>
 
                 <div className="space-y-2 mb-4 flex-1">
-                  {plan.features?.map((feature: any, idx: number) => {
-                    const featureText = feature.title || feature;
-                    const isLast = idx === plan.features.length - 1;
-                    return (
-                      <div key={featureText} className="flex items-start gap-3">
-                        <div className="mt-0.5 text-[#6366f1]">
-                          <Check className="h-4 w-4 stroke-[3px]" />
+                  {(plan.features || [])
+                    .filter((f: any) => {
+                      if (typeof f === 'string') return f.trim() !== '';
+                      if (typeof f === 'object' && f !== null) return typeof f.title === 'string' && f.title.trim() !== '';
+                      return false;
+                    })
+                    .map((feature: any, idx: number, arr: any[]) => {
+                      const featureText = typeof feature === 'string' ? feature : feature.title;
+                      const isLast = idx === arr.length - 1;
+                      return (
+                        <div key={featureText} className="flex items-start gap-3">
+                          <div className="mt-0.5 text-[#6366f1]">
+                            <Check className="h-4 w-4 stroke-[3px]" />
+                          </div>
+                          <span className={`text-sm font-medium ${isLast ? 'text-[#6366f1]' : 'text-gray-600'}`}>
+                            {featureText}
+                          </span>
                         </div>
-                        <span className={`text-sm font-medium ${isLast ? 'text-[#6366f1]' : 'text-gray-600'}`}>
-                          {featureText}
-                        </span>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
                 </div>
 
                 <div className="mt-auto pt-4">
@@ -564,14 +570,23 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
                   </h2>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-y-5 gap-x-8">
-                    {monthlyPlan.features?.map((feature: any, idx: number) => (
-                      <div key={idx} className="flex items-center gap-3">
-                        <Check className="h-4 w-4 text-[#6366f1] stroke-[4px]" />
-                        <span className="text-sm font-medium text-gray-300">
-                          {feature.title || feature}
-                        </span>
-                      </div>
-                    ))}
+                    {(monthlyPlan.features || [])
+                      .filter((f: any) => {
+                        if (typeof f === 'string') return f.trim() !== '';
+                        if (typeof f === 'object' && f !== null) return typeof f.title === 'string' && f.title.trim() !== '';
+                        return false;
+                      })
+                      .map((feature: any, idx: number) => {
+                        const featureText = typeof feature === 'string' ? feature : feature.title;
+                        return (
+                          <div key={idx} className="flex items-center gap-3">
+                            <Check className="h-4 w-4 text-[#6366f1] stroke-[4px]" />
+                            <span className="text-sm font-medium text-gray-300">
+                              {featureText}
+                            </span>
+                          </div>
+                        );
+                      })}
                   </div>
                 </div>
 
@@ -735,12 +750,21 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
               </div>
 
               <div className="grid sm:grid-cols-2 gap-6">
-                {service.benefits.map((benefit, i) => (
-                  <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-purple-50/50 border border-purple-100/50 hover:bg-purple-50 transition-colors">
-                    <CheckCircle2 className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
-                    <span className="text-sm font-bold text-[#2D1B4D]">{benefit}</span>
-                  </div>
-                ))}
+                {(service.benefits || [])
+                  .filter((b: any) => {
+                    if (typeof b === 'string') return b.trim() !== '';
+                    if (typeof b === 'object' && b !== null) return typeof b.title === 'string' && b.title.trim() !== '';
+                    return false;
+                  })
+                  .map((benefit: any, i: number) => {
+                    const benefitText = typeof benefit === 'string' ? benefit : benefit.title;
+                    return (
+                      <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-purple-50/50 border border-purple-100/50 hover:bg-purple-50 transition-colors">
+                        <CheckCircle2 className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
+                        <span className="text-sm font-bold text-[#2D1B4D]">{benefitText}</span>
+                      </div>
+                    );
+                  })}
               </div>
             </div>
           </div>
