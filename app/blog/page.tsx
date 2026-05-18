@@ -114,17 +114,17 @@ export default function BlogListing() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           
           {/* Section Header with Navigation Icons */}
-          <div className="flex flex-col sm:flex-row justify-between items-end gap-6 mb-16 px-2">
+          <div className="flex justify-between items-end gap-6 mb-10 sm:mb-16 px-2">
             <div>
-              <h2 className="text-3xl lg:text-4xl font-black text-[#1A112B] tracking-tight mb-3">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#1A112B] tracking-tight mb-2 sm:mb-3">
                 Our Recent Articles
               </h2>
-              <p className="text-slate-400 font-bold text-sm tracking-wide uppercase opacity-80">
+              <p className="text-slate-400 font-bold text-xs sm:text-sm tracking-wide uppercase opacity-80">
                 Stay Informed with Our Latest Insights
               </p>
             </div>
             
-            <div className="flex items-center gap-3">
+            <div className="hidden sm:flex items-center gap-3">
                <button className="h-10 w-10 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:border-[#1A112B] hover:text-[#1A112B] transition-all">
                  <ChevronLeft size={20} />
                </button>
@@ -135,13 +135,14 @@ export default function BlogListing() {
           </div>
 
           {/* Filters & Search */}
-          <div className="flex flex-col lg:flex-row justify-between items-center gap-6 mb-16 px-2">
-            <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-col lg:flex-row justify-between items-stretch lg:items-center gap-6 mb-12 sm:mb-16 px-2">
+            {/* Category horizontal scrolling selector */}
+            <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide w-full lg:w-auto pb-3 -mb-3 whitespace-nowrap snap-x snap-mandatory">
               {categories.map((cat) => (
                 <button 
                   key={cat} 
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest border transition-all ${
+                  className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest border transition-all shrink-0 snap-start ${
                     activeCategory === cat 
                       ? 'bg-[#1A112B] border-[#1A112B] text-white shadow-xl shadow-black/10' 
                       : 'bg-white border-slate-100 text-slate-400 hover:border-purple-600 hover:text-purple-600'
@@ -151,14 +152,16 @@ export default function BlogListing() {
                 </button>
               ))}
             </div>
-            <div className="relative w-full max-w-sm group">
+            
+            {/* Search Box */}
+            <div className="relative w-full lg:max-w-sm group shrink-0">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 transition-colors group-focus-within:text-purple-600" />
               <input 
                 type="text" 
                 placeholder="Search resources..." 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3.5 rounded-2xl border border-slate-100 bg-white focus:outline-none focus:border-purple-600 focus:ring-4 focus:ring-purple-600/5 transition-all font-bold text-sm text-[#1A112B] placeholder:text-slate-300"
+                className="w-full pl-12 pr-4 py-3 rounded-2xl border border-slate-100 bg-white focus:outline-none focus:border-purple-600 focus:ring-4 focus:ring-purple-600/5 transition-all font-bold text-sm text-[#1A112B] placeholder:text-slate-300"
               />
             </div>
           </div>
