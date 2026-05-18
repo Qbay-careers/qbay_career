@@ -71,8 +71,16 @@ export const AdminFormControl: React.FC<AdminFormControlProps> = ({
                 );
               } else if (isObjectImageArray) {
                 template = { src: '', flag: 'https://flagcdn.com/w80/in.png' };
+              } else if (value.length > 0 && typeof value[0] === 'object' && value[0] !== null) {
+                const first = value[0];
+                template = Object.fromEntries(
+                  Object.keys(first).map(k => [
+                    k,
+                    typeof first[k] === 'string' ? '' : (Array.isArray(first[k]) ? [] : first[k])
+                  ])
+                );
               } else {
-                template = value.length > 0 && typeof value[0] === 'object' ? {} : '';
+                template = '';
               }
               onChange([...value, template]);
             }}
