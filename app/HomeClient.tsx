@@ -391,7 +391,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
     
   const youtubeShortsData = mapVideoUrls(carouselUrls, 'hqdefault');
 
-  const servicesList = (Array.isArray(cmsData?.services) ? cmsData.services : [
+  const rawServicesList = (Array.isArray(cmsData?.services) ? cmsData.services : [
     {
       id: 'guaranteed-interviews',
       title: 'Guaranteed Interview Calls',
@@ -463,6 +463,11 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       image: 'https://images.unsplash.com/photo-1573164574572-cb89e39749b4?auto=format&fit=crop&q=80&w=800',
     },
   ]) as any[];
+
+  const servicesList = rawServicesList.filter(item => {
+    const isWellness = item.id === 'wellness' || item.slug === 'mental-wellness' || item.title === 'Mental Wellness';
+    return !isWellness;
+  });
 
   const [activePhase, setActivePhase] = useState(0);
   const [expandedReviewId, setExpandedReviewId] = useState<number | null>(null);
@@ -1035,13 +1040,13 @@ export default function HomeClient({ initialData }: { initialData: any }) {
 
           {/* New 2 Column Services */}
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2 mb-8">
-            {servicesList.filter(item => {
+            {servicesList.filter((item, idx) => {
               const isBranding = item.id === 'branding' || item.slug === 'personal-branding';
               const isInterview = item.id === 'interview-coaching' || 
                                  item.slug === 'interview-assistance' || 
                                  item.slug === 'career-growth-coaching' ||
                                  item.title === 'Career Growth Coaching';
-              return isBranding || isInterview;
+              return idx === 8 || idx === 9 || isBranding || isInterview;
             }).map((item) => (
               <div
                 key={item.title}
@@ -1078,14 +1083,14 @@ export default function HomeClient({ initialData }: { initialData: any }) {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {servicesList.filter(item => {
+            {servicesList.filter((item, idx) => {
               const isWellness = item.id === 'wellness' || item.slug === 'mental-wellness' || item.title === 'Mental Wellness';
               const isBranding = item.id === 'branding' || item.slug === 'personal-branding';
               const isInterview = item.id === 'interview-coaching' || 
                                  item.slug === 'interview-assistance' || 
                                  item.slug === 'career-growth-coaching' ||
                                  item.title === 'Career Growth Coaching';
-              return !isWellness && !isBranding && !isInterview;
+              return !isWellness && idx !== 8 && idx !== 9 && !isBranding && !isInterview;
             }).map((item) => (
               <div
                 key={item.title}
