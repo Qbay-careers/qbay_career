@@ -1982,15 +1982,15 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                 <div className="relative">
                   <div className="absolute inset-0 bg-purple-200 rounded-full blur-xl opacity-20" />
                   <img
-                    src={founderData.avatar}
-                    alt={founderData.name}
+                    src={cmsData?.founderLetter?.founderImage || '/Hizana-Web-61-768x768.webp'}
+                    alt={cmsData?.founderLetter?.founderName || 'Fazil Karatt'}
                     className="relative w-20 h-20 rounded-full object-cover border-4 border-white shadow-md grayscale-[0.2] hover:grayscale-0 transition-all duration-500"
                   />
                 </div>
                 <div>
-                  <h4 className="text-3xl md:text-4xl font-script text-purple-700 mb-1">{founderData.name}</h4>
+                  <h4 className="text-xl md:text-2xl font-script text-purple-700 mb-1">{cmsData?.founderLetter?.founderName || 'Fazil Karatt'}</h4>
                   <div className="flex items-center gap-3">
-                    <p className="text-sm font-bold text-[#A09688] tracking-widest uppercase">{founderData.role}</p>
+                    <p className="text-sm font-bold text-[#A09688] tracking-widest uppercase">{cmsData?.founderLetter?.founderRole || 'Founder & CEO'}</p>
                   </div>
                 </div>
               </div>

@@ -465,12 +465,14 @@ export default function AdminDashboard() {
       }
 
       // Auto-migrate Founder Letter
+      const defaultLetterContent = "QBay Career was built with a simple mission: to take the frustration out of your job hunt. We aren't a faceless tech giant pushing 'mass-apply' AI tools. In fact, we know recruiters instantly spot and reject low-effort AI applications. That's why we take a completely human approach.\n\nOur dedicated team handles the heavy lifting for you. We craft ATS-friendly custom resumes and cover letters, and personally apply to highly relevant jobs on your behalf in under 24 hours. By taking the grueling application process off your plate, we give you your time back so you can focus on what actually gets you hired: networking and interview prep.\n\nWhen you choose QBay, you're partnering with a small, passionate team deeply invested in your success. Thank you for trusting us to help you take the next big step in your career.";
       if ((!newData.founderLetter || typeof newData.founderLetter !== 'object') && !parentKey) {
         newData.founderLetter = {
           founderName: "Fazil Karatt",
           founderRole: "Founder & CEO",
           founderImage: "/Hizana-Web-61-768x768.webp",
           title: "Dear Fellow Job Seeker,",
+          content: defaultLetterContent,
           signature: "Welcome to QBay Career.",
           linkedinUrl: "https://www.linkedin.com/in/fazil-karatt/",
           instagramUrl: "https://www.instagram.com/fazil_karat/"
@@ -480,6 +482,7 @@ export default function AdminDashboard() {
         if (!newData.founderLetter.founderRole) newData.founderLetter.founderRole = "Founder & CEO";
         if (!newData.founderLetter.founderImage) newData.founderLetter.founderImage = "/Hizana-Web-61-768x768.webp";
         if (!newData.founderLetter.title) newData.founderLetter.title = "Dear Fellow Job Seeker,";
+        if (!newData.founderLetter.content) newData.founderLetter.content = defaultLetterContent;
         if (!newData.founderLetter.signature) newData.founderLetter.signature = "Welcome to QBay Career.";
         if (!newData.founderLetter.linkedinUrl) newData.founderLetter.linkedinUrl = "https://www.linkedin.com/in/fazil-karatt/";
         if (!newData.founderLetter.instagramUrl) newData.founderLetter.instagramUrl = "https://www.instagram.com/fazil_karat/";
