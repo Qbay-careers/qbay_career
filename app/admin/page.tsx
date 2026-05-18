@@ -226,7 +226,15 @@ export default function AdminDashboard() {
       }
 
       // Auto-migrate Consultation Right Column Defaults
-      if (newData.consultation && typeof newData.consultation === 'object' && !parentKey) {
+      if ((!newData.consultation || typeof newData.consultation !== 'object') && !parentKey) {
+        newData.consultation = {
+          cardHeading: 'Personalized Strategy Call',
+          cardSubtext: 'Join over 110k immigrant professionals who started their journey here.',
+          availabilityText: 'Available Slots for This Week',
+          ctaLabel: 'Book your free consultancy',
+          ctaLink: '/contact'
+        };
+      } else if (newData.consultation && typeof newData.consultation === 'object' && !parentKey) {
         if (!newData.consultation.cardHeading) newData.consultation.cardHeading = 'Personalized Strategy Call';
         if (!newData.consultation.cardSubtext) newData.consultation.cardSubtext = 'Join over 110k immigrant professionals who started their journey here.';
         if (!newData.consultation.availabilityText) newData.consultation.availabilityText = 'Available Slots for This Week';
@@ -457,7 +465,17 @@ export default function AdminDashboard() {
       }
 
       // Auto-migrate Founder Letter
-      if (newData.founderLetter && typeof newData.founderLetter === 'object' && !parentKey) {
+      if ((!newData.founderLetter || typeof newData.founderLetter !== 'object') && !parentKey) {
+        newData.founderLetter = {
+          founderName: "Fazil Karatt",
+          founderRole: "Founder & CEO",
+          founderImage: "/Hizana-Web-61-768x768.webp",
+          title: "Dear Fellow Job Seeker,",
+          signature: "Welcome to QBay Career.",
+          linkedinUrl: "https://www.linkedin.com/in/fazil-karatt/",
+          instagramUrl: "https://www.instagram.com/fazil_karat/"
+        };
+      } else if (newData.founderLetter && typeof newData.founderLetter === 'object' && !parentKey) {
         if (!newData.founderLetter.founderName) newData.founderLetter.founderName = "Fazil Karatt";
         if (!newData.founderLetter.founderRole) newData.founderLetter.founderRole = "Founder & CEO";
         if (!newData.founderLetter.founderImage) newData.founderLetter.founderImage = "/Hizana-Web-61-768x768.webp";
@@ -468,7 +486,17 @@ export default function AdminDashboard() {
       }
 
       // Auto-migrate Founder Quote
-      if (newData.founderQuote && typeof newData.founderQuote === 'object' && !parentKey) {
+      if ((!newData.founderQuote || typeof newData.founderQuote !== 'object') && !parentKey) {
+        newData.founderQuote = {
+          name: "Fazil Karatt",
+          role: "Founder & CEO",
+          image: "/Hizana-Web-61-768x768.webp",
+          quote: "Put your energy into interview preparation, we'll take care of the applications for you.",
+          trustedText: "Trusted by 110k job seekers",
+          linkedinUrl: "https://www.linkedin.com/in/fazil-karatt/",
+          instagramUrl: "https://www.instagram.com/fazil_karat/"
+        };
+      } else if (newData.founderQuote && typeof newData.founderQuote === 'object' && !parentKey) {
         if (!newData.founderQuote.name) newData.founderQuote.name = "Fazil Karatt";
         if (!newData.founderQuote.role) newData.founderQuote.role = "Founder & CEO";
         if (!newData.founderQuote.image) newData.founderQuote.image = "/Hizana-Web-61-768x768.webp";
