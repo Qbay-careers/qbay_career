@@ -343,7 +343,6 @@ export default function PricingClient({
                   <span className="text-4xl font-bold text-gray-900 tracking-tighter">
                     {plan.price}
                   </span>
-                  <span className="text-gray-500 text-sm ml-1">/year</span>
                 </div>
               </div>
 
