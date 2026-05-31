@@ -1,13 +1,13 @@
 export interface Service {
-  id: string;
+  id?: string;
   slug: string;
   title: string;
-  category: string;
+  category?: string;
   description: string;
-  fullDescription: string;
-  image: string;
-  features: { title: string; description: string }[];
-  benefits: string[];
+  fullDescription?: string;
+  image?: string;
+  features: { title: string; description?: string }[];
+  benefits?: (string | { title: string })[];
   results?: {
     title?: string;
     subtitle?: string;
@@ -23,6 +23,21 @@ export interface Service {
     audioUrl: string;
     flag: string;
   }[];
+  pricing?: any;
+  richContent?: {
+    whyDifferent?: { title: string; body: string }[];
+    results?: { stat: string; label: string; promise: string }[];
+    companiesHired?: string;
+    whyTrust?: { title: string; body: string }[];
+    whoIsItFor?: string[];
+    faqs?: { title: string; content: string }[];
+    ctaHeading?: string;
+    ctaBody?: string;
+    ctaButton?: string;
+    ctaLink?: string;
+    [key: string]: any;
+  };
+  [key: string]: any;
 }
 
 const defaultFeatureDesc = "Carefully tailored to ensure maximum success in your specific career path and market conditions.";

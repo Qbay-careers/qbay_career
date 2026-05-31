@@ -107,6 +107,39 @@ const defaultMonthlyPlan = {
 
 import { Service } from '@/data/services';
 
+// FAQ Accordion sub-component
+function ServiceFAQ({ faqs }: { faqs: { title: string; content: string }[] }) {
+  const [openIdx, setOpenIdx] = useState<number | null>(0);
+  return (
+    <section className="py-20 bg-white border-y border-purple-100/50">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <span className="inline-block text-xs font-bold tracking-[0.25em] text-purple-600 uppercase mb-4">Questions Answered</span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1A112B]">Frequently Asked Questions</h2>
+        </div>
+        <div className="border border-purple-100 rounded-3xl overflow-hidden shadow-sm">
+          {faqs.map((faq, idx) => (
+            <div key={idx} className="border-b last:border-b-0 border-purple-100">
+              <button
+                onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
+                className={`w-full flex items-center justify-between px-8 py-6 text-left transition-colors ${openIdx === idx ? 'bg-purple-50 text-purple-700' : 'bg-white text-[#1A112B] hover:bg-purple-50/50'}`}
+              >
+                <span className="text-base font-bold pr-4">{faq.title}</span>
+                <span className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center text-xs font-bold transition-all ${openIdx === idx ? 'border-purple-600 bg-purple-600 text-white rotate-45' : 'border-slate-300 text-slate-400'}`}>+</span>
+              </button>
+              {openIdx === idx && (
+                <div className="px-8 py-6 bg-white text-slate-600 text-sm leading-relaxed font-medium border-t border-purple-100">
+                  {faq.content}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 const iconMap: Record<string, any> = {
   'Placement Support': Target,
   'Application Management': Zap,
@@ -127,7 +160,7 @@ interface ServiceLayoutProps {
 }
 
 export default function ServiceLayout({ service, servicePageContent = {}, pricingData, testimonialsData }: ServiceLayoutProps) {
-  const CategoryIcon = iconMap[service.category] || Target;
+  const CategoryIcon = iconMap[service.category ?? ''] || Target;
 
   const [playingAudioIdx, setPlayingAudioIdx] = useState<number | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -804,6 +837,140 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
           </div>
         </div>
       </section>
+
+      {/* Rich Content Sections — rendered when richContent is present (e.g. 90-Day Programme) */}
+      {service.richContent && (
+        <>
+          {/* Why Different */}
+          {Array.isArray(service.richContent.whyDifferent) && service.richContent.whyDifferent.length > 0 && (
+            <section className="py-24 bg-gradient-to-br from-[#0a021c] to-[#1a0b3b] overflow-hidden relative">
+              <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-600/10 blur-[120px] rounded-full pointer-events-none" />
+              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+                <div className="text-center mb-16">
+                  <span className="inline-block text-xs font-bold tracking-[0.25em] text-purple-400 uppercase mb-4">What Makes Qbay Different</span>
+                  <h2 className="text-3xl sm:text-5xl font-extrabold text-white leading-tight">Built Different. Proven Different.</h2>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {service.richContent.whyDifferent.map((item: any, i: number) => (
+                    <div key={i} className="group bg-white/5 border border-white/10 rounded-2xl p-8 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1">
+                      <div className="w-10 h-10 rounded-xl bg-purple-600/30 flex items-center justify-center mb-6">
+                        <span className="text-purple-300 font-bold text-sm">0{i + 1}</span>
+                      </div>
+                      <h3 className="text-lg font-bold text-white mb-3">{item.title}</h3>
+                      <p className="text-sm text-purple-200/70 leading-relaxed">{item.body}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Results Stats */}
+          {Array.isArray(service.richContent.results) && service.richContent.results.length > 0 && (
+            <section className="py-20 bg-white border-y border-purple-100/50">
+              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div className="text-center mb-14">
+                  <span className="inline-block text-xs font-bold tracking-[0.25em] text-purple-600 uppercase mb-4">The Results Speak for Themselves</span>
+                  <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1A112B]">What We Promise. What We Deliver.</h2>
+                </div>
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                  {service.richContent.results.map((r: any, i: number) => (
+                    <div key={i} className="text-center p-8 rounded-2xl bg-purple-50 border border-purple-100">
+                      <div className="text-4xl sm:text-5xl font-black text-purple-700 mb-2">{r.stat}</div>
+                      <div className="text-sm font-bold text-[#1A112B] mb-1">{r.label}</div>
+                      <div className="text-xs text-slate-500 font-medium">{r.promise}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Companies Hired */}
+          {service.richContent.companiesHired && (
+            <section className="py-14 bg-[#FDFCFE] border-b border-purple-100/50">
+              <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
+                <p className="text-xs font-bold tracking-[0.2em] text-purple-500 uppercase mb-4">Qbay Candidates Have Landed Jobs At</p>
+                <p className="text-lg font-bold text-[#2D1B4D] leading-relaxed">{service.richContent.companiesHired}</p>
+              </div>
+            </section>
+          )}
+
+          {/* Why Trust Qbay */}
+          {Array.isArray(service.richContent.whyTrust) && service.richContent.whyTrust.length > 0 && (
+            <section className="py-24 bg-white">
+              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div className="text-center mb-16">
+                  <span className="inline-block text-xs font-bold tracking-[0.25em] text-purple-600 uppercase mb-4">Credibility</span>
+                  <h2 className="text-3xl sm:text-5xl font-extrabold text-[#1A112B]">Why the World Trusts Qbay</h2>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {service.richContent.whyTrust.map((item: any, i: number) => (
+                    <div key={i} className="group flex flex-col gap-4 p-8 rounded-2xl border border-purple-100 bg-purple-50/40 hover:bg-purple-50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                      <div className="w-10 h-10 rounded-xl bg-purple-600 flex items-center justify-center flex-shrink-0">
+                        <CheckCircle2 className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-base font-bold text-[#1A112B] mb-2">{item.title}</h3>
+                        <p className="text-sm text-slate-600 leading-relaxed">{item.body}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Who Is This For */}
+          {Array.isArray(service.richContent.whoIsItFor) && service.richContent.whoIsItFor.length > 0 && (
+            <section className="py-20 bg-gradient-to-br from-purple-50 to-indigo-50 border-y border-purple-100/50">
+              <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+                <div className="text-center mb-12">
+                  <span className="inline-block text-xs font-bold tracking-[0.25em] text-purple-600 uppercase mb-4">Is This For You?</span>
+                  <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1A112B]">Who Is This Programme For?</h2>
+                </div>
+                <div className="space-y-4">
+                  {service.richContent.whoIsItFor.map((item: string, i: number) => (
+                    <div key={i} className="flex items-start gap-4 bg-white rounded-xl p-5 border border-purple-100 shadow-sm">
+                      <div className="w-7 h-7 rounded-full bg-purple-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <CheckCircle2 className="w-4 h-4 text-white" />
+                      </div>
+                      <p className="text-base font-semibold text-[#2D1B4D]">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* FAQs */}
+          {Array.isArray(service.richContent.faqs) && service.richContent.faqs.length > 0 && (
+            <ServiceFAQ faqs={service.richContent.faqs} />
+          )}
+
+          {/* Custom Rich CTA */}
+          {service.richContent.ctaHeading && (
+            <section className="py-24 bg-gradient-to-br from-[#0a021c] via-[#1a0b3b] to-[#0a021c] relative overflow-hidden">
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-800/20 via-transparent to-transparent pointer-events-none" />
+              <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <h2 className="text-3xl sm:text-5xl font-extrabold text-white mb-6 leading-tight">{service.richContent.ctaHeading}</h2>
+                {service.richContent.ctaBody && (
+                  <p className="text-lg text-purple-200/70 leading-relaxed mb-10 max-w-3xl mx-auto">{service.richContent.ctaBody}</p>
+                )}
+                {service.richContent.ctaButton && (
+                  <a
+                    href={service.richContent.ctaLink || '/contact'}
+                    className="inline-flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-500 text-white font-bold px-10 py-5 rounded-full text-base transition-all duration-300 hover:scale-105 shadow-2xl shadow-purple-900/50"
+                  >
+                    {service.richContent.ctaButton}
+                    <ArrowRight className="w-5 h-5" />
+                  </a>
+                )}
+              </div>
+            </section>
+          )}
+        </>
+      )}
 
       {/* CTA Section */}
       <section className="py-24 overflow-hidden relative">
