@@ -178,6 +178,9 @@ export default function AdminDashboard() {
         if (!newData.hero.backgroundImage) {
           newData.hero.backgroundImage = 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1920';
         }
+        if (newData.hero.mobileBackgroundImage === undefined) {
+          newData.hero.mobileBackgroundImage = '';
+        }
         // New Hero Customization Defaults
         if (!newData.hero.titleColor) newData.hero.titleColor = '#160E22';
         if (!newData.hero.subtitleColor) newData.hero.subtitleColor = '#5D4A7A';

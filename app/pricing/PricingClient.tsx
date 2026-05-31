@@ -901,9 +901,10 @@ export default function PricingClient({
                    )}
                  </button>
                  {openPolicy === idx && (
-                   <div className="px-8 py-8 bg-white text-gray-900 font-bold leading-relaxed border-t border-[#E5E7EB]">
-                     {policy.content}
-                   </div>
+                   <div 
+                     className="px-8 py-8 bg-white text-gray-900 font-bold leading-relaxed border-t border-[#E5E7EB]"
+                     dangerouslySetInnerHTML={{ __html: policy.content }}
+                   />
                  )}
                </div>
              ))}

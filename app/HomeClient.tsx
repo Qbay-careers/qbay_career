@@ -707,26 +707,43 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         <div className="absolute inset-0 z-0">
           {(() => {
             const bgUrl = cmsData?.hero?.backgroundImage || 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1920';
-            const isVideo = bgUrl.match(/\.(mp4|webm|ogg)$/i);
+            const mobileBgUrl = cmsData?.hero?.mobileBackgroundImage;
             
-            if (isVideo) {
+            const renderMedia = (url: string, className: string) => {
+              if (!url) return null;
+              const isVideo = url.match(/\.(mp4|webm|ogg)$/i);
+              if (isVideo) {
+                return (
+                  <video 
+                    autoPlay 
+                    loop 
+                    muted 
+                    playsInline 
+                    className={`w-full h-full object-cover opacity-25 pointer-events-none ${className}`}
+                  >
+                    <source src={url} type={`video/${url.split('.').pop()}`} />
+                  </video>
+                );
+              }
               return (
-                <video 
-                  autoPlay 
-                  loop 
-                  muted 
-                  playsInline 
-                  className="w-full h-full object-cover opacity-25 pointer-events-none"
-                >
-                  <source src={bgUrl} type={`video/${bgUrl.split('.').pop()}`} />
-                </video>
+                <div 
+                  className={`w-full h-full bg-cover bg-center bg-no-repeat bg-fixed opacity-25 pointer-events-none grayscale ${className}`} 
+                  style={{ backgroundImage: `url("${url}")` }}
+                />
               );
-            }
+            };
+
             return (
-              <div 
-                className="w-full h-full bg-cover bg-center bg-no-repeat bg-fixed opacity-25 pointer-events-none grayscale" 
-                style={{ backgroundImage: `url("${bgUrl}")` }}
-              />
+              <>
+                {mobileBgUrl ? (
+                  <>
+                    {renderMedia(bgUrl, 'hidden sm:block')}
+                    {renderMedia(mobileBgUrl, 'block sm:hidden')}
+                  </>
+                ) : (
+                  renderMedia(bgUrl, '')
+                )}
+              </>
             );
           })()}
           <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[800px] h-[800px] bg-purple-300/30 blur-[120px] rounded-full mix-blend-multiply pointer-events-none" />
