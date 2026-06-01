@@ -31,8 +31,8 @@ export default function FeaturedOn() {
           <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
           <div className="flex items-center gap-12 animate-marquee w-max grayscale opacity-60 py-2">
-            {/* Duplicate items twice for seamless loop */}
-            {[...logos, ...logos].map((logo, idx) => (
+            {/* Duplicate items multiple times for seamless loop */}
+            {[...logos, ...logos, ...logos, ...logos, ...logos, ...logos, ...logos, ...logos].map((logo, idx) => (
               logo.type === 'multiline' ? (
                 <div key={idx} className="flex flex-col text-left text-gray-700 shrink-0">
                   <span className="text-xl font-bold tracking-tight leading-none whitespace-nowrap">FINANCIAL EXPRESS</span>
