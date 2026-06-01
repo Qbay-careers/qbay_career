@@ -102,11 +102,11 @@ export default function WallOfFame() {
           } catch { /* stale — fall through */ }
         }
 
-        // Only fetch the 5 keys this page actually needs (not the entire table)
+        // Only fetch the 6 keys this page actually needs (not the entire table)
         const { data, error } = await supabase
           .from('cms_content')
           .select('key, content')
-          .in('key', ['audioReviews', 'trustpilotReviews', 'testimonials', 'negativeReviews', 'home']);
+          .in('key', ['audioReviews', 'trustpilotReviews', 'testimonials', 'negativeReviews', 'home', 'results']);
 
         if (error) {
           console.error('Error fetching CMS data:', error);
@@ -280,10 +280,53 @@ export default function WallOfFame() {
     );
   }
 
-  const resultsImages = [1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => ({
-    src: `/testimonials/whatsapp${num}.jpeg`,
-    flag: 'https://flagcdn.com/w80/in.png'
-  }));
+  // Robust mapping for WhatsApp Results
+  const resultsData = cmsData?.results || cmsData?.Results || null;
+  const resultsImages = (() => {
+    const defaultImages = [1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => ({
+      src: `/testimonials/whatsapp${num}.jpeg`,
+      flag: 'https://flagcdn.com/w80/in.png'
+    }));
+
+    // New structure: resultsData.images is an array of {src, flag} objects
+    if (resultsData?.images && Array.isArray(resultsData.images) && resultsData.images.length > 0) {
+      return resultsData.images.map((item: any) => {
+        if (typeof item === 'string') return { src: item, flag: 'https://flagcdn.com/w80/in.png' };
+        return {
+          src: item.src || item.image || '',
+          flag: item.flag || 'https://flagcdn.com/w80/in.png'
+        };
+      }).filter((item: { src: string; flag: string }) => item.src);
+    }
+
+    // Legacy: scan for any image URLs in the data
+    const urls: string[] = [];
+    const scan = (val: any) => {
+      if (typeof val === 'string') {
+        const trimmed = val.trim();
+        const isImagePattern = /\.(jpg|jpeg|png|webp|gif|svg|bmp|tiff)(\?.*)?$/i.test(trimmed) ||
+                               (trimmed.startsWith('http') && (trimmed.includes('/photos/') || trimmed.includes('/img/')));
+        if (isImagePattern) urls.push(trimmed);
+      } else if (val && typeof val === 'object' && !Array.isArray(val)) {
+        Object.entries(val).forEach(([k, v]) => {
+          if (!['title', 'subtitle', 'heading', 'subHeading', 'description', 'text', 'flag'].includes(k.toLowerCase())) {
+            scan(v);
+          }
+        });
+      } else if (Array.isArray(val)) {
+        val.forEach(scan);
+      }
+    };
+    scan(resultsData);
+
+    if (urls.length > 0) {
+      return urls
+        .filter(src => src && !src.includes('[object'))
+        .map(src => ({ src, flag: 'https://flagcdn.com/w80/in.png' }));
+    }
+
+    return defaultImages;
+  })() as { src: string; flag: string }[];
 
   const midPoint = Math.ceil(resultsImages.length / 2);
   const col1Images = resultsImages.slice(0, midPoint);
@@ -411,52 +454,68 @@ export default function WallOfFame() {
       </section>
 
       {/* Audio Testimonials Section Right Below Hero */}
-      <section className="bg-white py-12 lg:py-16 overflow-hidden border-b border-purple-100/50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-8 text-left lg:text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#2D1B4D] tracking-tight">Hear it from our successful candidates</h2>
+      <section className="bg-[#FAF8FF] py-16 overflow-hidden border-b border-purple-100/50">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-10 text-center">
+          <h2 className="text-3xl font-extrabold text-[#2D1B4D] tracking-tight sm:text-4xl">Hear it from our successful candidates</h2>
+          <p className="text-slate-500 mt-2 font-medium">Listen to real audio feedback from healthcare and corporate professionals</p>
         </div>
         <div className="relative w-full">
           {/* Fade overlays for the edges */}
-          <div className="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 left-0 w-16 md:w-48 bg-gradient-to-r from-[#FAF8FF] via-[#FAF8FF]/60 to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-16 md:w-48 bg-gradient-to-l from-[#FAF8FF] via-[#FAF8FF]/60 to-transparent z-10 pointer-events-none" />
 
           <div
-            ref={audioScrollRef}
-            onMouseEnter={() => setIsAudioPaused(true)}
-            onMouseLeave={() => setIsAudioPaused(false)}
-            className="flex gap-4 lg:gap-6 overflow-x-auto pb-6 pt-2 scrollbar-hide px-4 md:px-0"
+            className="flex gap-6 animate-hero-scroll hover:[animation-play-state:paused] w-max px-6 pb-4"
           >
             {[...audioReviewsData, ...audioReviewsData, ...audioReviewsData].map((audio: any, idx: number) => (
               <div 
                 key={idx} 
-                className="w-[320px] lg:w-[380px] flex-shrink-0 bg-white rounded-2xl p-4 border border-purple-100/60 shadow-sm hover:shadow-md transition-shadow group relative overflow-hidden flex items-stretch gap-4"
+                className={`w-[310px] sm:w-[360px] flex-shrink-0 rounded-2xl p-5 border shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden flex items-stretch gap-4 ${
+                  playingAudioIdx === idx 
+                    ? 'border-purple-300 bg-white/95 ring-2 ring-purple-500/20 scale-[1.02]' 
+                    : 'border-purple-100/70 bg-white/80 backdrop-blur-md hover:border-purple-200'
+                }`}
               >
-                <div className="w-[80px] h-[80px] lg:w-[90px] lg:h-[90px] flex-shrink-0">
-                  <img src={audio.avatar} alt={audio.name} className="w-full h-full rounded-xl object-cover" />
+                {/* Glowing blob behind active card */}
+                {playingAudioIdx === idx && (
+                  <div className="absolute -top-10 -right-10 w-24 h-24 rounded-full bg-purple-200/40 blur-xl animate-pulse pointer-events-none" />
+                )}
+
+                <div className="w-[70px] h-[70px] sm:w-[80px] sm:h-[80px] flex-shrink-0 relative">
+                  <img src={audio.avatar} alt={audio.name} className="w-full h-full rounded-xl object-cover border border-purple-100 shadow-sm" />
                 </div>
                 <div className="flex-1 flex flex-col justify-between min-w-0">
-                  <div className="absolute top-3 right-3 w-12 h-8 rounded-md overflow-hidden shadow-sm">
+                  <div className="absolute top-4 right-4 w-11 h-7 rounded-md overflow-hidden shadow-md border border-white">
                     <img src={audio.flag} alt="Country flag" className="w-full h-full object-cover" />
                   </div>
-                  <div className="pr-8 min-w-0 pt-1">
-                    <h3 className="font-extrabold text-[#2D1B4D] text-base leading-tight mb-0.5 truncate">{audio.name}</h3>
-                    <p className="text-xs font-bold text-violet-600 truncate">{audio.role}</p>
+                  <div className="pr-12 min-w-0">
+                    <h3 className="font-extrabold text-[#2D1B4D] text-base leading-tight truncate">{audio.name}</h3>
+                    <p className="text-xs font-bold text-purple-600 truncate mt-0.5">{audio.role}</p>
                   </div>
-                  <div className="flex items-center gap-3 mt-2">
+                  <div className="flex items-center gap-3 mt-3">
                     <button 
                       onClick={() => toggleAudio(idx, audio.audioUrl)}
-                      className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-colors ${
-                        playingAudioIdx === idx ? 'border-purple-600 bg-purple-600 text-white shadow-md' : 'border-violet-600 text-violet-600 hover:bg-violet-600 hover:text-white'
+                      className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 shadow-md transform hover:scale-105 ${
+                        playingAudioIdx === idx 
+                          ? 'bg-purple-600 text-white animate-heartbeat' 
+                          : 'bg-white border border-purple-200 text-purple-600 hover:bg-purple-50'
                       }`}
                     >
-                      {playingAudioIdx === idx ? <Pause className="w-3 h-3 fill-current" /> : <Play className="w-3 h-3 ml-0.5 fill-current" />}
+                      {playingAudioIdx === idx ? <Pause className="w-3.5 h-3.5 fill-current" /> : <Play className="w-3.5 h-3.5 ml-0.5 fill-current" />}
                     </button>
-                    <div className="flex-1 flex items-center gap-1 h-3 overflow-hidden">
-                      {[30, 60, 40, 80, 50, 90, 70, 40, 60, 100].map((h, i) => (
+                    <div className="flex-1 flex items-end gap-0.5 h-7 overflow-hidden select-none pb-0.5">
+                      {[30, 60, 45, 85, 50, 95, 75, 40, 65, 100].map((h, i) => (
                         <div 
                           key={i} 
-                          className={`w-1 rounded-full transition-all duration-300 ${playingAudioIdx === idx ? 'bg-purple-600 animate-pulse' : 'bg-violet-600 opacity-60'}`} 
-                          style={{ height: playingAudioIdx === idx ? `${Math.max(20, h + (Math.sin(i) * 20))}%` : `${h}%` }}
+                          className={`w-1 rounded-full transition-all duration-300 ${
+                            playingAudioIdx === idx 
+                              ? 'bg-purple-600 animate-wave-bar' 
+                              : 'bg-purple-400/50'
+                          }`} 
+                          style={{ 
+                            height: `${h}%`,
+                            animationDelay: `${i * 0.1}s`
+                          }}
                         />
                       ))}
                     </div>
@@ -469,35 +528,64 @@ export default function WallOfFame() {
       </section>
 
       {/* Mobile WhatsApp Testimonials (Moved after Audio) */}
-      <section className="lg:hidden bg-white py-12 overflow-hidden border-b border-purple-100/50">
-        <div className="relative w-full">
-          <div 
-            ref={whatsappScrollRef}
-            onMouseEnter={() => setIsWhatsappPaused(true)}
-            onMouseLeave={() => setIsWhatsappPaused(false)}
-            className="flex gap-4 overflow-x-auto pb-6 pt-2 scrollbar-hide px-4"
-          >
-            {[...resultsImages, ...resultsImages].map((item, idx) => (
-              <div
-                key={`mobile-whatsapp-${idx}`}
-                className="w-[200px] flex-shrink-0 overflow-hidden rounded-2xl shadow-md border border-purple-100 bg-white cursor-pointer group"
-                onClick={() => setSelectedImage(item.src)}
-              >
-                <div className="relative aspect-[3/4]">
+      <section className="lg:hidden bg-[#FAF5FF] py-12 overflow-hidden border-b border-purple-100/50">
+        <div className="mx-auto px-4 mb-8 text-center">
+          <h3 className="text-2xl font-extrabold text-[#2D1B4D] tracking-tight">Real Chat Success Stories</h3>
+          <p className="text-slate-500 text-sm mt-1">Direct feedback and responses from our support channels</p>
+        </div>
+        <div className="relative w-full space-y-5">
+          {/* Edge overlays for visual depth */}
+          <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[#FAF5FF] to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[#FAF5FF] to-transparent z-10 pointer-events-none" />
+
+          {/* Row 1: Scrolling Left */}
+          <div className="relative overflow-hidden w-full">
+            <div className="flex gap-4 animate-scroll-left w-max px-4">
+              {[...col1Images, ...col1Images].map((item, idx) => (
+                <div
+                  key={`mobile-whatsapp-r1-${idx}`}
+                  className="w-[170px] aspect-[3/4] flex-shrink-0 relative overflow-hidden rounded-2xl shadow-lg border border-purple-100/80 bg-white cursor-pointer group transition-all duration-300 transform-gpu hover:scale-105"
+                  onClick={() => setSelectedImage(item.src)}
+                >
+                  <img
+                    src={item.src}
+                    alt={`Success story row 1`}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
                   {item.flag && (
-                    <div className="absolute top-2 right-2 z-10 w-10 h-7 rounded-md overflow-hidden shadow-sm">
+                    <div className="absolute top-2.5 right-2.5 z-10 w-9 h-6 rounded-md overflow-hidden shadow-sm border border-white/90 transition-transform duration-300 group-hover:scale-110">
                       <img src={item.flag} alt="Country flag" className="w-full h-full object-cover" />
                     </div>
                   )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Row 2: Scrolling Right */}
+          <div className="relative overflow-hidden w-full">
+            <div className="flex gap-4 animate-scroll-right w-max px-4">
+              {[...col2Images, ...col2Images].map((item, idx) => (
+                <div
+                  key={`mobile-whatsapp-r2-${idx}`}
+                  className="w-[170px] aspect-[3/4] flex-shrink-0 relative overflow-hidden rounded-2xl shadow-lg border border-purple-100/80 bg-white cursor-pointer group transition-all duration-300 transform-gpu hover:scale-105"
+                  onClick={() => setSelectedImage(item.src)}
+                >
                   <img
                     src={item.src}
-                    alt={`Success story ${idx + 1}`}
-                    className="w-full h-full object-cover"
+                    alt={`Success story row 2`}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                   />
+                  {item.flag && (
+                    <div className="absolute top-2.5 right-2.5 z-10 w-9 h-6 rounded-md overflow-hidden shadow-sm border border-white/90 transition-transform duration-300 group-hover:scale-110">
+                      <img src={item.flag} alt="Country flag" className="w-full h-full object-cover" />
+                    </div>
+                  )}
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -951,6 +1039,35 @@ export default function WallOfFame() {
         }
         .custom-modal-scrollbar::-webkit-scrollbar-thumb:hover {
           background: rgba(255, 255, 255, 0.6);
+        }
+        @keyframes bounce-wave {
+          0%, 100% {
+            transform: scaleY(0.2);
+          }
+          50% {
+            transform: scaleY(1);
+          }
+        }
+        .animate-wave-bar {
+          animation: bounce-wave 0.8s ease-in-out infinite;
+          transform-origin: bottom;
+        }
+        @keyframes scroll-left {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(calc(-50% - 8px)); }
+        }
+        @keyframes scroll-right {
+          0% { transform: translateX(calc(-50% - 8px)); }
+          100% { transform: translateX(0); }
+        }
+        .animate-scroll-left {
+          animation: scroll-left 25s linear infinite;
+        }
+        .animate-scroll-right {
+          animation: scroll-right 25s linear infinite;
+        }
+        .animate-scroll-left:hover, .animate-scroll-right:hover {
+          animation-play-state: paused;
         }
       `}</style>
     </main>
