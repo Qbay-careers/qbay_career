@@ -127,7 +127,10 @@ export default function AboutClient({ initialData }: { initialData: any }) {
               <div className="absolute top-0 bottom-0 left-0 w-24 bg-gradient-to-r from-[#FAF5FB] to-transparent z-10 pointer-events-none" />
               <div className="absolute top-0 bottom-0 right-0 w-24 bg-gradient-to-l from-[#FAF5FB] to-transparent z-10 pointer-events-none" />
 
-              <div className="flex gap-16 md:gap-24 min-w-full animate-marquee items-center justify-around shrink-0 px-8">
+              <div 
+                className="flex gap-8 md:gap-12 min-w-full animate-marquee items-center justify-around shrink-0 px-4"
+                style={{ animationDuration: '20s' }}
+              >
                 {(() => {
                   let marqueeItems = [...associates];
                   while (marqueeItems.length < 8 && marqueeItems.length > 0) {
@@ -145,7 +148,11 @@ export default function AboutClient({ initialData }: { initialData: any }) {
                   ));
                 })()}
               </div>
-              <div className="flex gap-16 md:gap-24 min-w-full animate-marquee items-center justify-around shrink-0 px-8" aria-hidden="true">
+              <div 
+                className="flex gap-8 md:gap-12 min-w-full animate-marquee items-center justify-around shrink-0 px-4" 
+                aria-hidden="true"
+                style={{ animationDuration: '20s' }}
+              >
                 {(() => {
                   let marqueeItems = [...associates];
                   while (marqueeItems.length < 8 && marqueeItems.length > 0) {
