@@ -152,6 +152,79 @@ const iconMap: Record<string, any> = {
   'Stability & Growth': CheckCircle2,
 };
 
+// Interactive Roadmap Item with scroll reveal
+function TimelineRoadmapItem({ feature, idx }: { feature: any; idx: number }) {
+  const [isVisible, setIsVisible] = React.useState(false);
+  const elementRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -80px 0px' }
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const title = typeof feature === 'string' ? feature : (feature?.title || `Stage ${idx + 1}`);
+  const description = typeof feature === 'string' 
+    ? "Carefully tailored to ensure maximum success in your specific career path and market conditions." 
+    : (feature?.description || "");
+  
+  const isEven = idx % 2 === 0;
+
+  return (
+    <div 
+      ref={elementRef}
+      className={`relative flex flex-col md:flex-row items-stretch ${isEven ? 'md:flex-row-reverse' : ''} transition-all duration-1000 ease-out transform ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+      }`}
+    >
+      {/* Content Block */}
+      <div className="w-full md:w-1/2 pl-12 md:pl-0 md:px-12 flex justify-start md:justify-end">
+        <div className="w-full max-w-lg bg-white border border-purple-100 rounded-3xl p-6 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-1 relative overflow-hidden">
+          {/* Glow Accent */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/5 to-indigo-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          
+          <div className="flex items-center gap-4 mb-4">
+            <span className="text-xs font-black tracking-widest text-purple-600 uppercase bg-purple-50 px-3 py-1 rounded-full border border-purple-100">
+              Stage 0{idx + 1}
+            </span>
+          </div>
+          <h4 className="text-xl sm:text-2xl font-black text-[#2D1B4D] mb-3 group-hover:text-purple-700 transition-colors">
+            {title}
+          </h4>
+          <p className="text-sm sm:text-base text-slate-500 leading-relaxed font-normal">
+            {description}
+          </p>
+        </div>
+      </div>
+
+      {/* Timeline Node (Center Dot) */}
+      <div className="absolute left-4 md:left-1/2 top-10 transform -translate-x-1/2 z-10 flex items-center justify-center">
+        <div className={`h-9 w-9 rounded-full bg-white border-[3px] shadow-md flex items-center justify-center transition-all duration-700 ${
+          isVisible ? 'border-purple-600 scale-100' : 'border-slate-300 scale-75'
+        }`}>
+          <div className={`h-3 w-3 rounded-full transition-all duration-700 ${
+            isVisible ? 'bg-purple-600 animate-pulse' : 'bg-slate-300'
+          }`} />
+        </div>
+      </div>
+
+      {/* Empty block to balance the columns on desktop */}
+      <div className="hidden md:block w-1/2" />
+    </div>
+  );
+}
+
 interface ServiceLayoutProps {
   service: Service;
   servicePageContent?: any;
@@ -804,36 +877,28 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
         </div>
       </section>
 
-      {/* Deliverables Section */}
-      <section className="py-24 relative overflow-hidden border-y border-purple-100/50">
+      {/* Roadmap Section */}
+      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-white via-purple-50/20 to-white border-y border-purple-100/50">
+        {/* Decorative background gradients */}
+        <div className="absolute top-[20%] right-[-10%] w-[350px] h-[350px] rounded-full bg-pink-100/30 blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-[20%] left-[-10%] w-[350px] h-[350px] rounded-full bg-indigo-100/30 blur-[100px] pointer-events-none" />
+
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-sm font-bold tracking-[0.2em] text-purple-600 uppercase mb-4">Inside the Service</h2>
-            <h3 className="text-3xl sm:text-4xl font-bold text-[#1A112B]">Key Deliverables</h3>
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <span className="inline-block text-xs font-bold tracking-[0.25em] text-purple-600 uppercase mb-4">Inside the Service</span>
+            <h3 className="text-3xl sm:text-5xl font-extrabold text-[#1A112B] tracking-tight">The Success Roadmap</h3>
+            <p className="mt-4 text-slate-500 font-medium">A structured, week-by-week progressive journey designed to guarantee international interviews.</p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {service.features.map((feature: any, i) => {
-              const title = typeof feature === 'string' ? feature : (feature?.title || `Deliverable ${i + 1}`);
-              const description = typeof feature === 'string' 
-                ? "Carefully tailored to ensure maximum success in your specific career path and market conditions." 
-                : (feature?.description || "");
-                
-              return (
-                <div 
-                  key={i} 
-                  className="group p-8 rounded-2xl bg-white border border-purple-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-                >
-                  <div className="h-12 w-12 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600 mb-6 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300">
-                    <span className="text-lg font-bold">0{i + 1}</span>
-                  </div>
-                  <h4 className="text-xl font-bold text-[#2D1B4D] mb-4">{title}</h4>
-                  <p className="text-sm text-slate-500 leading-relaxed">
-                    {description}
-                  </p>
-                </div>
-              );
-            })}
+          <div className="relative">
+            {/* The Vertical Line down the center */}
+            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[3px] bg-gradient-to-b from-purple-300 via-indigo-400 to-purple-500 transform md:-translate-x-1/2" />
+
+            <div className="space-y-12 md:space-y-16">
+              {service.features.map((feature: any, i: number) => (
+                <TimelineRoadmapItem feature={feature} idx={i} key={i} />
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -874,13 +939,25 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
                   <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1A112B]">What We Promise. What We Deliver.</h2>
                 </div>
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                  {service.richContent.results.map((r: any, i: number) => (
-                    <div key={i} className="text-center p-8 rounded-2xl bg-purple-50 border border-purple-100">
-                      <div className="text-4xl sm:text-5xl font-black text-purple-700 mb-2">{r.stat}</div>
-                      <div className="text-sm font-bold text-[#1A112B] mb-1">{r.label}</div>
-                      <div className="text-xs text-slate-500 font-medium">{r.promise}</div>
-                    </div>
-                  ))}
+                  {service.richContent.results.map((r: any, i: number) => {
+                    const cleanedStat = r.stat ? r.stat.replace(/[⭐]/g, '').trim() : '';
+                    const isLongText = cleanedStat.length > 5;
+                    return (
+                      <div key={i} className="text-center p-6 sm:p-8 rounded-2xl bg-purple-50/50 border border-purple-100/70 flex flex-col justify-between min-h-[180px] sm:min-h-[220px] transition-all hover:shadow-md hover:scale-[1.02] duration-300">
+                        <div className="flex-1 flex items-center justify-center">
+                          <div className={`${
+                            isLongText ? 'text-xl sm:text-2xl leading-tight' : 'text-4xl sm:text-5xl leading-none'
+                          } font-extrabold text-purple-700 tracking-tight`}>
+                            {cleanedStat}
+                          </div>
+                        </div>
+                        <div className="mt-3">
+                          <div className="text-sm font-extrabold text-[#1A112B] leading-snug mb-1">{r.label}</div>
+                          <div className="text-xs text-slate-500 font-medium leading-normal">{r.promise}</div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </section>
