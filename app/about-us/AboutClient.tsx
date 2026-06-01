@@ -118,20 +118,51 @@ export default function AboutClient({ initialData }: { initialData: any }) {
           </div>
 
           {/* Associates */}
-          <div className="text-center">
+          <div className="text-center overflow-hidden w-full relative">
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#5D4A7A] mb-2">We Associates With</h2>
             <div className="w-24 h-[3px] bg-[#5D4A7A] mx-auto mb-10 rounded-full" />
-            <div className="flex flex-wrap justify-center items-center gap-16 md:gap-24">
-              {associates.map((asso: any, idx: number) => (
-                <div key={idx} className="flex flex-col items-center">
-                  <img
-                    src={asso.image}
-                    alt={asso.name}
-                    className="h-24 md:h-32 w-48 md:w-64 object-contain"
-                    onError={(e) => (e.currentTarget.style.display = 'none')}
-                  />
-                </div>
-              ))}
+            
+            <div className="flex overflow-hidden relative w-full py-4">
+              {/* Fade overlays for the edges */}
+              <div className="absolute top-0 bottom-0 left-0 w-24 bg-gradient-to-r from-[#FAF5FB] to-transparent z-10 pointer-events-none" />
+              <div className="absolute top-0 bottom-0 right-0 w-24 bg-gradient-to-l from-[#FAF5FB] to-transparent z-10 pointer-events-none" />
+
+              <div className="flex gap-16 md:gap-24 min-w-full animate-marquee items-center justify-around shrink-0 px-8">
+                {(() => {
+                  let marqueeItems = [...associates];
+                  while (marqueeItems.length < 8 && marqueeItems.length > 0) {
+                    marqueeItems = [...marqueeItems, ...associates];
+                  }
+                  return marqueeItems.map((asso: any, idx: number) => (
+                    <div key={idx} className="flex flex-col items-center shrink-0">
+                      <img
+                        src={asso.image}
+                        alt={asso.name}
+                        className="h-20 md:h-28 w-40 md:w-56 object-contain"
+                        onError={(e) => (e.currentTarget.style.display = 'none')}
+                      />
+                    </div>
+                  ));
+                })()}
+              </div>
+              <div className="flex gap-16 md:gap-24 min-w-full animate-marquee items-center justify-around shrink-0 px-8" aria-hidden="true">
+                {(() => {
+                  let marqueeItems = [...associates];
+                  while (marqueeItems.length < 8 && marqueeItems.length > 0) {
+                    marqueeItems = [...marqueeItems, ...associates];
+                  }
+                  return marqueeItems.map((asso: any, idx: number) => (
+                    <div key={`dup-${idx}`} className="flex flex-col items-center shrink-0">
+                      <img
+                        src={asso.image}
+                        alt={asso.name}
+                        className="h-20 md:h-28 w-40 md:w-56 object-contain"
+                        onError={(e) => (e.currentTarget.style.display = 'none')}
+                      />
+                    </div>
+                  ));
+                })()}
+              </div>
             </div>
           </div>
         </div>
