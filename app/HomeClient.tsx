@@ -843,17 +843,18 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                     let customIcon = null;
                     const bl = badge.toLowerCase();
                     if (bl.includes('trustpilot')) {
-                      // Keep existing branded Trustpilot star
-                      customIcon = <img src="/Green-Star-on-Gray-Checkerboard-1.png" alt="Trustpilot" className="w-6 h-6 object-contain" />;
+                      // Keep existing branded Trustpilot star — enlarged to match others
+                      customIcon = <img src="/Green-Star-on-Gray-Checkerboard-1.png" alt="Trustpilot" className="w-9 h-9 object-contain" />;
                     } else if (bl.includes('helped') || bl.includes('100k') || bl.includes('11k')) {
-                      customIcon = <img src="/help.jpg" alt="Helped" className="w-7 h-7 object-contain rounded-lg" />;
+                      customIcon = <img src="/help.png" alt="Helped" className="w-9 h-9 object-contain rounded-lg" />;
                     } else if (bl.includes('guarantee') || bl.includes('interview') || bl.includes('expert') || bl.includes('1:1')) {
-                      customIcon = <img src="/guarantee.png" alt="Guaranteed" className="w-7 h-7 object-contain" />;
+                      customIcon = <img src="/guarantee.png" alt="Guaranteed" className="w-9 h-9 object-contain" />;
                     } else if (bl.includes('gov') || bl.includes('uk') || bl.includes('accredited')) {
-                      customIcon = <img src="/UK.png" alt="UK Gov Accredited" className="w-7 h-7 object-contain" />;
+                      customIcon = <img src="/UK.png" alt="UK Gov Accredited" className="w-9 h-9 object-contain" />;
                     } else if (bl.includes('countr') || bl.includes('globe') || bl.includes('90') || bl.includes('coaching')) {
-                      customIcon = <img src="/country.png" alt="Countries" className="w-7 h-7 object-contain" />;
+                      customIcon = <img src="/country.png" alt="Countries" className="w-9 h-9 object-contain" />;
                     }
+
 
                     const Icon = badgeIcons[idx % badgeIcons.length];
 
