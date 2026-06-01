@@ -841,16 +841,18 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                 <div className="relative z-10 flex flex-col gap-4">
                   {heroBadges.map((badge, idx) => {
                     let customIcon = null;
-                    if (badge.toLowerCase().includes('trustpilot')) {
+                    const bl = badge.toLowerCase();
+                    if (bl.includes('trustpilot')) {
+                      // Keep existing branded Trustpilot star
                       customIcon = <img src="/Green-Star-on-Gray-Checkerboard-1.png" alt="Trustpilot" className="w-6 h-6 object-contain" />;
-                    } else if (badge.toLowerCase().includes('gov')) {
-                      customIcon = <ShieldCheck className="h-6 w-6" />;
-                    } else if (badge.toLowerCase().includes('90-day')) {
-                      customIcon = <Clock className="h-6 w-6" />;
-                    } else if (badge.toLowerCase().includes('100k')) {
-                      customIcon = <Users className="h-6 w-6" />;
-                    } else if (badge.toLowerCase().includes('expert') || badge.toLowerCase().includes('1:1')) {
-                      customIcon = <Sparkles className="h-6 w-6" />;
+                    } else if (bl.includes('helped') || bl.includes('100k') || bl.includes('11k')) {
+                      customIcon = <img src="/help.jpg" alt="Helped" className="w-7 h-7 object-contain rounded-lg" />;
+                    } else if (bl.includes('guarantee') || bl.includes('interview') || bl.includes('expert') || bl.includes('1:1')) {
+                      customIcon = <img src="/guarantee.png" alt="Guaranteed" className="w-7 h-7 object-contain" />;
+                    } else if (bl.includes('gov') || bl.includes('uk') || bl.includes('accredited')) {
+                      customIcon = <img src="/UK.png" alt="UK Gov Accredited" className="w-7 h-7 object-contain" />;
+                    } else if (bl.includes('countr') || bl.includes('globe') || bl.includes('90') || bl.includes('coaching')) {
+                      customIcon = <img src="/country.png" alt="Countries" className="w-7 h-7 object-contain" />;
                     }
 
                     const Icon = badgeIcons[idx % badgeIcons.length];
