@@ -128,9 +128,10 @@ function ServiceFAQ({ faqs }: { faqs: { title: string; content: string }[] }) {
                 <span className={`flex-shrink-0 w-6 h-6 rounded-full border-2 flex items-center justify-center text-xs font-bold transition-all ${openIdx === idx ? 'border-purple-600 bg-purple-600 text-white rotate-45' : 'border-slate-300 text-slate-400'}`}>+</span>
               </button>
               {openIdx === idx && (
-                <div className="px-8 py-6 bg-white text-slate-600 text-sm leading-relaxed font-medium border-t border-purple-100">
-                  {faq.content}
-                </div>
+                <div 
+                  className="px-8 py-6 bg-white text-slate-600 text-sm leading-relaxed font-medium border-t border-purple-100"
+                  dangerouslySetInnerHTML={{ __html: faq.content }}
+                />
               )}
             </div>
           ))}
@@ -202,9 +203,10 @@ function TimelineRoadmapItem({ feature, idx }: { feature: any; idx: number }) {
           <h4 className="text-xl sm:text-2xl font-black text-[#2D1B4D] mb-3 group-hover:text-purple-700 transition-colors">
             {title}
           </h4>
-          <p className="text-sm sm:text-base text-slate-500 leading-relaxed font-normal">
-            {description}
-          </p>
+          <p 
+            className="text-sm sm:text-base text-slate-500 leading-relaxed font-normal"
+            dangerouslySetInnerHTML={{ __html: description }}
+          />
         </div>
       </div>
 
@@ -382,9 +384,10 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
               <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-[#1A112B] tracking-tight leading-[1.1] max-w-2xl mb-8">
                 {service.title}
               </h1>
-              <p className="text-lg sm:text-xl text-slate-600 font-medium max-w-xl leading-relaxed">
-                {service.description}
-              </p>
+              <p 
+                className="text-lg sm:text-xl text-slate-600 font-medium max-w-xl leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: service.description }}
+              />
             </div>
 
             {/* Right side WhatsApp Marquee */}
@@ -850,9 +853,10 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
             <div className="space-y-8">
               <div>
                 <h2 className="text-3xl font-bold text-[#1A112B] mb-6">Expert Guidance. Proven Results.</h2>
-                <p className="text-lg text-slate-600 leading-relaxed font-normal whitespace-pre-line">
-                  {service.fullDescription}
-                </p>
+                <div 
+                  className="text-lg text-slate-600 leading-relaxed font-normal whitespace-pre-line"
+                  dangerouslySetInnerHTML={{ __html: service.fullDescription }}
+                />
               </div>
 
               <div className="grid sm:grid-cols-2 gap-6">
@@ -922,7 +926,10 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
                         <span className="text-purple-300 font-bold text-sm">0{i + 1}</span>
                       </div>
                       <h3 className="text-lg font-bold text-white mb-3">{item.title}</h3>
-                      <p className="text-sm text-purple-200/70 leading-relaxed">{item.body}</p>
+                      <p 
+                        className="text-sm text-purple-200/70 leading-relaxed"
+                        dangerouslySetInnerHTML={{ __html: item.body }}
+                      />
                     </div>
                   ))}
                 </div>
@@ -989,7 +996,10 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
                       </div>
                       <div>
                         <h3 className="text-base font-bold text-[#1A112B] mb-2">{item.title}</h3>
-                        <p className="text-sm text-slate-600 leading-relaxed">{item.body}</p>
+                        <p 
+                          className="text-sm text-slate-600 leading-relaxed"
+                          dangerouslySetInnerHTML={{ __html: item.body }}
+                        />
                       </div>
                     </div>
                   ))}
@@ -1012,7 +1022,10 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
                       <div className="w-7 h-7 rounded-full bg-purple-600 flex items-center justify-center flex-shrink-0 mt-0.5">
                         <CheckCircle2 className="w-4 h-4 text-white" />
                       </div>
-                      <p className="text-base font-semibold text-[#2D1B4D]">{item}</p>
+                      <p 
+                        className="text-base font-semibold text-[#2D1B4D]"
+                        dangerouslySetInnerHTML={{ __html: item }}
+                      />
                     </div>
                   ))}
                 </div>
@@ -1032,7 +1045,10 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
               <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center relative z-10">
                 <h2 className="text-3xl sm:text-5xl font-extrabold text-white mb-6 leading-tight">{service.richContent.ctaHeading}</h2>
                 {service.richContent.ctaBody && (
-                  <p className="text-lg text-purple-200/70 leading-relaxed mb-10 max-w-3xl mx-auto">{service.richContent.ctaBody}</p>
+                  <p 
+                    className="text-lg text-purple-200/70 leading-relaxed mb-10 max-w-3xl mx-auto"
+                    dangerouslySetInnerHTML={{ __html: service.richContent.ctaBody }}
+                  />
                 )}
                 {service.richContent.ctaButton && (
                   <a
