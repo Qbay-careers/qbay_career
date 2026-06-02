@@ -854,7 +854,7 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
                 <h2 className="text-3xl font-bold text-[#1A112B] mb-6">Expert Guidance. Proven Results.</h2>
                 <div 
                   className="text-lg text-slate-600 leading-relaxed font-normal whitespace-pre-line"
-                  dangerouslySetInnerHTML={{ __html: service.fullDescription }}
+                  dangerouslySetInnerHTML={{ __html: service.fullDescription || '' }}
                 />
               </div>
 
