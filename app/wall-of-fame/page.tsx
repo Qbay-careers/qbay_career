@@ -373,7 +373,7 @@ export default function WallOfFame() {
         
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-full">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-stretch h-full">
-            <div className="flex flex-col items-center text-center lg:items-start lg:text-left py-24 lg:py-32 z-20 self-center">
+            <div className="flex flex-col items-center text-center lg:items-start lg:text-left py-10 lg:py-16 z-20 self-center">
               <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-[#1A112B] tracking-tight leading-[1.1] max-w-2xl mb-8">
                 Wall of <span className="text-purple-600 italic">Fame</span>
               </h1>
@@ -454,7 +454,7 @@ export default function WallOfFame() {
       </section>
 
       {/* Audio Testimonials Section Right Below Hero */}
-      <section className="bg-[#FAF8FF] py-16 overflow-hidden border-b border-purple-100/50">
+      <section className="bg-[#FAF8FF] py-8 overflow-hidden border-b border-purple-100/50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-10 text-center">
           <h2 className="text-3xl font-extrabold text-[#2D1B4D] tracking-tight sm:text-4xl">Hear it from our successful candidates</h2>
           <p className="text-slate-500 mt-2 font-medium">Listen to real audio feedback from healthcare and corporate professionals</p>
@@ -528,7 +528,7 @@ export default function WallOfFame() {
       </section>
 
       {/* Mobile WhatsApp Testimonials (Moved after Audio) */}
-      <section className="lg:hidden bg-[#FAF5FF] py-12 overflow-hidden border-b border-purple-100/50">
+      <section className="lg:hidden bg-[#FAF5FF] py-6 overflow-hidden border-b border-purple-100/50">
         <div className="mx-auto px-4 mb-8 text-center">
           <h3 className="text-2xl font-extrabold text-[#2D1B4D] tracking-tight">Real Chat Success Stories</h3>
           <p className="text-slate-500 text-sm mt-1">Direct feedback and responses from our support channels</p>
@@ -591,7 +591,7 @@ export default function WallOfFame() {
       </section>
 
       {/* Trusted Influencers Marquee Section */}
-      <section id="client-love" className="relative bg-white py-24 scroll-mt-24 overflow-hidden">
+      <section id="client-love" className="relative bg-white py-10 scroll-mt-24 overflow-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-12">
           <div className="text-center max-w-3xl mx-auto">
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#2D1B4D] tracking-tight mb-4" dangerouslySetInnerHTML={{ __html: clientLoveTitle }} />
@@ -623,7 +623,7 @@ export default function WallOfFame() {
         </div>
       </section>
 
-      <section id="trustpilot-reviews" className="bg-white py-24 scroll-mt-24">
+      <section id="trustpilot-reviews" className="bg-white py-10 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-[#2D1B4D]">{trustpilotTitle}</h2>
@@ -666,7 +666,7 @@ export default function WallOfFame() {
       </section>
 
       {/* Video Testimonials Section */}
-      <section id="testimonials" className="bg-[#F9F5FF] py-24 scroll-mt-24">
+      <section id="testimonials" className="bg-[#F9F5FF] py-10 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">
@@ -806,7 +806,7 @@ export default function WallOfFame() {
       )}
 
       {/* Negative Reviews Section */}
-      <section id="negative-reviews" className="py-24 scroll-mt-24" style={{ background: 'linear-gradient(135deg, #e8f5f0 0%, #f0faf5 40%, #e8f5ee 100%)' }}>
+      <section id="negative-reviews" className="py-10 scroll-mt-24" style={{ background: 'linear-gradient(135deg, #e8f5f0 0%, #f0faf5 40%, #e8f5ee 100%)' }}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-16">
