@@ -894,7 +894,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       </section>
 
       {/* Auto-Scrolling 3D Image Gallery Section */}
-      <section className="relative z-10 w-full overflow-hidden bg-gradient-to-b from-[#FDFCFE] via-purple-50/50 to-white py-24 lg:py-40">
+      <section className="relative z-10 w-full overflow-hidden bg-gradient-to-b from-[#FDFCFE] via-purple-50/50 to-white py-10 sm:py-24 lg:py-40">
         {/* Side fade gradients for depth */}
         <div className="absolute inset-y-0 left-0 w-24 sm:w-32 lg:w-48 bg-gradient-to-r from-[#FDFCFE] via-[#FDFCFE]/40 to-transparent z-20 pointer-events-none" />
         <div className="absolute inset-y-0 right-0 w-24 sm:w-32 lg:w-48 bg-gradient-to-l from-white via-white/40 to-transparent z-20 pointer-events-none" />
@@ -930,7 +930,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      <section id="consultation" className="bg-white py-24 sm:py-32 scroll-mt-24">
+      <section id="consultation" className="bg-white py-12 sm:py-24 lg:py-32 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           
           <div className="relative overflow-hidden rounded-2xl sm:rounded-[1.5rem] bg-[#1A112B] border border-white/5 shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] p-8 md:p-14 lg:p-20">
@@ -1037,7 +1037,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       </section>
 
       {/* Video Section */}
-      <section className="bg-gradient-to-br from-[#F8F7FF] via-white to-[#FAF5FB] py-16 scroll-mt-24 border-b border-purple-50">
+      <section className="bg-gradient-to-br from-[#F8F7FF] via-white to-[#FAF5FB] py-8 sm:py-16 scroll-mt-24 border-b border-purple-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="relative rounded-lg overflow-hidden shadow-2xl shadow-purple-900/20 border border-purple-100 ring-4 ring-purple-500/5">
             <video
@@ -1055,7 +1055,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      <section id="about" className="border-t border-gray-100 scroll-mt-24 py-20 bg-[#FDFCFE]">
+      <section id="about" className="border-t border-gray-100 scroll-mt-24 py-10 sm:py-20 bg-[#FDFCFE]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-sm font-bold tracking-[0.2em] text-purple-600 uppercase mb-4">{servicesTagline}</h2>
@@ -1157,7 +1157,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       </section>
 
       <section id="framework" className="scroll-mt-24 bg-[#0F172A]">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:py-20 sm:px-6 lg:px-8">
           <h2 
             className="mb-12 text-4xl font-bold tracking-tight text-white sm:text-5xl"
             dangerouslySetInnerHTML={{ __html: frameworkHeading }}
@@ -1241,7 +1241,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      <section id="testimonials" className="bg-[#F9F5FF] py-24 scroll-mt-24">
+      <section id="testimonials" className="bg-[#F9F5FF] py-12 sm:py-24 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">
@@ -1380,7 +1380,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       )}
 
-      <section id="results" className="bg-white py-20 scroll-mt-24">
+      <section id="results" className="bg-white py-10 sm:py-20 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto mb-12 max-w-3xl text-center">
             <h2 className="text-4xl font-bold text-[#1A112B] sm:text-5xl">
@@ -1438,7 +1438,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       </section>
 
       {/* Audio Reviews Section */}
-      <section id="audio-reviews" className="bg-white py-24 scroll-mt-24">
+      <section id="audio-reviews" className="bg-white py-12 sm:py-24 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">Hear their success stories</h2>
@@ -1485,7 +1485,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       </section>
 
       {/* Trustpilot Reviews Section */}
-      <section id="trustpilot-reviews" className="bg-white py-24 scroll-mt-24">
+      <section id="trustpilot-reviews" className="bg-white py-12 sm:py-24 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-[#2D1B4D]">{trustpilotTitle}</h2>
@@ -1550,7 +1550,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       )}
 
       
-       <section id="client-love" className="relative bg-white py-24 scroll-mt-24 overflow-hidden">
+       <section id="client-love" className="relative bg-white py-12 sm:py-24 scroll-mt-24 overflow-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-4xl mx-auto mb-20">
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#2D1B4D] tracking-tight mb-6" dangerouslySetInnerHTML={{ __html: clientLoveTitle }}>
@@ -1584,7 +1584,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       </section>
 
       {/* Negative Reviews Section */}
-      <section id="negative-reviews" className="py-20 scroll-mt-24" style={{ background: 'linear-gradient(135deg, #e8f5f0 0%, #f0faf5 40%, #e8f5ee 100%)' }}>
+      <section id="negative-reviews" className="py-10 sm:py-20 scroll-mt-24" style={{ background: 'linear-gradient(135deg, #e8f5f0 0%, #f0faf5 40%, #e8f5ee 100%)' }}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-12">
@@ -1686,7 +1686,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      <section id="shorts" className="bg-[#FDFBFF] py-24 scroll-mt-24">
+      <section id="shorts" className="bg-[#FDFBFF] py-12 sm:py-24 scroll-mt-24">
         <div className="w-full overflow-hidden relative">
           <div 
             ref={scrollRef}
@@ -1723,7 +1723,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      <section className="bg-[#FAF5FB] py-24 scroll-mt-24">
+      <section className="bg-[#FAF5FB] py-12 sm:py-24 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-6xl rounded-2xl bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:px-16 sm:py-12 p-8 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16">
             
@@ -1793,7 +1793,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      <section className="bg-[#FAF5FB] py-24 scroll-mt-24 overflow-hidden relative border-t border-purple-50">
+      <section className="bg-[#FAF5FB] py-12 sm:py-24 scroll-mt-24 overflow-hidden relative border-t border-purple-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-16 text-center">
           <h2 className="text-3xl md:text-5xl font-bold text-[#2D1B4D] mb-4 font-serif">
             Top Universities Chosen by
@@ -1878,7 +1878,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       </section>
 
       {/* FAQ Section */}
-      <section className="bg-white py-24 scroll-mt-24 border-t border-gray-100">
+      <section className="bg-white py-12 sm:py-24 scroll-mt-24 border-t border-gray-100">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold text-[#1A112B] mb-4">
@@ -1953,7 +1953,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       </section>
 
       {/* Founder Letter Section */}
-      <section className="bg-[#FAF8F6] py-24 sm:py-32 relative overflow-hidden">
+      <section className="bg-[#FAF8F6] py-12 sm:py-24 lg:py-32 relative overflow-hidden">
         {/* Subtle background decorative elements */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-purple-100/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-50/40 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
