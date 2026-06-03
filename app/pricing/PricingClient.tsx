@@ -291,7 +291,7 @@ export default function PricingClient({
       <QBayNavbar />
 
       {/* Header Section */}
-      <section className="pt-32 pb-16 px-4">
+      <section className="pt-20 pb-8 sm:pt-28 sm:pb-12 lg:pt-32 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-black text-[#5D4A7A] mb-4">
             {header.title}
@@ -389,7 +389,7 @@ export default function PricingClient({
       </section>
 
       {/* Monthly Plan Section - Dark Beautiful Layout */}
-      <section className="px-4 pb-20">
+      <section className="px-4 pb-10 sm:pb-14 lg:pb-16">
         <div className="max-w-7xl mx-auto">
           <div className="relative rounded-[2rem] overflow-hidden bg-[#0a021c] p-8 lg:p-10 flex flex-col lg:flex-row gap-8 lg:items-center">
             {/* Background Effects */}
@@ -466,7 +466,7 @@ export default function PricingClient({
       </section>
 
       {/* WhatsApp Results Section */}
-      <section id="results" className="bg-white py-20 scroll-mt-24">
+      <section id="results" className="bg-white py-8 sm:py-10 lg:py-12 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto mb-12 max-w-3xl text-center">
             <h2 className="text-4xl font-bold text-[#1A112B] sm:text-5xl">
@@ -521,7 +521,7 @@ export default function PricingClient({
       </section>
 
       {/* Audio Reviews Section */}
-      <section id="audio-reviews" className="bg-[#FAF5FB] py-24 scroll-mt-24">
+      <section id="audio-reviews" className="bg-[#FAF5FB] py-10 sm:py-12 lg:py-14 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4 text-center">Hear their success stories</h2>
@@ -568,7 +568,7 @@ export default function PricingClient({
       </section>
 
       {/* Video Testimonials Grid */}
-      <section id="video-testimonials" className="bg-[#F9F5FF] py-24 scroll-mt-24">
+      <section id="video-testimonials" className="bg-[#F9F5FF] py-10 sm:py-12 lg:py-14 scroll-mt-24">
         <div className="w-full">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center mb-16">
             <h2 className="text-4xl sm:text-6xl font-extrabold text-[#1A112B] tracking-tight mb-6">
@@ -656,7 +656,7 @@ export default function PricingClient({
       </section>
 
       {/* Trustpilot Reviews Section */}
-      <section id="trustpilot-reviews" className="bg-white py-24 scroll-mt-24">
+      <section id="trustpilot-reviews" className="bg-white py-10 sm:py-12 lg:py-14 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16 text-center md:text-left">
             <h2 className="text-3xl md:text-4xl font-bold text-[#2D1B4D]">{trustpilotTitle}</h2>
@@ -757,7 +757,7 @@ export default function PricingClient({
       )}
 
       {/* ROI Calculator Section */}
-      <section className="bg-white py-24 px-4 overflow-hidden">
+      <section className="bg-white py-10 sm:py-12 lg:py-14 px-4 overflow-hidden">
         <div className="max-w-5xl mx-auto text-center space-y-16">
           <div className="space-y-4">
             <h2 className="text-4xl md:text-5xl font-black text-[#5D4A7A]">
@@ -835,7 +835,7 @@ export default function PricingClient({
       </section>
 
       {/* Results Section */}
-      <section className="bg-white py-24 px-4 font-sans">
+      <section className="bg-white py-10 sm:py-12 lg:py-14 px-4 font-sans">
         <div className="max-w-6xl mx-auto text-center space-y-16">
           <div className="space-y-4">
             <h2 className="text-4xl md:text-6xl font-black text-[#5D4A7A]">
@@ -873,7 +873,7 @@ export default function PricingClient({
       </section>
 
       {/* Cancellation Policy Section */}
-      <section className="bg-white py-24 px-4">
+      <section className="bg-white py-10 sm:py-12 lg:py-14 px-4">
         <div className="max-w-5xl mx-auto space-y-16">
           <div className="text-center space-y-4">
             <h2 className="text-4xl md:text-6xl font-black text-[#5D4A7A]">
