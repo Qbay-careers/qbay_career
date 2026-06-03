@@ -894,7 +894,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       </section>
 
       {/* Auto-Scrolling 3D Image Gallery Section */}
-      <section className="relative z-10 w-full overflow-hidden bg-gradient-to-b from-[#FDFCFE] via-purple-50/50 to-white py-8 sm:py-16 lg:py-20">
+      <section className="relative z-10 w-full overflow-hidden bg-gradient-to-b from-[#FDFCFE] via-purple-50/50 to-white py-8 sm:py-12 lg:py-14">
         {/* Side fade gradients for depth */}
         <div className="absolute inset-y-0 left-0 w-24 sm:w-32 lg:w-48 bg-gradient-to-r from-[#FDFCFE] via-[#FDFCFE]/40 to-transparent z-20 pointer-events-none" />
         <div className="absolute inset-y-0 right-0 w-24 sm:w-32 lg:w-48 bg-gradient-to-l from-white via-white/40 to-transparent z-20 pointer-events-none" />
@@ -930,43 +930,43 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      <section id="consultation" className="bg-white py-10 sm:py-16 lg:py-20 scroll-mt-24">
+      <section id="consultation" className="bg-white py-10 sm:py-12 lg:py-14 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           
-          <div className="relative overflow-hidden rounded-2xl sm:rounded-[1.5rem] bg-[#1A112B] border border-white/5 shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] p-8 md:p-14 lg:p-20">
+          <div className="relative overflow-hidden rounded-2xl sm:rounded-[1.5rem] bg-[#1A112B] border border-white/5 shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] p-5 sm:p-8 md:p-14 lg:p-20">
             {/* Background decorative elements */}
             <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-[500px] h-[500px] bg-purple-600/20 blur-[120px] rounded-full pointer-events-none" />
             <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-indigo-600/10 blur-[120px] rounded-full pointer-events-none" />
             
-            <div className="relative z-10 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+            <div className="relative z-10 flex flex-col lg:flex-row items-center gap-6 lg:gap-20">
               
               {/* Left Column: Content */}
-              <div className="flex-1 space-y-8">
-                <div className="space-y-4">
+              <div className="flex-1 space-y-4 sm:space-y-8">
+                <div className="space-y-2 sm:space-y-4">
                   <div className="flex items-center gap-3">
                     <span className="flex h-2 w-2 rounded-full bg-purple-400 animate-pulse" />
-                    <span className="text-sm font-bold tracking-[0.2em] text-purple-300/60 uppercase">
+                    <span className="text-xs sm:text-sm font-bold tracking-[0.2em] text-purple-300/60 uppercase">
                       {consultationTopHeading}
                     </span>
                   </div>
                   
-                  <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1]">
+                  <h2 className="text-2xl sm:text-4xl lg:text-6xl font-black text-white tracking-tight leading-[1.1]">
                     {consultationTitle}
                   </h2>
                 </div>
 
-                <div className="inline-flex items-center gap-2 rounded-xl bg-white/5 px-4 py-2 border border-white/10 backdrop-blur-md">
-                  <Star className="h-4 w-4 text-purple-400 fill-purple-400" />
-                  <span className="text-sm font-bold text-purple-100">
+                <div className="inline-flex items-center gap-2 rounded-xl bg-white/5 px-3 py-1 sm:px-4 sm:py-2 border border-white/10 backdrop-blur-md">
+                  <Star className="h-3 w-3 sm:h-4 sm:w-4 text-purple-400 fill-purple-400" />
+                  <span className="text-xs sm:text-sm font-bold text-purple-100">
                     {consultationBadge}
                   </span>
                 </div>
                 
-                <p className="text-lg text-purple-100/70 leading-relaxed max-w-xl">
+                <p className="text-sm sm:text-lg text-purple-100/70 leading-relaxed max-w-xl">
                   {consultationSubtitle}
                 </p>
 
-                <div className="grid sm:grid-cols-2 gap-4 pt-4">
+                <div className="grid sm:grid-cols-2 gap-2 sm:gap-4 pt-2 sm:pt-4">
                   {(Array.isArray(consultationData?.features) ? consultationData.features : [
                     'Guaranteed Interview Support',
                     'We Apply on Your Behalf',
@@ -984,7 +984,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                         <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/10 text-white border border-white/5">
                           <Check className="h-3 w-3" strokeWidth={4} />
                         </div>
-                        <span className="text-[15px] font-bold text-white/90">{text}</span>
+                        <span className="text-xs sm:text-[15px] font-bold text-white/90">{text}</span>
                       </div>
                     );
                   })}
@@ -997,31 +997,31 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                   {/* Decorative Glow */}
                   <div className="absolute -inset-4 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-2xl sm:rounded-[1.5rem] blur-3xl opacity-20 group-hover:opacity-30 transition-opacity duration-500" />
                   
-                  <div className="relative bg-white rounded-xl sm:rounded-2xl border border-white/10 p-8 shadow-2xl">
-                    <div className="flex flex-col items-center text-center space-y-6">
-                      <div className="w-20 h-20 rounded-full bg-purple-50 flex items-center justify-center relative">
-                        <CalendarDays className="w-10 h-10 text-purple-600" />
+                  <div className="relative bg-white rounded-xl sm:rounded-2xl border border-white/10 p-5 sm:p-8 shadow-2xl">
+                    <div className="flex flex-col items-center text-center space-y-4 sm:space-y-6">
+                      <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-purple-50 flex items-center justify-center relative">
+                        <CalendarDays className="w-6 h-6 sm:w-10 sm:h-10 text-purple-600" />
                         <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-4 border-white flex items-center justify-center animate-bounce">
                            <div className="w-1.5 h-1.5 bg-white rounded-full" />
                         </div>
                       </div>
                       
                       <div className="space-y-2">
-                        <h4 className="text-xl font-bold text-[#1A112B]">{consultationCardHeading}</h4>
-                        <p className="text-sm text-slate-500 font-medium leading-relaxed">{consultationCardSubtext}</p>
+                        <h4 className="text-base sm:text-xl font-bold text-[#1A112B]">{consultationCardHeading}</h4>
+                        <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed">{consultationCardSubtext}</p>
                       </div>
 
                       <div className="w-full h-px bg-slate-100" />
 
                       <a
                         href={consultationData?.ctaLink || "/contact"}
-                        className="group relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-2xl bg-[#1A112B] px-8 py-5 text-sm font-bold text-white transition-all hover:bg-black hover:scale-[1.02] active:scale-[0.98] shadow-xl shadow-black/20"
+                        className="group relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-xl sm:rounded-2xl bg-[#1A112B] px-4 py-3 sm:px-8 sm:py-5 text-xs sm:text-sm font-bold text-white transition-all hover:bg-black hover:scale-[1.02] active:scale-[0.98] shadow-xl shadow-black/20"
                       >
-                        <img src="/google-meet-icon.png" alt="Google Meet" className="w-5 h-5 object-contain" />
+                        <img src="/google-meet-icon.png" alt="Google Meet" className="w-4 h-4 sm:w-5 sm:h-5 object-contain" />
                         <span>{consultationData?.ctaLabel || 'Book your free consultancy'}</span>
                       </a>
 
-                      <p className="text-xs font-bold text-slate-400 flex items-center gap-2">
+                      <p className="text-[10px] sm:text-xs font-bold text-slate-400 flex items-center gap-2">
                         <span className="flex h-1.5 w-1.5 rounded-full bg-green-500" />
                         {consultationAvailabilityText}
                       </p>
@@ -1037,7 +1037,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       </section>
 
       {/* Video Section */}
-      <section className="bg-gradient-to-br from-[#F8F7FF] via-white to-[#FAF5FB] py-6 sm:py-10 scroll-mt-24 border-b border-purple-50">
+      <section className="bg-gradient-to-br from-[#F8F7FF] via-white to-[#FAF5FB] py-6 sm:py-8 lg:py-10 scroll-mt-24 border-b border-purple-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="relative rounded-lg overflow-hidden shadow-2xl shadow-purple-900/20 border border-purple-100 ring-4 ring-purple-500/5">
             <video
@@ -1055,7 +1055,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      <section id="about" className="border-t border-gray-100 scroll-mt-24 py-8 sm:py-14 bg-[#FDFCFE]">
+      <section id="about" className="border-t border-gray-100 scroll-mt-24 py-8 sm:py-10 lg:py-12 bg-[#FDFCFE]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-sm font-bold tracking-[0.2em] text-purple-600 uppercase mb-4">{servicesTagline}</h2>
@@ -1157,7 +1157,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       </section>
 
       <section id="framework" className="scroll-mt-24 bg-[#0F172A]">
-        <div className="mx-auto max-w-7xl px-4 py-8 sm:py-14 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:py-10 lg:py-12 sm:px-6 lg:px-8">
           <h2 
             className="mb-12 text-4xl font-bold tracking-tight text-white sm:text-5xl"
             dangerouslySetInnerHTML={{ __html: frameworkHeading }}
@@ -1241,7 +1241,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      <section id="testimonials" className="bg-[#F9F5FF] py-10 sm:py-16 scroll-mt-24">
+      <section id="testimonials" className="bg-[#F9F5FF] py-10 sm:py-12 lg:py-14 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">
@@ -1380,7 +1380,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       )}
 
-      <section id="results" className="bg-white py-8 sm:py-14 scroll-mt-24">
+      <section id="results" className="bg-white py-8 sm:py-10 lg:py-12 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto mb-12 max-w-3xl text-center">
             <h2 className="text-4xl font-bold text-[#1A112B] sm:text-5xl">
@@ -1438,7 +1438,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       </section>
 
       {/* Audio Reviews Section */}
-      <section id="audio-reviews" className="bg-white py-10 sm:py-16 scroll-mt-24">
+      <section id="audio-reviews" className="bg-white py-10 sm:py-12 lg:py-14 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">Hear their success stories</h2>
@@ -1485,7 +1485,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       </section>
 
       {/* Trustpilot Reviews Section */}
-      <section id="trustpilot-reviews" className="bg-white py-10 sm:py-16 scroll-mt-24">
+      <section id="trustpilot-reviews" className="bg-white py-10 sm:py-12 lg:py-14 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-[#2D1B4D]">{trustpilotTitle}</h2>
@@ -1550,7 +1550,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       )}
 
       
-       <section id="client-love" className="relative bg-white py-10 sm:py-16 scroll-mt-24 overflow-hidden">
+       <section id="client-love" className="relative bg-white py-10 sm:py-12 lg:py-14 scroll-mt-24 overflow-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-4xl mx-auto mb-20">
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#2D1B4D] tracking-tight mb-6" dangerouslySetInnerHTML={{ __html: clientLoveTitle }}>
@@ -1584,7 +1584,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       </section>
 
       {/* Negative Reviews Section */}
-      <section id="negative-reviews" className="py-8 sm:py-14 scroll-mt-24" style={{ background: 'linear-gradient(135deg, #e8f5f0 0%, #f0faf5 40%, #e8f5ee 100%)' }}>
+      <section id="negative-reviews" className="py-8 sm:py-10 lg:py-12 scroll-mt-24" style={{ background: 'linear-gradient(135deg, #e8f5f0 0%, #f0faf5 40%, #e8f5ee 100%)' }}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-12">
@@ -1686,7 +1686,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      <section id="shorts" className="bg-[#FDFBFF] py-10 sm:py-16 scroll-mt-24">
+      <section id="shorts" className="bg-[#FDFBFF] py-10 sm:py-12 lg:py-14 scroll-mt-24">
         <div className="w-full overflow-hidden relative">
           <div 
             ref={scrollRef}
@@ -1723,7 +1723,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      <section className="bg-[#FAF5FB] py-10 sm:py-16 scroll-mt-24">
+      <section className="bg-[#FAF5FB] py-10 sm:py-12 lg:py-14 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-6xl rounded-2xl bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:px-16 sm:py-12 p-8 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16">
             
@@ -1793,7 +1793,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      <section className="bg-[#FAF5FB] py-10 sm:py-16 scroll-mt-24 overflow-hidden relative border-t border-purple-50">
+      <section className="bg-[#FAF5FB] py-10 sm:py-12 lg:py-14 scroll-mt-24 overflow-hidden relative border-t border-purple-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-16 text-center">
           <h2 className="text-3xl md:text-5xl font-bold text-[#2D1B4D] mb-4 font-serif">
             Top Universities Chosen by
@@ -1878,7 +1878,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       </section>
 
       {/* FAQ Section */}
-      <section className="bg-white py-10 sm:py-16 scroll-mt-24 border-t border-gray-100">
+      <section className="bg-white py-10 sm:py-12 lg:py-14 scroll-mt-24 border-t border-gray-100">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold text-[#1A112B] mb-4">
@@ -1953,7 +1953,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       </section>
 
       {/* Founder Letter Section */}
-      <section className="bg-[#FAF8F6] py-10 sm:py-16 lg:py-20 relative overflow-hidden">
+      <section className="bg-[#FAF8F6] py-10 sm:py-12 lg:py-14 relative overflow-hidden">
         {/* Subtle background decorative elements */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-purple-100/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-50/40 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
