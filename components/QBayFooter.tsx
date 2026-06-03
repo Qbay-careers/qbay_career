@@ -57,17 +57,13 @@ export default function QBayFooter() {
                 </div>
                 <div className="flex items-center gap-3 group">
                   <Phone className="w-5 h-5 text-gray-400 group-hover:text-[#5D4A7A] transition-colors shrink-0" />
-                  <a href="tel:+447551940676" className="text-gray-500 hover:text-[#5D4A7A] transition-colors font-medium text-sm md:text-base">+44 7551940676</a>
-                </div>
-                <div className="flex items-center gap-3 group">
-                  <Phone className="w-5 h-5 text-gray-400 group-hover:text-[#5D4A7A] transition-colors shrink-0" />
-                  <a href="tel:+447551928080" className="text-gray-500 hover:text-[#5D4A7A] transition-colors font-medium text-sm md:text-base">+44 7551928080</a>
+                  <a href="tel:+447704862669" className="text-gray-500 hover:text-[#5D4A7A] transition-colors font-medium text-sm md:text-base">+44 7704 862669</a>
                 </div>
               </div>
               <div className="flex items-start gap-3 group pt-2 border-t border-gray-200">
                 <MapPin className="w-5 h-5 text-gray-400 group-hover:text-[#5D4A7A] transition-colors shrink-0 mt-0.5" />
                 <p className="text-gray-500 font-medium text-sm md:text-base leading-relaxed">
-                  18 Nursery Lane, Leamington Spa,<br />England, CV31 2PW
+                  London Rd, Elephant and Castle,<br />London SE1 6LF, United Kingdom
                 </p>
               </div>
             </div>
