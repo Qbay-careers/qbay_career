@@ -713,16 +713,22 @@ export default function HomeClient({ initialData }: { initialData: any }) {
               if (!url) return null;
               const isVideo = url.match(/\.(mp4|webm|ogg)$/i);
               if (isVideo) {
+                const videoType = `video/${url.split('.').pop()}`;
                 return (
-                  <video 
-                    autoPlay 
-                    loop 
-                    muted 
-                    playsInline 
-                    className={`w-full h-full object-cover opacity-25 pointer-events-none ${className}`}
-                  >
-                    <source src={url} type={`video/${url.split('.').pop()}`} />
-                  </video>
+                  <>
+                    <link rel="preload" href={url} as="video" type={videoType} />
+                    <video 
+                      autoPlay 
+                      loop 
+                      muted 
+                      playsInline 
+                      preload="auto"
+                      poster="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1920"
+                      className={`w-full h-full object-cover opacity-25 pointer-events-none ${className}`}
+                    >
+                      <source src={url} type={videoType} />
+                    </video>
+                  </>
                 );
               }
               return (
@@ -748,7 +754,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
           })()}
           <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[800px] h-[800px] bg-purple-300/30 blur-[120px] rounded-full mix-blend-multiply pointer-events-none" />
           <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-[600px] h-[600px] bg-indigo-300/30 blur-[100px] rounded-full mix-blend-multiply pointer-events-none" />
-          <div className="absolute inset-0 bg-white/60 backdrop-blur-[2px] pointer-events-none" />
+          <div className="absolute inset-0 bg-white/30 backdrop-blur-[2px] pointer-events-none" />
         </div>
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" style={{ fontFamily: cmsData?.hero?.fontFamily || 'inherit' }}>
