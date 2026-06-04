@@ -1437,8 +1437,8 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       <section id="audio-reviews" className="bg-white py-10 sm:py-12 lg:py-14 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">Hear their success stories</h2>
-            <p className="text-lg text-slate-600 leading-relaxed">Listen to real experiences from our candidates who cracked top-tier interviews and landed their dream roles.</p>
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">Hear their success stories</h2>
+            <p className="text-sm sm:text-lg text-slate-600 leading-relaxed">Listen to real experiences from our candidates who cracked top-tier interviews and landed their dream roles.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
              {audioReviewsData.map((audio: any, idx: number) => (
