@@ -1240,10 +1240,10 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       <section id="testimonials" className="bg-[#F9F5FF] py-10 sm:py-12 lg:py-14 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">
               {testimonialsGridTitle}
             </h2>
-            <p className="text-lg text-slate-600 font-medium">
+            <p className="text-sm sm:text-lg text-slate-600 font-medium">
               Watch real stories from candidates who transformed their careers.
             </p>
           </div>
