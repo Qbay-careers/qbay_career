@@ -995,8 +995,8 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                   
                   <div className="relative bg-white rounded-xl sm:rounded-2xl border border-white/10 p-4 sm:p-8 shadow-2xl">
                     <div className="flex flex-col items-center text-center space-y-3 sm:space-y-6">
-                      <div className="w-12 h-12 sm:w-20 sm:h-20 rounded-full bg-purple-50 flex items-center justify-center relative">
-                        <CalendarDays className="w-5 h-5 sm:w-10 sm:h-10 text-purple-600" />
+                      <div className="hidden sm:flex w-20 h-20 rounded-full bg-purple-50 items-center justify-center relative">
+                        <CalendarDays className="w-10 h-10 text-purple-600" />
                         <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-4 border-white flex items-center justify-center animate-bounce">
                            <div className="w-1.5 h-1.5 bg-white rounded-full" />
                         </div>
