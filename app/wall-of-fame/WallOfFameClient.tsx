@@ -431,8 +431,8 @@ export default function WallOfFame() {
       {/* Audio Testimonials Section Right Below Hero */}
       <section className="bg-[#FAF8FF] py-8 overflow-hidden border-b border-purple-100/50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-10 text-center">
-          <h2 className="text-3xl font-extrabold text-[#2D1B4D] tracking-tight sm:text-4xl">Hear it from our successful candidates</h2>
-          <p className="text-slate-500 mt-2 font-medium">Listen to real audio feedback from healthcare and corporate professionals</p>
+          <h2 className="text-2xl font-extrabold text-[#2D1B4D] tracking-tight sm:text-4xl">Hear it from our successful candidates</h2>
+          <p className="text-sm sm:text-base text-slate-500 mt-2 font-medium">Listen to real audio feedback from healthcare and corporate professionals</p>
         </div>
         <div className="relative w-full">
           {/* Fade overlays for the edges */}
@@ -601,7 +601,7 @@ export default function WallOfFame() {
       <section id="trustpilot-reviews" className="bg-white py-10 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#2D1B4D]">{trustpilotTitle}</h2>
+            <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-[#2D1B4D]">{trustpilotTitle}</h2>
             <div className="flex items-center gap-1">
               {[...Array(Math.floor(Number(trustpilotRating)))].map((_, i) => (
                 <div key={i} className="bg-[#00B67A] p-1.5 rounded-sm"><Star className="w-5 h-5 fill-white text-white" /></div>
@@ -644,7 +644,7 @@ export default function WallOfFame() {
       <section id="testimonials" className="bg-[#F9F5FF] py-10 scroll-mt-24 pb-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">
               {testimonialsGridTitle}
             </h2>
             <p className="text-lg text-slate-600 font-medium">
@@ -733,7 +733,7 @@ export default function WallOfFame() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-[#1A112B] mb-4 flex items-center justify-center gap-3 flex-wrap">
+            <h2 className="text-xl sm:text-3xl md:text-5xl font-bold text-[#1A112B] mb-4 flex items-center justify-center gap-3 flex-wrap">
               Our Glaringly Painful
               <span className="inline-flex items-center gap-1">
                 <span className="inline-flex items-center justify-center w-9 h-9 rounded bg-[#e8372a] text-white text-lg font-bold">★</span>

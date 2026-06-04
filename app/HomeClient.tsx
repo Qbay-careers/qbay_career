@@ -1055,7 +1055,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-sm font-bold tracking-[0.2em] text-purple-600 uppercase mb-4">{servicesTagline}</h2>
-            <h3 className="text-4xl sm:text-5xl font-bold text-[#1A112B] tracking-tight leading-[1.2]">
+            <h3 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#1A112B] tracking-tight leading-[1.2]">
               {servicesTitle}
             </h3>
           </div>
@@ -1379,10 +1379,10 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       <section id="results" className="bg-white py-8 sm:py-10 lg:py-12 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto mb-12 max-w-3xl text-center">
-            <h2 className="text-3xl font-bold text-[#1A112B] sm:text-4xl">
+            <h2 className="text-2xl font-bold text-[#1A112B] sm:text-3xl lg:text-4xl">
               {resultsTitle}
             </h2>
-            <p className="mt-3 text-lg font-semibold text-gray-900">
+            <p className="mt-3 text-base sm:text-lg font-semibold text-gray-900">
               {resultsSubtitle}
             </p>
             <p className="mt-3 text-sm text-gray-600 sm:text-base">
@@ -1484,7 +1484,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       <section id="trustpilot-reviews" className="bg-white py-10 sm:py-12 lg:py-14 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#2D1B4D]">{trustpilotTitle}</h2>
+            <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-[#2D1B4D]">{trustpilotTitle}</h2>
             <div className="flex items-center gap-1">
               {[...Array(Math.floor(Number(trustpilotRating)))].map((_, i) => (
                 <div key={i} className="bg-[#00B67A] p-1.5 rounded-sm"><Star className="w-5 h-5 fill-white text-white" /></div>
@@ -1584,7 +1584,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold text-[#1A112B] mb-4 flex items-center justify-center gap-3 flex-wrap">
+            <h2 className="text-xl sm:text-3xl md:text-5xl font-bold text-[#1A112B] mb-4 flex items-center justify-center gap-3 flex-wrap">
               Our Glaringly Painful
               <span className="inline-flex items-center gap-1">
                 <span className="inline-flex items-center justify-center w-9 h-9 rounded bg-[#e8372a] text-white text-lg font-bold">★</span>
@@ -1791,7 +1791,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
 
       <section className="bg-[#FAF5FB] py-10 sm:py-12 lg:py-14 scroll-mt-24 overflow-hidden relative border-t border-purple-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-16 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold text-[#2D1B4D] mb-4 font-serif">
+          <h2 className="text-xl sm:text-3xl md:text-5xl font-bold text-[#2D1B4D] mb-4 font-serif">
             Top Universities Chosen by
           </h2>
           <h3 className="text-2xl md:text-4xl font-bold text-violet-700 font-serif">
@@ -1877,7 +1877,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       <section className="bg-white py-10 sm:py-12 lg:py-14 scroll-mt-24 border-t border-gray-100">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-[#1A112B] mb-4">
+            <h2 className="text-xl sm:text-3xl md:text-5xl font-bold text-[#1A112B] mb-4">
               Need-to-Know Answers
             </h2>
             <p className="text-lg md:text-xl text-gray-500">
@@ -1970,7 +1970,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
 
             {/* Letter Content */}
             <div className="space-y-8">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#2D1B4D] font-sans tracking-tight">
+              <h2 className="text-xl sm:text-3xl md:text-4xl font-bold text-[#2D1B4D] font-sans tracking-tight">
                 {cmsData?.founderLetter?.title || 'Dear Fellow Job Seeker,'}
               </h2>
               
@@ -2039,7 +2039,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
           <div className="bg-white/5 backdrop-blur-2xl rounded-2xl sm:rounded-[1.5rem] border border-white/10 p-8 md:p-12 lg:p-16 shadow-2xl relative overflow-hidden">
             <div className="text-center space-y-8">
               <div className="space-y-4">
-                <h2 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white font-syne tracking-tight">
+                <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold text-white font-syne tracking-tight">
                   {cmsData?.finalCTA?.title || "Have more questions? Let's chat!"}
                 </h2>
                 
