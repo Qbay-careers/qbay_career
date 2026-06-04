@@ -926,18 +926,18 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      <section id="consultation" className="bg-white py-10 sm:py-12 lg:py-14 scroll-mt-24">
+      <section id="consultation" className="bg-white py-6 sm:py-12 lg:py-14 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           
-          <div className="relative overflow-hidden rounded-2xl sm:rounded-[1.5rem] bg-[#1A112B] border border-white/5 shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] p-5 sm:p-8 md:p-14 lg:p-20">
+          <div className="relative overflow-hidden rounded-2xl sm:rounded-[1.5rem] bg-[#1A112B] border border-white/5 shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] p-4 sm:p-8 md:p-14 lg:p-20">
             {/* Background decorative elements */}
             <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-[500px] h-[500px] bg-purple-600/20 blur-[120px] rounded-full pointer-events-none" />
             <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-indigo-600/10 blur-[120px] rounded-full pointer-events-none" />
             
-            <div className="relative z-10 flex flex-col lg:flex-row items-center gap-6 lg:gap-20">
+            <div className="relative z-10 flex flex-col lg:flex-row items-center gap-4 lg:gap-20">
               
               {/* Left Column: Content */}
-              <div className="flex-1 space-y-4 sm:space-y-8">
+              <div className="flex-1 space-y-3 sm:space-y-8">
                 <div className="space-y-2 sm:space-y-4">
                   <div className="flex items-center gap-3">
                     <span className="flex h-2 w-2 rounded-full bg-purple-400 animate-pulse" />
@@ -993,10 +993,10 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                   {/* Decorative Glow */}
                   <div className="absolute -inset-4 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-2xl sm:rounded-[1.5rem] blur-3xl opacity-20 group-hover:opacity-30 transition-opacity duration-500" />
                   
-                  <div className="relative bg-white rounded-xl sm:rounded-2xl border border-white/10 p-5 sm:p-8 shadow-2xl">
-                    <div className="flex flex-col items-center text-center space-y-4 sm:space-y-6">
-                      <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-purple-50 flex items-center justify-center relative">
-                        <CalendarDays className="w-6 h-6 sm:w-10 sm:h-10 text-purple-600" />
+                  <div className="relative bg-white rounded-xl sm:rounded-2xl border border-white/10 p-4 sm:p-8 shadow-2xl">
+                    <div className="flex flex-col items-center text-center space-y-3 sm:space-y-6">
+                      <div className="w-12 h-12 sm:w-20 sm:h-20 rounded-full bg-purple-50 flex items-center justify-center relative">
+                        <CalendarDays className="w-5 h-5 sm:w-10 sm:h-10 text-purple-600" />
                         <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-4 border-white flex items-center justify-center animate-bounce">
                            <div className="w-1.5 h-1.5 bg-white rounded-full" />
                         </div>
@@ -1011,7 +1011,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
 
                       <a
                         href={consultationData?.ctaLink || "/contact"}
-                        className="group relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-xl sm:rounded-2xl bg-[#1A112B] px-4 py-3 sm:px-8 sm:py-5 text-xs sm:text-sm font-bold text-white transition-all hover:bg-black hover:scale-[1.02] active:scale-[0.98] shadow-xl shadow-black/20"
+                        className="group relative flex w-full items-center justify-center gap-2 sm:gap-3 overflow-hidden rounded-xl sm:rounded-2xl bg-[#1A112B] px-3 py-2.5 sm:px-8 sm:py-5 text-[11px] sm:text-sm font-bold text-white transition-all hover:bg-black hover:scale-[1.02] active:scale-[0.98] shadow-xl shadow-black/20"
                       >
                         <img src="/google-meet-icon.png" alt="Google Meet" className="w-4 h-4 sm:w-5 sm:h-5 object-contain" />
                         <span>{consultationData?.ctaLabel || 'Book your free consultancy'}</span>
