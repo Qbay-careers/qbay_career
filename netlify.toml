@@ -5,11 +5,7 @@ publish = ".next"
 [[plugins]]
 package = "@netlify/plugin-nextjs"
 
-# Cache HTML pages at the CDN edge for 5 minutes
-[[headers]]
-  for = "/*"
-  [headers.values]
-    Cache-Control = "public, max-age=0, s-maxage=300, stale-while-revalidate=60"
+
 
 # Permanently cache static images (they never change — only new filenames are used)
 [[headers]]
