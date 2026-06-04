@@ -569,8 +569,8 @@ export default function WallOfFame() {
       <section id="client-love" className="relative bg-white py-10 scroll-mt-24 overflow-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-12">
           <div className="text-center max-w-3xl mx-auto">
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#2D1B4D] tracking-tight mb-4" dangerouslySetInnerHTML={{ __html: clientLoveTitle }} />
-            <p className="text-lg sm:text-xl text-slate-500 leading-relaxed font-medium">
+            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-[#2D1B4D] tracking-tight mb-4" dangerouslySetInnerHTML={{ __html: clientLoveTitle }} />
+            <p className="text-base sm:text-xl text-slate-500 leading-relaxed font-medium">
               {clientLoveDescription}
             </p>
           </div>
