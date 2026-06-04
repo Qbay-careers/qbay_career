@@ -41,7 +41,6 @@ import {
   defaultFaqData,
   testimonialShortUrls,
   youtubeShortUrls,
-  defaultHeroImages,
 } from './homeData';
 
 
@@ -236,11 +235,8 @@ export default function HomeClient({ initialData }: { initialData: any }) {
   const trustpilotRating = typeof trustpilotDataObj === 'object' && !Array.isArray(trustpilotDataObj) ? (trustpilotDataObj.rating || 5) : 5;
   const trustpilotTitle = typeof trustpilotDataObj === 'object' && !Array.isArray(trustpilotDataObj) ? (trustpilotDataObj.title || 'Excellent on Trustpilot') : 'Excellent on Trustpilot';
   const faqData = getFaqData() as typeof defaultFaqData;
-  const heroImages = (() => {
-    const cms = Array.isArray(cmsData?.hero?.images) ? cmsData.hero.images : [];
-    const merged = [...cms, ...defaultHeroImages.filter(d => !cms.includes(d))];
-    return merged.length >= 6 ? merged.slice(0, 6) : [...merged, ...defaultHeroImages].slice(0, 6);
-  })() as string[];
+  // Only use images uploaded via the admin dashboard — no Unsplash fallbacks
+  const heroImages = (Array.isArray(cmsData?.hero?.images) ? cmsData.hero.images : []) as string[];
   const heroBadges = (Array.isArray(cmsData?.hero?.badges) ? cmsData.hero.badges : ['100k+ Helped', '4.8 Trustpilot', '1:1 Experts', '90-Day Calls', 'Gov Approved']) as string[];
   const badgeIcons = [BadgeCheck, Star, PhoneCall, ShieldCheck, Globe];
   
