@@ -1379,7 +1379,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       <section id="results" className="bg-white py-8 sm:py-10 lg:py-12 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto mb-12 max-w-3xl text-center">
-            <h2 className="text-4xl font-bold text-[#1A112B] sm:text-5xl">
+            <h2 className="text-3xl font-bold text-[#1A112B] sm:text-4xl">
               {resultsTitle}
             </h2>
             <p className="mt-3 text-lg font-semibold text-gray-900">
