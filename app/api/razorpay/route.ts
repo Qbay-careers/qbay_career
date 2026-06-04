@@ -3,13 +3,15 @@ import Razorpay from "razorpay";
 import { supabase } from "@/lib/supabase";
 import { savePaymentData } from "@/lib/googleSheets";
 
-const razorpay = new Razorpay({
-  key_id: (process.env.RAZORPAY_KEY_ID || "").trim(),
-  key_secret: (process.env.RAZORPAY_KEY_SECRET || "").trim(),
-});
-
 export async function POST(req: Request) {
   try {
+    // Initialize Razorpay inside the handler (not at module level)
+    // so it doesn't crash during build when env vars aren't available
+    const razorpay = new Razorpay({
+      key_id: (process.env.RAZORPAY_KEY_ID || "").trim(),
+      key_secret: (process.env.RAZORPAY_KEY_SECRET || "").trim(),
+    });
+
     const body = await req.json();
     console.log("Razorpay Order Request:", body);
     const { name, email, phone, planName } = body;
