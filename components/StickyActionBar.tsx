@@ -13,10 +13,7 @@ export default function StickyActionBar() {
     button2: { label: "Whatsapp Now", link: "https://wa.me/447551940676" }
   });
 
-  // Do not show on admin pages
-  if (pathname?.startsWith('/admin')) {
-    return null;
-  }
+  const isAdmin = pathname?.startsWith('/admin');
 
   useEffect(() => {
     async function fetchActionBar() {
@@ -91,6 +88,10 @@ export default function StickyActionBar() {
       clearInterval(modalInterval);
     };
   }, [pathname]);
+
+  if (isAdmin) {
+    return null;
+  }
 
   const safeData = {
     button1: data?.button1 || { label: "Book Strategy Call", link: "/contact" },
