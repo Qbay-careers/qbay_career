@@ -926,7 +926,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       </section>
 
-      <section id="consultation" className="bg-white py-6 sm:py-12 lg:py-14 scroll-mt-24">
+      <section id="consultation" className="bg-white pt-6 sm:pt-12 lg:pt-14 pb-2 sm:pb-4 lg:pb-6 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           
           <div className="relative overflow-hidden rounded-2xl sm:rounded-[1.5rem] bg-[#1A112B] border border-white/5 shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] p-4 sm:p-8 md:p-14 lg:p-20">
@@ -1033,7 +1033,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       </section>
 
       {/* Video Section */}
-      <section className="bg-gradient-to-br from-[#F8F7FF] via-white to-[#FAF5FB] py-6 sm:py-8 lg:py-10 scroll-mt-24 border-b border-purple-50">
+      <section className="bg-gradient-to-br from-[#F8F7FF] via-white to-[#FAF5FB] pt-2 sm:pt-4 lg:pt-6 pb-6 sm:pb-8 lg:pb-10 scroll-mt-24 border-b border-purple-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="relative rounded-lg overflow-hidden shadow-2xl shadow-purple-900/20 border border-purple-100 ring-4 ring-purple-500/5">
             <video
