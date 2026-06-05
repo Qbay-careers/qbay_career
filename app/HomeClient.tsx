@@ -881,6 +881,18 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                       </div>
                     );
                   })}
+                  {/* Sisu Factory Badge */}
+                  <div className="group flex items-center gap-4 rounded-2xl bg-white/60 border border-white/80 p-4 shadow-sm hover:shadow-md hover:bg-white/80 transition-all duration-300">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-purple-50 text-purple-600 group-hover:scale-110 group-hover:bg-purple-100 transition-all duration-300">
+                      <img src="/sisu.png" alt="Sisu Factory" className="w-9 h-9 object-contain" />
+                    </div>
+                    <div>
+                      <h3 className="text-base font-bold text-[#1A112B]">Sisu Factory</h3>
+                      <p className="text-xs text-slate-500 font-medium mt-0.5">
+                        Global ambition meets local support
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
