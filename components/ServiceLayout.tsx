@@ -938,7 +938,7 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
 
           {/* Results Stats */}
           {Array.isArray(service.richContent.results) && service.richContent.results.length > 0 && (
-            <section className="py-20 bg-white border-y border-purple-100/50">
+            <section className="pt-6 sm:pt-8 pb-16 bg-white border-y border-purple-100/50">
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-14">
                   <span className="inline-block text-xs font-bold tracking-[0.25em] text-purple-600 uppercase mb-4">The Results Speak for Themselves</span>
@@ -971,7 +971,7 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
 
           {/* Companies Hired */}
           {service.richContent.companiesHired && (
-            <section className="py-14 bg-[#FDFCFE] border-b border-purple-100/50">
+            <section className="pt-4 sm:pt-6 pb-10 bg-[#FDFCFE] border-b border-purple-100/50">
               <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
                 <p className="text-xs font-bold tracking-[0.2em] text-purple-500 uppercase mb-4">Qbay Candidates Have Landed Jobs At</p>
                 <p className="text-lg font-bold text-[#2D1B4D] leading-relaxed">{service.richContent.companiesHired}</p>
@@ -981,7 +981,7 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
 
           {/* Why Trust Qbay */}
           {Array.isArray(service.richContent.whyTrust) && service.richContent.whyTrust.length > 0 && (
-            <section className="py-24 bg-white">
+            <section className="pt-6 sm:pt-8 pb-16 bg-white">
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
                   <span className="inline-block text-xs font-bold tracking-[0.25em] text-purple-600 uppercase mb-4">Credibility</span>
@@ -1009,7 +1009,7 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
 
           {/* Who Is This For */}
           {Array.isArray(service.richContent.whoIsItFor) && service.richContent.whoIsItFor.length > 0 && (
-            <section className="py-20 bg-gradient-to-br from-purple-50 to-indigo-50 border-y border-purple-100/50">
+            <section className="pt-6 sm:pt-8 pb-16 bg-gradient-to-br from-purple-50 to-indigo-50 border-y border-purple-100/50">
               <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-12">
                   <span className="inline-block text-xs font-bold tracking-[0.25em] text-purple-600 uppercase mb-4">Is This For You?</span>
