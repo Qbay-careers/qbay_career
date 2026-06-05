@@ -1376,7 +1376,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         </div>
       )}
 
-      <section id="results" className="bg-white py-8 sm:py-10 lg:py-12 scroll-mt-24">
+      <section id="results" className="bg-white pt-8 sm:pt-10 lg:pt-12 pb-4 sm:pb-6 lg:pb-8 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto mb-12 max-w-3xl text-center">
             <h2 className="text-2xl font-bold text-[#1A112B] sm:text-3xl lg:text-4xl">
@@ -1395,7 +1395,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                 ref={resultsScrollRef}
                 onMouseEnter={() => setIsResultsPaused(true)}
                 onMouseLeave={() => setIsResultsPaused(false)}
-                className="flex gap-4 overflow-x-auto pb-16 pt-10 scrollbar-hide perspective-[1000px] py-10"
+                className="flex gap-4 overflow-x-auto py-10 scrollbar-hide perspective-[1000px]"
                 style={{ perspective: '1200px' }}
               >
                 {[...resultsImages, ...resultsImages, ...resultsImages].map((item, idx) => (
@@ -1434,7 +1434,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       </section>
 
       {/* Audio Reviews Section */}
-      <section id="audio-reviews" className="bg-white py-10 sm:py-12 lg:py-14 scroll-mt-24">
+      <section id="audio-reviews" className="bg-white pt-6 sm:pt-8 lg:pt-10 pb-10 sm:pb-12 lg:pb-14 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">Hear their success stories</h2>
