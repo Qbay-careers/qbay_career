@@ -427,14 +427,14 @@ export default function AdminDashboard() {
             
             // Proactively replace old headings/descriptions
             if (!newData.clientLove.title || newData.clientLove.title === 'Love Letters from our Clients') {
-              newData.clientLove.title = 'Trusted by People You Trust';
+              newData.clientLove.title = 'Trusted by people you trust';
             }
             if (!newData.clientLove.subtitle || newData.clientLove.subtitle.includes('students and parents')) {
               newData.clientLove.subtitle = 'See why top influencers endorse scale.jobs as the smartest way to land your next role.';
             }
           } else {
             newData.clientLove = {
-              title: 'Trusted by People You Trust',
+              title: 'Trusted by people you trust',
               subtitle: 'See why top influencers endorse scale.jobs as the smartest way to land your next role.',
               testimonials: migratedItems
             };

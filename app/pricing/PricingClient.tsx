@@ -294,7 +294,7 @@ export default function PricingClient({
       <section className="pt-20 pb-8 sm:pt-28 sm:pb-12 lg:pt-32 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-black text-[#5D4A7A] mb-4">
-            {header.title}
+            {header.title === 'Transparent Pricing' || header.title?.toLowerCase() === 'transparent pricing' ? 'Transparent pricing' : header.title}
           </h1>
           <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-6">
             {header.subtitle}
@@ -389,7 +389,7 @@ export default function PricingClient({
       </section>
 
       {/* Monthly Plan Section - Dark Beautiful Layout */}
-      <section className="px-4 pb-10 sm:pb-14 lg:pb-16">
+      <section className="px-4 pb-2 sm:pb-4 lg:pb-6">
         <div className="max-w-7xl mx-auto">
           <div className="relative rounded-[2rem] overflow-hidden bg-[#0a021c] p-8 lg:p-10 flex flex-col lg:flex-row gap-8 lg:items-center">
             {/* Background Effects */}
@@ -466,13 +466,13 @@ export default function PricingClient({
       </section>
 
       {/* WhatsApp Results Section */}
-      <section id="results" className="bg-white pt-8 sm:pt-10 lg:pt-12 pb-0 scroll-mt-24">
+      <section id="results" className="bg-white pt-4 sm:pt-6 lg:pt-8 pb-0 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto mb-12 max-w-3xl text-center">
             <h2 className="text-4xl font-bold text-[#1A112B] sm:text-5xl">
               {resultsTitle}
             </h2>
-            <p className="mt-3 text-lg font-semibold text-gray-900">
+            <p className="mt-3 text-xl sm:text-2xl font-semibold text-gray-900">
               {resultsSubtitle}
             </p>
             <p className="mt-3 text-sm text-gray-600 sm:text-base">
@@ -757,14 +757,14 @@ export default function PricingClient({
       )}
 
       {/* ROI Calculator Section */}
-      <section className="bg-white py-10 sm:py-12 lg:py-14 px-4 overflow-hidden">
-        <div className="max-w-5xl mx-auto text-center space-y-16">
+      <section className="bg-white pt-2 pb-10 sm:pt-4 sm:pb-12 lg:pt-6 lg:pb-14 px-4 overflow-hidden">
+        <div className="max-w-5xl mx-auto text-center space-y-8 sm:space-y-16">
           <div className="space-y-4">
             <h2 className="text-4xl md:text-5xl font-black text-[#5D4A7A]">
-              Calculate Your Return on Investment
+              Calculate your return on investment
             </h2>
             <p className="text-lg font-bold text-gray-500">
-              Based on Applying to 1000 Jobs With Our Service Instead of Doing it Yourself
+              Based on applying to 1000 jobs with our service instead of doing it yourself
             </p>
           </div>
 
@@ -839,7 +839,7 @@ export default function PricingClient({
         <div className="max-w-6xl mx-auto text-center space-y-16">
           <div className="space-y-4">
             <h2 className="text-4xl md:text-6xl font-black text-[#5D4A7A]">
-              Proven Results. Real Success Stories.
+              Proven results, real success stories.
             </h2>
             <p className="text-lg font-bold text-[#8B7FB1] max-w-4xl mx-auto leading-relaxed">
               Over 70% of QBAY Career members receive refunds — not because they&apos;re dissatisfied, but because they secure their ideal job before using all their credits. We celebrate your success by refunding unused credits.
@@ -873,11 +873,11 @@ export default function PricingClient({
       </section>
 
       {/* Cancellation Policy Section */}
-      <section className="bg-white py-10 sm:py-12 lg:py-14 px-4">
-        <div className="max-w-5xl mx-auto space-y-16">
+      <section className="bg-white pt-2 pb-10 sm:pt-4 sm:pb-12 lg:pt-6 lg:pb-14 px-4">
+        <div className="max-w-5xl mx-auto space-y-8 sm:space-y-16">
           <div className="text-center space-y-4">
             <h2 className="text-4xl md:text-6xl font-black text-[#5D4A7A]">
-              {cancellation.title}
+              {cancellation.title === 'Cancellation Policy' || cancellation.title?.toLowerCase() === 'cancellation policy' ? 'Cancellation policy' : cancellation.title}
             </h2>
             <p className="text-lg font-bold text-[#8B7FB1]">
               {cancellation.subtitle}

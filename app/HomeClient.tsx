@@ -142,9 +142,9 @@ export default function HomeClient({ initialData }: { initialData: any }) {
   const servicesTagline = typeof servicesHeader?.tagline === 'string' ? servicesHeader.tagline : 'Our Services';
   const servicesTitle = typeof servicesHeader?.title === 'string' ? servicesHeader.title : 'Comprehensive support for your global career journey.';
   const clientLoveData = cmsData?.clientLove || cmsData?.ClientLove || {};
-  let clientLoveTitle = clientLoveData?.title || 'Trusted by People You Trust';
-  if (clientLoveTitle === 'Love Letters from our Clients') {
-    clientLoveTitle = 'Trusted by People You Trust';
+  let clientLoveTitle = clientLoveData?.title || 'Trusted by people you trust';
+  if (clientLoveTitle === 'Love Letters from our Clients' || clientLoveTitle?.toLowerCase() === 'trusted by people you trust') {
+    clientLoveTitle = 'Trusted by people you trust';
   }
   
   let clientLoveDescription = clientLoveData?.subtitle || clientLoveData?.description || 'See why top influencers endorse scale.jobs as the smartest way to land your next role.';
@@ -941,15 +941,15 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       <section id="consultation" className="bg-white pt-6 sm:pt-12 lg:pt-14 pb-2 sm:pb-4 lg:pb-6 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           
-          <div className="relative overflow-hidden rounded-2xl sm:rounded-[1.5rem] bg-[#1A112B] border border-white/5 shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] p-4 sm:p-8 md:p-14 lg:p-20">
+          <div className="relative overflow-hidden rounded-2xl sm:rounded-[1.5rem] bg-[#1A112B] border border-white/5 shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] p-4 sm:p-6 md:p-10 lg:p-12">
             {/* Background decorative elements */}
             <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-[500px] h-[500px] bg-purple-600/20 blur-[120px] rounded-full pointer-events-none" />
             <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-indigo-600/10 blur-[120px] rounded-full pointer-events-none" />
             
-            <div className="relative z-10 flex flex-col lg:flex-row items-center gap-4 lg:gap-20">
+            <div className="relative z-10 flex flex-col lg:flex-row items-center gap-4 lg:gap-12">
               
               {/* Left Column: Content */}
-              <div className="flex-1 space-y-3 sm:space-y-8">
+              <div className="flex-1 space-y-3 sm:space-y-5">
                 <div className="space-y-2 sm:space-y-4">
                   <div className="flex items-center gap-3">
                     <span className="flex h-2 w-2 rounded-full bg-purple-400 animate-pulse" />
@@ -974,7 +974,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                   {consultationSubtitle}
                 </p>
 
-                <div className="grid sm:grid-cols-2 gap-2 sm:gap-4 pt-2 sm:pt-4">
+                <div className="hidden sm:grid sm:grid-cols-2 gap-2 sm:gap-4 pt-2 sm:pt-4">
                   {(Array.isArray(consultationData?.features) ? consultationData.features : [
                     'Guaranteed Interview Support',
                     'We Apply on Your Behalf',
@@ -1005,8 +1005,8 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                   {/* Decorative Glow */}
                   <div className="absolute -inset-4 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-2xl sm:rounded-[1.5rem] blur-3xl opacity-20 group-hover:opacity-30 transition-opacity duration-500" />
                   
-                  <div className="relative bg-white rounded-xl sm:rounded-2xl border border-white/10 p-4 sm:p-8 shadow-2xl">
-                    <div className="flex flex-col items-center text-center space-y-3 sm:space-y-6">
+                  <div className="relative bg-white rounded-xl sm:rounded-2xl border border-white/10 p-4 sm:p-6 shadow-2xl">
+                    <div className="flex flex-col items-center text-center space-y-3 sm:space-y-4">
                       <div className="hidden sm:flex w-20 h-20 rounded-full bg-purple-50 items-center justify-center relative">
                         <CalendarDays className="w-10 h-10 text-purple-600" />
                         <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-4 border-white flex items-center justify-center animate-bounce">
@@ -1394,7 +1394,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
             <h2 className="text-2xl font-bold text-[#1A112B] sm:text-3xl lg:text-4xl">
               {resultsTitle}
             </h2>
-            <p className="mt-3 text-base sm:text-lg font-semibold text-gray-900">
+            <p className="mt-3 text-xl sm:text-2xl font-semibold text-gray-900">
               {resultsSubtitle}
             </p>
             <p className="mt-3 text-sm text-gray-600 sm:text-base">
@@ -1597,11 +1597,11 @@ export default function HomeClient({ initialData }: { initialData: any }) {
           {/* Header */}
           <div className="text-center mb-12">
             <h2 className="text-xl sm:text-3xl md:text-5xl font-bold text-[#1A112B] mb-4 flex items-center justify-center gap-3 flex-wrap">
-              Our Glaringly Painful
+              Our glaringly painful
               <span className="inline-flex items-center gap-1">
                 <span className="inline-flex items-center justify-center w-9 h-9 rounded bg-[#e8372a] text-white text-lg font-bold">★</span>
               </span>
-              Reviews
+              reviews
               <span className="inline-flex items-center justify-center w-8 h-8 rounded-full border-2 border-gray-400 text-gray-500 text-sm font-bold cursor-help" title="We show these reviews because transparency builds trust.">i</span>
             </h2>
             <p className="text-base md:text-lg text-gray-600 flex items-center justify-center gap-3 flex-wrap">
@@ -1804,10 +1804,10 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       <section className="bg-[#FAF5FB] py-10 sm:py-12 lg:py-14 scroll-mt-24 overflow-hidden relative border-t border-purple-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-16 text-center">
           <h2 className="text-xl sm:text-3xl md:text-5xl font-bold text-[#2D1B4D] mb-4 font-serif">
-            Top Universities Chosen by
+            Top universities chosen by
           </h2>
           <h3 className="text-2xl md:text-4xl font-bold text-violet-700 font-serif">
-            Our Partnered Students
+            our partnered students
           </h3>
         </div>
 
@@ -1890,10 +1890,10 @@ export default function HomeClient({ initialData }: { initialData: any }) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-xl sm:text-3xl md:text-5xl font-bold text-[#1A112B] mb-4">
-              Need-to-Know Answers
+              Need-to-know answers
             </h2>
             <p className="text-lg md:text-xl text-gray-500">
-              Quick Answers to Common Questions
+              Quick answers to common questions
             </p>
           </div>
 

@@ -563,7 +563,10 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
               {pricingData?.header?.subtitle || pricingData?.subtitle || 'Choose Your Path'}
             </h2>
             <h3 className="text-3xl sm:text-4xl font-bold text-[#1A112B]">
-              {pricingData?.header?.title || pricingData?.title || 'Transparent Pricing'}
+              {(() => {
+                const title = pricingData?.header?.title || pricingData?.title || 'Transparent pricing';
+                return title === 'Transparent Pricing' || title?.toLowerCase() === 'transparent pricing' ? 'Transparent pricing' : title;
+              })()}
             </h3>
             {(pricingData?.header?.description || pricingData?.description) && (
               <p className="mt-4 text-slate-500 max-w-2xl mx-auto">
@@ -851,7 +854,7 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
 
             <div className="space-y-8">
               <div>
-                <h2 className="text-3xl font-bold text-[#1A112B] mb-6">Expert Guidance. Proven Results.</h2>
+                <h2 className="text-3xl font-bold text-[#1A112B] mb-6">Expert guidance, proven results.</h2>
                 <div 
                   className="text-lg text-slate-600 leading-relaxed font-normal whitespace-pre-line"
                   dangerouslySetInnerHTML={{ __html: service.fullDescription || '' }}
@@ -889,7 +892,7 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <span className="inline-block text-xs font-bold tracking-[0.25em] text-purple-600 uppercase mb-4">Inside the Service</span>
-            <h3 className="text-3xl sm:text-5xl font-extrabold text-[#1A112B] tracking-tight">The Success Roadmap</h3>
+            <h3 className="text-3xl sm:text-5xl font-extrabold text-[#1A112B] tracking-tight">The success roadmap</h3>
             <p className="mt-4 text-slate-500 font-medium">A structured, week-by-week progressive journey designed to guarantee international interviews.</p>
           </div>
 
