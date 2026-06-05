@@ -735,7 +735,7 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
       </section>
 
       {/* Video Testimonials Section (Matching Home Page "Real Results" Design) */}
-      <section id="testimonials" className="bg-[#F9F5FF] py-24 scroll-mt-24 border-y border-purple-100/50">
+      <section id="testimonials" className="bg-[#F9F5FF] pt-6 sm:pt-8 pb-16 scroll-mt-24 border-y border-purple-100/50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">
@@ -881,7 +881,7 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
       </section>
 
       {/* Roadmap Section */}
-      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-white via-purple-50/20 to-white border-y border-purple-100/50">
+      <section className="pt-6 sm:pt-8 pb-16 relative overflow-hidden bg-gradient-to-b from-white via-purple-50/20 to-white border-y border-purple-100/50">
         {/* Decorative background gradients */}
         <div className="absolute top-[20%] right-[-10%] w-[350px] h-[350px] rounded-full bg-pink-100/30 blur-[100px] pointer-events-none" />
         <div className="absolute bottom-[20%] left-[-10%] w-[350px] h-[350px] rounded-full bg-indigo-100/30 blur-[100px] pointer-events-none" />
