@@ -835,7 +835,7 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
       </section>
 
       {/* Detail Section */}
-      <section className="py-20 relative overflow-hidden">
+      <section className="pt-6 sm:pt-8 pb-16 relative overflow-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="relative group">
