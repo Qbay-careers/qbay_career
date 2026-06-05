@@ -337,7 +337,10 @@ export default function WallOfFame() {
   const clientLoveData = cmsData?.clientLove || {};
   const clientTestimonials = Array.isArray(clientLoveData) ? clientLoveData : (clientLoveData?.testimonials || defaultClientTestimonials);
 
-  const clientLoveTitle = clientLoveData.title || clientLoveData.heading || 'Love ❤️ Letters from our Clients';
+  let clientLoveTitle = clientLoveData.title || clientLoveData.heading || 'Love ❤️ Letters from our Clients';
+  if (clientLoveTitle?.toLowerCase() === 'trusted by people you trust') {
+    clientLoveTitle = 'Trusted by people you trust';
+  }
   const clientLoveDescription = clientLoveData.description || clientLoveData.subtitle || clientLoveData.text || "Don't just take our word for it—hear from students and parents whose journeys have been transformed by Qbay.";
 
   const trustpilotDataObj = cmsData?.trustpilotReviews || { title: 'Excellent on Trustpilot', rating: 5, reviews: defaultTrustpilotReviews };
@@ -811,11 +814,11 @@ export default function WallOfFame() {
           {/* Header */}
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold text-[#1A112B] mb-4 flex items-center justify-center gap-3 flex-wrap">
-              Our Glaringly Painful
+              Our glaringly painful
               <span className="inline-flex items-center gap-1">
                 <span className="inline-flex items-center justify-center w-9 h-9 rounded bg-[#e8372a] text-white text-lg font-bold">★</span>
               </span>
-              Reviews
+              reviews
               <span className="inline-flex items-center justify-center w-8 h-8 rounded-full border-2 border-gray-400 text-gray-500 text-sm font-bold cursor-help" title="We show these reviews because transparency builds trust.">i</span>
             </h2>
             <p className="text-base md:text-lg text-gray-600 flex items-center justify-center gap-3 flex-wrap">
