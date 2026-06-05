@@ -464,7 +464,7 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
 
 
       {/* Audio Testimonials Section Right Below Hero */}
-      <section className="bg-white pt-4 sm:pt-6 lg:pt-8 pb-12 lg:pb-16 overflow-hidden border-b border-purple-100/50">
+      <section className="bg-white py-12 lg:py-16 overflow-hidden border-b border-purple-100/50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-8 text-left lg:text-center">
           <h2 className="text-2xl sm:text-3xl font-bold text-[#2D1B4D] tracking-tight">Hear it from our successful candidates</h2>
         </div>
@@ -556,7 +556,7 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
       </section>
 
       {/* Pricing Section - Replicated from Pricing Page */}
-      <section className="pt-10 sm:pt-12 lg:pt-16 pb-24 bg-white">
+      <section className="pt-8 sm:pt-10 lg:pt-12 pb-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-sm font-bold tracking-[0.2em] text-purple-600 uppercase mb-4">
@@ -735,7 +735,7 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
       </section>
 
       {/* Video Testimonials Section (Matching Home Page "Real Results" Design) */}
-      <section id="testimonials" className="bg-[#F9F5FF] py-12 lg:py-16 scroll-mt-24 border-y border-purple-100/50">
+      <section id="testimonials" className="bg-[#F9F5FF] py-24 scroll-mt-24 border-y border-purple-100/50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">
@@ -881,7 +881,7 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
       </section>
 
       {/* Roadmap Section */}
-      <section className="py-12 lg:py-16 relative overflow-hidden bg-gradient-to-b from-white via-purple-50/20 to-white border-y border-purple-100/50">
+      <section className="py-24 relative overflow-hidden bg-gradient-to-b from-white via-purple-50/20 to-white border-y border-purple-100/50">
         {/* Decorative background gradients */}
         <div className="absolute top-[20%] right-[-10%] w-[350px] h-[350px] rounded-full bg-pink-100/30 blur-[100px] pointer-events-none" />
         <div className="absolute bottom-[20%] left-[-10%] w-[350px] h-[350px] rounded-full bg-indigo-100/30 blur-[100px] pointer-events-none" />
@@ -1065,7 +1065,7 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
       )}
 
       {/* CTA Section */}
-      <section className="py-12 lg:py-16 overflow-hidden relative">
+      <section className="py-24 overflow-hidden relative">
         <div className="absolute -bottom-20 -right-20 w-[400px] h-[400px] rounded-full bg-purple-200/30 blur-[100px] pointer-events-none" />
         <div className="absolute -top-20 -left-20 w-[300px] h-[300px] rounded-full bg-yellow-200/40 blur-[80px] pointer-events-none" />
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 relative z-10">
