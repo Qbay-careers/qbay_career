@@ -521,7 +521,7 @@ export default function PricingClient({
       </section>
 
       {/* Audio Reviews Section */}
-      <section id="audio-reviews" className="bg-[#FAF5FB] pt-0 pb-6 sm:pb-8 lg:pb-10 scroll-mt-24">
+      <section id="audio-reviews" className="bg-[#FAF5FB] pt-4 sm:pt-6 lg:pt-8 pb-6 sm:pb-8 lg:pb-10 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
             <h2 className="text-4xl sm:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4 text-center">Hear their success stories</h2>

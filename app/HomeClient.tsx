@@ -1434,7 +1434,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       </section>
 
       {/* Audio Reviews Section */}
-      <section id="audio-reviews" className="bg-white pt-0 pb-6 sm:pb-8 lg:pb-10 scroll-mt-24">
+      <section id="audio-reviews" className="bg-white pt-4 sm:pt-6 lg:pt-8 pb-6 sm:pb-8 lg:pb-10 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
             <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#2D1B4D] tracking-tight mb-4">Hear their success stories</h2>
