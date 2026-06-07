@@ -189,33 +189,29 @@ function TimelineRoadmapItem({ feature, idx }: { feature: any; idx: number }) {
   return (
     <div 
       ref={elementRef}
-      className={`relative flex flex-col md:flex-row items-stretch ${isEven ? 'md:flex-row-reverse' : ''} transition-all duration-1000 ease-out transform ${
+      className={`relative flex flex-col md:flex-row items-stretch md:items-start ${isEven ? 'md:flex-row-reverse' : ''} transition-all duration-1000 ease-out transform ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-      }`}
+      } md:hidden`}
     >
-      {/* Content Block */}
-      <div className="w-full md:w-1/2 pl-12 md:pl-0 md:px-12 flex justify-start md:justify-end">
-        <div className="w-full max-w-lg bg-white border border-purple-100 rounded-3xl p-6 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-300 group hover:-translate-y-1 relative overflow-hidden">
-          {/* Glow Accent */}
+      {/* Content Block - Mobile Only */}
+      <div className="w-full pl-12 flex justify-start">
+        <div className="w-full max-w-lg bg-white border border-purple-100 rounded-3xl p-6 shadow-sm relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/5 to-indigo-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          
           <div className="flex items-center gap-4 mb-4">
             <span className="text-xs font-black tracking-widest text-purple-600 uppercase bg-purple-50 px-3 py-1 rounded-full border border-purple-100">
               Stage 0{idx + 1}
             </span>
           </div>
-          <h4 className="text-xl sm:text-2xl font-black text-[#2D1B4D] mb-3 group-hover:text-purple-700 transition-colors">
-            {title}
-          </h4>
+          <h4 className="text-xl font-black text-[#2D1B4D] mb-3">{title}</h4>
           <p 
-            className="text-sm sm:text-base text-slate-500 leading-relaxed font-normal"
+            className="text-sm text-slate-500 leading-relaxed font-normal"
             dangerouslySetInnerHTML={{ __html: description }}
           />
         </div>
       </div>
 
-      {/* Timeline Node (Center Dot) */}
-      <div className="absolute left-4 md:left-1/2 top-10 transform -translate-x-1/2 z-10 flex items-center justify-center">
+      {/* Timeline Node - Mobile Only */}
+      <div className="absolute left-4 top-10 transform -translate-x-1/2 z-10 flex items-center justify-center">
         <div className={`h-9 w-9 rounded-full bg-white border-[3px] shadow-md flex items-center justify-center transition-all duration-700 ${
           isVisible ? 'border-purple-600 scale-100' : 'border-slate-300 scale-75'
         }`}>
@@ -224,9 +220,54 @@ function TimelineRoadmapItem({ feature, idx }: { feature: any; idx: number }) {
           }`} />
         </div>
       </div>
+    </div>
+  );
+}
 
-      {/* Empty block to balance the columns on desktop */}
-      <div className="hidden md:block w-1/2" />
+// Desktop-only card for the 2-column grid
+function RoadmapGridCard({ feature, idx }: { feature: any; idx: number }) {
+  const [isVisible, setIsVisible] = React.useState(false);
+  const elementRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    if (elementRef.current) observer.observe(elementRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const title = typeof feature === 'string' ? feature : (feature?.title || `Stage ${idx + 1}`);
+  const description = typeof feature === 'string'
+    ? 'Carefully tailored to ensure maximum success in your specific career path and market conditions.'
+    : (feature?.description || '');
+
+  return (
+    <div
+      ref={elementRef}
+      className={`group bg-white border border-purple-100 rounded-3xl p-6 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 relative overflow-hidden ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}
+      style={{ transitionDelay: `${(idx % 2) * 80}ms` }}
+    >
+      {/* Number accent */}
+      <div className="absolute top-6 right-6 text-[4rem] font-black text-purple-100 leading-none select-none pointer-events-none">
+        {String(idx + 1).padStart(2, '0')}
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/3 to-indigo-500/3 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="relative z-10">
+        <span className="inline-block text-xs font-black tracking-widest text-purple-600 uppercase bg-purple-50 px-3 py-1 rounded-full border border-purple-100 mb-4">
+          Stage {String(idx + 1).padStart(2, '0')}
+        </span>
+        <h4 className="text-xl font-black text-[#2D1B4D] mb-3 group-hover:text-purple-700 transition-colors">
+          {title}
+        </h4>
+        <p
+          className="text-sm text-slate-500 leading-relaxed font-normal"
+          dangerouslySetInnerHTML={{ __html: description }}
+        />
+      </div>
     </div>
   );
 }
@@ -912,12 +953,20 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
           </div>
 
           <div className="relative">
-            {/* The Vertical Line down the center */}
-            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[3px] bg-gradient-to-b from-purple-300 via-indigo-400 to-purple-500 transform md:-translate-x-1/2" />
+            {/* Mobile: Vertical line + alternating timeline */}
+            <div className="md:hidden">
+              <div className="absolute left-4 top-0 bottom-0 w-[3px] bg-gradient-to-b from-purple-300 via-indigo-400 to-purple-500" />
+              <div className="space-y-12">
+                {service.features.map((feature: any, i: number) => (
+                  <TimelineRoadmapItem feature={feature} idx={i} key={i} />
+                ))}
+              </div>
+            </div>
 
-            <div className="space-y-12 md:space-y-16">
+            {/* Desktop: Clean 2-column card grid — no center line */}
+            <div className="hidden md:grid md:grid-cols-2 md:gap-6">
               {service.features.map((feature: any, i: number) => (
-                <TimelineRoadmapItem feature={feature} idx={i} key={i} />
+                <RoadmapGridCard feature={feature} idx={i} key={i} />
               ))}
             </div>
           </div>
