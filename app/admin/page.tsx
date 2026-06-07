@@ -173,8 +173,8 @@ export default function AdminDashboard() {
           newData.hero.mobileBackgroundImage = '';
         }
         // New Hero Customization Defaults
-        if (!newData.hero.titleColor) newData.hero.titleColor = '#160E22';
-        if (!newData.hero.subtitleColor) newData.hero.subtitleColor = '#5D4A7A';
+        if (!newData.hero.titleColor) newData.hero.titleColor = '#1A112B';
+        if (!newData.hero.subtitleColor) newData.hero.subtitleColor = '#1A112B';
         if (!newData.hero.descriptionColor) newData.hero.descriptionColor = '#5D4A7A';
         if (!newData.hero.titleFontSize) newData.hero.titleFontSize = '6rem';
         if (!newData.hero.titleFontSizeMobile) newData.hero.titleFontSizeMobile = '3.5rem';

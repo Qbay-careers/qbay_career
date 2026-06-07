@@ -763,7 +763,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                 style={{ color: cmsData?.hero?.titleColor || '#1A112B' }}
               >
                 {(() => {
-                  const rawTitle = (cmsData?.hero?.title || 'Land Jobs Faster and Easier with AI Agents + Human Assistants').replace(/<br\s*\/?>/gi, ' ');
+                  const rawTitle = (cmsData?.hero?.title || 'Campus To + Corporate').replace(/<br\s*\/?>/gi, ' ');
                   let main = '';
                   let emphasis = '';
 
@@ -777,15 +777,15 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                       emphasis = words.pop() || '';
                       main = words.join(' ');
                     } else {
-                      return <span className="capitalize">{rawTitle.toLowerCase()}</span>;
+                      return <span className="capitalize">{rawTitle}</span>;
                     }
                   }
 
                   return (
                     <div className="flex flex-col">
-                      <span className="capitalize">{main.toLowerCase()}</span>
-                      <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent pb-2 capitalize pr-4 w-fit">
-                        {emphasis.toLowerCase()}
+                      <span className="capitalize">{main}</span>
+                      <span className="bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-500 bg-clip-text text-transparent pb-2 capitalize pr-4 w-fit">
+                        {emphasis}
                       </span>
                     </div>
                   );
@@ -794,13 +794,10 @@ export default function HomeClient({ initialData }: { initialData: any }) {
               
               <div className="space-y-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
                 <p 
-                  className="text-xl font-bold sm:text-2xl lg:text-3xl"
-                  style={{ color: cmsData?.hero?.subtitleColor || '#4B3F6B' }}
+                  className="text-xl font-bold sm:text-2xl lg:text-3xl text-[#1A112B]"
                 >
-                  {cmsData?.hero?.subtitle || 'A Faster Way To Get Interview Calls with Ai + Human touch'}
+                  {cmsData?.hero?.subtitle || 'Specialized immigrant finishing programme'}
                 </p>
-                
-                <div className="w-20 h-1 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full" />
 
                 <div>
                   <p 
@@ -813,7 +810,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                     className="text-base leading-relaxed sm:text-lg max-w-xl"
                     style={{ color: cmsData?.hero?.descriptionColor ? `${cmsData.hero.descriptionColor}CC` : '#5D4A7A' }}
                   >
-                    {cmsData?.hero?.descriptionBody || "You're not just another profile to us. We guide you personally, improve your job search approach, and stay committed until you start seeing interview results."}
+                    {cmsData?.hero?.descriptionBody || "Career success starts with the right guidance. You are not just another profile to us. We guide you personally, improve your job search approach, and stay committed until you start seeing interview results."}
                   </p>
                 </div>
                 
