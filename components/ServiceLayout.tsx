@@ -42,6 +42,7 @@ const defaultPlans = [
       'ATS CV & Cover Letter',
       'LinkedIn Optimisation',
     ],
+    paymentNote: 'Flexible split options available',
     buttonText: 'Checkout →',
     buttonLink: '#',
   },
@@ -62,6 +63,7 @@ const defaultPlans = [
       'ATS CV & Cover Letter',
       'LinkedIn Optimisation',
     ],
+    paymentNote: 'Flexible split options available',
     buttonText: 'Checkout →',
     buttonLink: '#',
   },
@@ -82,6 +84,7 @@ const defaultPlans = [
       'Mock Interview Prep (3)',
       'ATS CV & Cover Letter',
     ],
+    paymentNote: 'Flexible split options available',
     buttonText: 'Checkout →',
     buttonLink: '#',
   },
@@ -101,6 +104,7 @@ const defaultMonthlyPlan = {
     'Direct company website apps',
     'Dedicated Account Manager',
   ],
+  paymentNote: 'Flexible split options available',
   buttonText: 'Checkout →',
   buttonLink: '#',
 };
@@ -613,6 +617,11 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
                       {plan.price}
                     </span>
                   </div>
+                  {((plan.paymentNote || 'Flexible split options available') && plan.price !== '0' && plan.price !== 'Free') && (
+                    <div className="mt-2 text-center bg-[#e0e7ff] text-[#4f46e5] text-xs font-bold px-3 py-1.5 rounded-lg">
+                      {plan.paymentNote || 'Flexible split options available'}
+                    </div>
+                  )}
                 </div>
 
                 <div className="space-y-2 mb-4 flex-1">
@@ -719,6 +728,12 @@ export default function ServiceLayout({ service, servicePageContent = {}, pricin
                         {monthlyPlan.price}
                       </span>
                     </div>
+
+                    {((monthlyPlan.paymentNote || 'Flexible split options available') && monthlyPlan.price !== '0' && monthlyPlan.price !== 'Free') && (
+                      <div className="mb-4 text-center bg-[#4f46e5]/20 border border-[#4f46e5]/30 text-[#e0e7ff] text-xs font-bold px-3 py-1.5 rounded-lg">
+                        {monthlyPlan.paymentNote || 'Flexible split options available'}
+                      </div>
+                    )}
 
                     <button
                       onClick={(e) => {

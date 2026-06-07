@@ -636,12 +636,12 @@ export default function AdminDashboard() {
 
           const defaultPricing = {
             plans: [
-              { name: 'Qbay Career Plan', price: '€193/-', originalPrice: '€263/-', description: 'One time payment', features: ['UK/Germany/Ireland Internship', '60-Day Success Club Access'] },
-              { name: 'Qbay Master Plan', price: '€329/-', originalPrice: '€499/-', isPopular: true, badgeText: 'MOST POPULAR', description: 'One time payment', features: ['Career Strategy Development', 'Effective Career Roadmap'] },
-              { name: 'Qbay Premium Plan', price: '€639/-', originalPrice: '€799/-', isPopular: true, badgeText: 'MAX RESULTS!', description: 'One time payment', features: ['3 Month Application Assistance', 'UK & India Career Roadmap'] }
+              { name: 'Qbay Career Plan', price: '€193/-', originalPrice: '€263/-', description: 'One time payment', paymentNote: 'Flexible split options available', features: ['UK/Germany/Ireland Internship', '60-Day Success Club Access'] },
+              { name: 'Qbay Master Plan', price: '€329/-', originalPrice: '€499/-', isPopular: true, badgeText: 'MOST POPULAR', description: 'One time payment', paymentNote: 'Flexible split options available', features: ['Career Strategy Development', 'Effective Career Roadmap'] },
+              { name: 'Qbay Premium Plan', price: '€639/-', originalPrice: '€799/-', isPopular: true, badgeText: 'MAX RESULTS!', description: 'One time payment', paymentNote: 'Flexible split options available', features: ['3 Month Application Assistance', 'UK & India Career Roadmap'] }
             ],
             monthlyPlan: {
-              name: 'Monthly Subscription', price: '€219/-', originalPrice: '€258/-', description: 'One time payment', features: ['Job applications on your behalf', 'Daily 10 job applications']
+              name: 'Monthly Subscription', price: '€219/-', originalPrice: '€258/-', description: 'One time payment', paymentNote: 'Flexible split options available', features: ['Job applications on your behalf', 'Daily 10 job applications']
             }
           };
 
@@ -806,7 +806,7 @@ export default function AdminDashboard() {
     } else if (activeSubSection === 'audioReviews') {
       template = { name: "New Candidate", role: "Job Seeker", title: "My Career Success", audioUrl: "", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150", flag: "https://flagcdn.com/w80/gb.png", duration: "1:00" };
     } else if (activeSubSection === 'plans') {
-      template = { name: "New Plan", price: "0", features: ["Benefit 1"], isRecommended: false };
+      template = { name: "New Plan", price: "0", features: ["Benefit 1"], paymentNote: "Flexible split options available", isRecommended: false };
     } else if (activeSubSection === 'services' || activeSubSection === 'servicesList') {
       template = { 
         title: "New Service", 
@@ -815,12 +815,12 @@ export default function AdminDashboard() {
         slug: "new-service",
         pricing: {
           plans: [
-            { name: 'Qbay Career Plan', price: '€193/-', originalPrice: '€263/-', description: 'One time payment', features: ['UK/Germany/Ireland Internship', '60-Day Success Club Access'] },
-            { name: 'Qbay Master Plan', price: '€329/-', originalPrice: '€499/-', isPopular: true, badgeText: 'MOST POPULAR', description: 'One time payment', features: ['Career Strategy Development', 'Effective Career Roadmap'] },
-            { name: 'Qbay Premium Plan', price: '€639/-', originalPrice: '€799/-', isPopular: true, badgeText: 'MAX RESULTS!', description: 'One time payment', features: ['3 Month Application Assistance', 'UK & India Career Roadmap'] }
+            { name: 'Qbay Career Plan', price: '€193/-', originalPrice: '€263/-', description: 'One time payment', paymentNote: 'Flexible split options available', features: ['UK/Germany/Ireland Internship', '60-Day Success Club Access'] },
+            { name: 'Qbay Master Plan', price: '€329/-', originalPrice: '€499/-', isPopular: true, badgeText: 'MOST POPULAR', description: 'One time payment', paymentNote: 'Flexible split options available', features: ['Career Strategy Development', 'Effective Career Roadmap'] },
+            { name: 'Qbay Premium Plan', price: '€639/-', originalPrice: '€799/-', isPopular: true, badgeText: 'MAX RESULTS!', description: 'One time payment', paymentNote: 'Flexible split options available', features: ['3 Month Application Assistance', 'UK & India Career Roadmap'] }
           ],
           monthlyPlan: {
-            name: 'Monthly Subscription', price: '€219/-', originalPrice: '€258/-', description: 'One time payment', features: ['Job applications on your behalf', 'Daily 10 job applications']
+            name: 'Monthly Subscription', price: '€219/-', originalPrice: '€258/-', description: 'One time payment', paymentNote: 'Flexible split options available', features: ['Job applications on your behalf', 'Daily 10 job applications']
           }
         }
       };
