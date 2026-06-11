@@ -328,31 +328,32 @@ export default function PricingClient({
                 )}
               </div>
 
-              <p className="text-gray-500 text-sm mb-4 leading-relaxed">
-                {plan.description || 'Perfect for achieving your career goals.'}
-              </p>
-
-              <div className="mb-6">
+              <div className="mb-6 mt-4">
                 {plan.originalPrice && (
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="bg-[#e0e7ff] text-[#6366f1] text-[10px] font-bold px-2 py-0.5 rounded">
-                      {plan.originalPriceLabel || '30% OFF'}
-                    </span>
-                    <span className="text-gray-400 line-through text-sm font-medium">
+                  <div className="flex flex-wrap items-center gap-2 mb-3">
+                    <span className="text-gray-400 line-through text-sm font-semibold">
                       {plan.originalPrice}
                     </span>
+                    {((plan.paymentNote || 'Flexible split options available') && plan.price !== '0' && plan.price !== 'Free') && (
+                      <span className="text-gray-500 text-[10px] font-medium border border-gray-200 bg-gray-50 px-2 py-0.5 rounded">
+                        {plan.paymentNote || 'Flexible split options available'}
+                      </span>
+                    )}
                   </div>
                 )}
-                <div className="flex items-baseline">
+                <div className="flex items-center gap-3 mb-1">
                   <span className="text-4xl font-bold text-gray-900 tracking-tighter">
                     {plan.price}
                   </span>
+                  {plan.originalPrice && (
+                    <span className="bg-[#e0e7ff] text-[#6366f1] text-[11px] font-bold px-2 py-1 rounded">
+                      {plan.originalPriceLabel || '30% OFF'}
+                    </span>
+                  )}
                 </div>
-                {((plan.paymentNote || 'Flexible split options available') && plan.price !== '0' && plan.price !== 'Free') && (
-                  <div className="mt-2 text-center bg-[#e0e7ff] text-[#4f46e5] text-xs font-bold px-3 py-1.5 rounded-lg">
-                    {plan.paymentNote || 'Flexible split options available'}
-                  </div>
-                )}
+                <p className="text-gray-500 text-sm leading-relaxed font-medium">
+                  {plan.description || 'Perfect for achieving your career goals.'}
+                </p>
               </div>
 
               <div className="space-y-2 mb-4 flex-1">
@@ -434,27 +435,28 @@ export default function PricingClient({
             <div className="relative w-full lg:w-[360px] shrink-0">
               <div className="bg-[#120a26] border border-white/5 rounded-[1.5rem] p-8 shadow-2xl">
                 {monthlyPlan.originalPrice && (
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="bg-[#4f46e5] text-white text-[10px] font-bold px-2 py-0.5 rounded">
-                      {monthlyPlan.originalPriceLabel || 'SAVE NOW'}
-                    </span>
-                    <span className="text-gray-400 line-through text-lg">
+                  <div className="flex flex-wrap items-center gap-2 mb-3">
+                    <span className="text-gray-400 line-through text-base font-semibold">
                       {monthlyPlan.originalPrice}
                     </span>
+                    {((monthlyPlan.paymentNote || 'Flexible split options available') && monthlyPlan.price !== '0' && monthlyPlan.price !== 'Free') && (
+                      <span className="text-gray-300 text-[10px] font-medium border border-gray-600 bg-white/5 px-2 py-0.5 rounded">
+                        {monthlyPlan.paymentNote || 'Flexible split options available'}
+                      </span>
+                    )}
                   </div>
                 )}
                 
-                <div className="flex items-baseline mb-6">
+                <div className="flex items-center gap-3 mb-6">
                   <span className="text-4xl font-bold text-white tracking-tighter">
                     {monthlyPlan.price}
                   </span>
+                  {monthlyPlan.originalPrice && (
+                    <span className="bg-[#4f46e5] text-white text-[11px] font-bold px-2 py-1 rounded">
+                      {monthlyPlan.originalPriceLabel || 'SAVE NOW'}
+                    </span>
+                  )}
                 </div>
-                
-                {((monthlyPlan.paymentNote || 'Flexible split options available') && monthlyPlan.price !== '0' && monthlyPlan.price !== 'Free') && (
-                  <div className="mb-4 text-center bg-[#4f46e5]/20 border border-[#4f46e5]/30 text-[#e0e7ff] text-xs font-bold px-3 py-1.5 rounded-lg">
-                    {monthlyPlan.paymentNote || 'Flexible split options available'}
-                  </div>
-                )}
 
                 <div className="space-y-3 mb-6">
                   {monthlyPlan.description && monthlyPlan.description !== 'One time payment' && (

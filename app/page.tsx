@@ -8,7 +8,7 @@ export default async function HomePage() {
   const relevantKeys = [
     'home', 'hero', 'services', 'servicesSection', 'framework', 'frameworkSection',
     'consultation', 'results', 'audioReviews', 'trustpilotReviews', 'testimonials',
-    'clientLove', 'negativeReviews', 'finalCTA', 'founderLetter', 'faq', 'whatsapp_popup', 'founderQuote'
+    'clientLove', 'negativeReviews', 'finalCTA', 'founderLetter', 'faq', 'whatsapp_popup', 'founderQuote', 'footer'
   ];
 
   const { data, error } = await supabase

@@ -105,8 +105,8 @@ export default function QBayNavbar() {
                 href={l.href}
                 className={`text-sm transition-all hover:scale-105 ${
                   pathname === l.href
-                    ? `font-bold ${activeTextColor}`
-                    : `font-medium hover:opacity-100 ${isScrolled ? `${navTextColor} hover:text-violet-600` : navTextColor}`
+                    ? `font-bold ${isScrolled ? activeTextColor : 'text-white'}`
+                    : `font-medium hover:opacity-100 ${isScrolled ? `${navTextColor} hover:text-violet-600` : 'text-white/90 hover:text-white'}`
                 }`}
               >
                 {l.label}
@@ -116,7 +116,7 @@ export default function QBayNavbar() {
 
           <button
             type="button"
-            className={`inline-flex items-center justify-center rounded-lg p-2 transition-colors md:hidden ml-4 text-gray-800`}
+            className={`inline-flex items-center justify-center rounded-lg p-2 transition-colors md:hidden ml-4 ${isScrolled ? 'text-gray-800' : 'text-white'}`}
             aria-label={open ? 'Close menu' : 'Open menu'}
             onClick={() => setOpen((v) => !v)}
           >

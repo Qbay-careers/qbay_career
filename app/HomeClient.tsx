@@ -697,10 +697,10 @@ export default function HomeClient({ initialData }: { initialData: any }) {
 
       <section
         id="home"
-        className="relative min-h-[90vh] flex items-center pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden scroll-mt-24 bg-[#FDFCFE]"
+        className="relative min-h-[100vh] w-full flex flex-col justify-between overflow-hidden scroll-mt-24"
       >
-        {/* Abstract Background Elements */}
-        <div className="absolute inset-0 z-0">
+        {/* Full Screen Background Media */}
+        <div className="absolute inset-0 z-0 bg-black">
           {(() => {
             const bgUrl = cmsData?.hero?.backgroundImage || 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1920';
             const mobileBgUrl = cmsData?.hero?.mobileBackgroundImage;
@@ -720,7 +720,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                       playsInline 
                       preload="auto"
                       poster="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1920"
-                      className={`w-full h-full object-cover opacity-25 pointer-events-none ${className}`}
+                      className={`w-full h-full object-cover opacity-80 ${className}`}
                     >
                       <source src={url} type={videoType} />
                     </video>
@@ -729,7 +729,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
               }
               return (
                 <div 
-                  className={`w-full h-full bg-cover bg-center bg-no-repeat bg-fixed opacity-25 pointer-events-none grayscale ${className}`} 
+                  className={`w-full h-full bg-cover bg-center bg-no-repeat bg-fixed opacity-80 ${className}`} 
                   style={{ backgroundImage: `url("${url}")` }}
                 />
               );
@@ -748,126 +748,100 @@ export default function HomeClient({ initialData }: { initialData: any }) {
               </>
             );
           })()}
-          <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[800px] h-[800px] bg-purple-300/30 blur-[120px] rounded-full mix-blend-multiply pointer-events-none" />
-          <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-[600px] h-[600px] bg-indigo-300/30 blur-[100px] rounded-full mix-blend-multiply pointer-events-none" />
-          <div className="absolute inset-0 bg-white/30 backdrop-blur-[2px] pointer-events-none" />
+          {/* Subtle gradient overlay to ensure text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80 pointer-events-none" />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" style={{ fontFamily: cmsData?.hero?.fontFamily || 'inherit' }}>
-          <div className="grid lg:grid-cols-12 gap-16 lg:gap-12 items-center">
+        {/* Top spacer to push content down, since navbar is probably absolute/fixed at top */}
+        <div className="relative z-10 flex-grow flex items-center pt-32 lg:pt-40 mx-auto w-full max-w-[95rem] px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 w-full items-end pb-8 sm:pb-12">
             
-            {/* Left Column: Text Content */}
-            <div className="lg:col-span-7 text-left space-y-8">
-              <h1 
-                className="text-[3.5rem] leading-[1.05] font-medium tracking-tight sm:text-6xl lg:text-[5.5rem] font-playfair animate-fade-in-up"
-                style={{ color: cmsData?.hero?.titleColor || '#1A112B' }}
-              >
-                {(() => {
-                  const rawTitle = (cmsData?.hero?.title || 'Campus To + Corporate').replace(/<br\s*\/?>/gi, ' ');
-                  let main = '';
-                  let emphasis = '';
+            {/* Left Column: Main Title and Actions */}
+            <div className="lg:col-span-7 flex flex-col animate-fade-in-up">
+              {(() => {
+                const rawTitle = (cmsData?.hero?.title || 'Campus To + Corporate').replace(/<br\s*\/?>/gi, ' ');
+                let main = '';
+                let emphasis = '';
 
-                  if (rawTitle.includes('+')) {
-                    [main, emphasis] = rawTitle.split('+');
-                    main = main.trim();
-                    emphasis = emphasis.trim();
+                if (rawTitle.includes('+')) {
+                  [main, emphasis] = rawTitle.split('+');
+                  main = main.trim();
+                  emphasis = emphasis.trim();
+                } else {
+                  const words = rawTitle.trim().split(' ');
+                  if (words.length > 2) {
+                    emphasis = words.pop() || '';
+                    main = words.join(' ');
                   } else {
-                    const words = rawTitle.trim().split(' ');
-                    if (words.length > 2) {
-                      emphasis = words.pop() || '';
-                      main = words.join(' ');
-                    } else {
-                      return <span className="capitalize">{rawTitle}</span>;
-                    }
+                    return <span className="text-white text-4xl sm:text-5xl lg:text-[5rem] font-bold tracking-tight capitalize">{rawTitle}</span>;
                   }
+                }
 
-                  return (
-                    <div className="flex flex-col">
-                      <span className="capitalize">{main}</span>
-                      <span className="bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-500 bg-clip-text text-transparent pb-2 capitalize pr-4 w-fit">
-                        {emphasis}
-                      </span>
-                    </div>
-                  );
-                })()}
-              </h1>
-              
-              <div className="space-y-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-                <p 
-                  className="text-xl font-bold sm:text-2xl lg:text-3xl text-[#1A112B]"
-                >
-                  {cmsData?.hero?.subtitle || 'Specialized immigrant finishing programme'}
+                return (
+                  <div className="flex flex-col tracking-tight leading-[1.1] mb-8">
+                    <span className="text-white text-3xl sm:text-4xl lg:text-[3rem] font-medium mb-2">{main}</span>
+                    <span
+                      className="text-4xl sm:text-5xl lg:text-[5rem] font-black drop-shadow-2xl tracking-tighter uppercase"
+                      style={{
+                        background: 'linear-gradient(135deg, #D4A853 0%, #F5D78E 45%, #C9912A 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        filter: 'drop-shadow(0 2px 12px rgba(212,168,83,0.45))',
+                      }}
+                    >{emphasis}</span>
+                  </div>
+                );
+              })()}
+
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mt-4">
+                <p className="text-xs sm:text-[13px] text-white/80 leading-relaxed font-medium max-w-sm">
+                  {cmsData?.hero?.descriptionBody || 'We guide you personally and improve your job search approach until you see results.'}
                 </p>
-
-                <div>
-                  <p 
-                    className="text-base font-bold mb-2"
-                    style={{ color: cmsData?.hero?.descriptionHeaderColor || cmsData?.hero?.descriptionColor || '#4B2C83' }}
-                  >
-                    {cmsData?.hero?.descriptionHeader || 'Career success starts with the right guidance'}
-                  </p>
-                  <p 
-                    className="text-base leading-relaxed sm:text-lg max-w-xl"
-                    style={{ color: cmsData?.hero?.descriptionColor ? `${cmsData.hero.descriptionColor}CC` : '#5D4A7A' }}
-                  >
-                    {cmsData?.hero?.descriptionBody || "Career success starts with the right guidance. You are not just another profile to us. We guide you personally, improve your job search approach, and stay committed until you start seeing interview results."}
-                  </p>
-                </div>
-                
-                <div className="flex flex-row gap-3 pt-4 w-full sm:w-auto">
-                  <a 
-                    href="#consultation" 
-                    className="flex-1 sm:flex-none inline-flex items-center justify-center rounded-full bg-[#1A112B] px-4 py-3 sm:px-8 sm:py-4 text-xs sm:text-sm font-bold text-white transition-all hover:bg-black hover:scale-105 shadow-xl shadow-black/10 text-center whitespace-nowrap"
-                  >
-                    Book Strategy Call
-                  </a>
-                  <a 
-                    href="#about" 
-                    className="flex-1 sm:flex-none inline-flex items-center justify-center rounded-full bg-white px-4 py-3 sm:px-8 sm:py-4 text-xs sm:text-sm font-bold text-[#1A112B] transition-all hover:bg-purple-50 hover:scale-105 shadow-xl shadow-black/5 border border-purple-100 text-center whitespace-nowrap"
-                  >
-                    Explore Services
-                  </a>
-                </div>
+                <a 
+                  href="#consultation" 
+                  className="inline-flex items-center justify-center rounded-sm bg-[#1b5df1] px-8 py-3.5 text-sm font-semibold tracking-wider text-white transition-all hover:bg-blue-600 shadow-lg whitespace-nowrap"
+                >
+                  Book Strategy Call
+                </a>
               </div>
             </div>
 
             {/* Right Column: Top 5 Points (Glassmorphic Stack) */}
-            <div className="lg:col-span-5 relative animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-              <div className="relative rounded-[2rem] bg-white/40 border border-white/60 shadow-[0_8px_32px_rgba(31,38,135,0.05)] backdrop-blur-xl p-6 sm:p-8 overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-purple-400/20 rounded-full blur-2xl pointer-events-none" />
-                <div className="absolute bottom-0 left-0 w-32 h-32 bg-indigo-400/20 rounded-full blur-2xl pointer-events-none" />
+            <div className="lg:col-span-4 lg:col-start-9 relative animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+              <div className="relative rounded-[2rem] bg-black/40 border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.5)] backdrop-blur-xl p-6 sm:p-8 overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/20 rounded-full blur-2xl pointer-events-none" />
+                <div className="absolute bottom-0 left-0 w-32 h-32 bg-blue-500/20 rounded-full blur-2xl pointer-events-none" />
                 
-                <div className="relative z-10 flex flex-col gap-4">
+                <div className="relative z-10 flex flex-col gap-3">
                   {heroBadges.map((badge, idx) => {
                     let customIcon = null;
                     const bl = badge.toLowerCase();
                     if (bl.includes('trustpilot')) {
-                      // Keep existing branded Trustpilot star — enlarged to match others
-                      customIcon = <img src="/Green-Star-on-Gray-Checkerboard-1.png" alt="Trustpilot" className="w-9 h-9 object-contain" />;
+                      customIcon = <img src="/Green-Star-on-Gray-Checkerboard-1.png" alt="Trustpilot" className="w-8 h-8 object-contain" />;
                     } else if (bl.includes('helped') || bl.includes('100k') || bl.includes('11k')) {
-                      customIcon = <img src="/help.png" alt="Helped" className="w-9 h-9 object-contain rounded-lg" />;
+                      customIcon = <img src="/help.png" alt="Helped" className="w-8 h-8 object-contain rounded-lg" />;
                     } else if (bl.includes('guarantee') || bl.includes('interview') || bl.includes('expert') || bl.includes('1:1')) {
-                      customIcon = <img src="/guarantee.png" alt="Guaranteed" className="w-9 h-9 object-contain" />;
+                      customIcon = <img src="/guarantee.png" alt="Guaranteed" className="w-8 h-8 object-contain" />;
                     } else if (bl.includes('gov') || bl.includes('uk') || bl.includes('accredited')) {
-                      customIcon = <img src="/UK.png" alt="UK Gov Accredited" className="w-9 h-9 object-contain" />;
+                      customIcon = <img src="/UK.png" alt="UK Gov Accredited" className="w-8 h-8 object-contain" />;
                     } else if (bl.includes('countr') || bl.includes('globe') || bl.includes('90') || bl.includes('coaching')) {
-                      customIcon = <img src="/country.png" alt="Countries" className="w-9 h-9 object-contain" />;
+                      customIcon = <img src="/country.png" alt="Countries" className="w-8 h-8 object-contain" />;
                     }
-
 
                     const Icon = badgeIcons[idx % badgeIcons.length];
 
                     return (
                       <div 
                         key={idx} 
-                        className="group flex items-center gap-4 rounded-2xl bg-white/60 border border-white/80 p-4 shadow-sm hover:shadow-md hover:bg-white/80 transition-all duration-300"
+                        className="group flex items-center gap-3 rounded-2xl bg-white/10 border border-white/20 p-3 shadow-sm hover:shadow-md hover:bg-white/20 transition-all duration-300"
                       >
-                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-purple-50 text-purple-600 group-hover:scale-110 group-hover:bg-purple-100 transition-all duration-300">
-                          {customIcon || <Icon className="h-6 w-6" />}
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-white group-hover:scale-110 group-hover:bg-white/20 transition-all duration-300">
+                          {customIcon || <Icon className="h-5 w-5" />}
                         </div>
                         <div>
-                          <h3 className="text-base font-bold text-[#1A112B]">{badge}</h3>
-                          <p className="text-xs text-slate-500 font-medium mt-0.5">
+                          <h3 className="text-sm font-bold text-white">{badge}</h3>
+                          <p className="text-[11px] text-white/70 font-medium mt-0.5">
                             {idx === 0 ? "Rated by successful candidates" :
                              idx === 1 ? "Fully compliant & certified" :
                              idx === 2 ? "Exclusive interview guarantee" :
@@ -879,13 +853,13 @@ export default function HomeClient({ initialData }: { initialData: any }) {
                     );
                   })}
                   {/* Sisu Factory Badge */}
-                  <div className="group flex items-center gap-4 rounded-2xl bg-white/60 border border-white/80 p-4 shadow-sm hover:shadow-md hover:bg-white/80 transition-all duration-300">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-purple-50 text-purple-600 group-hover:scale-110 group-hover:bg-purple-100 transition-all duration-300">
-                      <img src="/sisu.png" alt="Sisu Factory" className="w-9 h-9 object-contain" />
+                  <div className="group flex items-center gap-3 rounded-2xl bg-white/10 border border-white/20 p-3 shadow-sm hover:shadow-md hover:bg-white/20 transition-all duration-300">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10 text-white group-hover:scale-110 group-hover:bg-white/20 transition-all duration-300">
+                      <img src="/sisu.png" alt="Sisu Factory" className="w-8 h-8 object-contain brightness-0 invert" />
                     </div>
                     <div>
-                      <h3 className="text-base font-bold text-[#1A112B]">Sisu Factory</h3>
-                      <p className="text-xs text-slate-500 font-medium mt-0.5">
+                      <h3 className="text-sm font-bold text-white">Sisu Factory</h3>
+                      <p className="text-[11px] text-white/70 font-medium mt-0.5">
                         Global ambition meets local support
                       </p>
                     </div>
@@ -896,6 +870,8 @@ export default function HomeClient({ initialData }: { initialData: any }) {
 
           </div>
         </div>
+
+
       </section>
 
       {/* Auto-Scrolling 3D Image Gallery Section */}
@@ -2106,7 +2082,7 @@ export default function HomeClient({ initialData }: { initialData: any }) {
       </section>
 
       <FeaturedOn />
-      <QBayFooter />
+      <QBayFooter data={cmsData?.footer} />
 
       {/* Negative Review Modal */}
       {selectedReviewForModal && (

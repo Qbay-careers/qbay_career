@@ -21,11 +21,13 @@ import {
   Trash2,
   BookOpen,
   MessageCircle,
-  CreditCard
+  CreditCard,
+  Globe
 } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { Toaster, toast } from 'sonner';
 import { AdminFormControl } from '@/components/AdminFormControl';
+import FooterAdminForm from '@/components/FooterAdminForm';
 
 const DEFAULT_BLOG_POSTS = [
   {
@@ -95,6 +97,29 @@ const DEFAULT_ACTION_BAR = {
   button2: { label: "Whatsapp Now", link: "https://wa.me/447441391851" }
 };
 
+const DEFAULT_FOOTER = {
+  tagline: 'Empowering job Seekers with smart and efficient tools to land their dream job',
+  facebookUrl: 'https://www.facebook.com/profile.php?id=61588315100598',
+  instagramUrl: 'https://www.instagram.com/qbay_global_careers/?hl=en',
+  linkedinUrl: 'https://www.linkedin.com/company/qbay/',
+  quickLinks: [
+    { label: 'Home', url: '/' },
+    { label: 'About Us', url: '/about-us' },
+    { label: 'Wall of Fame', url: '/wall-of-fame' },
+    { label: 'Blog', url: '/blog' },
+    { label: 'Pricing', url: '/pricing' },
+  ],
+  email1: 'info@qbaycareer.com',
+  email2: 'sales@qbaycareer.com',
+  email3: 'support@qbaycareer.com',
+  phone: '+44 7704 862669',
+  address: 'London Rd, Elephant and Castle,\nLondon SE1 6LF, United Kingdom',
+  whatsappCommunityUrl: 'https://www.whatsapp.com/channel/0029Vb5n9ib8F2pCzI5gEZ3H',
+  communityHeading: 'Community',
+  communitySubtext: 'Join our community of professionals and get expert guidance.',
+  communityButtonLabel: 'JOIN COMMUNITY',
+};
+
 const sections = [
   { id: 'navigation', icon: LayoutDashboard, label: 'Navigation' },
   { id: 'home', icon: Home, label: 'Home Page', subSections: [
@@ -129,6 +154,7 @@ const sections = [
   { id: 'blog', icon: BookOpen, label: 'Blog Posts' },
   { id: 'popup', icon: MessageCircle, label: 'Popup' },
   { id: 'actionBar', icon: Settings, label: 'Action Bar' },
+  { id: 'footer', icon: Globe, label: 'Footer' },
   { id: 'payments', icon: CreditCard, label: 'Payments' },
 ];
 
@@ -605,7 +631,7 @@ export default function AdminDashboard() {
 
       if (fetchError) throw fetchError;
       
-      let rawContent = data?.content ? data.content : (isSubKey && key === 'services' ? [] : (key === 'blog' ? DEFAULT_BLOG_POSTS : (key === 'actionBar' ? DEFAULT_ACTION_BAR : {})));
+      let rawContent = data?.content ? data.content : (isSubKey && key === 'services' ? [] : (key === 'blog' ? DEFAULT_BLOG_POSTS : (key === 'actionBar' ? DEFAULT_ACTION_BAR : (key === 'footer' ? DEFAULT_FOOTER : {}))));
       
       // If it's the blog key and it exists but is empty array, populate it
       if (key === 'blog' && Array.isArray(rawContent) && rawContent.length === 0) {
@@ -615,6 +641,35 @@ export default function AdminDashboard() {
       // If it's the action bar and empty object, populate it
       if (key === 'actionBar' && Object.keys(rawContent).length === 0) {
         rawContent = DEFAULT_ACTION_BAR;
+      }
+
+      // If it's the footer and empty object, populate it
+      if (key === 'footer' && typeof rawContent === 'object' && Object.keys(rawContent).length === 0) {
+        rawContent = DEFAULT_FOOTER;
+      }
+
+      // Simple flat keys — skip processContent to avoid home-page migrations being injected
+      if (key === 'footer' || key === 'actionBar') {
+        // Sanitize footer: only keep known fields, map legacy aliases
+        if (key === 'footer') {
+          const KNOWN_FOOTER_KEYS = [
+            'tagline', 'facebookUrl', 'instagramUrl', 'linkedinUrl', 'quickLinks',
+            'email1', 'email2', 'email3', 'phone', 'address',
+            'communityHeading', 'communitySubtext', 'communityButtonLabel', 'whatsappCommunityUrl'
+          ];
+          const sanitized: any = { ...DEFAULT_FOOTER };
+          // Map legacy field names
+          if (rawContent.description && !rawContent.tagline) sanitized.tagline = rawContent.description;
+          // Copy over only known fields from stored data
+          for (const k of KNOWN_FOOTER_KEYS) {
+            if (rawContent[k] !== undefined) sanitized[k] = rawContent[k];
+          }
+          rawContent = sanitized;
+        }
+        setContent(rawContent);
+        setActiveSubSection(null);
+        setActiveItemIndex(null);
+        return;
       }
 
       let processed = processContent(rawContent);
@@ -1183,6 +1238,11 @@ export default function AdminDashboard() {
                                   'bookStrategyCall', 'whatsappNow', 'titleFontSize', 'titleFontSizeMobile', 'subtitleFontSize',
                                   ...(activeSubSection === 'clientLove' ? ['role', 'title', 'rating', 'content'] : [])
                                 ]}
+                              />
+                            ) : activeSection === 'footer' ? (
+                              <FooterAdminForm
+                                value={content || {}}
+                                onChange={(newContent: any) => setContent(newContent)}
                               />
                             ) : (
                               <AdminFormControl 
