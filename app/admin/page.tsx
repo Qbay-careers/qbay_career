@@ -167,7 +167,7 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [devMode, setDevMode] = useState(false);
+  const devMode = false;
   const [payments, setPayments] = useState<any[]>([]);
 
   const processContent = (data: any, parentKey?: string): any => {
@@ -211,6 +211,14 @@ export default function AdminDashboard() {
       }
 
       // Auto-migrate Pricing Schema: extract 'Monthly Subscription' from 'plans'
+      if (typeof newData.plans === 'string') {
+        try {
+          newData.plans = JSON.parse(newData.plans);
+        } catch (e) {
+          console.error("Failed to parse plans JSON string:", e);
+        }
+      }
+
       if (Array.isArray(newData.plans)) {
         const monthlyIndex = newData.plans.findIndex((p: any) => 
           p.name && p.name.toLowerCase().includes('monthly')
@@ -984,15 +992,6 @@ export default function AdminDashboard() {
             </button>
           ))}
         </nav>
-
-        <div className="mt-auto px-4 py-6 border-t border-slate-50">
-           <button 
-             onClick={() => setDevMode(!devMode)}
-             className={`text-[10px] uppercase font-bold tracking-widest ${devMode ? 'text-purple-600' : 'text-slate-300'}`}
-           >
-             {devMode ? 'Disable Dev Mode' : 'Enable Dev Mode'}
-           </button>
-        </div>
       </aside>
 
       {/* Main Content Area */}
